@@ -1,0 +1,395 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch8"><span epub:type="pagebreak" id="page_221"/><span class="chap">CHAPTER <span class="chap1">8</span></span></h2>
+<h2 class="h2c1">Working with Simple Storage Service</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• Simple Storage Service (S3)</p>
+<p class="bulleta">• Buckets</p>
+<p class="bulleta">• Cross-origin resource sharing (CORS)</p>
+<p class="bulleta">• Cross-region replication (CRR)</p>
+<p class="bulleta">• Event notifications</p>
+<p class="bulleta">• Transfer acceleration</p>
+<p class="bulleta">• Billing and reporting</p>
+<p class="bulleta">• Hosting a static website</p>
+<p class="bulleta">• Server access logging</p>
+<p class="bulleta">• Folders and objects</p>
+<p class="bulleta">• Storage classes</p>
+<p class="bulleta">• Object lifecycle management</p>
+<p class="bulleta">• Object versioning</p>
+<p class="bulleta">• Bucket and user policies</p>
+<p class="bulleta">• Operations on objects</p>
+<p class="bulleta">• Data protection</p>
+<p class="bulleta">• Access control lists (ACLs)</p>
+<p class="bulleta">• Best practices</p>
+<p class="hr"/>
+<p class="noindentb">The Simple Storage Service (S3) enables you to easily create a new S3 bucket and securely store your objects. You can also enable versioning to protect against accidental updates or deletion of objects.</p>
+<h3 class="h3" id="ch8lev1sec1"><span epub:type="pagebreak" id="page_222"/>Amazon Simple Storage Service</h3>
+<p class="noindent">Amazon Simple Storage Service (Amazon S3) is a simple way to store and retrieve any amount of data from anywhere around the world at any time. Amazon S3 is designed for mission-critical, primary data storage and is highly durable. Objects are stored on multiple devices across multiple facilities in an Amazon S3 region. An Amazon S3 PUT operation synchronously stores the data across multiple Availability Zones (AZs) to ensure data durability. The object’s durability is maintained by Amazon S3 by quickly detecting and repairing any lost redundancy. Buckets are the fundamental container of S3 for data storage, where you can store as many objects as you like. The objects are stored and retrieved using a unique key that allows you to store up to 5TB of data. You can download your data and enable others to download your data at any time. You need to grant access to others who want to upload or download data to and from your Amazon S3 bucket. You can also deny access to objects from your S3 bucket. A strong authentication mechanism helps keep your data secure from unauthorized access.</p>
+<h3 class="h3" id="ch8lev1sec2">Buckets</h3>
+<p class="noindent">A bucket is a logical container for objects that you store in Amazon S3. All your files are stored as objects in a bucket, which organizes the Amazon S3 namespace at the highest level and helps distinguish the account liable for storage and data transfer charges. Buckets can be created in a specific region and you can create a role using access control. A unique version ID is generated each time an object is added if versioning is enabled. The Amazon S3 basic structure is shown in <a href="ch08.xhtml#ch8fig1">Figure 8-1</a>.</p>
+<p class="imagef" id="ch8fig1"><img alt="images" src="f0222-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 8-1</strong>   Amazon Simple Storage Service (S3)</p>
+<h3 class="h3" id="ch8lev1sec3"><span epub:type="pagebreak" id="page_223"/>Creating a Bucket</h3>
+<p class="noindent">Amazon S3 buckets can be created using either the console or programmatically. By default, you can create up to 100 buckets, but the limit can be increased to a maximum of 1,000 buckets by submitting a service request. You need to provide a unique name and the AWS region where you want to create the S3 bucket. Once you create the bucket, you can store any number of objects in it.</p>
+<h4 class="h4" id="ch8lev2sec1">Accessing Your Bucket</h4>
+<p class="noindent">The Amazon S3 console can be used to perform almost all bucket operations without writing any code. Amazon S3 supports two types of URLs to access a bucket:</p>
+<p class="bullett">• The bucket name is part of the domain name in the virtual-hosted–style URL, as shown here:</p>
+<p class="bulletc"><img alt="images" src="p0223-01.jpg"/></p>
+<p class="bulleta">• The bucket name is not part of the domain in the path-style URL, as shown here for a region-specific endpoint:</p>
+<p class="bulletc"><img alt="images" src="p0223-02.jpg"/></p>
+<p class="numbern">And for the US East region endpoint, the URL is as follows:</p>
+<p class="bulletc"><img alt="images" src="p0223-03.jpg"/></p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="tip.jpg"/></p>
+<p class="note"><strong>TIP</strong>   AWS recommends you create buckets with DNS-compliant bucket names, since the bucket can be accessed using virtual-hosted–style and path-style URLs.</p>
+</div>
+<h3 class="h3" id="ch8lev1sec4">Bucket Configuration Options</h3>
+<p class="noindent">Amazon S3 supports configuring your bucket for website hosting and managing the object lifecycle in the bucket in addition to configuring the bucket for log access. Amazon S3 supports sub-resources—for example, cross-origin resource sharing (CORS), cross-region replication (CRR), object locking, transfer acceleration, and versioning—to manage the bucket configuration information. You can use the AWS Management Console, the AWS software development kits (SDKs), or the Amazon S3 application programming interface (API) to create and manage these sub-resources.</p>
+<h4 class="h4" id="ch8lev2sec2">Cross-Origin Resource Sharing</h4>
+<p class="noindent">CORS specifies a way for web applications loaded in one domain to interact with resources in a different domain. Using CORS, you will be able to build rich customer web applications with Amazon S3 and allow cross-origin access to your Amazon S3 resources. CORS can be enabled using the Amazon S3 console, the Amazon S3 REST API, or the AWS SDKs.</p>
+<h4 class="h4" id="ch8lev2sec3"><span epub:type="pagebreak" id="page_224"/>Cross-Region Replication</h4>
+<p class="noindent">CRR enables automatic and asynchronous replication of objects between buckets across different AWS regions owned by the same or a different AWS account. It is enabled at the bucket level, and you need give a destination bucket an AWS Identity and Access Management (IAM) role to replicate the objects. All your objects, or a subset of objects, in the source bucket can be replicated by adding a replication configuration to your source bucket. The subset can be identified by providing a key name prefix and one or more object tags, or both, in the configuration. The replicated objects will have the same key names and metadata information like creation time, user-defined metadata, and version ID as the original object. Secure Sockets Layer (SSL) is used to encrypt all data in transit across AWS regions.</p>
+<p class="indent">The storage class is the same in both source and destination objects by default in addition to replicating the corresponding object access control list (ACL) by assuming that the replicated object is owned by the same owner as the source object. However, you can specify a different storage class for the destination objects, and the destination bucket owner can be changed by configuring CRR.</p>
+<h4 class="h4" id="ch8lev2sec4">Amazon S3 Event Notifications</h4>
+<p class="noindent">You can receive notifications when a specific event happens in your bucket by enabling the Amazon S3 event notification feature. You need to add a notification configuration defining the events and destinations. When a new object is created or deleted, Amazon S3 publishes notifications, regardless of the API used. Notifications can be requested for initiation of a restore or object restoration completion. Notification messages also can be sent by Amazon S3 when the object of the RRS storage class has been lost.</p>
+<p class="indent">Amazon S3 event notifications can be published to an Amazon Simple Notification Service (SNS) topic, and the recipients can dynamically subscribe to receive them. Amazon S3 notification configuration can be used to request events to be published in an Amazon Simple Queue Service (SQS) queue. You can run custom code using AWS Lambda in response to Amazon S3 bucket events. You can upload your custom code to create an AWS Lambda function so when Amazon S3 detects a specific event, it publishes the event to AWS Lambda, which invokes and executes your Lambda function.</p>
+<h4 class="h4" id="ch8lev2sec5">Amazon S3 Transfer Acceleration</h4>
+<p class="noindent">The transfer acceleration feature enables high-speed transfer of files between your customer and an S3 bucket by using Amazon CloudFront’s globally distributed edge locations. When the feature is enabled, data is routed to Amazon S3 as soon as it arrives at an edge location, although for an additional data transfer charge. Transfer acceleration can be used when you upload to a centralized bucket from around the world or when transferring terabytes of data across continents, or if you are unable to utilize all of your available bandwidth when uploading to Amazon S3.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_225"/>You can use the Amazon S3 Transfer Acceleration Speed Comparison tool to compare accelerated and nonaccelerated upload speeds across different Amazon S3 regions. This uses multipart uploads to transfer a file from your browser to various Amazon S3 regions with and without using transfer acceleration.</p>
+<h4 class="h4" id="ch8lev2sec6">Billing and Usage Reporting for S3 Buckets</h4>
+<p class="noindent">You pay only for what you use, and you don’t have to commit to how much content you’ll store when using Amazon S3, and you don’t have to pay any up-front fees. AWS provides two kinds of reports for Amazon S3:</p>
+<p class="bullett">• Billing reports provide high-level views of all of the activity of Amazon S3. The owner of the S3 bucket is billed for Amazon S3 fees, unless you created the bucket as a Requester Pays bucket.</p>
+<p class="bulleta">• Usage reports provide a summary of activity for a specific service, aggregated by hour, day, or month, and it allows you to choose which usage type and operation to include and how the data is aggregated.</p>
+<h3 class="h3" id="ch8lev1sec5">Requester Pays Buckets</h3>
+<p class="noindent">By default, the bucket owner pays for the storage and data transfer costs of Amazon S3. However, buckets can be configured to be a Requester Pays bucket so the requester pays for the request and data download costs. The bucket owner still pays the cost of storing data, but the requester pays the charges associated with accessing it.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   If you enable Requester Pays on a bucket, anonymous access to that bucket is not allowed.</p>
+</div>
+<h4 class="h4" id="ch8lev2sec7">Static Website on Amazon S3</h4>
+<p class="noindent">As you saw in the <a href="ch07.xhtml#ch7">Chapter 7</a> exercises, you can host a static website on Amazon S3. You need to configure an Amazon S3 bucket for website hosting and then upload your website content to the bucket. This bucket must have public read access, since the intention is that everyone in the world will have read access. The website will be available in one of the following formats:</p>
+<p class="imagep"><img alt="images" src="p0225-01.jpg"/></p>
+<p class="indent">You can use your own domain, like <a href="http://sample.com">sample.com</a>, instead of using an Amazon S3 website endpoint to serve your content. This website can be hosted using Amazon S3 and Amazon Route 53, as we did in the exercises in <a href="ch06.xhtml#ch6">Chapter 6</a>.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   The Amazon S3 website endpoints do not support HTTPS.</p>
+</div>
+<h4 class="h4" id="ch8lev2sec8"><span epub:type="pagebreak" id="page_226"/>Amazon S3 Server Access Logging</h4>
+<p class="noindent">Amazon S3 server access logging provides details of the requests that are made to a bucket. Security and access audits help you learn about your customer base, as well as to understand your Amazon S3 bill. The server access log record provides details about each access request, like the bucket name, request time, request action, response status, requester, and an error code.</p>
+<p class="indent">Most log records are delivered within a few hours of the time that they are recorded, but they can be delivered more frequently. Logging is disabled by default, and when it is enabled, the logs are saved to a bucket in the same AWS region as the source bucket. You need to turn on the log delivery by adding logging configuration on the source bucket for which you want Amazon S3 to deliver access logs. Also, you need to grant the Amazon S3 Log Delivery group write permission on the target bucket where you want the access logs saved.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   There is no extra charge for enabling server access logging; however, you accrue the usual storage charges, and access to the delivered log files is charged the same as any other data transfer.</p>
+</div>
+<h3 class="h3" id="ch8lev1sec6">Folders</h3>
+<p class="noindent">Amazon S3 lets you group objects in folders before storing them. You cannot create buckets within buckets; however, you can create folders within folders, and you can upload and copy objects directly into the folder. Folders cannot be renamed but can be created, deleted, and even made public. Objects can be copied from one folder to another. When you make a folder public, it will be available for viewing or downloading for anyone on the Internet. You cannot make a folder private after making it public, and you must set permissions on each individual object.</p>
+<h3 class="h3" id="ch8lev1sec7">Objects</h3>
+<p class="noindent">Amazon S3 is designed to store as many objects you want, and it is stored as a simple key/value store. You can store these objects in one or more buckets. The key is the name that you can assign to your object. You will use the key to retrieve the object later. If you enable versioning, Amazon S3 generates a string called Version ID when you add an object to a bucket, and the bucket key and version ID combination uniquely identify your object. The size of an object is measured in the value, and it can range in size from 0 to 5TB. You can store information regarding your object, which is a set of name/value pairs called metadata. Also Amazon S3 assigns system metadata to your objects to manage them. Sub-resources are associated with some other entity, such as an object or a bucket, and are used to store additional object-specific information. Both the resource-based access control, such as an ACL and bucket policies, and user-based access control are supported by Amazon S3, which will be used to control access to all the objects that you store in Amazon S3.</p>
+<h4 class="h4" id="ch8lev2sec9"><span epub:type="pagebreak" id="page_227"/>Object Key and Metadata</h4>
+<p class="noindent">Every Amazon S3 object has a key, data, and metadata. The key name or object key uniquely identifies the object in a bucket. Object metadata is a set of name/value pairs, which can be set at the time of uploading the object. You cannot modify object metadata after you upload the object; the only way to modify object metadata is to make a copy of the object and set the metadata.</p>
+<p class="indent">When you create an object, you give the bucket a unique key name. This name is the object key, which is a sequence of Unicode characters whose UTF-8 encoding is, at most, 1,024 bytes long. Every object stored in a bucket contains two kinds of metadata: system metadata and user-defined metadata. Amazon S3 maintains a set of system metadata like object creation date, size and storage class, and whether the object has server-side encryption enabled. You can assign user metadata when you upload an object as a name/value (key/value) pair. The user-defined metadata names must begin with “x-amz-meta-“ when using the REST API.</p>
+<h3 class="h3" id="ch8lev1sec8">Storage Classes</h3>
+<p class="noindent">Amazon S3 offers a variety of storage classes designed for various use cases. These include</p>
+<p class="bullett">• For the general-purpose frequently accessed data, you can use the S3 Standard class.</p>
+<p class="bulleta">• For changing access patterns or unknown data, you can use the S3 Intelligent-Tiering class.</p>
+<p class="bulleta">• For the infrequently accessed data, you can use the S3 Standard-Infrequent Access (S3 Standard-IA).</p>
+<p class="bulleta">• For long-lived but less frequently accessed data, you can use the S3 One Zone-Infrequent Access (S3 One Zone-IA).</p>
+<p class="bulleta">• For archival storage, you can use Amazon S3 Glacier (S3 Glacier).</p>
+<p class="bulletb">• For long-term archive and digital preservation, you can use the Amazon S3 Glacier Deep Archive (S3 Glacier Deep Archive).</p>
+<p class="indent">Your data can be managed throughout its lifecycle, and once the S3 lifecycle policy is enabled, without any changes to your application, your data be will automatically transferred to a different storage class.</p>
+<h4 class="h4" id="ch8lev2sec10">General-Purpose Amazon S3 Standard</h4>
+<p class="noindent">S3 Standard offers 99.99 percent availability, 99.999999999 percent durability, and high-performance object storage for frequently accessed data. Amazon S3 supports encryption of your data at rest, and SSL is used for the data in transit. S3 Standard is appropriate for a wide variety of use cases, since it delivers low latency and high throughput, including cloud applications, gaming applications, mobile and big data analytics, content distribution, and dynamic websites. A single bucket can contain objects that are stored across the S3 Standard class, S3 One Zone-IA class, S3 Standard-IA class, and S3 Intelligent-Tiering class, since S3 storage classes are configured at the object level.</p>
+<h4 class="h4" id="ch8lev2sec11"><span epub:type="pagebreak" id="page_228"/>Unknown or Changing Access: Amazon S3 Intelligent-Tiering</h4>
+<p class="noindent">By automatically moving data to the most cost-effective access tier, you benefit from the cost optimization without performance impact or operational overhead. The objects are stored in two access tiers: a low-cost tier for infrequent access and another tier for frequent access. It has 99.9 percent availability and 99.999999999 percent durability. It also supports SSL for the data in transit and encryption of your data at rest. The access patterns of objects are monitored by Amazon S3 for a monthly monitoring and automation fee per object, and the objects are moved to the infrequent access tier if not accessed for the last 30 consecutive days. The object is automatically moved back to the frequent access tier if an object is accessed. There are no additional tiering fees when objects are moved between access tiers and no retrieval fees when using the S3 Intelligent-Tiering storage class. When the access patterns are unknown or unpredictable and data is long-lived, this is the ideal storage class.</p>
+<h4 class="h4" id="ch8lev2sec12">Infrequent Access: Amazon S3 Standard-Infrequent Access</h4>
+<p class="noindent">Amazon S3 Standard-Infrequent Access is accessed less frequently and is for data that requires rapid access when needed. S3 Standard-IA offers 99.9 percent availability, high throughput, low latency, and 99.999999999 percent of durability, with a low per-gigabyte storage price and low per-gigabyte retrieval fee. Both the low cost and high performance make the S3 Standard-IA ideal for the backups and as a data store for disaster recovery files, and also for long-term storage. Amazon S3 Standard-IA supports SSL for your data that is in transit and encryption of your data at rest.</p>
+<h4 class="h4" id="ch8lev2sec13">Amazon S3 One Zone-Infrequent Access</h4>
+<p class="noindent">Amazon S3 One Zone-Infrequent Access is for data that requires rapid access when needed but is accessed less frequently. S3 One Zone-IA stores data in a single AZ not in a minimum of three AZs, like other S3 storage classes, and it costs 20 percent less than S3 Standard-IA. It has durability of 99.999999999 percent of objects in a single AZ and 99.5 percent availability along with SSL for your data in transit and encryption of your data at rest. S3 One Zone-IA is ideal for customers who do not require the availability and resilience of S3 Standard or S3 Standard-IA but want a lower-cost option for infrequently accessed data. It’s a good choice for storing easily re-creatable data or secondary backup copies of on-premises data. You can also use it for S3 CRR where the data is replicated from another AWS region.</p>
+<h4 class="h4" id="ch8lev2sec14">Archive: Amazon S3 Glacier</h4>
+<p class="noindent">Amazon S3 Glacier (S3 Glacier) is a low-cost, durable, and secure storage class for data archiving. This storage class allows you to reliably store any amount of data at costs that are cheaper than on-premises solutions. S3 Glacier provides three retrieval options that range from a few minutes to hours to keep costs low yet suitable for varying needs. It has 99.999999999 percent durability and SSL for your data in transit and encryption of your data at rest.</p>
+<h4 class="h4" id="ch8lev2sec15"><span epub:type="pagebreak" id="page_229"/>Amazon S3 Glacier Deep Archive</h4>
+<p class="noindent">Amazon S3 Glacier Deep Archive is the lowest-cost storage class and supports long-term retention for data that may be accessed once a year. It is designed for financial services, healthcare, and public sector customers and highly regulated industries that retain data sets for seven to ten years or longer to meet regulatory requirements. S3 Glacier Deep Archive is a cost-effective and easy-to-manage alternative to magnetic tape systems used for backup and disaster recovery use-cases. S3 Glacier Deep Archive complements Amazon S3 Glacier, which is ideal for archives where data is regularly retrieved and when some of the data may be needed in minutes. All objects stored in S3 Glacier Deep Archive are protected by 99.999999999 percent durability and are replicated and stored across at least three geographically dispersed Availability Zones, and data can be restored within 12 hours.</p>
+<h3 class="h3" id="ch8lev1sec9">Object Lifecycle Management</h3>
+<p class="noindent">Your objects can be stored cost-effectively throughout their lifecycle using a lifecycle configuration, which is a set of rules that define actions applied to a group of objects. A lifecycle configuration uses the XML format, which comprises a set of rules with predefined actions to perform on objects during their lifetime. You can use PUT bucket lifecycle, GET bucket lifecycle, and DELETE bucket lifecycle operations for managing lifecycle configuration. The two types of actions are</p>
+<p class="bullett">• Transition actions defines when to transition to another storage class objects, such as transitioning objects to the Standard-IA storage class after 30 days or archive the objects to Glacier after one year, but costs are associated with the lifecycle transition requests.</p>
+<p class="bulleta">• Expiration actions define when objects will expire. Amazon S3 deletes expired objects, and the cost depends on when the object expires.</p>
+<h4 class="h4" id="ch8lev2sec16">Lifecycle Transitions</h4>
+<p class="noindent">Lifecycle transitions allow you to move between storage classes during an object’s lifecycle, as shown in <a href="ch08.xhtml#ch8fig2">Figure 8-2</a>. Based on the lifecycle policy, objects can be transitioned automatically to another storage class after a certain number of days. In this example, 30-day-old objects are moved from S3 Standard to S3 Infrequent-Access; after 90 days, they are moved to Glacier; they are deleted after 365 days.</p>
+<p class="imagef" id="ch8fig2"><img alt="images" src="f0230-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 8-2</strong>   Amazon S3 lifecycle policy</p>
+<p class="indent">The Standard storage class can be transitioned to any other storage class. The Standard-IA storage class can be transitioned to either Intelligent-Tiering or One Zone-IA storage classes, and the Intelligent-Tiering storage class can be transitioned to the One Zone-IA storage class. The Glacier storage class can be transitioned to the Deep-Archive storage class.</p>
+<h4 class="h4" id="ch8lev2sec17">Configuring Object Expiration</h4>
+<p class="noindent">You can expire objects to delete them permanently, and when an object reaches the end of its lifetime, it is removed asynchronously. You may see some delay between the expiration date and the actual date the object will be removed, but you will not be <span epub:type="pagebreak" id="page_230"/>charged for storage time associated with an object that has expired. You can find the objects that are scheduled to expire by using the HEAD Object or the GET Object API operations.</p>
+<h3 class="h3" id="ch8lev1sec10">Object Versioning</h3>
+<p class="noindent">Object versioning allows you to keep multiple variants of an object in the same bucket in order to prevent the accidental deletion and restoration of every version of every object stored in your Amazon S3 bucket. It is easy to recover objects from both unintended user actions like accidental deletion or overwrite and application failures. When you enable versioning, you will have two objects with the same key (name) but different version IDs, such as my-video.mpeg (version 333444) and my-video.mpeg (version 444555). You must explicitly enable versioning on your bucket; versioning is disabled by default, and the version ID is null. The versioning state applies to all the objects in a bucket, not to any subset of objects. You can enable and suspend versioning at the bucket level.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="tip.jpg"/></p>
+<p class="note"><strong>TIP</strong>   If you observe a huge increase in the number of HTTP 503-slow down responses for Amazon S3 PUT or DELETE object requests, one or more objects in the bucket might have millions of versions.</p>
+</div>
+<p class="indent">Buckets may be in one of three states. The first state is unversioned (the default), the second state is versioning-enabled, and the third state is versioning-suspended. When enabled, all the objects are protected from accidental deletion, so when you try to delete <span epub:type="pagebreak" id="page_231"/>an object, Amazon S3 inserts a delete marker instead of removing it permanently, which becomes the current object version. When you overwrite an object, it results in a new object version in the bucket. In both cases you can always restore the previous version.</p>
+<div class="siden">
+<p class="imagen"><span epub:type="pagebreak" id="page_232"/><span epub:type="pagebreak" id="page_233"/><span epub:type="pagebreak" id="page_234"/><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   Once you version-enable a bucket, it can never return to an unversioned state. You can, however, suspend versioning on that bucket.</p>
+</div>
+<p class="indent">When you put an object in a versioning-enabled bucket that already contains an object with the same name, the original object remains in the bucket, but Amazon S3 adds a newer version ID to the bucket, as you can see in <a href="ch08.xhtml#ch8fig3">Figure 8-3</a>.</p>
+<p class="imagef" id="ch8fig3"><img alt="images" src="f0231-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 8-3</strong>   Putting an object in a version-enabled bucket</p>
+<p class="indent">If you accidentally overwrite or delete an object, you can retrieve a previous version of the same object. During the delete operation Amazon S3 inserts a delete marker and leaves all other versions intact, as shown in <a href="ch08.xhtml#ch8fig4">Figure 8-4</a>.</p>
+<p class="imagef" id="ch8fig4"><img alt="images" src="f0232-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 8-4</strong>   Deleting an object</p>
+<p class="indent">Since the delete marker becomes the current version of the object, the GET Object request returns a 403 Forbidden error, as seen in <a href="ch08.xhtml#ch8fig5">Figure 8-5</a>.</p>
+<p class="imagef" id="ch8fig5"><img alt="images" src="f0232-02.jpg"/></p>
+<p class="figcaption"><strong>Figure 8-5</strong>   Getting an object</p>
+<p class="indent">However, you can retrieve an old version of a deleted object by specifying its version ID, as shown in <a href="ch08.xhtml#ch8fig6">Figure 8-6</a> shows. Amazon S3 allows you to retrieve an object’s older version even though it’s not the current version.</p>
+<p class="imagef" id="ch8fig6"><img alt="images" src="f0233-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 8-6</strong>   Getting an older object</p>
+<p class="indent">If you are the owner of an Amazon S3 bucket, you can permanently delete an object by specifying its version number. As <a href="ch08.xhtml#ch8fig7">Figure 8-7</a> shows, the DELETE version ID permanently deletes an object from a bucket and no delete marker is inserted.</p>
+<p class="imagef" id="ch8fig7"><img alt="images" src="f0233-02.jpg"/></p>
+<p class="figcaption"><strong>Figure 8-7</strong>   Deleting an old object</p>
+<p class="indent">You can add another layer of security by configuring a bucket to enable multifactor authentication (MFA) deletions. In order to MFA-delete a version or change the versioning state of the bucket, the bucket owner must include two forms of authentication in any request. MFA deletions require additional authentication to change the versioning state of your bucket and to permanently delete an object version.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   Even though all authorized IAM users, including the bucket owner, can enable versioning, only the bucket owner can enable an MFA-delete operation.</p>
+</div>
+<h3 class="h3" id="ch8lev1sec11">Identity and Access Management in Amazon S3</h3>
+<p class="noindent">All Amazon S3 resources, including buckets, objects, and related sub-resources, are private by default and only the resource owner can access them. The resource owner can grant access permissions to others by using either resource-based policies or user policies. Access policies that are attached to buckets and objects are referred to as resource-based policies, including bucket policies and ACLs. When you attach access policies to users, they are called user policies.</p>
+<h3 class="h3" id="ch8lev1sec12">Operations on Objects</h3>
+<p class="noindent">Amazon S3 enables you to store, retrieve, copy, and delete objects. In a single operation, you can upload objects of up to 5GB in size; to upload objects greater than 5GB, you can use the multipart upload API, which allows you to upload objects up to 5TB each.</p>
+<h4 class="h4" id="ch8lev2sec18">Getting Objects</h4>
+<p class="noindent">You can retrieve objects directly from Amazon S3. You can use a single GET operation to retrieve the entire object, or you can use the Range HTTP header in a GET request to retrieve a specific range of bytes in an object. You can resume fetching other parts of the object whenever your application is ready. This resumable download feature is useful when you only need portions of your object data, and it is also useful when network connectivity is poor and you need to react to failures. You need to provide the appropriate request headers when retrieving objects that are stored using server-side encryption.</p>
+<h4 class="h4" id="ch8lev2sec19">Uploading Objects</h4>
+<p class="noindent">You can use different options, depending on the size of the data you are uploading to Amazon S3. You can use a single PUT operation to upload objects up to 5GB in size, and you can use the multipart upload API to upload large objects, up to 5TB, which improves the upload experience for larger objects. When you upload the objects in parts, they are uploaded independently, in any order, and in parallel from 5MB to 5TB in size.</p>
+<h4 class="h4" id="ch8lev2sec20">Copying Objects</h4>
+<p class="noindent">The copy operation creates a copy of an object that is already stored in Amazon S3 up to 5GB in a single atomic operation. As mentioned, you need to use the multipart upload API to copy an object that is greater than 5GB. The copy operation creates additional copies of objects and renames them by copying and deleting the original ones. The copy operation is also used to move objects across Amazon S3 locations, like from us-east-1 to us-west-1, and to change object metadata. If you try to copy the object to another bucket <span epub:type="pagebreak" id="page_235"/>and the source objects are archived in Glacier or Deep-Archive then you must first restore a temporary copy. When copying encrypted objects, you need to provide encryption information in your request so Amazon S3 can decrypt the object.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   Copying objects across locations incurs bandwidth charges.</p>
+</div>
+<h4 class="h4" id="ch8lev2sec21">Listing Object Keys</h4>
+<p class="noindent">You can use the list operation to select and browse object keys, which is similar to how files are stored in directories within a file system. Amazon S3 exposes a list operation that lets you catalog the keys contained in a bucket and list the keys by bucket and prefix.</p>
+<h4 class="h4" id="ch8lev2sec22">Deleting Objects</h4>
+<p class="noindent">You can delete one or more objects directly from Amazon S3 using a single HTTP request. You can use the Delete API to delete one object and the Multi-Object Delete API to delete up to 1,000 objects in a single HTTP request. It is enough to provide only the object key name when deleting objects from a bucket that is not version-enabled and provide the version ID of the object to delete a specific version of it.</p>
+<p class="indent">If your bucket is version-enabled and you specify the object key, then Amazon S3 creates a delete marker, and the return response will be its version ID. If you specify both the key and a version ID, Amazon S3 deletes the specific version of the object if the version ID maps to a specific object version. If the version ID maps to the delete marker of that object, Amazon S3 deletes the delete marker, making the object reappear in your bucket.</p>
+<p class="indent">A versioned delete request will always fail if you provide an invalid MFA token or no token at all when deleting objects from an MFA-enabled bucket. When you have an MFA-enabled bucket and make a normal delete request without an MFA token, the delete operation succeeds. If you make a multi-object delete request and specify only non-versioned objects to delete from an MFA-enabled bucket, the deletion is successful even if you don’t provide an MFA token.</p>
+<h4 class="h4" id="ch8lev2sec23">Selecting Content from Objects</h4>
+<p class="noindent">You can use Structured Query Language (SQL) statements to retrieve the contents or just the subset of data that you need using Amazon S3 Select. You can filter the result set to reduce the amount of data that Amazon S3 transfers, which in turn reduces the cost and latency to retrieve the data. The objects are stored in CSV, JSON, or Apache Parquet format and compressed with GZIP or BZIP2, and server-side encrypted objects are supported using Amazon S3 Select. You can perform SQL queries using the Select Object Content REST API, AWS SDKs, or the AWS command-line interface (CLI) or the Amazon S3 console. The amount of data returned is limited to 40MB if you use the Amazon S3 console, so use the AWS CLI or the API to retrieve more data.</p>
+<h4 class="h4" id="ch8lev2sec24"><span epub:type="pagebreak" id="page_236"/>Restoring Archived Objects</h4>
+<p class="noindent">You cannot access objects in real time that you archived to the Glacier or Deep-Archive storage classes. You need to wait until a temporary copy of the object is available after initiating the restore request for the number of days that you specify. The temporary copy of the object is available only for the specified duration. The restored object copy is deleted after the duration period.</p>
+<h3 class="h3" id="ch8lev1sec13">Data Protection in Amazon S3</h3>
+<p class="noindent">You can protect your data while it travels to and from Amazon S3 (in transit) and while it is stored on disks in Amazon S3 datacenters (at rest). By using SSL or client-side encryption, you can protect data in transit. Data at rest is protected in Amazon S3 by using both server-side encryption and client-side encryption. When you request Amazon S3 to encrypt your object before saving it on disks and then decrypt it when you retrieve the objects, this is known as server-side encryption. When you encrypt data at the client side before uploading it to Amazon S3 and manage the encryption process, encryption keys, and related tools, it is called client-side encryption.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="tip.jpg"/></p>
+<p class="note"><strong>TIP</strong>   You can’t apply different types of server-side encryption to the same object simultaneously.</p>
+</div>
+<p class="indent">There are three mutually exclusive options available, depending on how you want to manage the encryption keys:</p>
+<p class="bullett">• <strong>Server-Side Encryption with Amazon S3-Managed Keys (SSE-S3)</strong>   , where each object is encrypted with a unique key. The key is encrypted with a master key that is regularly rotated as an additional safeguard. Amazon S3 server-side encryption uses the 256-bit Advanced Encryption Standard (AES-256), which is one of the strongest block ciphers available, to encrypt your data.</p>
+<p class="bulleta">• <strong>Server-Side Encryption with Keys Stored in AWS Key Management Service (KMS) (SSE-KMS)</strong>   is similar to SSE-S3 and protects the encryption key, which provides additional protection against unauthorized access. It also provides an audit trail of when your key was used and by whom, in addition to allowing you to have the option to create or manage encryption keys or use a unique default key.</p>
+<p class="bulleta">• <strong>Server-Side Encryption with Customer-Provided Keys (SSE-C)</strong>   where the client manages the encryption key and other related tools and Amazon S3 manages the encryption when writing to disks and decrypts it when you access your objects.</p>
+<h4 class="h4" id="ch8lev2sec25">Access Control Lists</h4>
+<p class="noindent">ACLs are the resource-level access policy options available to manage access to your buckets and objects. ACLs can be used to grant basic read/write permissions to other AWS accounts. ACLs can only be used to grant permissions to other AWS accounts and cannot <span epub:type="pagebreak" id="page_237"/>grant permissions to users in your account. Also, you cannot grant conditional permissions and you cannot explicitly deny permissions. ACLs are suitable when the bucket owner allows other AWS accounts to upload objects, and permissions to these objects can only be managed using an object ACL by the AWS account that owns the object.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="tip.jpg"/></p>
+<p class="note"><strong>TIP</strong>   An ACL can have up to 100 grants.</p>
+</div>
+<h4 class="h4" id="ch8lev2sec26">Amazon S3 Object Lock</h4>
+<p class="noindent">Amazon S3 Object Lock is used to prevent objects from being deleted or overwritten for either a specific period of time or permanently. It provides two retention modes:</p>
+<p class="bullett">• <strong>Governance mode</strong>   You can control the deletion of an object version and overwrites by altering the lock settings. You need to explicitly grant users to alter the retention settings or delete the object if necessary.</p>
+<p class="bulleta">• <strong>Compliance mode</strong>   The object version can’t be overwritten or deleted by any user, including the root user in your AWS account. The object’s retention mode can’t be changed or shortened when it is locked in compliance mode.</p>
+<h4 class="h4" id="ch8lev2sec27">Retention Periods</h4>
+<p class="noindent">A retention period protects an object version for a fixed amount of time, and Amazon S3 stores a timestamp in the object version’s metadata—noted in the Retain Until Date setting—to indicate when the retention period expires. The object version can be overwritten or deleted only after the retention period expires, unless you also place a legal hold on the object version.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   If your request to place an object version in a bucket contains an explicit retention mode and period, those settings override any bucket default settings for that object version.</p>
+</div>
+<h4 class="h4" id="ch8lev2sec28">Legal Holds</h4>
+<p class="noindent">Amazon S3 Object Lock enables you to place a legal hold on an object version to protect it from being overwritten or deleted. The Amazon S3 object doesn’t have an associated retention period and remains in effect until removed, and it can be placed and removed by any user who has the required permission. It is independent from retention periods because, regardless of whether the specified object version has a retention period set or not, you can place and remove legal holds. Similarly, the object version remains protected until the retention period expires even if you remove a legal hold.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   You can only enable Amazon S3 Object Lock for new buckets. If you want to turn on Amazon S3 Object Lock for an existing bucket, you need to contact AWS Support.</p>
+</div>
+<h3 class="h3" id="ch8lev1sec14"><span epub:type="pagebreak" id="page_238"/>Best Practices for Amazon S3</h3>
+<p class="noindent">Amazon S3 provides a variety of features to implement security, and following these best practices can help prevent security incidents in Amazon S3.</p>
+<p class="bullett">• <strong>Protect Amazon S3 buckets from public access</strong>   Unless you explicitly require anyone on the Internet to read or write to your S3 bucket, you should ensure that your Amazon S3 blocks public access.</p>
+<p class="bulleta">• <strong>Use AWS CloudTrail</strong>   This provides a record of actions taken by a user, role, or AWS service in Amazon S3, which helps you determine the request that was made to Amazon S3, the IP address from where the request was initiated, by whom, when, and other additional details.</p>
+<p class="bulleta">• <strong>Enable AWS Config</strong>   This enables you to assess, audit, and evaluate the configurations of your AWS resources and allows you to evaluate the recorded configurations against the desired secure configurations. You can review configuration changes and AWS resource relationships, investigate configuration histories, and examine the compliance configurations specified in your internal guidelines.</p>
+<p class="bulleta">• <strong>Enable encryption of data at rest</strong>   You can protect the data at rest in Amazon S3 by using the following tools:</p>
+<p class="bullet2">• <strong>Server-side encryption</strong>   helps reduce the risk to your data in the AWS Cloud by encrypting the data with a key that is stored in a different mechanism from the mechanism that stores the data itself.</p>
+<p class="bullet2">• <strong>Client-side encryption</strong>   can help reduce risk to a customer or consumer by encrypting data with a key that is stored in a different mechanism from the mechanism that stores the data itself.</p>
+<p class="bulleta">• <strong>Enable encryption of data in transit</strong>   HTTPS (TLS) is used to help prevent potential attackers from manipulating network traffic using man-in-the-middle or similar attacks.</p>
+<p class="bulleta">• <strong>Least privilege access</strong>   You can control what permissions users have and grant only the fewest permissions required to perform a task to reduce the security risk by using IAM user policies, Amazon S3 ACLs, Amazon S3 bucket policies, or service control policies.</p>
+<p class="bulleta">• <strong>Use IAM roles for Amazon S3 access</strong>   You should not store AWS credentials directly in the application or Amazon EC2 instance or other AWS services. Instead, use an IAM role to manage temporary credentials so you don’t have to distribute credentials like a username, password, or access keys.</p>
+<p class="bulleta">• <strong>Consider enabling versioning</strong>   This will allow you to keep multiple variants of an object to preserve, retrieve, and restore every version of every object stored in your Amazon S3 bucket and to easily recover from application failures or unintentional user actions.</p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_239"/><strong>Use MFA Delete</strong>   MFA Delete can help prevent accidental bucket deletions, and it requires additional authentication to change the versioning state of your bucket and to permanently delete an object version.</p>
+<p class="bulleta">• <strong>Consider using Amazon S3 Object Lock</strong>   This enables you to store objects using a “Write Once Read Many” (WORM) model and helps prevent accidental or inappropriate deletion of data.</p>
+<p class="bulleta">• <strong>Use Amazon S3 cross-region replication</strong>   Use this to automatically replicate data between different AWS regions to asynchronously copy the objects across buckets.</p>
+<p class="bulleta">• <strong>Consider VPC endpoints for Amazon S3 access</strong>   This will allow connectivity only to Amazon S3 and lets you use policies to control access to buckets from specific Amazon VPC endpoints or specific Virtual Private Clouds (VPCs). A VPC endpoint can help prevent traffic from potentially traversing the open Internet.</p>
+<p class="bulleta">• <strong>Use AWS Trusted Advisor/ListBuckets API to inspect your Amazon S3</strong>   Implement ongoing detective controls using managed AWS Config rules. Regularly scan all of your Amazon S3 buckets to determine whether the bucket has compliant access controls and configuration.</p>
+<p class="bulleta">• <strong>Identify and audit all your Amazon S3 buckets</strong>   It is a crucial aspect of governance and security to have all of your Amazon S3 resources visible to assess their security posture and act on potential areas of weakness. Use Amazon S3 inventory to audit and report on the replication and encryption status of your objects for business, compliance, and regulatory needs.</p>
+<p class="bulleta">• <strong>Apply monitoring</strong>   Monitoring is an important of maintaining the security, reliability, performance, and availability of Amazon S3 and your other AWS solutions. AWS provides a variety of tools and services to monitor Amazon S3 resources.</p>
+<p class="bulleta">• <strong>Implement Amazon S3 server access logging</strong>   This assists in access audits and security to help you learn more about your customers and to understand your Amazon S3 bill.</p>
+<p class="bulleta">• <strong>Consider using Amazon Macie with Amazon S3</strong>   Amazon Macie uses machine learning to automatically discover, classify, and protect sensitive data in AWS, and it recognizes sensitive data such as personally identifiable information (PII) or intellectual property.</p>
+<p class="bulleta">• <strong>Monitor AWS security advisories</strong>   Regularly check security advisories posted in Trusted Advisor and note warnings about Amazon S3 buckets with “open access permissions.” Also actively monitor the primary e-mail addresses registered to each of your AWS accounts. The AWS operational issues with broad impact are posted on the AWS Service Health Dashboard and are posted to individual accounts via the Personal Health Dashboard.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   CRR requires that both source and destination S3 buckets have versioning enabled.</p>
+</div>
+<h3 class="h3" id="ch8lev1sec15"><span epub:type="pagebreak" id="page_240"/>Chapter Review</h3>
+<p class="noindent">Amazon S3 allows you to store and retrieve any amount of data from anywhere around the world at any time. A bucket is a logical container for objects that you store in Amazon S3. All objects are stored in a bucket. CORS specifies a way for web applications loaded in one domain to interact with resources in a different domain. Using CORS, you can build rich customer web applications with Amazon S3 and allow cross-origin access to your Amazon S3 resources. CRR enables automatic and asynchronous replication of objects between buckets across different AWS regions owned by either the same or a different AWS account. You can receive notifications when a specific event happens in your bucket by enabling the Amazon S3 event notification feature. Amazon S3 Transfer Acceleration enables fast and secure transfers of files over long distances between your client and an S3 bucket. You don’t have to pay any up-front fees or commit to how much content you’ll store when using Amazon S3—you pay only for what you use. Amazon S3 server access logging provides details of the requests that are made to a bucket. Amazon S3 supports creating folders to group objects in before storing them. You cannot create buckets within buckets; however, you can create folders within folders and you can upload and copy objects directly into folders. Amazon S3 is designed to store as many objects as you want, and objects are stored as a simple key/value store. You can store these objects in one or more buckets. Every Amazon S3 object has a key, data, and metadata. The key name or object key uniquely identifies the object in a bucket. Object metadata is a set of name/value pairs that can be set when you upload the object.</p>
+<p class="indent">For the general-purpose frequently accessed data, you can use the S3 Standard class. For changing access patterns or unknown data, you can use the S3 Intelligent-Tiering class. For infrequently accessed data, you can use the S3 Standard-Infrequent Access class. For long-lived but less frequently accessed data, you can use the S3 One Zone-Infrequent Access class. For archival storage, you can use the Amazon S3 Glacier class. For long-term archive and digital preservation, you can use the Amazon S3 Glacier Deep Archive class.</p>
+<p class="indent">Your objects can be stored cost-effectively throughout their lifecycle using a lifecycle configuration, which is a set of rules that define actions applied to a group of objects. The lifecycle transitions allow you to move between storage classes. Objects can be set to expire in order to delete them permanently, and when an object reaches the end of its lifetime, it is removed asynchronously. Object versioning allows you to keep multiple variants of an object in the same bucket in order to prevent accidental deletion and restoration of every version of every object stored in your Amazon S3 bucket. It is easy to recover objects from both unintended user actions, like accidental deletions, or overwrite and application failures. You can grant permissions to your Amazon S3 resources using a bucket policy and user policy, and both use JSON-based access policy language. You can use SQL statements to retrieve the contents of objects or just the subset of data that you need using Amazon S3 Select. You can protect your data both in transit and at rest. ACLs are resource-level access policy options available to manage access to your buckets and objects. Amazon S3 Object Lock can be used to store objects using a WORM model, which prevents objects from being deleted or overwritten either for a fixed amount of time or indefinitely. A retention period protects <span epub:type="pagebreak" id="page_241"/>an object version for a fixed amount of time, and Amazon S3 stores a timestamp in the object version’s metadata to indicate when the retention period expires. Amazon S3 Object Lock allows you to place a legal hold on an object version to protect it from being overwritten or deleted.</p>
+<h4 class="h4" id="ch8lev2sec29">Exercises</h4>
+<p class="noindent">The following exercises will help you practice creating Amazon S3 buckets and perform some related tasks to get familiar with this service.</p>
+<p class="indent">You need to create an AWS account, as explained earlier, to perform these exercises. You can use the Free Tier when launching AWS resources, but make sure to delete the buckets at the end if they are not required.</p>
+<h5 class="h5">Exercise 8-1: Create Your First S3 Bucket Using the AWS Management Console</h5>
+<p class="noindent">In this exercise, you create an S3 bucket using the Management Console.</p>
+<p class="numbert"><strong>1.</strong> Sign in to the AWS Management Console and use Search IAM to go to <a href="https://console.aws.amazon.com/s3/">https://console.aws.amazon.com/s3/</a>.</p>
+<p class="number"><strong>2.</strong> Choose Create Bucket.</p>
+<p class="number"><strong>3.</strong> On the Name And Region page, provide the name for your bucket and region where it resides.</p>
+<p class="number"><strong>4.</strong> Type <strong>my-first-bucket-01012020</strong> for the name, which is unique among all existing bucket names in Amazon S3.</p>
+<p class="number"><strong>5.</strong> Choose an AWS region that is close to you to minimize latency and costs, and click Next.</p>
+<p class="number"><strong>6.</strong> On the Configure Options page, configure versioning, server access logging, tags, object-level logging, default encryption, Object Lock, and CloudWatch request metrics.</p>
+<p class="number"><strong>7.</strong> Select Versioning to keep all versions of an object in the same bucket.</p>
+<p class="number"><strong>8.</strong> Select Server Access Logging, which enables you to retrieve detailed records of your bucket.</p>
+<p class="number"><strong>9.</strong> Select Tags. Tags are a key/value pair so enter <strong>key</strong> for the Name field and <strong>My first S3 bucket</strong> for the Value field.</p>
+<p class="number1"><strong>10.</strong> Select Object-Level Logging to enable this feature with CloudTrail.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="caution.jpg"/></p>
+<p class="note"><strong>CAUTION</strong>   You will incur additional costs for enabling object-level logging with CloudTrail.</p>
+</div>
+<p class="number1"><strong>11.</strong> Select Default Encryption to automatically encrypt objects when they are stored in S3.</p>
+<p class="number1"><strong>12.</strong> <span epub:type="pagebreak" id="page_242"/>Select Object Lock for any objects in the bucket, which requires that you enable versioning in step 7.</p>
+<p class="number1"><strong>13.</strong> Select CloudWatch Request Metrics and click Next.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="caution.jpg"/></p>
+<p class="note"><strong>CAUTION</strong>   You will incur additional costs for enabling monitoring using CloudWatch.</p>
+</div>
+<p class="number1"><strong>14.</strong> On the Set Permissions page, uncheck Block Public Access—it is not recommended, but is just for testing purpose. Change the permissions if you want, and select Next.</p>
+<p class="number1"><strong>15.</strong> On the Review page, verify that everything is correct and choose Create Bucket.</p>
+<h5 class="h5">Exercise 8-2: Upload Folders and Files to an Amazon S3 Bucket</h5>
+<p class="noindent">This exercise will show the step-by-step details to upload your files and folders into an Amazon S3 bucket using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Sign in to the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/s3/">https://console.aws.amazon.com/s3/</a>.</p>
+<p class="number"><strong>2.</strong> From the Bucket Name list, choose the bucket icon next to the my-first-bucket-01012020 bucket where you want to upload the file.</p>
+<p class="number"><strong>3.</strong> Choose Upload.</p>
+<p class="number"><strong>4.</strong> From Upload dialog box choose Add Files.</p>
+<p class="number"><strong>5.</strong> Choose a file (cars.jpg) to upload, and then choose Open and then choose Upload.</p>
+<p class="number"><strong>6.</strong> To set permissions or properties for the files that you are uploading, choose Next.</p>
+<p class="number"><strong>7.</strong> On the Set Permissions page, under Manage Users, you can change the permissions for the AWS account owner. Select Read and Write.</p>
+<p class="number"><strong>8.</strong> Choose Add Account to grant access to another AWS account (you can skip this step unless you have another AWS account you want to grant access to).</p>
+<p class="number"><strong>9.</strong> Under Manage Public Permissions, grant read access to your objects to the general public. It is not recommended practice, but it is just for testing purpose, and you can update the permission or delete the object later.</p>
+<p class="number1"><strong>10.</strong> Click Next to set properties.</p>
+<p class="number1"><strong>11.</strong> Choose a storage class, select Standard, and explore the other storage classes.</p>
+<p class="number1"><strong>12.</strong> For the type of encryption, choose Amazon S3 Master-Key.</p>
+<p class="number1"><strong>13.</strong> For the metadata header choose x-amz-meta-my-first-metadata1 and for the value choose MyUserDefinedMetadata.</p>
+<p class="number1"><strong>14.</strong> Tags are key/value pairs, so select image for the key and car for the value, and click Save.</p>
+<p class="number1"><strong>15.</strong> Choose Next.</p>
+<p class="number1"><strong>16.</strong> <span epub:type="pagebreak" id="page_243"/>On the Upload Review page, verify everything is correct and choose Upload.</p>
+<p class="number1"><strong>17.</strong> You can see the progress of the upload at the bottom of the browser window, as well as a successful or failed states.</p>
+<h5 class="h5">Exercise 8-3: Copy or Move an Object to Another Folder</h5>
+<p class="noindent">This exercise will demonstrate the details to copy or move a file or object in an Amazon S3 bucket to another Amazon S3 folder using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Sign in to the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/s3/">https://console.aws.amazon.com/s3/</a>.</p>
+<p class="number"><strong>2.</strong> From the Bucket Name list, choose the bucket icon next to the my-first-bucket-01012020 bucket from where you want to copy.</p>
+<p class="number"><strong>3.</strong> Choose Create Folder, type <strong>my-favorite-cars</strong> for the folder name, choose None for the encryption setting (for testing purposes), and then choose Save.</p>
+<p class="number"><strong>4.</strong> In the Name list, select the check box next to the object (cars.jpg) that you want to copy, choose More, and then choose Copy from the dropdown list.</p>
+<p class="number"><strong>5.</strong> In the Name list, choose the name of the folder: my-favorite-cars.</p>
+<p class="number"><strong>6.</strong> Now Choose More, and then choose Paste from the dropdown list.</p>
+<p class="number"><strong>7.</strong> You will see a message like “All affected objects will be pasted.” Choose Paste.</p>
+<h5 class="h5">Exercise 8-4: Delete an Object from a Bucket</h5>
+<p class="noindent">This exercise will show the details to delete an object or file from Amazon S3 bucket using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Sign in to the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/s3/">https://console.aws.amazon.com/s3/</a>.</p>
+<p class="number"><strong>2.</strong> From the Bucket Name list, choose the bucket icon next to the my-first-bucket-01012020 bucket that you want to delete an object from (cars.jpg).</p>
+<p class="number"><strong>3.</strong> In the Name list, select the check box next to the object (cars.jpg), choose More, and then choose Delete from the dropdown list.</p>
+<p class="number"><strong>4.</strong> In the Delete Objects dialog box, verify that the name of the object (cars.jpg) is listed, and then choose Delete.</p>
+<h5 class="h5">Exercise 8-5: Delete the S3 Bucket that You Created Before</h5>
+<p class="noindent">This exercise will present the step-by-step details to delete an Amazon S3 bucket using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Sign in to the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/s3/">https://console.aws.amazon.com/s3/</a>.</p>
+<p class="number"><strong>2.</strong> From the Bucket Name list, choose the bucket icon next to the my-second-bucket-01012020 bucket that you want to delete.</p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_244"/>Choose Delete Bucket. The Delete bucket dialog box appears.</p>
+<p class="number"><strong>4.</strong> Type <strong>my-second-bucket-01012020</strong> as the bucket name to confirm the action and to avoid accidental deletion.</p>
+<p class="number"><strong>5.</strong> Choose Confirm. The bucket will be deleted, including any contents.</p>
+<h4 class="h4" id="ch8lev2sec30">Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best responses for each question.</p>
+<p class="numbert"><strong><a href="ch08.xhtml#rch08qa1" id="ch08qa1">1.</a></strong> Your application team needs a simple storage solution to store and retrieve data from anywhere around the world at any time and needs a highly durable storage infrastructure. Which of the following service securely stores your objects?</p>
+<p class="alphau"><strong>A.</strong> Amazon S3</p>
+<p class="alphau"><strong>B.</strong> Amazon EC2</p>
+<p class="alphau"><strong>C.</strong> AWS Snowball</p>
+<p class="alphau"><strong>D.</strong> AWS Lambda</p>
+<p class="number"><strong><a href="ch08.xhtml#rch08qa2" id="ch08qa2">2.</a></strong> Your development team is building web applications that make requests to domains other than the one that supplied the primary content, and they want to use JavaScript and HTML5 to directly interact with Amazon S3. Which S3 feature do you need to enable to achieve this?</p>
+<p class="alphau"><strong>A.</strong> Cross-region replication (CRR)</p>
+<p class="alphau"><strong>B.</strong> Cross-origin resource sharing (CORS)</p>
+<p class="alphau"><strong>C.</strong> Amazon S3 Transfer Acceleration</p>
+<p class="alphau"><strong>D.</strong> AWS Identity and Access Management (IAM)</p>
+<p class="number"><strong><a href="ch08.xhtml#rch08qa3" id="ch08qa3">3.</a></strong> You are storing multiple files in your S3 bucket daily in the US East region, and you have a requirement to replicate the newly created files and file updates from your source bucket to your destination bucket in the US West Region. Which of the following S3 features needs to be enabled to achieve this?</p>
+<p class="alphau"><strong>A.</strong> AWS Identity and Access Management (IAM)</p>
+<p class="alphau"><strong>B.</strong> Cross-origin resource sharing (CORS)</p>
+<p class="alphau"><strong>C.</strong> Amazon S3 Transfer Acceleration</p>
+<p class="alphau"><strong>D.</strong> Cross-region replication (CRR)</p>
+<p class="number"><strong><a href="ch08.xhtml#rch08qa4" id="ch08qa4">4.</a></strong> A startup company stores hundreds of image and videos in Amazon S3. The company is planning to save costs by archiving one-year-old files. What should you do in this scenario to automatically archive storage after one year?</p>
+<p class="alphau"><strong>A.</strong> Create a VPC endpoint for Amazon S3 and move the files to Glacier</p>
+<p class="alphau"><strong>B.</strong> Create an AWS Lambda function to move files to Glacier</p>
+<p class="alphau"><strong>C.</strong> <span epub:type="pagebreak" id="page_245"/>Enable a lifecycle policy rule and choose to transition to Glacier after one year</p>
+<p class="alphau"><strong>D.</strong> Enable cross-region replication to move the files to Glacier</p>
+<p class="number"><strong><a href="ch08.xhtml#rch08qa5" id="ch08qa5">5.</a></strong> You are working in a Windows environment and want to delete an S3 bucket named my-expired-bucket. You don’t want to be prompted for confirmation before the command executes. Which of the following AWS PowerShell command can be used to delete it?</p>
+<p class="alphau"><strong>A.</strong> <span class="code">PS C:\&gt;Remove-S3Bucket -BucketName my-expired-bucket -Force</span></p>
+<p class="alphau"><strong>B.</strong> <span class="code">PS C:\&gt;Delete-S3Bucket -BucketName my-expired-bucket -Force</span></p>
+<p class="alphau"><strong>C.</strong> <span class="code">PS C:\&gt;Purge-S3Bucket -BucketName my-expired-bucket -Force</span></p>
+<p class="alphau"><strong>D.</strong> <span class="code">PS C:\&gt;Drop-S3Bucket -BucketName my-expired-bucket - Force</span></p>
+<p class="number"><strong><a href="ch08.xhtml#rch08qa6" id="ch08qa6">6.</a></strong> Your company produces files every day 200GB in size that you are uploading to Amazon S3. The upload time takes more than four hours. What you can do to reduce the upload time?</p>
+<p class="alphau"><strong>A.</strong> Upload the file to multiple S3 buckets</p>
+<p class="alphau"><strong>B.</strong> Compress the files and upload them to Glacier</p>
+<p class="alphau"><strong>C.</strong> Use cross-region replication to update the files</p>
+<p class="alphau"><strong>D.</strong> Use multipart upload to upload the files in parallel to S3</p>
+<p class="number"><strong><a href="ch08.xhtml#rch08qa7" id="ch08qa7">7.</a></strong> Which of the following storage classes are supported by Amazon S3 for different storage use cases? (Choose all that apply.)</p>
+<p class="alphau"><strong>A.</strong> S3 Standard class</p>
+<p class="alphau"><strong>B.</strong> S3 Intelligent-Tiering class</p>
+<p class="alphau"><strong>C.</strong> S3 Standard-Infrequent Access</p>
+<p class="alphau"><strong>D.</strong> S3 One Zone-Infrequent Access</p>
+<p class="alphau"><strong>E.</strong> Amazon S3 Glacier</p>
+<p class="alphau"><strong>F.</strong> Amazon S3 Glacier Deep Archive</p>
+<p class="number"><strong><a href="ch08.xhtml#rch08qa8" id="ch08qa8">8.</a></strong> You are designing an application that stores files in an Amazon S3 bucket. You can’t predict the access pattern of these files, so you want to store them in a storage class that is designed to optimize costs by automatically moving data to the most cost-effective access tier, without performance impact or operational overhead. Which of the following storage classes provide this feature?</p>
+<p class="alphau"><strong>A.</strong> S3 Standard class</p>
+<p class="alphau"><strong>B.</strong> S3 Intelligent-Tiering class</p>
+<p class="alphau"><strong>C.</strong> S3 Standard-Infrequent Access</p>
+<p class="alphau"><strong>D.</strong> S3 One Zone-Infrequent Access</p>
+<p class="number"><strong><a href="ch08.xhtml#rch08qa9" id="ch08qa9">9.</a></strong> <span epub:type="pagebreak" id="page_246"/>You want to permanently delete a version-enabled object without inserting any delete marker. How can you achieve this?</p>
+<p class="alphau"><strong>A.</strong> Log in as the owner of the Amazon S3 bucket and delete the object by specifying the version ID you want to delete</p>
+<p class="alphau"><strong>B.</strong> Log in as the owner of the Amazon S3 bucket and use the GET command to delete the object.</p>
+<p class="alphau"><strong>C.</strong> Log in as the owner of the Amazon S3 bucket and use the PUT command to delete the object.</p>
+<p class="alphau"><strong>D.</strong> You cannot delete a version-enabled object.</p>
+<p class="number1"><strong><a href="ch08.xhtml#rch08qa10" id="ch08qa10">10.</a></strong> You want to enable server-side encryption to protect the data at rest in Amazon S3. Which three mutually exclusive options should you use, based on how you choose to manage the encryption keys? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> Server-side encryption with Amazon S3 managed keys (SSE-S3)</p>
+<p class="alphau"><strong>B.</strong> Server-side encryption with Amazon EC2 key pairs (SSE-EC2)</p>
+<p class="alphau"><strong>C.</strong> Server-side encryption with keys stored in AWS KMS (SSE-KMS)</p>
+<p class="alphau"><strong>D.</strong> Server-side encryption with customer-provided keys (SSE-C)</p>
+<h4 class="h4" id="ch8lev2sec31">Answers</h4>
+<p class="number"><strong><a href="ch08.xhtml#ch08qa1" id="rch08qa1">1.</a> A.</strong> Amazon S3 is a simple storage solution that allows you to store and retrieve data from anywhere around the world at any time, and it is a highly durable storage infrastructure.</p>
+<p class="number"><strong><a href="ch08.xhtml#ch08qa2" id="rch08qa2">2.</a> B.</strong> Cross-origin resource sharing (CORS) allows you to build web applications that make requests to domains other than the one that supplied the primary content.</p>
+<p class="number"><strong><a href="ch08.xhtml#ch08qa3" id="rch08qa3">3.</a> D.</strong> Cross-region replication (CRR) replicates your newly created objects and object updates from a source bucket in one region to your destination bucket in a different region.</p>
+<p class="number"><strong><a href="ch08.xhtml#ch08qa4" id="rch08qa4">4.</a> C.</strong> You need to enable a lifecycle policy rule and then choose to transition to Glacier after one year.</p>
+<p class="number"><strong><a href="ch08.xhtml#ch08qa5" id="rch08qa5">5.</a> A.</strong> This is the correct AWS PowerShell command to delete an S3 bucket named my-expired-bucket with the –Force option.</p>
+<p class="number"><strong><a href="ch08.xhtml#ch08qa6" id="rch08qa6">6.</a> D.</strong> You need to use a multipart upload to upload the files in parallel to S3.</p>
+<p class="number"><strong><a href="ch08.xhtml#ch08qa7" id="rch08qa7">7.</a> A, B, C, D, E, F.</strong> Amazon S3 offers the S3 Standard class, S3 Intelligent-Tiering class, S3 Standard-Infrequent Access, S3 One Zone-Infrequent Access, Amazon S3 Glacier, and Amazon S3 Glacier Deep Archive storage classes.</p>
+<p class="number"><strong><a href="ch08.xhtml#ch08qa8" id="rch08qa8">8.</a> B.</strong> The S3 Intelligent-Tiering class can automatically move objects to the infrequently accessed storage class.</p>
+<p class="number"><strong><a href="ch08.xhtml#ch08qa9" id="rch08qa9">9.</a></strong> <span epub:type="pagebreak" id="page_247"/><strong>A.</strong> You need to log in as the owner of the Amazon S3 bucket and provide the version ID to delete the version-enabled object.</p>
+<p class="number1"><strong><a href="ch08.xhtml#ch08qa10" id="rch08qa10">10.</a> A, C, D.</strong> Amazon S3 supports server-side encryption with Amazon S3 managed keys (SSE-S3), server-side encryption with keys stored in AWS KMS (SSE-KMS), and server-side encryption with customer-provided keys (SSE-C) encryptions for data at rest.</p>
+<h3 class="h3" id="ch8lev1sec16">Additional Resources</h3>
+<p class="bulleta">• <strong>AWS Blogs</strong>   There is no place like official AWS documentation to get the latest and most up-to-date information about all the AWS services. Always refer to the official AWS blogs to get the latest updates about new AWS services and updates to existing features.</p>
+<p class="bulletc"><img alt="images" src="p0247-01.jpg"/></p>
+<p class="bulleta">• <strong>Protecting Data Using Amazon S3 Object Lock</strong>   This blog explains the steps to protect your data using Amazon S3 object locking features such as retention period and legal hold.</p>
+<p class="bulletc"><img alt="images" src="p0247-02.jpg"/></p>
+<p class="bulleta">• <strong>S3 Batches for Transcoding Files</strong>   This blog explains the steps to configure S3 batch operations to invoke a video transcoding job using AWS Lambda from the video stored in Amazon S3.</p>
+<p class="bulletc"><img alt="images" src="p0247-03.jpg"/></p>
+<p class="bulleta">• <strong>Encrypting Objects Using Amazon S3 Batch Operations</strong>   This blog explains the detailed steps to configure an S3 batch operations job and list objects using Amazon Athena to encrypt your objects.</p>
+<p class="bulletc"><img alt="images" src="p0247-04.jpg"/></p>
+<p class="bulleta">• <strong>Build Messages Using Amazon S3 and AWS Lambda</strong>   This blog details the steps necessary to configure building a dynamic personalized message and deliver it using Amazon S3 and AWS Lambda.</p>
+<p class="bulletc"><img alt="images" src="p0247-05.jpg"/></p>
+<p class="bulleta">• <strong>Data Migration to AWS Snowball Edge</strong>   This blog detailed the steps and best practices to cost-effectively migrate to Snowball Edge.</p>
+<p class="bulletc"><img alt="images" src="p0247-06.jpg"/><span epub:type="pagebreak" id="page_248"/></p>
+</section>
+</body>
+</html>

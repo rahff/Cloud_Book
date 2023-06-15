@@ -1,0 +1,316 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch3"><span epub:type="pagebreak" id="page_79"/><span class="chap">CHAPTER <span class="chap1">3</span></span></h2>
+<h2 class="h2c1">Networking Using Amazon Virtual Private Cloud</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• Virtual Private Cloud (VPC)</p>
+<p class="bulleta">• Subnets (public and private)</p>
+<p class="bulleta">• Route tables</p>
+<p class="bulleta">• Network access control lists (ACLs)</p>
+<p class="bulleta">• Security groups</p>
+<p class="bulleta">• Internet gateways</p>
+<p class="bulleta">• Dynamic Host Configuration Protocol (DHCP) option sets</p>
+<p class="bulleta">• Elastic Internet Protocols (IPs)</p>
+<p class="bulleta">• Endpoints</p>
+<p class="bulleta">• Network Address Translation (NAT) gateways</p>
+<p class="bulleta">• Egress-only Internet gateways</p>
+<p class="bulleta">• Peering connections</p>
+<p class="bulleta">• Virtual private gateways</p>
+<p class="bulleta">• Customer gateways</p>
+<p class="bulleta">• Site-to-site virtual private network (VPN)</p>
+<p class="bulleta">• Point-to-site VPN</p>
+<p class="bulleta">• Direct connect</p>
+<p class="bulleta">• Transit gateways</p>
+<p class="hr"/>
+<p class="noindentb">Welcome to the AWS networking chapter. In the last chapter we created an AWS free account and looked at various ways of connecting to AWS services. Then we saw how to enable multifactor authentication (MFA) for the root account and how to secure the root account against any unauthorized access (this will be explored in more depth in <a href="ch10.xhtml#ch10">Chapter 10</a>). The next thing we need is a logically isolated section of AWS that you can own and control, similar to separate networks in your on-premises datacenter. In this chapter, we will explore the core components of Amazon Virtual Private Cloud (VPC), and you will learn how to build your own VPC and VPN solution to securely connect using an Internet Protocol security (IPSec) tunnel. I highly recommend reading this <span epub:type="pagebreak" id="page_80"/>chapter carefully and completing all the exercises, because a strong knowledge of Amazon VPC, connectivity, and troubleshooting will help you in both the real world and to pass the exam.</p>
+<h3 class="h3" id="ch3lev1sec1">Amazon Virtual Private Cloud</h3>
+<p class="noindent">Amazon VPC is the networking layer for Amazon Elastic Compute Cloud (EC2) instances and enables you to launch AWS resources into an isolated virtual network that you’ve provisioned. A VPC is a virtual network dedicated to your IP address range, subnets, network access control lists (NACLs), security groups, and route tables to your AWS account.</p>
+<p class="indent">Assume you have a business with offices across the United States, Australia, and Europe and you need to set up datacenters, which will take a few weeks to months. You can create a VPC in each region within a few minutes, as shown in <a href="ch03.xhtml#ch3fig1">Figure 3-1</a>, and secure it using NACLs and security groups.</p>
+<p class="imagef" id="ch3fig1"><img alt="images" src="f0080-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 3-1</strong>   AWS accounts and regions</p>
+<p class="indent">Your AWS account comes with a default VPC that has a subnet in each availability zone that is ready for you to use. If you don’t specify a subnet when you launch an instance, the instance will be launched into your default VPC. A VPC spans all the availability zones in a particular region, whereas a subnet must reside entirely within one availability zone and cannot span across zones.</p>
+<p class="indent">You can also create your own VPC, which is called a nondefault VPC, and configure it as you need. Any subnets that you create in your default and nondefault VPCs are called nondefault subnets. You will not pay an additional charge for using the Amazon VPC; however, you will pay the standard rates for the EC2 instances and any site-to-site VPN connection and Network Address Translation (NAT) gateway.</p>
+<p class="indent">Amazon VPC has been validated as being compliant with the Payment Card Industry (PCI) Data Security Standard (DSS) and supports the processing, storage, and transmission of credit card data by a merchant or service provider.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_81"/>There are soft limits (which can be increased by submitting a request to AWS, e.g., on the Amazon VPC limit form) and hard limits (which can’t be changed) to the number of Amazon VPCs and the components you can provision. You start with a default limit of five VPCs per region. There is a limit of 200 subnets per VPC. The limit for IPv4 is five IPv4 Classless Inter-Domain Routing (CIDR) blocks per VPC, and this comprises your primary CIDR block plus four secondary CIDR blocks. The limit for IPv6 is one IPv6 CIDR block per VPC, and this limit cannot be increased. These limits change over time so please refer to <a href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html">https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html</a> for the latest AWS service limits.</p>
+<h4 class="h4" id="ch3lev2sec1">Subnets</h4>
+<p class="noindent">As mentioned, a VPC spans all the availability zones in a particular region, whereas a subnet must reside entirely within one availability zone and cannot span across them. You can add one or more subnets to each availability zone after creating the VPC. You can specify the CIDR block for the subnet when you create it, which should be a subset of the VPC CIDR block. You can protect your applications from failure by launching instances in separate availability zones, which are engineered to be isolated from failures in other availability zones.</p>
+<p class="indent">You can assign IPv6 CIDR blocks to your subnets by assigning an IPv6 CIDR block to your VPC. A VPN connection enables you to communicate with your corporate network, and an Internet gateway enables communication over the Internet.</p>
+<h5 class="h5">Public Subnet</h5>
+<p class="noindent">A subnet is called public when its traffic is routed to an Internet gateway. Your instance must have a public IPv4 address or an elastic IP address (IPv4), which is a static public IPv4 address assigned by AWS, if it needs to communicate with the Internet over IPv4. Your instance must have an IPv6 address if it needs to communicate with the Internet over IPv6.</p>
+<h5 class="h5">Private Subnet</h5>
+<p class="noindent">A subnet is called private when it doesn’t have a route to the Internet gateway. The internal IPv4 address range of the subnet is always private, regardless of the type of subnet, and AWS does not announce this address block to the Internet.</p>
+<h4 class="h4" id="ch3lev2sec2">Route Tables</h4>
+<p class="noindent">A route table has a set of rules that are used to determine where network traffic is directed. All your subnets in a VPC must be associated with a route table because this table controls the routing for the subnet. You can associate multiple subnets with the same route table; however, a single subnet can only be associated with one route table at any point in time.</p>
+<p class="indent">A primary or main route table is created automatically with your VPC where you can add, remove, and modify routes based on your need. You can also create custom route tables for your VPC if required. Your subnet is implicitly associated with the primary route table if you don’t explicitly associate a subnet with any particular custom route table. <span epub:type="pagebreak" id="page_82"/>The main route table controls the routing for all your subnets that are not explicitly associated with any other custom route table.</p>
+<p class="indent">You cannot delete the main route table, and each route in a table specifies a destination CIDR and a target. AWS uses the most specific route that matches the traffic and determines how to route it. You must update the route table for any subnet that uses a virtual private gateway, an Internet gateway, an egress-only Internet gateway, a peering connection, a NAT device, or a VPC endpoint in your VPC. You can have 200 route tables per VPC, and this limit includes the main route table. You can add 50 nonpropagated routes per route table, and you can increase this limit up to a maximum of 1,000 if required. You can add 100 Border Gateway Protocol (BGP)–advertised propagated routes per route table, but this limit cannot be increased.</p>
+<h4 class="h4" id="ch3lev2sec3">Network Access Control Lists</h4>
+<p class="noindent">The VPC provides another layer of security by acting as a firewall for controlling traffic in and out of one or more subnets. The default VPC automatically comes with a modifiable default NACL, and it allows all inbound and outbound IPv4 and IPv6 traffic, if applicable. You can add or remove rules from the default NACL or create additional custom NACLs for your VPC. The changes are automatically applied to the subnets to which NACL is associated with when you add or remove rules from a network ACL.</p>
+<p class="indent">All the subnets in your VPC must be associated with a NACL. Your subnet is automatically associated with the default NACL if you don’t configure it otherwise. A subnet can be associated with only one NACL at a time, but you can associate a NACL with multiple subnets. The previous association is removed when you associate a new NACL with a subnet.</p>
+<p class="indent">NACLs are stateless, so the inbound traffic allowed is subject to the rules for outbound traffic (and vice versa). A NACL contains a number of rules, and AWS evaluates them in an order from lowest to highest to decide whether traffic is allowed to and from the associated subnet. The highest number you can use for NACLs rules is 32766, and AWS recommends creating rules in increments to make it easy to add any new future rules that you may need later on.</p>
+<h4 class="h4" id="ch3lev2sec4">Security Groups</h4>
+<p class="noindent">A security group acts as another virtual firewall at the instance level that controls the inbound and outbound traffic. You can assign up to five security groups to the instance when you launch it in a VPC. NACLs act at the subnet level, and security groups act at the instance level. You can assign a different set of security groups to each instance in a subnet of your VPC. Your security group name must be unique within the VPC.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   You don’t have to add a rule to allow your instances to communicate with each other. If you use the default security group, it automatically allows communication; but you must add a rule to allow this if you use anything other than the security group.</p>
+</div>
+<p class="indent"><span epub:type="pagebreak" id="page_83"/>You can add rules that control the inbound traffic to instances for each security group and add a separate set of rules that control the outbound traffic. The default number of security groups per region limit is 2,500 and the maximum limit is 10,000. The default security group rule limit is 60 for inbound and 60 for outbound per security group—for example, a security group can have 60 inbound rules for IPv4 traffic and 60 inbound rules for IPv6 traffic.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="tip.jpg"/></p>
+<p class="note"><strong>TIP</strong>   If you use ::/0 in your security group for IPv6, then you are enabling all IP addresses over the Internet to access your instance using Secure Shell (SSH) or Remote Desktop Protocol (RDP). This is acceptable only for your learning proof of concept (POC) or testing purpose, but it’s unsafe and not a best practice in enterprise production environments. In a production environment, you’ll authorize only a specific IP address or range of addresses to access your instance.</p>
+</div>
+<p class="indent">In a security group, you can only allow rules—you cannot not deny rules. You can specify separate rules for inbound traffic and another rule for outbound traffic. You can create a security group with no inbound rules, in which case the inbound traffic originating from another host to your instance will not be allowed until you explicitly add inbound rules to the security group. In the same way, if your security group has no outbound rules, no outbound traffic originating from your instance is allowed.</p>
+<p class="indent">Security groups are stateful, which means that when you send a request from your instance, the return response traffic for that request is allowed to flow back to the instance, regardless of your inbound security group rules. In the same way, the responses to the inbound traffic are allowed to flow out, regardless of your outbound rules.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="tip.jpg"/></p>
+<p class="note"><strong>TIP</strong>   If you use 0.0.0.0/0 in your security group for IPv4, you are enabling all IP addresses over the Internet to access your instance using SSH or RDP. This is acceptable only for your learning POC or testing purpose; it’s unsafe and not a best practice in enterprise production environments. In a production environment, you’ll authorize only a specific IP address or range of addresses or a single IP address /32 to access your instance.</p>
+</div>
+<h4 class="h4" id="ch3lev2sec5">Internet Gateways</h4>
+<p class="noindent">An Internet gateway is a highly available, redundant, and horizontally scaled VPC component that allows communication between the Internet and instances in your VPC. It doesn’t impose bandwidth constraints or any availability risks on your network traffic. It serves two purposes: to perform NAT for instances that have not been assigned public IPv4 addresses and to provide a target in your VPC route tables for Internet-routable traffic, including IPv4 and IPv6 traffic.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_84"/>You need to make sure that your NACL and security group rules allow the relevant traffic to flow to and from the Internet for instances in a VPC subnet. You need to attach an Internet gateway to a VPC and make sure that the subnet’s route table points to it. Also make sure that instances in your subnet have a globally unique IP address (elastic IP address, public IPv4 address, or IPv6 address).</p>
+<p class="indent">A subnet is called public when associated with a route table that has a route to an Internet gateway. Your instance must have a public IPv4 address or an elastic IP address that’s associated with a private IPv4 address if you want to enable communication over the Internet for IPv4. Your VPC and subnet must have an associated IPv6 CIDR block, and your instance must be assigned an IPv6 address from the range of the subnet. IPv6 addresses are globally unique and are public by default if you want to enable communication over the Internet for IPv6.</p>
+<h4 class="h4" id="ch3lev2sec6">Dynamic Host Configuration Protocol Option Sets</h4>
+<p class="noindent">The options field of a Dynamic Host Configuration Protocol (DHCP) message contains configuration parameters like domain name, domain name server, and the NetBIOS node type, and it provides a standard for sending configuration details to hosts on the TCP/IP network.</p>
+<p class="indent">The DHCP options sets can be configured for your VPC. The Amazon EC2 instances that you launch into a nondefault VPC are private by default. Unless you specifically assign a public IPv4 address during launch, they’re not assigned, or you need to modify the subnet’s public IPv4 address attribute. By default, AWS assigns an unresolvable hostname like ip-10-10-10-101 to all instances in any nondefault VPC. You can define your own domain name for your instances, and you must specify a special set of DHCP options to use with the VPC.</p>
+<p class="indent">The IP addresses default to Amazon-provided DNS, or you can set up custom domain name servers, with the names separated by commas. You must set domain name servers to a custom DNS server if you want your instance to receive a custom DNS hostname, as specified in the domain name. After you attach the DHCP options with a VPC, both existing and new instances that you launch automatically pick up the changes within a few hours, depending on the current frequency with which the DHCP lease is renewed. You don’t need to restart or relaunch the instances. If required, you can explicitly renew the lease using the operating system on that instance.</p>
+<p class="indent">You can’t modify the DHCP options after you create them. If required, you can set up your VPC to use no DHCP options at all. You can associate only one set of DHCP options with a VPC. The DHCP option is disassociated from the VPC when you delete it.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   Your default VPC automatically has a set of DHCP options with the Amazon-provided DNS server domain-nameservers=AmazonProvidedDNS that allows any public subnets in your VPC to communicate with the Internet over an Internet gateway.</p>
+</div>
+<h4 class="h4" id="ch3lev2sec7"><span epub:type="pagebreak" id="page_85"/>Elastic Internet Protocols</h4>
+<p class="noindent">An elastic Internet Protocol (IP) address is a public static address that you can associate with an instance or network interface for any of your account VPCs. When you associate the elastic IP address with the network interface instead of directly associating it with an instance, you can move all the attributes of the network interface from one instance to another instance easily. AWS currently supports only IPv4 addresses and not IPv6 elastic IP addresses. Elastic IP address can be assigned to only one instance at a time. You can associate an elastic IP address with an instance, and it updates the network interface attached to it.</p>
+<p class="indent">The elastic IP address can be moved from one instance to another either within the same VPC or another VPC. Until you explicitly release your elastic IP address, it remains associated with your AWS account. AWS charges for elastic IP addresses that are not associated with a running instance, that are stopped, or that are not attached to any network interface. You are not charged for an elastic IP address when the associated instance is running. As mentioned, you are limited to five elastic IP addresses, but you can increase this amount by creating a ticket with AWS. You can tag an elastic IP address; however, tags are not recovered when you recover an elastic IP address.</p>
+<p class="indent">You are allowed to bring part or all of your public IPv4 address range from your on-premises network to your AWS account. Bring your own IP (BYOIP) enables you to move all or part of your existing publicly routable IPv4 address space to AWS. You will continue to own that IP range, but AWS will advertise it on the Internet. You can create elastic IPs from the IP space you bring to AWS and use them with your EC2 instances, network load balancers, and NAT gateways. You will continue to have access to AWS elastic IPs, so you can choose to use BYOIP elastic IPs, Amazon-supplied IPs, or both.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   If you want your instance to be accessible via an IPv4 address over the Internet, SSH, or RDP, you must associate an elastic IP address (i.e., a static public IPv4 address) to your instance, and you must configure your security group rules to allow access over IPv4.</p>
+</div>
+<h4 class="h4" id="ch3lev2sec8">Endpoints</h4>
+<p class="noindent">VPC endpoint services powered by the Private Link service do not require an Internet gateway, NAT device, VPN connection, or AWS Direct Connect connection, and they enable you to privately connect your VPC to supported AWS services. When you use the VPC endpoint, your instances do not require public IP addresses to communicate with other resources and the traffic does not leave the Amazon network.</p>
+<p class="indent">Endpoints are virtual devices that are highly available, redundant, and horizontally scaled VPC components. Without imposing the availability risks or bandwidth constraints on your network traffic, they allow communication between instances in your VPC and various services. Interface endpoints and gateway endpoints are the two types of VPC endpoints that you can create.</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_86"/>Interface Endpoints</h5>
+<p class="noindent">An interface endpoint is an elastic network interface that is powered by AWS Private Link with a private IP address that serves as an entry point for traffic destined to a supported service. The following services are supported interface endpoints:</p>
+<p class="bullett">• AWS CloudFormation</p>
+<p class="bulleta">• Amazon API Gateway</p>
+<p class="bulleta">• AWS CloudTrail</p>
+<p class="bulleta">• Amazon CloudWatch</p>
+<p class="bulleta">• Amazon CloudWatch Events</p>
+<p class="bulleta">• Amazon CloudWatch Logs</p>
+<p class="bulleta">• AWS CodePipeline</p>
+<p class="bulleta">• AWS CodeBuild</p>
+<p class="bulleta">• AWS Config</p>
+<p class="bulleta">• AWS CodeCommit</p>
+<p class="bulleta">• Amazon EC2 API</p>
+<p class="bulleta">• Elastic Load Balancing</p>
+<p class="bulleta">• Amazon Elastic Container Service</p>
+<p class="bulleta">• Amazon Elastic Container Registry</p>
+<p class="bulleta">• AWS Key Management Service</p>
+<p class="bulleta">• Amazon Kinesis Data Streams</p>
+<p class="bulleta">• Amazon Kinesis Data Firehose</p>
+<p class="bulleta">• Amazon SageMaker and Amazon SageMaker Runtime</p>
+<p class="bulleta">• Amazon SageMaker Notebook Instance</p>
+<p class="bulleta">• AWS Secrets Manager</p>
+<p class="bulleta">• AWS Security Token Service</p>
+<p class="bulleta">• AWS Service Catalog</p>
+<p class="bulleta">• Amazon SQS</p>
+<p class="bulleta">• Amazon SNS</p>
+<p class="bulleta">• AWS Systems Manager</p>
+<p class="bulleta">• AWS Transfer for SFTP</p>
+<p class="bulleta">• Endpoint services hosted by other AWS accounts</p>
+<p class="bulleta">• Supported AWS Marketplace partner services</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_87"/>Gateway Endpoints</h5>
+<p class="noindent">A gateway endpoint is the target of a specified route in your route table that is used for traffic destined to any supported AWS service. The following AWS services are supported:</p>
+<p class="bullett">• DynamoDB</p>
+<p class="bulleta">• Amazon S3</p>
+<h5 class="h5">Controlling the Use of VPC Endpoints</h5>
+<p class="noindent">You need to create an AWS Identity and Access Management (IAM) user policy that grants users the required permissions to create, modify, describe, and delete endpoints because IAM users do not have permission to work with any endpoints by default. Here is an example of the IAM policy:</p>
+<p class="imagep"><img alt="images" src="p0087-01.jpg"/></p>
+<h4 class="h4" id="ch3lev2sec9">Network Address Translation Devices</h4>
+<p class="noindent">If you want to enable instances in a private subnet to connect to the Internet but prevent the Internet from initiating connections with the instances, you need a NAT device. It forwards traffic from the instances in the private subnet to the Internet and then sends the response back to the instances. The source IPv4 address is replaced with the NAT device’s address when traffic goes to the Internet, and the NAT device translates the address back to the instances’ private IPv4 addresses when the response traffic is coming through.</p>
+<p class="indent">You need to use an egress-only Internet gateway instead of NAT devices for IPv6 traffic because NAT devices are not configured for IPv6 traffic. AWS supports two kinds of NAT devices: NAT gateways and NAT instances. AWS recommends using NAT gateways over NAT instances, since the NAT gateway provides better availability and bandwidth. The NAT gateway service is offered as a managed service, so it does not require any administration efforts from you. You may need to choose a NAT instance for specific purposes, and it is launched from a NAT Amazon Machine Image (AMI).</p>
+<h5 class="h5">NAT Gateways</h5>
+<p class="noindent">A NAT gateway is charged in terms of hourly usage and data processing rates. You must specify the public subnet to create a NAT gateway and specify an elastic IP address to associate with it. You then need to update the route table, which is associated with one or more of your private subnets, to point Internet-bound traffic to the NAT gateway to enable the instances in your private subnets to communicate with the Internet.</p>
+<p class="indent">If you attach a single NAT gateway to multiple private subnets, this will affect other subnets when the availability zone of the NAT gateway is down. So, if you want to create <span epub:type="pagebreak" id="page_88"/>an availability zone–independent architecture, to avoid failure, you need to create a NAT gateway in each availability zone and configure the routing to ensure that your resources in private subnets use the NAT gateway in the same availability zone.</p>
+<p class="indent">A NAT gateway bandwidth is 5 Gbps and automatically scales up to 45 Gbps as required. You can distribute the workload by splitting your resources into multiple subnets if you require more bandwidth and create a NAT gateway in each subnet. A NAT gateway supports Internet Control Message Protocol (ICMP), Transmission Control Protocol (TCP), and User Datagram Protocol (UDP) and uses ports from 1024 to 65535. A NAT gateway supports up to 55,000 simultaneous connections to each unique destination. You cannot associate a security group with a NAT gateway, but you can use a NACL to control the traffic to and from the subnet in which the NAT gateway is attached.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="caution.jpg"/></p>
+<p class="note"><strong>CAUTION</strong>   You will be charged for creating and using a NAT gateway in your AWS account. It has hourly usage and data processing charges in addition to the Amazon EC2 charges for data transfer, so use caution when creating the NAT gateway and terminate it when you don’t need it anymore.</p>
+</div>
+<h5 class="h5">NAT Instances</h5>
+<p class="noindent">You need to create your NAT instance in a public subnet to enable instances in the private subnet to initiate outbound IPv4 traffic to the Internet but at the same time prevent the instances from receiving inbound traffic initiated by someone on the Internet. Amazon offers the Amazon Linux AMI, which is configured to run as a NAT instance. You can search for them in the Amazon EC2 console—they include the string amzn-ami-vpc-nat in their name.</p>
+<h4 class="h4" id="ch3lev2sec10">Egress-Only Internet Gateways</h4>
+<p class="noindent">An egress-only Internet gateway is a highly available, redundant, and horizontally scaled VPC component. It allows outbound communication over IPv6 from instances from your VPC to the Internet, and it prevents the Internet from initiating an IPv6 connection with your instances.</p>
+<p class="indent">IPv6 addresses are public by default and globally unique. You need to add a route to your route table that points a specific range of IPv6 address or all IPv6 traffic (::/0) to the egress-only Internet gateway.</p>
+<p class="indent">An egress-only Internet gateway is stateful, which means it forwards IPV6 traffic from the instances in the subnet to the Internet and then sends back the responses to the instances. NACL can be used to control the traffic to and from the subnet for which the egress-only Internet gateway routes the IPV6 traffic.</p>
+<h4 class="h4" id="ch3lev2sec11">Peering Connections</h4>
+<p class="noindent">A VPC peering connection routes the traffic between two VPCs privately, where instances in both VPCs can communicate with each other as if they are in the same network. You can create a VPC peering connection between your own VPCs or with a VPC in another <span epub:type="pagebreak" id="page_89"/>AWS account, or with a VPC in a different AWS region. AWS does not use a gateway or a site-to-site VPN connection and does not rely on a separate piece of physical hardware to create a VPC peering connection, so there is no bandwidth bottleneck or a single point of failure in terms of communication.</p>
+<p class="indent">A VPC peering connection makes it easy to transfer data between your EC2 instances, Amazon Relational Database Service (RDS) databases, and AWS Lambda functions that run in different AWS regions using private IP addresses, without requiring a separate network appliance, gateway, or VPN connections. The peering connection traffic always stays on the global AWS backbone and never traverses the public Internet, which reduces threats such as DDoS attacks and other common exploits. The inter-region VPC peering connection provides a cost-effective and simple way to share resources between regions and makes it easy to replicate data in cases of geographic redundancy.</p>
+<h4 class="h4" id="ch3lev2sec12">Virtual Private Gateways</h4>
+<p class="noindent">A virtual private gateway is a VPN concentrator on the AWS side. If you want to configure a site-to-site VPN connection, you need create a virtual private gateway and attach it to your VPC. You also need to specify the private autonomous system number (ASN) for the gateway—the default ASN is 64512. The ASN cannot be changed after creating the virtual private gateway.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   The instances that you created in the VPN-only subnet can’t reach the Internet directly, so any Internet-bound traffic must first traverse the virtual private gateway to your network. From here, the traffic goes through your firewall using corporate security policies. The traffic from your network going to an elastic IP address for an instance in the public subnet goes over the Internet and not over your virtual private gateway. As a result, you need to set up the route table and security group rules to enable the traffic to come from your network over the virtual private gateway to the public subnet.</p>
+</div>
+<h4 class="h4" id="ch3lev2sec13">Customer Gateways</h4>
+<p class="noindent">A customer gateway is a software application or physical device on your side of the site-to-site VPN connection, which you must create and which provides information to AWS about the customer gateway device. You’ll need an Internet-routable IP address (the public IP address value must be static) and static or dynamic routing to create a customer gateway resource. You can use an existing ASN assigned to your network, or you can use a private ASN (in the 64512 to 65534 range). AWS automatically uses 65000 as the ASN if you use the VPC wizard in the console to set up your VPC.</p>
+<p class="indent">The virtual private gateway is not the initiator, so the client customer gateway must initiate the traffic to the tunnels. The VPN tunnel comes up only when traffic is generated from the client side of the site-to-site VPN connection. The VPN tunnel may go down if your connection experiences idle time for a certain period (depending on your configuration), so you may need to use a network monitoring tool to generate keep-alive pings to prevent this.</p>
+<h4 class="h4" id="ch3lev2sec14"><span epub:type="pagebreak" id="page_90"/>Site-to-Site Virtual Private Network</h4>
+<p class="noindent">The instances in your VPC by default can’t communicate with your own (remote/on-premises) network. You need to attach a virtual private gateway, create a custom route table, update your security group rules, and create a site-to-site (S2S) VPN connection to enable access to your on-premises network from your VPC. The AWS site-to-site VPN currently does not support IPv6 traffic connection but does support IPSec VPN connections.</p>
+<h4 class="h4" id="ch3lev2sec15">Point-to-Site Virtual Private Network</h4>
+<p class="noindent">You need a point-to-site (P2S) VPN gateway connection if you want to securely access the instances in your VPC from either your laptop or from a client computer. You can establish a P2S connection by starting it from your computer. This solution is useful for anyone who has had to connect to the instances in the AWS VPC from a remote location, like from home or from a conference room or from another public location. When you have only a few clients that need to connect to a VPC, P2S VPN is a useful solution to use instead of S2S VPN.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   The steps to create the point-to-site VPN connection are in the “Additional Resources” section.</p>
+</div>
+<h4 class="h4" id="ch3lev2sec16">Direct Connect</h4>
+<p class="noindent">AWS Direct Connect uses a standard Ethernet fiber-optic cable to link your internal network to an AWS Direct Connect location. You will be connecting one end of the cable to your router and the other end to an AWS Direct Connect router. You can create a public virtual interface to access public services, like Amazon S3, and a private virtual interface to access your VPC, bypassing the Internet service providers (ISPs) in your network.</p>
+<p class="indent">You will be using single-mode fiber with a 1000BASE-LX (1310 nm) transceiver for 1 gigabit Ethernet or a 10GBASE-LR (1310 nm) transceiver for 10 gigabit Ethernet and work with an AWS Direct Connect partner to create a dedicated 1 Gbps or 10 Gbps connection. Auto-negotiation for the port must be disabled, and the port speed, along with full-duplex mode, must be configured manually. Your connection, including intermediate devices, must support 802.1Q virtual area network (VLAN) encapsulation. Your device must support the Border Gateway Protocol (BGP) and BGP MD5 authentication. You can also get hosted connections of 50 Mbps, 100 Mbps, 200 Mbps, 300 Mbps, 400 Mbps, 500 Mbps, 1 Gbps, 2 Gbps, 5 Gbps, and 10 Gbps through working with an independent service provider who is an AWS Direct Connect partner. AWS Direct Connect supports both IPv4 and IPv6 communication protocols, and the IPv6 addresses are accessible through AWS Direct Connect public virtual interfaces.</p>
+<h4 class="h4" id="ch3lev2sec17"><span epub:type="pagebreak" id="page_91"/>Transit Gateways</h4>
+<p class="noindent">In order to connect your VPC and on-premises networks, you need a transit gateway, which is a network transit hub. You can attach a VPN connection, an AWS Direct Connect gateway, or a VPC to a transit gateway. It has a default route table that includes dynamic and static routes, and it decides the next hop based on the destination IP address of the packet.</p>
+<p class="indent">You must create static routes to peer two transit gateways and route traffic between them. The routes are propagated from the transit gateway to your on-premises router using BGP in the VPN connection. The following are some use cases of a transit gateway.</p>
+<h5 class="h5">Centralized Router</h5>
+<p class="noindent">The transit gateway can be configured as a centralized router that connects all of your VPCs and VPN connections. In this use case, all the attachments can route packets to each other, and the transit gateway serves as a simple layer 3 IP hub.</p>
+<h5 class="h5">Isolated Routers</h5>
+<p class="noindent">The transit gateway can be configured as multiple isolated routers, similar to using multiple transit gateways. This provides more flexibility in scenarios where the routes and attachments might change. In this use case, each isolated router has a single route table, so it cannot route packets to or receive packets from the attachments for another isolated router, but the attachments associated with one isolated router can route packets to each other.</p>
+<h5 class="h5">Edge Consolidator</h5>
+<p class="noindent">The transit gateway can be configured to route packets to one or more VPN connections but your VPCs cannot route packets to each other. In this use case, you can create a route table for the VPN connections and a route table for the VPCs.</p>
+<h3 class="h3" id="ch3lev1sec2">Chapter Review</h3>
+<p class="noindent">This chapter introduced the AWS Virtual Private Cloud (VPC) and its components. VPC is the networking layer that enables you to launch AWS resources into a logically isolated virtual network. A VPC subnet resides entirely within one availability zone and cannot span across zones. A subnet is called public when its traffic is routed to an Internet gateway, and it is called private when it doesn’t have a route to the Internet gateway. A route table has a set of rules that are used to determine where network traffic is directed. The route table controls the routing for the subnet, so all your subnets in a VPC must be associated with a route table. You can add another layer of security using a network access control list to your VPC, which acts as a firewall controlling traffic in and out of one or more subnets by allowing all the inbound and outbound IPv4 traffic and, if applicable, IPv6 traffic. Security groups act at the instance level, and NACLs act at the subnet level. A different set of security groups can be assigned to each instance in a subnet of your VPC. An Internet gateway allows communication between the Internet and instances in <span epub:type="pagebreak" id="page_92"/>your VPC. It performs network address translation (NAT) for instances that have not been assigned public IPv4 addresses and also provides a target in your VPC route tables for Internet-routable traffic. The options field of a Dynamic Host Configuration Protocol (DHCP) message contains the configuration parameters and provides a standard for sending configuration details to hosts on the TCP/IP network. An elastic IP address is a public static address that you will be able to associate with an instance or network interface for any of your account VPCs.</p>
+<p class="indent">A VPC endpoint service is powered by Private Link, and it enables you to privately connect your VPC to supported AWS services using the Amazon network. A NAT device is used to enable instances in a private subnet to connect to the Internet but prevents the Internet from initiating connections with the instances. An egress-only Internet gateway allows outbound communication over IPv6 from instances from your VPC to the Internet, and it prevents the Internet from initiating an IPv6 connection with your instances. A VPC peering connection routes the traffic between your own VPCs or with a VPC in another AWS account, or with a VPC in a different AWS region privately, where instances in both VPCs can communicate with each other as if they are in the same network. A virtual private gateway is a VPN concentrator attached to your VPC on the AWS side. A customer gateway is a software application or physical device on the client side of the site-to-site VPN connection that provides information to AWS about your customer gateway device. A site-to-site VPN connection allows access to your on-premises network from your VPC using Internet Protocol security (IPSec). A point-to-site (P2S) VPN gateway connection allows access to the instances in your VPC from your individual laptop or from a client computer. AWS Direct Connect uses a standard Ethernet fiber-optic cable to link your internal network to an AWS Direct Connect location. You connect one end of the cable to your router and the other end to an AWS Direct Connect router. AWS Direct Connect allows you to use a dedicated private network connection between your on-premises network and one of the AWS Direct Connect locations. A transit gateway is a network transit hub that you can attach to a VPN connection, an AWS Direct Connect gateway, or a VPC.</p>
+<h4 class="h4" id="ch3lev2sec18">Exercises</h4>
+<p class="noindent">The following exercises will help you practice creating a VPC and related services. You need to create an AWS account, as explained earlier in this chapter, in order to perform the exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate this at the end.</p>
+<h5 class="h5">Exercise 3-1: Create a VPC Using the AWS Management Console</h5>
+<p class="noindent">Let’s jump into action and create a custom VPC with an IPv4 CIDR block. You can use the Amazon VPC wizard in the Amazon VPC console to create a VPC. The wizard creates a VPC with a /16 IPv4 CIDR block, which creates 65,536 private IP addresses with a /24 public subnet with 256 public IP addresses, as well as a /24 private subnet with 256 private IP addresses. It also attaches an Internet gateway to the VPC. It then creates a custom route table and associates it with your subnets so that traffic can flow between the subnet and the Internet gateway.</p>
+<p class="numbert"><strong>1.</strong> <span epub:type="pagebreak" id="page_93"/>First log in to your AWS account by entering your AWS account username and password, and you will see the AWS Management Console page.</p>
+<p class="image"><img alt="Images" src="f0093-01.jpg"/></p>
+<p class="number"><strong>2.</strong> You can access all AWS services from this main AWS console page. You can search for a particular service below Find Services or select from Recently Visited Services if you used that service before, or you can go to All Services and select from the list of services. Use one of the methods to select VPC, and you will be directed to the VPC console page.</p>
+<p class="image"><img alt="Images" src="f0093-02.jpg"/></p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_94"/>This VPC dashboard page will list all the VPC resources that you are currently using in this region, and you can navigate to them by selecting from the list. You can either create a VPC manually or use the VPC wizard, which takes care of the related services and provides them for you. I recommend using the VPC wizard for beginners and manual VPC creation for experienced users. We are going to create our first VPC using the VPC wizard, so select Launch VPC Wizard from the VPC dashboard and it will take us to the main page of VPC wizard.</p>
+<p class="image"><img alt="Images" src="f0094-01.jpg"/></p>
+<p class="number"><strong>4.</strong> We are going to select the second option from the left pane, as you did in the first step, to create another VPC with one Public subnet and one Private subnet.</p>
+<p class="image"><img alt="Images" src="f0094-02.jpg"/></p>
+<p class="number"><strong>5.</strong> <span epub:type="pagebreak" id="page_95"/>In the next step, you can provide the CIDR range for VPC, Name, Public and Private Subnet CIDR, and Availability Zone (if required) and attach an elastic IP.</p>
+<p class="image"><img alt="Images" src="f0095-01.jpg"/></p>
+<p class="number"><strong>6.</strong> After verifying all the details, click the Create VPC button. All the related services that you need for a VPC are created.</p>
+<p class="image"><img alt="Images" src="f0095-02.jpg"/></p>
+<p class="number"><strong>7.</strong> From the VPC console, select Your VPCs from the menu on the left, and here you can see all the details about the VPC in the Description tab.</p>
+<p class="image"><img alt="Images" src="f0095-03.jpg"/></p>
+<p class="number"><strong>8.</strong> <span epub:type="pagebreak" id="page_96"/>Select Subnets from the VPC console, and you will see the list of subnets in your AWS account. Select Private Subnet, and you can see 251 available IP addresses because AWS reserves 5 IP addresses from the total 256 IP addresses.</p>
+<p class="image"><img alt="Images" src="f0096-01.jpg"/></p>
+<p class="number"><strong>9.</strong> You can select My Public Subnet, as shown here, and you can see Subnet ID, Availability Zone, Network ACL, Route Table, and other details.</p>
+<p class="image"><img alt="Images" src="f0096-02.jpg"/></p>
+<p class="number1"><strong>10.</strong> <span epub:type="pagebreak" id="page_97"/>Now select Route Tables from the list and see the subnet’s associated details.</p>
+<p class="image"><img alt="Images" src="f0097-01.jpg"/></p>
+<p class="number1"><strong>11.</strong> Select the next route table in the list.</p>
+<p class="image"><img alt="Images" src="f0097-02.jpg"/></p>
+<p class="number1"><strong>12.</strong> <span epub:type="pagebreak" id="page_98"/>Select Internet Gateways from the list, which are attached to the VPC.</p>
+<p class="image"><img alt="Images" src="f0098-01.jpg"/></p>
+<p class="number1"><strong>13.</strong> Select DHCP Option Sets from the list on the left side of your VPC console, and you will see the default option set provided by AWS.</p>
+<p class="image"><img alt="Images" src="f0098-02.jpg"/></p>
+<p class="number1"><strong>14.</strong> <span epub:type="pagebreak" id="page_99"/>Select Elastic IPs.</p>
+<p class="image"><img alt="Images" src="f0099-01.jpg"/></p>
+<p class="number1"><strong>15.</strong> Select NAT Gateways from the list.</p>
+<p class="image"><img alt="Images" src="f0099-02.jpg"/></p>
+<p class="number1"><strong>16.</strong> <span epub:type="pagebreak" id="page_100"/>Select Network ACL from the list, and you can see the inbound and outbound rules.</p>
+<p class="image"><img alt="Images" src="f0100-01.jpg"/></p>
+<p class="number1"><strong>17.</strong> Select the Inbound Rules tab to see these rules.</p>
+<p class="image"><img alt="Images" src="f0100-02.jpg"/></p>
+<p class="number1"><strong>18.</strong> <span epub:type="pagebreak" id="page_101"/>Select the Outbound Rules tab to see those rules.</p>
+<p class="image"><img alt="Images" src="f0101-01.jpg"/></p>
+<p class="number1"><strong>19.</strong> Select the Subnet Associations tab in the Network ACL, as shown here:</p>
+<p class="image"><img alt="Images" src="f0101-02.jpg"/></p>
+<p class="number1"><strong>20.</strong> <span epub:type="pagebreak" id="page_102"/>The VPC architecture diagram shows all the VPC and subnet details.</p>
+<p class="image"><img alt="Images" src="f0102-01.jpg"/></p>
+<h5 class="h5">Exercise 3-2: Add a Subnet to Your VPC Using the AWS Management Console</h5>
+<p class="noindent">The following steps explain how to add a new private or public subnet to your existing VPC.</p>
+<p class="numbert"><strong>1.</strong> Open the Amazon VPC console using the link <a href="https://console.aws.amazon.com/vpc/">https://console.aws.amazon.com/vpc/</a>.</p>
+<p class="number"><strong>2.</strong> Choose Subnets and then Create Subnet from the navigation pane.</p>
+<p class="number"><strong>3.</strong> You need to provide the Name tag, which is a name for your subnet. It creates a tag with a key of name and the value of subnet-name.</p>
+<p class="number"><strong>4.</strong> Then you need to choose the VPC for which you’re creating the subnet.</p>
+<p class="number"><strong>5.</strong> You can choose an availability zone or leave the default No Preference selected to let AWS choose it for you.</p>
+<p class="number"><strong>6.</strong> Then specify an IPv4 CIDR block for your subnet, like 10.0.10.0/23.</p>
+<p class="number"><strong>7.</strong> Verify all the input values and then choose Create Subnet.</p>
+<p class="number"><strong>8.</strong> This will be a private subnet if you don’t attach an Internet gateway to it, and it will be a public subnet when you attach an Internet gateway to it.</p>
+<h4 class="h4" id="ch3lev2sec19"><span epub:type="pagebreak" id="page_103"/>Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the VPC and the components explained in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best responses for each question.</p>
+<p class="numbert"><strong><a href="ch03.xhtml#rch03qa1" id="ch03qa1">1.</a></strong> Your client decided to move to AWS and asked you define the logically isolated virtual network in AWS using the predefined IP address range. Which of the following will you need to create to accomplish this?</p>
+<p class="alphau"><strong>A.</strong> Public subnet</p>
+<p class="alphau"><strong>B.</strong> Private subnet</p>
+<p class="alphau"><strong>C.</strong> Virtual private cloud</p>
+<p class="alphau"><strong>D.</strong> NAT gateway</p>
+<p class="number"><strong><a href="ch03.xhtml#rch03qa2" id="ch03qa2">2.</a></strong> You created the VPC using the given range of the CIDR block by your network team. However, your application become so popular that you need to add new features, high availability, and redundancy; your AWS architect asked you to increase the size of VPC. Is it possible to resize it?</p>
+<p class="alphau"><strong>A.</strong> Yes, it can be extended by adding four secondary IPV4 CIDR blocks.</p>
+<p class="alphau"><strong>B.</strong> No, it is not possible to resize IPv4 CIDR blocks, but you can resize IPv6 CIDR blocks.</p>
+<p class="alphau"><strong>C.</strong> No, it is not possible to resize the VPC.</p>
+<p class="alphau"><strong>D.</strong> Yes, it is possible to increase the size of VPC, but you cannot reduce it.</p>
+<p class="number"><strong><a href="ch03.xhtml#rch03qa3" id="ch03qa3">3.</a></strong> You are designing your AWS network and need to create the largest VPC and smallest VPC based on your application requirements. What are the largest and smallest IPv4 VPCs that you are allowed to create in AWS?</p>
+<p class="alphau"><strong>A.</strong> Largest /16 and smallest /30</p>
+<p class="alphau"><strong>B.</strong> Largest /8 and smallest /32</p>
+<p class="alphau"><strong>C.</strong> Largest /56 and smallest /64</p>
+<p class="alphau"><strong>D.</strong> Largest /16 and smallest /28</p>
+<p class="number"><strong><a href="ch03.xhtml#rch03qa4" id="ch03qa4">4.</a></strong> A user has created a VPC with one public subnet and one private subnet. The user wants to run the patch updates for the instances in the private subnet, but the instances are not able to connect to the Internet. How can the instances from the user’s private subnet connect to the Internet?</p>
+<p class="alphau"><strong>A.</strong> Attach the Internet Gateway to the private subnet</p>
+<p class="alphau"><strong>B.</strong> Allow inbound traffic for port 80 to allow Internet updates in the security group</p>
+<p class="alphau"><strong>C.</strong> Use a NAT gateway or NAT instance with an elastic IP</p>
+<p class="alphau"><strong>D.</strong> The instance on the private subnet can never connect to the Internet</p>
+<p class="number"><strong><a href="ch03.xhtml#rch03qa5" id="ch03qa5">5.</a></strong> <span epub:type="pagebreak" id="page_104"/>You client asked you to automatically provision the VPC and all its related components quickly, so you decided to use the VPC wizard in the AWS Management VPC console. What options are provided for you by default in the VPC wizard? (Choose all that apply.)</p>
+<p class="alphau"><strong>A.</strong> Amazon VPC with a single public subnet only</p>
+<p class="alphau"><strong>B.</strong> Amazon VPC with public and private subnets</p>
+<p class="alphau"><strong>C.</strong> Amazon VPC with public and private subnets and AWS site-to-site VPN access</p>
+<p class="alphau"><strong>D.</strong> Amazon VPC with a private subnet only and AWS site-to-site VPN access</p>
+<p class="number"><strong><a href="ch03.xhtml#rch03qa6" id="ch03qa6">6.</a></strong> VPC endpoints allow you to privately connect to your services from those hosted on the AWS VPC without requiring an Internet gateway, a NAT device, or VPN connection. What two types of endpoints are available in Amazon VPC? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> Site-to-site endpoints</p>
+<p class="alphau"><strong>B.</strong> Gateway endpoints</p>
+<p class="alphau"><strong>C.</strong> Interface endpoints</p>
+<p class="alphau"><strong>D.</strong> Point-to-site endpoints</p>
+<p class="number"><strong><a href="ch03.xhtml#rch03qa7" id="ch03qa7">7.</a></strong> Security groups in a VPC operate at the instance level, where you specify which traffic is allowed to or from an Amazon EC2 instance. NACLs operate at the subnet level and evaluate all the traffic entering and exiting a subnet. Which of the following is not true?</p>
+<p class="alphau"><strong>A.</strong> Security groups can be used to set both allow and deny rules.</p>
+<p class="alphau"><strong>B.</strong> NACLs do not filter traffic between instances in the same subnet.</p>
+<p class="alphau"><strong>C.</strong> NACLs perform stateless filtering, while security groups perform stateful filtering.</p>
+<p class="alphau"><strong>D.</strong> NACLs can be used to set both allow and deny rules.</p>
+<p class="number"><strong><a href="ch03.xhtml#rch03qa8" id="ch03qa8">8.</a></strong> True or False: Transitive peering relationships are supported in Amazon VPC peering. For example, if I peer VPC X to VPC Y and I peer VPC Y to VPC Z, does that mean VPCs X and Z are peered?</p>
+<p class="alphau"><strong>A.</strong> True</p>
+<p class="alphau"><strong>B.</strong> False</p>
+<p class="number"><strong><a href="ch03.xhtml#rch03qa9" id="ch03qa9">9.</a></strong> Which of the following is false about elastic IP address pricing?</p>
+<p class="alphau"><strong>A.</strong> You will not incur costs when the elastic IP address is associated with a running EC2 instance.</p>
+<p class="alphau"><strong>B.</strong> You will not incur costs when the elastic IP address is associated with a stopped EC2 instance.</p>
+<p class="alphau"><strong>C.</strong> You will not incur costs when the IP address is from a BYOIP address pool.</p>
+<p class="alphau"><strong>D.</strong> You will not incur costs when the instance has only one elastic IP address attached to it.</p>
+<p class="number1"><strong><a href="ch03.xhtml#rch03qa10" id="ch03qa10">10.</a></strong> <span epub:type="pagebreak" id="page_105"/>A user has created a VPC with two public subnets and three security groups. The user has launched an instance in a public subnet and attached an elastic IP. He is still unable to connect to that EC2 instance. The Internet gateway has also been created. What could be the reason for the connection error?</p>
+<p class="alphau"><strong>A.</strong> The Internet gateway is not configured with the route table to route traffic</p>
+<p class="alphau"><strong>B.</strong> The private IP is not present for the instance</p>
+<p class="alphau"><strong>C.</strong> Outbound traffic is disabled on the security group</p>
+<p class="alphau"><strong>D.</strong> Traffic is denied on the security group</p>
+<h4 class="h4" id="ch3lev2sec20">Answers</h4>
+<p class="number"><strong><a href="ch03.xhtml#ch03qa1" id="rch03qa1">1.</a> C.</strong> VPC logically isolates the virtual network in AWS using the predefined IP address range.</p>
+<p class="number"><strong><a href="ch03.xhtml#ch03qa2" id="rch03qa2">2.</a> A.</strong> Yes, the VPC can be extended by adding four secondary IPV4 CIDR blocks, and you can decrease your VPC by deleting those secondary CIDR blocks. However, you cannot change the size of the IPv6 address range of your VPC.</p>
+<p class="number"><strong><a href="ch03.xhtml#ch03qa3" id="rch03qa3">3.</a> D.</strong> AWS VPCs can vary in size from 16 addresses (/28 netmask), which is the smallest, to 65,536 addresses (/16 netmask), which is the largest.</p>
+<p class="number"><strong><a href="ch03.xhtml#ch03qa4" id="rch03qa4">4.</a> C.</strong> You need to use a NAT device (NAT gateway or NAT instance) to enable instances in a private subnet to connect to the Internet to do patching and software updates but it prevents the incoming traffic initiated from Internet with these instances.</p>
+<p class="number"><strong><a href="ch03.xhtml#ch03qa5" id="rch03qa5">5.</a> A, B, C, D.</strong> You can create four types of VPCs using the VPC wizard: Amazon VPC with a single public subnet only, Amazon VPC with public and private subnets, Amazon VPC with public and private subnets and AWS site-to-site VPN access, and Amazon VPC with a private subnet only and AWS site-to-site VPN access.</p>
+<p class="number"><strong><a href="ch03.xhtml#ch03qa6" id="rch03qa6">6.</a> B, C.</strong> Amazon VPC offers two types of endpoints: gateway endpoints and interface endpoints. Endpoints allow you to privately connect your VPC to your services hosted on AWS without requiring an Internet gateway, NAT device, or VPN connection.</p>
+<p class="number"><strong><a href="ch03.xhtml#ch03qa7" id="rch03qa7">7.</a> A.</strong> Security groups can be used to set only allow rules, not deny rules; however, network ACLs can be used to set both allow and deny rules.</p>
+<p class="number"><strong><a href="ch03.xhtml#ch03qa8" id="rch03qa8">8.</a> B.</strong> No, transitive peering relationships are not supported in AWS.</p>
+<p class="number"><strong><a href="ch03.xhtml#ch03qa9" id="rch03qa9">9.</a> B.</strong> False. You will incur costs when the elastic IP address is associated with a stopped EC2 instance.</p>
+<p class="number1"><strong><a href="ch03.xhtml#ch03qa10" id="rch03qa10">10.</a> A.</strong> You need to configure the Internet gateway with the route table to route traffic and then the user will be able to connect to the EC2 instance.</p>
+<h3 class="h3" id="ch3lev1sec3"><span epub:type="pagebreak" id="page_106"/>Additional Resources</h3>
+<p class="bulleta">• <strong>AWS Documentation/Blogs</strong>   There is no place like official AWS documentation to get the latest and most up-to-date information about all the AWS services and features.</p>
+<p class="bulletc"><img alt="images" src="p0106-01.jpg"/></p>
+<p class="bulleta">• <strong>VPC Sharing</strong>   Share subnets with other AWS accounts by decoupling accounts and networks within the same AWS organization. This blog explains in detail how to configure VPC sharing.</p>
+<p class="bulletc"><img alt="images" src="p0106-02.jpg"/></p>
+<p class="bulleta">• <strong>AWS Transit Gateway Migration</strong>   The AWS Transit Gateway is similar to a transit VPC where you can attach up to 5,000 VPCs and attach your AWS VPN connections. This blog explains transit gateway migration steps from your existing transit VPC solution to the AWS Transit Gateway service.</p>
+<p class="bulletc"><img alt="images" src="p0106-03.jpg"/></p>
+<p class="bulleta">• <strong>AWS Client VPN Setup</strong>   This is a fully managed service that provides the ability to securely access AWS and on-premises resources from any location using OpenVPN–based clients. This blog explains in detail how to configure client VPN setup.</p>
+<p class="bulletc"><img alt="images" src="p0106-04.jpg"/></p>
+<p class="bulleta">• <strong>OpenVPN Setup</strong>   This is a secure, open-source OpenVPN service, and this blog explains in detail how to deploy it using Amazon VPC and test some functionality.</p>
+<p class="bulletc"><img alt="images" src="p0106-05.jpg"/></p>
+<p class="bulleta">• <strong>Debug Network Connectivity of Amazon VPC</strong>   It is crucial to monitor the health and impact on performance, including latency and percentage of packet loss, across your network connectivity. This blog explains in detail how to configure AWSSupport-SetupIPMonitoringFromVPC to monitor these metrics.</p>
+<p class="bulletc"><img alt="images" src="p0106-06.jpg"/></p>
+</section>
+</body>
+</html>

@@ -1,0 +1,3971 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" xml:lang="en" version="2005-1">
+<head>
+<meta name="dtb:uid" content="1260460177"/>
+<meta name="dtb:depth" content="1"/>
+<meta name="dtb:totalPageCount" content="753"/>
+<meta name="dtb:maxPageNumber" content="753"/>
+</head>
+<docTitle>
+<text>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</text>
+</docTitle>
+<docAuthor>
+<text>Kamesh Ganesan</text>
+</docAuthor>
+<navMap>
+<navPoint id="i1" playOrder="1">
+<navLabel>
+<text>Cover</text>
+</navLabel>
+<content src="cover.xhtml"/>
+</navPoint>
+<navPoint id="i2" playOrder="2">
+<navLabel>
+<text>About the Author</text>
+</navLabel>
+<content src="about.xhtml"/>
+</navPoint>
+<navPoint id="i3" playOrder="3">
+<navLabel>
+<text>Title Page</text>
+</navLabel>
+<content src="title.xhtml"/>
+</navPoint>
+<navPoint id="i4" playOrder="4">
+<navLabel>
+<text>Copyright Page</text>
+</navLabel>
+<content src="copy.xhtml"/>
+</navPoint>
+<navPoint id="i5" playOrder="5">
+<navLabel>
+<text>Dedication</text>
+</navLabel>
+<content src="dedic.xhtml#dedic"/>
+</navPoint>
+<navPoint id="i6" playOrder="6">
+<navLabel>
+<text>Contents at a Glance</text>
+</navLabel>
+<content src="btoc.xhtml#btoc"/>
+</navPoint>
+<navPoint id="i7" playOrder="7">
+<navLabel>
+<text>Contents</text>
+</navLabel>
+<content src="toc.xhtml#toc"/>
+</navPoint>
+<navPoint id="i8" playOrder="8">
+<navLabel>
+<text>Acknowledgments</text>
+</navLabel>
+<content src="ack.xhtml#ack"/>
+</navPoint>
+<navPoint id="i9" playOrder="9">
+<navLabel>
+<text>Introduction</text>
+</navLabel>
+<content src="intro.xhtml#intro"/>
+</navPoint>
+<navPoint id="i10" playOrder="10">
+<navLabel>
+<text>Part I Getting Started on the AWS Journey</text>
+</navLabel>
+<content src="ch00_fm09_part1.xhtml#part1"/>
+<navPoint id="i11" playOrder="11">
+<navLabel>
+<text>Chapter 1 Overview of Cloud Computing and AWS</text>
+</navLabel>
+<content src="ch01.xhtml#ch1"/>
+<navPoint id="i12" playOrder="12">
+<navLabel>
+<text>Cloud Computing Overview</text>
+</navLabel>
+<content src="ch01.xhtml#ch1lev1sec1"/>
+<navPoint id="i13" playOrder="13">
+<navLabel>
+<text>Cloud Computing Benefits</text>
+</navLabel>
+<content src="ch01.xhtml#ch1lev2sec1"/>
+</navPoint>
+<navPoint id="i14" playOrder="14">
+<navLabel>
+<text>Cloud Deployment Models: IaaS, STaaS, PaaS, DaaS, FaaS, SaaS</text>
+</navLabel>
+<content src="ch01.xhtml#ch1lev2sec2"/>
+</navPoint>
+<navPoint id="i15" playOrder="15">
+<navLabel>
+<text>Cloud Services Types: Public, Private, Hybrid, and Community</text>
+</navLabel>
+<content src="ch01.xhtml#ch1lev2sec3"/>
+</navPoint>
+</navPoint>
+<navPoint id="i16" playOrder="16">
+<navLabel>
+<text>AWS History</text>
+</navLabel>
+<content src="ch01.xhtml#ch1lev1sec2"/>
+<navPoint id="i17" playOrder="17">
+<navLabel>
+<text>AWS Regions and Availability Zones</text>
+</navLabel>
+<content src="ch01.xhtml#ch1lev2sec4"/>
+</navPoint>
+<navPoint id="i18" playOrder="18">
+<navLabel>
+<text>AWS Services</text>
+</navLabel>
+<content src="ch01.xhtml#ch1lev2sec5"/>
+</navPoint>
+</navPoint>
+<navPoint id="i19" playOrder="19">
+<navLabel>
+<text>AWS in Action</text>
+</navLabel>
+<content src="ch01.xhtml#ch1lev1sec3"/>
+</navPoint>
+<navPoint id="i20" playOrder="20">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch01.xhtml#ch1lev1sec4"/>
+<navPoint id="i21" playOrder="21">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch01.xhtml#ch1lev2sec6"/>
+</navPoint>
+<navPoint id="i22" playOrder="22">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch01.xhtml#ch1lev2sec7"/>
+</navPoint>
+</navPoint>
+<navPoint id="i23" playOrder="23">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch01.xhtml#ch1lev1sec5"/>
+</navPoint>
+</navPoint>
+<navPoint id="i24" playOrder="24">
+<navLabel>
+<text>Chapter 2 Interacting with AWS Using API, SDK, and CLI</text>
+</navLabel>
+<content src="ch02.xhtml#ch2"/>
+<navPoint id="i25" playOrder="25">
+<navLabel>
+<text>Create a New AWS Account</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev1sec1"/>
+<navPoint id="i26" playOrder="26">
+<navLabel>
+<text>Explore AWS Free Tiers</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec1"/>
+</navPoint>
+</navPoint>
+<navPoint id="i27" playOrder="27">
+<navLabel>
+<text>AWS Management Console</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev1sec2"/>
+</navPoint>
+<navPoint id="i28" playOrder="28">
+<navLabel>
+<text>AWS Command Line Interface</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev1sec3"/>
+<navPoint id="i29" playOrder="29">
+<navLabel>
+<text>Installing and Setting Up a Profile in the AWS CLI</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec2"/>
+</navPoint>
+<navPoint id="i30" playOrder="30">
+<navLabel>
+<text>Getting Help with CLI Commands</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec3"/>
+</navPoint>
+<navPoint id="i31" playOrder="31">
+<navLabel>
+<text>Working with EC2 Key Pairs Using the AWS CLI</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec4"/>
+</navPoint>
+<navPoint id="i32" playOrder="32">
+<navLabel>
+<text>Creating Security Groups Using the AWS CLI</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec5"/>
+</navPoint>
+<navPoint id="i33" playOrder="33">
+<navLabel>
+<text>Launching an Instance Using the AWS CLI</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec6"/>
+</navPoint>
+<navPoint id="i34" playOrder="34">
+<navLabel>
+<text>Creating an S3 Bucket Using the AWS CLI</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec7"/>
+</navPoint>
+</navPoint>
+<navPoint id="i35" playOrder="35">
+<navLabel>
+<text>AWS Software Development Kit</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev1sec4"/>
+<navPoint id="i36" playOrder="36">
+<navLabel>
+<text>AWS SDK for Java 2.0</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec8"/>
+</navPoint>
+<navPoint id="i37" playOrder="37">
+<navLabel>
+<text>AWS SDK for .NET</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec9"/>
+</navPoint>
+</navPoint>
+<navPoint id="i38" playOrder="38">
+<navLabel>
+<text>AWS Tools for PowerShell</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev1sec5"/>
+<navPoint id="i39" playOrder="39">
+<navLabel>
+<text>In Windows</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec10"/>
+</navPoint>
+<navPoint id="i40" playOrder="40">
+<navLabel>
+<text>On Linux and macOSX</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec11"/>
+</navPoint>
+</navPoint>
+<navPoint id="i41" playOrder="41">
+<navLabel>
+<text>AWS Serverless Application Model</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev1sec6"/>
+<navPoint id="i42" playOrder="42">
+<navLabel>
+<text>Using the AWS SAM CLI</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec12"/>
+</navPoint>
+<navPoint id="i43" playOrder="43">
+<navLabel>
+<text>Installing Docker on Linux</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec13"/>
+</navPoint>
+</navPoint>
+<navPoint id="i44" playOrder="44">
+<navLabel>
+<text>AWS IDE Toolkits</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev1sec7"/>
+<navPoint id="i45" playOrder="45">
+<navLabel>
+<text>The AWS Toolkit for Eclipse</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec14"/>
+</navPoint>
+<navPoint id="i46" playOrder="46">
+<navLabel>
+<text>The Toolkit for Visual Studio</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec15"/>
+</navPoint>
+<navPoint id="i47" playOrder="47">
+<navLabel>
+<text>AWS Tools for Visual Studio Team Services</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec16"/>
+</navPoint>
+</navPoint>
+<navPoint id="i48" playOrder="48">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev1sec8"/>
+<navPoint id="i49" playOrder="49">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec17"/>
+</navPoint>
+<navPoint id="i50" playOrder="50">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec18"/>
+</navPoint>
+<navPoint id="i51" playOrder="51">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev2sec19"/>
+</navPoint>
+</navPoint>
+<navPoint id="i52" playOrder="52">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch02.xhtml#ch2lev1sec9"/>
+</navPoint>
+</navPoint>
+<navPoint id="i53" playOrder="53">
+<navLabel>
+<text>Chapter 3 Networking Using Amazon Virtual Private Cloud</text>
+</navLabel>
+<content src="ch03.xhtml#ch3"/>
+<navPoint id="i54" playOrder="54">
+<navLabel>
+<text>Amazon Virtual Private Cloud</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev1sec1"/>
+<navPoint id="i55" playOrder="55">
+<navLabel>
+<text>Subnets</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec1"/>
+</navPoint>
+<navPoint id="i56" playOrder="56">
+<navLabel>
+<text>Route Tables</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec2"/>
+</navPoint>
+<navPoint id="i57" playOrder="57">
+<navLabel>
+<text>Network Access Control Lists</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec3"/>
+</navPoint>
+<navPoint id="i58" playOrder="58">
+<navLabel>
+<text>Security Groups</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec4"/>
+</navPoint>
+<navPoint id="i59" playOrder="59">
+<navLabel>
+<text>Internet Gateways</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec5"/>
+</navPoint>
+<navPoint id="i60" playOrder="60">
+<navLabel>
+<text>Dynamic Host Configuration Protocol Option Sets</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec6"/>
+</navPoint>
+<navPoint id="i61" playOrder="61">
+<navLabel>
+<text>Elastic Internet Protocols</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec7"/>
+</navPoint>
+<navPoint id="i62" playOrder="62">
+<navLabel>
+<text>Endpoints</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec8"/>
+</navPoint>
+<navPoint id="i63" playOrder="63">
+<navLabel>
+<text>Network Address Translation Devices</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec9"/>
+</navPoint>
+<navPoint id="i64" playOrder="64">
+<navLabel>
+<text>Egress-Only Internet Gateways</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec10"/>
+</navPoint>
+<navPoint id="i65" playOrder="65">
+<navLabel>
+<text>Peering Connections</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec11"/>
+</navPoint>
+<navPoint id="i66" playOrder="66">
+<navLabel>
+<text>Virtual Private Gateways</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec12"/>
+</navPoint>
+<navPoint id="i67" playOrder="67">
+<navLabel>
+<text>Customer Gateways</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec13"/>
+</navPoint>
+<navPoint id="i68" playOrder="68">
+<navLabel>
+<text>Site-to-Site Virtual Private Network</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec14"/>
+</navPoint>
+<navPoint id="i69" playOrder="69">
+<navLabel>
+<text>Point-to-Site Virtual Private Network</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec15"/>
+</navPoint>
+<navPoint id="i70" playOrder="70">
+<navLabel>
+<text>Direct Connect</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec16"/>
+</navPoint>
+<navPoint id="i71" playOrder="71">
+<navLabel>
+<text>Transit Gateways</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec17"/>
+</navPoint>
+</navPoint>
+<navPoint id="i72" playOrder="72">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev1sec2"/>
+<navPoint id="i73" playOrder="73">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec18"/>
+</navPoint>
+<navPoint id="i74" playOrder="74">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec19"/>
+</navPoint>
+<navPoint id="i75" playOrder="75">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev2sec20"/>
+</navPoint>
+</navPoint>
+<navPoint id="i76" playOrder="76">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch03.xhtml#ch3lev1sec3"/>
+</navPoint>
+</navPoint>
+<navPoint id="i77" playOrder="77">
+<navLabel>
+<text>Chapter 4 Creating a Virtual Machine Using Amazon EC2</text>
+</navLabel>
+<content src="ch04.xhtml#ch4"/>
+<navPoint id="i78" playOrder="78">
+<navLabel>
+<text>Elastic Compute Cloud</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev1sec1"/>
+</navPoint>
+<navPoint id="i79" playOrder="79">
+<navLabel>
+<text>Amazon Machine Image</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev1sec2"/>
+<navPoint id="i80" playOrder="80">
+<navLabel>
+<text>Bundle Tasks</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec1"/>
+</navPoint>
+<navPoint id="i81" playOrder="81">
+<navLabel>
+<text>Root Device Types</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec2"/>
+</navPoint>
+<navPoint id="i82" playOrder="82">
+<navLabel>
+<text>The AWS Marketplace</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec3"/>
+</navPoint>
+<navPoint id="i83" playOrder="83">
+<navLabel>
+<text>AMIs Generated from Existing Instances</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec4"/>
+</navPoint>
+</navPoint>
+<navPoint id="i84" playOrder="84">
+<navLabel>
+<text>Tenancy Options</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev1sec3"/>
+<navPoint id="i85" playOrder="85">
+<navLabel>
+<text>Shared Tenancy</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec5"/>
+</navPoint>
+<navPoint id="i86" playOrder="86">
+<navLabel>
+<text>Dedicated Tenancy</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec6"/>
+</navPoint>
+</navPoint>
+<navPoint id="i87" playOrder="87">
+<navLabel>
+<text>Instance Types</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev1sec4"/>
+<navPoint id="i88" playOrder="88">
+<navLabel>
+<text>General Purpose</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec7"/>
+</navPoint>
+<navPoint id="i89" playOrder="89">
+<navLabel>
+<text>Compute Optimized</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec8"/>
+</navPoint>
+<navPoint id="i90" playOrder="90">
+<navLabel>
+<text>Memory Optimized</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec9"/>
+</navPoint>
+<navPoint id="i91" playOrder="91">
+<navLabel>
+<text>Storage Optimized</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec10"/>
+</navPoint>
+<navPoint id="i92" playOrder="92">
+<navLabel>
+<text>Accelerated Computing</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec11"/>
+</navPoint>
+</navPoint>
+<navPoint id="i93" playOrder="93">
+<navLabel>
+<text>Pricing Model for EC2</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev1sec5"/>
+<navPoint id="i94" playOrder="94">
+<navLabel>
+<text>On-Demand</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec12"/>
+</navPoint>
+<navPoint id="i95" playOrder="95">
+<navLabel>
+<text>Spot Instances</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec13"/>
+</navPoint>
+<navPoint id="i96" playOrder="96">
+<navLabel>
+<text>Reserved Instances</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec14"/>
+</navPoint>
+<navPoint id="i97" playOrder="97">
+<navLabel>
+<text>Dedicated Hosts</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec15"/>
+</navPoint>
+</navPoint>
+<navPoint id="i98" playOrder="98">
+<navLabel>
+<text>EC2 Instance Virtualization Types</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev1sec6"/>
+<navPoint id="i99" playOrder="99">
+<navLabel>
+<text>HVM AMIs</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec16"/>
+</navPoint>
+<navPoint id="i100" playOrder="100">
+<navLabel>
+<text>PV AMIs</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec17"/>
+</navPoint>
+</navPoint>
+<navPoint id="i101" playOrder="101">
+<navLabel>
+<text>Storage Options for Amazon EC2</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev1sec7"/>
+<navPoint id="i102" playOrder="102">
+<navLabel>
+<text>Instance Store&#8211;Backed Instances</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec18"/>
+</navPoint>
+<navPoint id="i103" playOrder="103">
+<navLabel>
+<text>Amazon EBS&#8211;Backed Instances</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec19"/>
+</navPoint>
+</navPoint>
+<navPoint id="i104" playOrder="104">
+<navLabel>
+<text>The EC2 Instance Lifecycle</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev1sec8"/>
+<navPoint id="i105" playOrder="105">
+<navLabel>
+<text>Launching</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec20"/>
+</navPoint>
+<navPoint id="i106" playOrder="106">
+<navLabel>
+<text>Bootstrapping</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec21"/>
+</navPoint>
+<navPoint id="i107" playOrder="107">
+<navLabel>
+<text>VM Import/Export</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec22"/>
+</navPoint>
+<navPoint id="i108" playOrder="108">
+<navLabel>
+<text>Instance Recovery</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec23"/>
+</navPoint>
+<navPoint id="i109" playOrder="109">
+<navLabel>
+<text>Instance Metadata</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec24"/>
+</navPoint>
+<navPoint id="i110" playOrder="110">
+<navLabel>
+<text>Instance Stop and Restart</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec25"/>
+</navPoint>
+<navPoint id="i111" playOrder="111">
+<navLabel>
+<text>Instance Hibernate</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec26"/>
+</navPoint>
+<navPoint id="i112" playOrder="112">
+<navLabel>
+<text>Instance Reboot</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec27"/>
+</navPoint>
+<navPoint id="i113" playOrder="113">
+<navLabel>
+<text>Instance Retirement</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec28"/>
+</navPoint>
+<navPoint id="i114" playOrder="114">
+<navLabel>
+<text>Instance Termination</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec29"/>
+</navPoint>
+</navPoint>
+<navPoint id="i115" playOrder="115">
+<navLabel>
+<text>Generating Security Keys</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev1sec9"/>
+</navPoint>
+<navPoint id="i116" playOrder="116">
+<navLabel>
+<text>Launching an Amazon EC2</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev1sec10"/>
+<navPoint id="i117" playOrder="117">
+<navLabel>
+<text>Creating an Amazon EC2 Instance</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec30"/>
+</navPoint>
+<navPoint id="i118" playOrder="118">
+<navLabel>
+<text>Connecting to the Amazon EC2 Instance Using SSH</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec31"/>
+</navPoint>
+<navPoint id="i119" playOrder="119">
+<navLabel>
+<text>Connecting to an Amazon EC2 Instance Using a PuTTY Session</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec32"/>
+</navPoint>
+</navPoint>
+<navPoint id="i120" playOrder="120">
+<navLabel>
+<text>Security Groups that Protect the Instances</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev1sec11"/>
+</navPoint>
+<navPoint id="i121" playOrder="121">
+<navLabel>
+<text>Best Practices for Amazon EC2</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev1sec12"/>
+</navPoint>
+<navPoint id="i122" playOrder="122">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev1sec13"/>
+<navPoint id="i123" playOrder="123">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec33"/>
+</navPoint>
+<navPoint id="i124" playOrder="124">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec34"/>
+</navPoint>
+<navPoint id="i125" playOrder="125">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev2sec35"/>
+</navPoint>
+</navPoint>
+<navPoint id="i126" playOrder="126">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch04.xhtml#ch4lev1sec14"/>
+</navPoint>
+</navPoint>
+</navPoint>
+<navPoint id="i127" playOrder="127">
+<navLabel>
+<text>Part II AWS High Availability and Fault Tolerance</text>
+</navLabel>
+<content src="ch04_part2.xhtml#part2"/>
+<navPoint id="i128" playOrder="128">
+<navLabel>
+<text>Chapter 5 Elastic Load Balancing and Auto Scaling</text>
+</navLabel>
+<content src="ch05.xhtml#ch5"/>
+<navPoint id="i129" playOrder="129">
+<navLabel>
+<text>Elastic Load Balancing</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec1"/>
+</navPoint>
+<navPoint id="i130" playOrder="130">
+<navLabel>
+<text>Types of Elastic Load Balancers</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec2"/>
+<navPoint id="i131" playOrder="131">
+<navLabel>
+<text>Application Load Balancer</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec1"/>
+</navPoint>
+<navPoint id="i132" playOrder="132">
+<navLabel>
+<text>Network Load Balancer</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec2"/>
+</navPoint>
+<navPoint id="i133" playOrder="133">
+<navLabel>
+<text>Classic Load Balancer</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec3"/>
+</navPoint>
+</navPoint>
+<navPoint id="i134" playOrder="134">
+<navLabel>
+<text>Elastic Load Balancing Concepts</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec3"/>
+<navPoint id="i135" playOrder="135">
+<navLabel>
+<text>Load Balancer Subnets</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec4"/>
+</navPoint>
+<navPoint id="i136" playOrder="136">
+<navLabel>
+<text>Load Balancer Security Groups</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec5"/>
+</navPoint>
+<navPoint id="i137" playOrder="137">
+<navLabel>
+<text>Load Balancer States</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec6"/>
+</navPoint>
+<navPoint id="i138" playOrder="138">
+<navLabel>
+<text>Deletion Protection</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec7"/>
+</navPoint>
+<navPoint id="i139" playOrder="139">
+<navLabel>
+<text>Connection Idle Timeout</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec8"/>
+</navPoint>
+</navPoint>
+<navPoint id="i140" playOrder="140">
+<navLabel>
+<text>Load Balancer Listeners</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec4"/>
+<navPoint id="i141" playOrder="141">
+<navLabel>
+<text>Listener Configuration</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec9"/>
+</navPoint>
+<navPoint id="i142" playOrder="142">
+<navLabel>
+<text>Listener Rules</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec10"/>
+</navPoint>
+<navPoint id="i143" playOrder="143">
+<navLabel>
+<text>Rule Condition Types</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec11"/>
+</navPoint>
+</navPoint>
+<navPoint id="i144" playOrder="144">
+<navLabel>
+<text>Load Balancer Target Groups</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec5"/>
+<navPoint id="i145" playOrder="145">
+<navLabel>
+<text>Routing Configuration</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec12"/>
+</navPoint>
+<navPoint id="i146" playOrder="146">
+<navLabel>
+<text>Target Type</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec13"/>
+</navPoint>
+<navPoint id="i147" playOrder="147">
+<navLabel>
+<text>Registered Targets</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec14"/>
+</navPoint>
+<navPoint id="i148" playOrder="148">
+<navLabel>
+<text>Deregistration Delay</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec15"/>
+</navPoint>
+<navPoint id="i149" playOrder="149">
+<navLabel>
+<text>Slow Start Mode</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec16"/>
+</navPoint>
+<navPoint id="i150" playOrder="150">
+<navLabel>
+<text>Sticky Sessions</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec17"/>
+</navPoint>
+</navPoint>
+<navPoint id="i151" playOrder="151">
+<navLabel>
+<text>Load Balancer Monitoring</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec6"/>
+</navPoint>
+<navPoint id="i152" playOrder="152">
+<navLabel>
+<text>Elastic Load Balancer Best Practices</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec7"/>
+</navPoint>
+<navPoint id="i153" playOrder="153">
+<navLabel>
+<text>Amazon EC2 Auto Scaling</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec8"/>
+<navPoint id="i154" playOrder="154">
+<navLabel>
+<text>Advantages of Auto Scaling</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec18"/>
+</navPoint>
+<navPoint id="i155" playOrder="155">
+<navLabel>
+<text>The EC2 Auto Scaling Lifecycle</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec19"/>
+</navPoint>
+<navPoint id="i156" playOrder="156">
+<navLabel>
+<text>Scale Out and In</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec20"/>
+</navPoint>
+<navPoint id="i157" playOrder="157">
+<navLabel>
+<text>Attach and Detach</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec21"/>
+</navPoint>
+<navPoint id="i158" playOrder="158">
+<navLabel>
+<text>Lifecycle Hooks</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec22"/>
+</navPoint>
+<navPoint id="i159" playOrder="159">
+<navLabel>
+<text>Enter and Exit Standby</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec23"/>
+</navPoint>
+</navPoint>
+<navPoint id="i160" playOrder="160">
+<navLabel>
+<text>Launch Templates</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec9"/>
+</navPoint>
+<navPoint id="i161" playOrder="161">
+<navLabel>
+<text>Launch Configurations</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec10"/>
+</navPoint>
+<navPoint id="i162" playOrder="162">
+<navLabel>
+<text>Auto Scaling Groups</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec11"/>
+<navPoint id="i163" playOrder="163">
+<navLabel>
+<text>Scaling the Size</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec24"/>
+</navPoint>
+</navPoint>
+<navPoint id="i164" playOrder="164">
+<navLabel>
+<text>Maintaining the Number of Instances</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec12"/>
+<navPoint id="i165" playOrder="165">
+<navLabel>
+<text>Manual Scaling</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec25"/>
+</navPoint>
+<navPoint id="i166" playOrder="166">
+<navLabel>
+<text>Scheduled Scaling</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec26"/>
+</navPoint>
+<navPoint id="i167" playOrder="167">
+<navLabel>
+<text>Dynamic Scaling</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec27"/>
+</navPoint>
+<navPoint id="i168" playOrder="168">
+<navLabel>
+<text>Cooldown Period</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec28"/>
+</navPoint>
+</navPoint>
+<navPoint id="i169" playOrder="169">
+<navLabel>
+<text>Monitoring Auto Scaling Groups</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec13"/>
+</navPoint>
+<navPoint id="i170" playOrder="170">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec14"/>
+<navPoint id="i171" playOrder="171">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec29"/>
+</navPoint>
+<navPoint id="i172" playOrder="172">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec30"/>
+</navPoint>
+<navPoint id="i173" playOrder="173">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev2sec31"/>
+</navPoint>
+</navPoint>
+<navPoint id="i174" playOrder="174">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch05.xhtml#ch5lev1sec15"/>
+</navPoint>
+</navPoint>
+<navPoint id="i175" playOrder="175">
+<navLabel>
+<text>Chapter 6 Distributing the Contents via AWS CloudFront</text>
+</navLabel>
+<content src="ch06.xhtml#ch6"/>
+<navPoint id="i176" playOrder="176">
+<navLabel>
+<text>Amazon CloudFront</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec1"/>
+</navPoint>
+<navPoint id="i177" playOrder="177">
+<navLabel>
+<text>CloudFront Origin Servers</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec2"/>
+</navPoint>
+<navPoint id="i178" playOrder="178">
+<navLabel>
+<text>CloudFront Pricing</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec3"/>
+</navPoint>
+<navPoint id="i179" playOrder="179">
+<navLabel>
+<text>Regional Edge Caches</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec4"/>
+<navPoint id="i180" playOrder="180">
+<navLabel>
+<text>Adding Content</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec1"/>
+</navPoint>
+<navPoint id="i181" playOrder="181">
+<navLabel>
+<text>Removing Content</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec2"/>
+</navPoint>
+</navPoint>
+<navPoint id="i182" playOrder="182">
+<navLabel>
+<text>Securing Content</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec5"/>
+<navPoint id="i183" playOrder="183">
+<navLabel>
+<text>HTTPS with CloudFront</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec3"/>
+</navPoint>
+<navPoint id="i184" playOrder="184">
+<navLabel>
+<text>Restrict Access in the Origin</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec4"/>
+</navPoint>
+<navPoint id="i185" playOrder="185">
+<navLabel>
+<text>Restrict Access in Edge Caches</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec5"/>
+</navPoint>
+<navPoint id="i186" playOrder="186">
+<navLabel>
+<text>Signed URLs and Signed Cookies</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec6"/>
+</navPoint>
+<navPoint id="i187" playOrder="187">
+<navLabel>
+<text>Origin Access Identity</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec7"/>
+</navPoint>
+<navPoint id="i188" playOrder="188">
+<navLabel>
+<text>AWS WAF to Control Access</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec8"/>
+</navPoint>
+<navPoint id="i189" playOrder="189">
+<navLabel>
+<text>Restricting Geographic Distribution</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec9"/>
+</navPoint>
+<navPoint id="i190" playOrder="190">
+<navLabel>
+<text>Field-Level Encryption</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec10"/>
+</navPoint>
+</navPoint>
+<navPoint id="i191" playOrder="191">
+<navLabel>
+<text>CloudFront Distributions</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec6"/>
+<navPoint id="i192" playOrder="192">
+<navLabel>
+<text>Distribution Contents</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec11"/>
+</navPoint>
+<navPoint id="i193" playOrder="193">
+<navLabel>
+<text>Origins for Web Distributions</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec12"/>
+</navPoint>
+</navPoint>
+<navPoint id="i194" playOrder="194">
+<navLabel>
+<text>Alternate Domain Names</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec7"/>
+</navPoint>
+<navPoint id="i195" playOrder="195">
+<navLabel>
+<text>WebSocket Protocol</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec8"/>
+</navPoint>
+<navPoint id="i196" playOrder="196">
+<navLabel>
+<text>Optimizing Content Caching</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec9"/>
+<navPoint id="i197" playOrder="197">
+<navLabel>
+<text>Cache Hit Ratio</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec13"/>
+</navPoint>
+<navPoint id="i198" playOrder="198">
+<navLabel>
+<text>Cache Lifetime</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec14"/>
+</navPoint>
+<navPoint id="i199" playOrder="199">
+<navLabel>
+<text>Query String Parameters</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec15"/>
+</navPoint>
+<navPoint id="i200" playOrder="200">
+<navLabel>
+<text>Caching Based on Cookie Values</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec16"/>
+</navPoint>
+<navPoint id="i201" playOrder="201">
+<navLabel>
+<text>Caching Based on Request Headers</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec17"/>
+</navPoint>
+</navPoint>
+<navPoint id="i202" playOrder="202">
+<navLabel>
+<text>Content Expiration at the Edge Cache</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec10"/>
+</navPoint>
+<navPoint id="i203" playOrder="203">
+<navLabel>
+<text>CloudFront Origin Groups</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec11"/>
+</navPoint>
+<navPoint id="i204" playOrder="204">
+<navLabel>
+<text>Domain Fronting</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec12"/>
+</navPoint>
+<navPoint id="i205" playOrder="205">
+<navLabel>
+<text>Custom Error Pages</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec13"/>
+<navPoint id="i206" playOrder="206">
+<navLabel>
+<text>Request and Response Behavior</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec18"/>
+</navPoint>
+</navPoint>
+<navPoint id="i207" playOrder="207">
+<navLabel>
+<text>Lambda@Edge</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec14"/>
+</navPoint>
+<navPoint id="i208" playOrder="208">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec15"/>
+<navPoint id="i209" playOrder="209">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec19"/>
+</navPoint>
+<navPoint id="i210" playOrder="210">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec20"/>
+</navPoint>
+<navPoint id="i211" playOrder="211">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev2sec21"/>
+</navPoint>
+</navPoint>
+<navPoint id="i212" playOrder="212">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch06.xhtml#ch6lev1sec16"/>
+</navPoint>
+</navPoint>
+<navPoint id="i213" playOrder="213">
+<navLabel>
+<text>Chapter 7 Domain Name System and Amazon Route 53</text>
+</navLabel>
+<content src="ch07.xhtml#ch7"/>
+<navPoint id="i214" playOrder="214">
+<navLabel>
+<text>Domain Name System</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev1sec1"/>
+<navPoint id="i215" playOrder="215">
+<navLabel>
+<text>How DNS Works</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec1"/>
+</navPoint>
+<navPoint id="i216" playOrder="216">
+<navLabel>
+<text>Domain Names</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec2"/>
+</navPoint>
+<navPoint id="i217" playOrder="217">
+<navLabel>
+<text>Name Servers</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec3"/>
+</navPoint>
+<navPoint id="i218" playOrder="218">
+<navLabel>
+<text>DNS Resolution</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec4"/>
+</navPoint>
+<navPoint id="i219" playOrder="219">
+<navLabel>
+<text>DNS Records and Zone Files</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec5"/>
+</navPoint>
+<navPoint id="i220" playOrder="220">
+<navLabel>
+<text>Types of DNS Records</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec6"/>
+</navPoint>
+</navPoint>
+<navPoint id="i221" playOrder="221">
+<navLabel>
+<text>Amazon Route 53</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev1sec2"/>
+</navPoint>
+<navPoint id="i222" playOrder="222">
+<navLabel>
+<text>Route 53 Concepts</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev1sec3"/>
+</navPoint>
+<navPoint id="i223" playOrder="223">
+<navLabel>
+<text>Domain Registration</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev1sec4"/>
+</navPoint>
+<navPoint id="i224" playOrder="224">
+<navLabel>
+<text>Routing Traffic</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev1sec5"/>
+</navPoint>
+<navPoint id="i225" playOrder="225">
+<navLabel>
+<text>Hosted Zones</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev1sec6"/>
+<navPoint id="i226" playOrder="226">
+<navLabel>
+<text>Public Hosted Zone</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec7"/>
+</navPoint>
+<navPoint id="i227" playOrder="227">
+<navLabel>
+<text>Private Hosted Zone</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec8"/>
+</navPoint>
+<navPoint id="i228" playOrder="228">
+<navLabel>
+<text>Split-View DNS</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec9"/>
+</navPoint>
+<navPoint id="i229" playOrder="229">
+<navLabel>
+<text>Routing Traffic for Subdomains</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec10"/>
+</navPoint>
+</navPoint>
+<navPoint id="i230" playOrder="230">
+<navLabel>
+<text>Choosing a Routing Policy</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev1sec7"/>
+<navPoint id="i231" playOrder="231">
+<navLabel>
+<text>Simple Routing</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec11"/>
+</navPoint>
+<navPoint id="i232" playOrder="232">
+<navLabel>
+<text>Failover Routing</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec12"/>
+</navPoint>
+<navPoint id="i233" playOrder="233">
+<navLabel>
+<text>Geolocation Routing</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec13"/>
+</navPoint>
+<navPoint id="i234" playOrder="234">
+<navLabel>
+<text>Geoproximity Routing</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec14"/>
+</navPoint>
+<navPoint id="i235" playOrder="235">
+<navLabel>
+<text>Latency-Based Routing</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec15"/>
+</navPoint>
+<navPoint id="i236" playOrder="236">
+<navLabel>
+<text>Multivalue Answer Routing</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec16"/>
+</navPoint>
+<navPoint id="i237" playOrder="237">
+<navLabel>
+<text>Weighted Routing</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec17"/>
+</navPoint>
+</navPoint>
+<navPoint id="i238" playOrder="238">
+<navLabel>
+<text>Amazon Route 53 Health Checks</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev1sec8"/>
+</navPoint>
+<navPoint id="i239" playOrder="239">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev1sec9"/>
+<navPoint id="i240" playOrder="240">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec18"/>
+</navPoint>
+<navPoint id="i241" playOrder="241">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec19"/>
+</navPoint>
+<navPoint id="i242" playOrder="242">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev2sec20"/>
+</navPoint>
+</navPoint>
+<navPoint id="i243" playOrder="243">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch07.xhtml#ch7lev1sec10"/>
+</navPoint>
+</navPoint>
+</navPoint>
+<navPoint id="i244" playOrder="244">
+<navLabel>
+<text>Part III Working with Cloud Storage</text>
+</navLabel>
+<content src="ch07_part3.xhtml#part3"/>
+<navPoint id="i245" playOrder="245">
+<navLabel>
+<text>Chapter 8 Working with Simple Storage Service</text>
+</navLabel>
+<content src="ch08.xhtml#ch8"/>
+<navPoint id="i246" playOrder="246">
+<navLabel>
+<text>Amazon Simple Storage Service</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec1"/>
+</navPoint>
+<navPoint id="i247" playOrder="247">
+<navLabel>
+<text>Buckets</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec2"/>
+</navPoint>
+<navPoint id="i248" playOrder="248">
+<navLabel>
+<text>Creating a Bucket</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec3"/>
+<navPoint id="i249" playOrder="249">
+<navLabel>
+<text>Accessing Your Bucket</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec1"/>
+</navPoint>
+</navPoint>
+<navPoint id="i250" playOrder="250">
+<navLabel>
+<text>Bucket Configuration Options</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec4"/>
+<navPoint id="i251" playOrder="251">
+<navLabel>
+<text>Cross-Origin Resource Sharing</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec2"/>
+</navPoint>
+<navPoint id="i252" playOrder="252">
+<navLabel>
+<text>Cross-Region Replication</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec3"/>
+</navPoint>
+<navPoint id="i253" playOrder="253">
+<navLabel>
+<text>Amazon S3 Event Notifications</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec4"/>
+</navPoint>
+<navPoint id="i254" playOrder="254">
+<navLabel>
+<text>Amazon S3 Transfer Acceleration</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec5"/>
+</navPoint>
+<navPoint id="i255" playOrder="255">
+<navLabel>
+<text>Billing and Usage Reporting for S3 Buckets</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec6"/>
+</navPoint>
+</navPoint>
+<navPoint id="i256" playOrder="256">
+<navLabel>
+<text>Requester Pays Buckets</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec5"/>
+<navPoint id="i257" playOrder="257">
+<navLabel>
+<text>Static Website on Amazon S3</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec7"/>
+</navPoint>
+<navPoint id="i258" playOrder="258">
+<navLabel>
+<text>Amazon S3 Server Access Logging</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec8"/>
+</navPoint>
+</navPoint>
+<navPoint id="i259" playOrder="259">
+<navLabel>
+<text>Folders</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec6"/>
+</navPoint>
+<navPoint id="i260" playOrder="260">
+<navLabel>
+<text>Objects</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec7"/>
+<navPoint id="i261" playOrder="261">
+<navLabel>
+<text>Object Key and Metadata</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec9"/>
+</navPoint>
+</navPoint>
+<navPoint id="i262" playOrder="262">
+<navLabel>
+<text>Storage Classes</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec8"/>
+<navPoint id="i263" playOrder="263">
+<navLabel>
+<text>General-Purpose Amazon S3 Standard</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec10"/>
+</navPoint>
+<navPoint id="i264" playOrder="264">
+<navLabel>
+<text>Unknown or Changing Access: Amazon S3 Intelligent-Tiering</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec11"/>
+</navPoint>
+<navPoint id="i265" playOrder="265">
+<navLabel>
+<text>Infrequent Access: Amazon S3 Standard-Infrequent Access</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec12"/>
+</navPoint>
+<navPoint id="i266" playOrder="266">
+<navLabel>
+<text>Amazon S3 One Zone-Infrequent Access</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec13"/>
+</navPoint>
+<navPoint id="i267" playOrder="267">
+<navLabel>
+<text>Archive: Amazon S3 Glacier</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec14"/>
+</navPoint>
+<navPoint id="i268" playOrder="268">
+<navLabel>
+<text>Amazon S3 Glacier Deep Archive</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec15"/>
+</navPoint>
+</navPoint>
+<navPoint id="i269" playOrder="269">
+<navLabel>
+<text>Object Lifecycle Management</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec9"/>
+<navPoint id="i270" playOrder="270">
+<navLabel>
+<text>Lifecycle Transitions</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec16"/>
+</navPoint>
+<navPoint id="i271" playOrder="271">
+<navLabel>
+<text>Configuring Object Expiration</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec17"/>
+</navPoint>
+</navPoint>
+<navPoint id="i272" playOrder="272">
+<navLabel>
+<text>Object Versioning</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec10"/>
+</navPoint>
+<navPoint id="i273" playOrder="273">
+<navLabel>
+<text>Identity and Access Management in Amazon S3</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec11"/>
+</navPoint>
+<navPoint id="i274" playOrder="274">
+<navLabel>
+<text>Operations on Objects</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec12"/>
+<navPoint id="i275" playOrder="275">
+<navLabel>
+<text>Getting Objects</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec18"/>
+</navPoint>
+<navPoint id="i276" playOrder="276">
+<navLabel>
+<text>Uploading Objects</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec19"/>
+</navPoint>
+<navPoint id="i277" playOrder="277">
+<navLabel>
+<text>Copying Objects</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec20"/>
+</navPoint>
+<navPoint id="i278" playOrder="278">
+<navLabel>
+<text>Listing Object Keys</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec21"/>
+</navPoint>
+<navPoint id="i279" playOrder="279">
+<navLabel>
+<text>Deleting Objects</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec22"/>
+</navPoint>
+<navPoint id="i280" playOrder="280">
+<navLabel>
+<text>Selecting Content from Objects</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec23"/>
+</navPoint>
+<navPoint id="i281" playOrder="281">
+<navLabel>
+<text>Restoring Archived Objects</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec24"/>
+</navPoint>
+</navPoint>
+<navPoint id="i282" playOrder="282">
+<navLabel>
+<text>Data Protection in Amazon S3</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec13"/>
+<navPoint id="i283" playOrder="283">
+<navLabel>
+<text>Access Control Lists</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec25"/>
+</navPoint>
+<navPoint id="i284" playOrder="284">
+<navLabel>
+<text>Amazon S3 Object Lock</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec26"/>
+</navPoint>
+<navPoint id="i285" playOrder="285">
+<navLabel>
+<text>Retention Periods</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec27"/>
+</navPoint>
+<navPoint id="i286" playOrder="286">
+<navLabel>
+<text>Legal Holds</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec28"/>
+</navPoint>
+</navPoint>
+<navPoint id="i287" playOrder="287">
+<navLabel>
+<text>Best Practices for Amazon S3</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec14"/>
+</navPoint>
+<navPoint id="i288" playOrder="288">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec15"/>
+<navPoint id="i289" playOrder="289">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec29"/>
+</navPoint>
+<navPoint id="i290" playOrder="290">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec30"/>
+</navPoint>
+<navPoint id="i291" playOrder="291">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev2sec31"/>
+</navPoint>
+</navPoint>
+<navPoint id="i292" playOrder="292">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch08.xhtml#ch8lev1sec16"/>
+</navPoint>
+</navPoint>
+<navPoint id="i293" playOrder="293">
+<navLabel>
+<text>Chapter 9 Amazon EBS, Amazon EFS, and Amazon S3 Glacier</text>
+</navLabel>
+<content src="ch09.xhtml#ch9"/>
+<navPoint id="i294" playOrder="294">
+<navLabel>
+<text>Amazon Elastic Block Store</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec1"/>
+</navPoint>
+<navPoint id="i295" playOrder="295">
+<navLabel>
+<text>Create an Amazon EBS Volume</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec2"/>
+</navPoint>
+<navPoint id="i296" playOrder="296">
+<navLabel>
+<text>Working with Amazon EBS Volume</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec3"/>
+<navPoint id="i297" playOrder="297">
+<navLabel>
+<text>Detach an Amazon EBS Volume</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec1"/>
+</navPoint>
+<navPoint id="i298" playOrder="298">
+<navLabel>
+<text>Delete an Amazon EBS Volume</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec2"/>
+</navPoint>
+</navPoint>
+<navPoint id="i299" playOrder="299">
+<navLabel>
+<text>Monitor Amazon EBS Volumes</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec4"/>
+</navPoint>
+<navPoint id="i300" playOrder="300">
+<navLabel>
+<text>Amazon EBS Snapshots</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec5"/>
+<navPoint id="i301" playOrder="301">
+<navLabel>
+<text>Multivolume Snapshots</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec3"/>
+</navPoint>
+<navPoint id="i302" playOrder="302">
+<navLabel>
+<text>Delete an Amazon EBS Snapshot</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec4"/>
+</navPoint>
+<navPoint id="i303" playOrder="303">
+<navLabel>
+<text>Copy an Amazon EBS Snapshot</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec5"/>
+</navPoint>
+<navPoint id="i304" playOrder="304">
+<navLabel>
+<text>Amazon EBS Snapshot Lifecycle</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec6"/>
+</navPoint>
+</navPoint>
+<navPoint id="i305" playOrder="305">
+<navLabel>
+<text>Amazon EBS Elastic Volumes</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec6"/>
+</navPoint>
+<navPoint id="i306" playOrder="306">
+<navLabel>
+<text>Amazon EBS Encryption</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec7"/>
+<navPoint id="i307" playOrder="307">
+<navLabel>
+<text>Key Management</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec7"/>
+</navPoint>
+<navPoint id="i308" playOrder="308">
+<navLabel>
+<text>Restoring and Copying Snapshots</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec8"/>
+</navPoint>
+</navPoint>
+<navPoint id="i309" playOrder="309">
+<navLabel>
+<text>RAID Configuration on Linux</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec8"/>
+</navPoint>
+<navPoint id="i310" playOrder="310">
+<navLabel>
+<text>Amazon EBS Metrics</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec9"/>
+</navPoint>
+<navPoint id="i311" playOrder="311">
+<navLabel>
+<text>Amazon EBS Best Practices</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec10"/>
+</navPoint>
+<navPoint id="i312" playOrder="312">
+<navLabel>
+<text>Amazon Elastic File System</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec11"/>
+</navPoint>
+<navPoint id="i313" playOrder="313">
+<navLabel>
+<text>Amazon EFS with Amazon EC2</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec12"/>
+</navPoint>
+<navPoint id="i314" playOrder="314">
+<navLabel>
+<text>Amazon EFS with AWS Direct Connect and VPN</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec13"/>
+</navPoint>
+<navPoint id="i315" playOrder="315">
+<navLabel>
+<text>Data Consistency</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec14"/>
+</navPoint>
+<navPoint id="i316" playOrder="316">
+<navLabel>
+<text>Storage Classes</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec15"/>
+</navPoint>
+<navPoint id="i317" playOrder="317">
+<navLabel>
+<text>Amazon EFS Backup</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec16"/>
+</navPoint>
+<navPoint id="i318" playOrder="318">
+<navLabel>
+<text>Amazon EFS Encryption</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec17"/>
+</navPoint>
+<navPoint id="i319" playOrder="319">
+<navLabel>
+<text>Lifecycle Policy</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec18"/>
+</navPoint>
+<navPoint id="i320" playOrder="320">
+<navLabel>
+<text>Monitoring Amazon EFS</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec19"/>
+</navPoint>
+<navPoint id="i321" playOrder="321">
+<navLabel>
+<text>Amazon EFS Performance</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec20"/>
+</navPoint>
+<navPoint id="i322" playOrder="322">
+<navLabel>
+<text>Amazon EFS Best Practices</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec21"/>
+</navPoint>
+<navPoint id="i323" playOrder="323">
+<navLabel>
+<text>Amazon S3 Glacier</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec22"/>
+<navPoint id="i324" playOrder="324">
+<navLabel>
+<text>Vault</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec9"/>
+</navPoint>
+<navPoint id="i325" playOrder="325">
+<navLabel>
+<text>Archives</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec10"/>
+</navPoint>
+<navPoint id="i326" playOrder="326">
+<navLabel>
+<text>Jobs</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec11"/>
+</navPoint>
+<navPoint id="i327" playOrder="327">
+<navLabel>
+<text>Notification Configuration</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec12"/>
+</navPoint>
+</navPoint>
+<navPoint id="i328" playOrder="328">
+<navLabel>
+<text>Glacier Operations</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec23"/>
+<navPoint id="i329" playOrder="329">
+<navLabel>
+<text>Creating and Deleting Vaults</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec13"/>
+</navPoint>
+<navPoint id="i330" playOrder="330">
+<navLabel>
+<text>Archive Operations</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec14"/>
+</navPoint>
+<navPoint id="i331" playOrder="331">
+<navLabel>
+<text>Data Retrieval Policy</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec15"/>
+</navPoint>
+</navPoint>
+<navPoint id="i332" playOrder="332">
+<navLabel>
+<text>Vault Lock</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec24"/>
+</navPoint>
+<navPoint id="i333" playOrder="333">
+<navLabel>
+<text>Data Protection</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec25"/>
+</navPoint>
+<navPoint id="i334" playOrder="334">
+<navLabel>
+<text>Logging and Monitoring</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec26"/>
+</navPoint>
+<navPoint id="i335" playOrder="335">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec27"/>
+<navPoint id="i336" playOrder="336">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec16"/>
+</navPoint>
+<navPoint id="i337" playOrder="337">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec17"/>
+</navPoint>
+<navPoint id="i338" playOrder="338">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev2sec18"/>
+</navPoint>
+</navPoint>
+<navPoint id="i339" playOrder="339">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch09.xhtml#ch9lev1sec28"/>
+</navPoint>
+</navPoint>
+</navPoint>
+<navPoint id="i340" playOrder="340">
+<navLabel>
+<text>Part IV Authentication and Authorization</text>
+</navLabel>
+<content src="ch09_part4.xhtml#part4"/>
+<navPoint id="i341" playOrder="341">
+<navLabel>
+<text>Chapter 10 Securing AWS Resources with Identity and Access Management</text>
+</navLabel>
+<content src="ch10.xhtml#ch10"/>
+<navPoint id="i342" playOrder="342">
+<navLabel>
+<text>Identity and Access Management</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev1sec1"/>
+</navPoint>
+<navPoint id="i343" playOrder="343">
+<navLabel>
+<text>Users</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev1sec2"/>
+<navPoint id="i344" playOrder="344">
+<navLabel>
+<text>Users and Credentials</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev2sec1"/>
+</navPoint>
+</navPoint>
+<navPoint id="i345" playOrder="345">
+<navLabel>
+<text>Password: Configure a Strong Password Policy</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev1sec3"/>
+</navPoint>
+<navPoint id="i346" playOrder="346">
+<navLabel>
+<text>Multifactor Authentication</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev1sec4"/>
+</navPoint>
+<navPoint id="i347" playOrder="347">
+<navLabel>
+<text>Groups</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev1sec5"/>
+</navPoint>
+<navPoint id="i348" playOrder="348">
+<navLabel>
+<text>IAM Roles</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev1sec6"/>
+<navPoint id="i349" playOrder="349">
+<navLabel>
+<text>AWS Service Role</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev2sec2"/>
+</navPoint>
+<navPoint id="i350" playOrder="350">
+<navLabel>
+<text>AWS Service-Linked Role</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev2sec3"/>
+</navPoint>
+<navPoint id="i351" playOrder="351">
+<navLabel>
+<text>Role Chaining</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev2sec4"/>
+</navPoint>
+<navPoint id="i352" playOrder="352">
+<navLabel>
+<text>Delegation</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev2sec5"/>
+</navPoint>
+<navPoint id="i353" playOrder="353">
+<navLabel>
+<text>Federation</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev2sec6"/>
+</navPoint>
+<navPoint id="i354" playOrder="354">
+<navLabel>
+<text>Role for Cross-Account Access</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev2sec7"/>
+</navPoint>
+</navPoint>
+<navPoint id="i355" playOrder="355">
+<navLabel>
+<text>Policies and Permissions</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev1sec7"/>
+<navPoint id="i356" playOrder="356">
+<navLabel>
+<text>IAM Policy Types</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev2sec8"/>
+</navPoint>
+<navPoint id="i357" playOrder="357">
+<navLabel>
+<text>Permissions Boundaries</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev2sec9"/>
+</navPoint>
+</navPoint>
+<navPoint id="i358" playOrder="358">
+<navLabel>
+<text>IAM Policy</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev1sec8"/>
+<navPoint id="i359" playOrder="359">
+<navLabel>
+<text>IAM Policy Structure</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev2sec10"/>
+</navPoint>
+<navPoint id="i360" playOrder="360">
+<navLabel>
+<text>IAM Policy Versioning</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev2sec11"/>
+</navPoint>
+</navPoint>
+<navPoint id="i361" playOrder="361">
+<navLabel>
+<text>IAM Best Practices</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev1sec9"/>
+</navPoint>
+<navPoint id="i362" playOrder="362">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev1sec10"/>
+<navPoint id="i363" playOrder="363">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev2sec12"/>
+</navPoint>
+<navPoint id="i364" playOrder="364">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev2sec13"/>
+</navPoint>
+<navPoint id="i365" playOrder="365">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev2sec14"/>
+</navPoint>
+</navPoint>
+<navPoint id="i366" playOrder="366">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch10.xhtml#ch10lev1sec11"/>
+</navPoint>
+</navPoint>
+<navPoint id="i367" playOrder="367">
+<navLabel>
+<text>Chapter 11 Web Identity Federation and Amazon Cognito for User Authentication</text>
+</navLabel>
+<content src="ch11.xhtml#ch11"/>
+<navPoint id="i368" playOrder="368">
+<navLabel>
+<text>Identity Federation and Providers</text>
+</navLabel>
+<content src="ch11.xhtml#ch11lev1sec1"/>
+</navPoint>
+<navPoint id="i369" playOrder="369">
+<navLabel>
+<text>Web Identity Federation</text>
+</navLabel>
+<content src="ch11.xhtml#ch11lev1sec2"/>
+</navPoint>
+<navPoint id="i370" playOrder="370">
+<navLabel>
+<text>Amazon Cognito</text>
+</navLabel>
+<content src="ch11.xhtml#ch11lev1sec3"/>
+<navPoint id="i371" playOrder="371">
+<navLabel>
+<text>Cognito User Pools</text>
+</navLabel>
+<content src="ch11.xhtml#ch11lev2sec1"/>
+</navPoint>
+<navPoint id="i372" playOrder="372">
+<navLabel>
+<text>Identity Pools</text>
+</navLabel>
+<content src="ch11.xhtml#ch11lev2sec2"/>
+</navPoint>
+<navPoint id="i373" playOrder="373">
+<navLabel>
+<text>Amazon Cognito Sync</text>
+</navLabel>
+<content src="ch11.xhtml#ch11lev2sec3"/>
+</navPoint>
+<navPoint id="i374" playOrder="374">
+<navLabel>
+<text>Amazon Cognito for Mobile Apps</text>
+</navLabel>
+<content src="ch11.xhtml#ch11lev2sec4"/>
+</navPoint>
+</navPoint>
+<navPoint id="i375" playOrder="375">
+<navLabel>
+<text>Federating Users with SAML 2.0</text>
+</navLabel>
+<content src="ch11.xhtml#ch11lev1sec4"/>
+</navPoint>
+<navPoint id="i376" playOrder="376">
+<navLabel>
+<text>Session Policies</text>
+</navLabel>
+<content src="ch11.xhtml#ch11lev1sec5"/>
+</navPoint>
+<navPoint id="i377" playOrder="377">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch11.xhtml#ch11lev1sec6"/>
+<navPoint id="i378" playOrder="378">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch11.xhtml#ch11lev2sec5"/>
+</navPoint>
+<navPoint id="i379" playOrder="379">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch11.xhtml#ch11lev2sec6"/>
+</navPoint>
+<navPoint id="i380" playOrder="380">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch11.xhtml#ch11lev2sec7"/>
+</navPoint>
+</navPoint>
+<navPoint id="i381" playOrder="381">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch11.xhtml#ch11lev1sec7"/>
+</navPoint>
+</navPoint>
+<navPoint id="i382" playOrder="382">
+<navLabel>
+<text>Chapter 12 Protecting Your Data Using Server-Side and Client-Side Encryption</text>
+</navLabel>
+<content src="ch12.xhtml#ch12"/>
+<navPoint id="i383" playOrder="383">
+<navLabel>
+<text>Data Protection</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev1sec1"/>
+</navPoint>
+<navPoint id="i384" playOrder="384">
+<navLabel>
+<text>Server-Side Encryption</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev1sec2"/>
+<navPoint id="i385" playOrder="385">
+<navLabel>
+<text>Server-Side Encryption with Customer-Managed Keys in KMS</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev2sec1"/>
+</navPoint>
+<navPoint id="i386" playOrder="386">
+<navLabel>
+<text>Server-Side Encryption with Amazon S3&#8211;Managed Encryption Keys</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev2sec2"/>
+</navPoint>
+<navPoint id="i387" playOrder="387">
+<navLabel>
+<text>Server-Side Encryption with Customer-Provided Encryption Keys</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev2sec3"/>
+</navPoint>
+</navPoint>
+<navPoint id="i388" playOrder="388">
+<navLabel>
+<text>Client-Side Encryption</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev1sec3"/>
+<navPoint id="i389" playOrder="389">
+<navLabel>
+<text>CMK Stored in AWS KMS</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev2sec4"/>
+</navPoint>
+<navPoint id="i390" playOrder="390">
+<navLabel>
+<text>Master Key Stored in the Application</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev2sec5"/>
+</navPoint>
+</navPoint>
+<navPoint id="i391" playOrder="391">
+<navLabel>
+<text>Command-Line Encryption and Decryption</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev1sec4"/>
+<navPoint id="i392" playOrder="392">
+<navLabel>
+<text>Encrypt a File</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev2sec6"/>
+</navPoint>
+<navPoint id="i393" playOrder="393">
+<navLabel>
+<text>Decrypt a File</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev2sec7"/>
+</navPoint>
+</navPoint>
+<navPoint id="i394" playOrder="394">
+<navLabel>
+<text>Data Protection Best Practices</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev1sec5"/>
+</navPoint>
+<navPoint id="i395" playOrder="395">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev1sec6"/>
+<navPoint id="i396" playOrder="396">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev2sec8"/>
+</navPoint>
+<navPoint id="i397" playOrder="397">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev2sec9"/>
+</navPoint>
+<navPoint id="i398" playOrder="398">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev2sec10"/>
+</navPoint>
+</navPoint>
+<navPoint id="i399" playOrder="399">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch12.xhtml#ch12lev1sec7"/>
+</navPoint>
+</navPoint>
+</navPoint>
+<navPoint id="i400" playOrder="400">
+<navLabel>
+<text>Part V Creating SQL and NoSQL Database in AWS Cloud</text>
+</navLabel>
+<content src="ch12_part5.xhtml#part5"/>
+<navPoint id="i401" playOrder="401">
+<navLabel>
+<text>Chapter 13 AWS Relational Database Services</text>
+</navLabel>
+<content src="ch13.xhtml#ch13"/>
+<navPoint id="i402" playOrder="402">
+<navLabel>
+<text>Amazon Relational Database Service</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec1"/>
+</navPoint>
+<navPoint id="i403" playOrder="403">
+<navLabel>
+<text>High Availability (Multi-AZ)</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec2"/>
+<navPoint id="i404" playOrder="404">
+<navLabel>
+<text>Multi-AZ Failover Process</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec1"/>
+</navPoint>
+</navPoint>
+<navPoint id="i405" playOrder="405">
+<navLabel>
+<text>The Amazon RDS Lifecycle</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec3"/>
+<navPoint id="i406" playOrder="406">
+<navLabel>
+<text>Modify</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec2"/>
+</navPoint>
+<navPoint id="i407" playOrder="407">
+<navLabel>
+<text>Maintain</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec3"/>
+</navPoint>
+<navPoint id="i408" playOrder="408">
+<navLabel>
+<text>Upgrade</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec4"/>
+</navPoint>
+<navPoint id="i409" playOrder="409">
+<navLabel>
+<text>Rename</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec5"/>
+</navPoint>
+<navPoint id="i410" playOrder="410">
+<navLabel>
+<text>Reboot</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec6"/>
+</navPoint>
+<navPoint id="i411" playOrder="411">
+<navLabel>
+<text>Stop</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec7"/>
+</navPoint>
+<navPoint id="i412" playOrder="412">
+<navLabel>
+<text>Start</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec8"/>
+</navPoint>
+<navPoint id="i413" playOrder="413">
+<navLabel>
+<text>Delete</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec9"/>
+</navPoint>
+</navPoint>
+<navPoint id="i414" playOrder="414">
+<navLabel>
+<text>Read Replicas</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec4"/>
+<navPoint id="i415" playOrder="415">
+<navLabel>
+<text>Create a Read Replica</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec10"/>
+</navPoint>
+<navPoint id="i416" playOrder="416">
+<navLabel>
+<text>Promote a Read Replica</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec11"/>
+</navPoint>
+<navPoint id="i417" playOrder="417">
+<navLabel>
+<text>Monitor Read Replication</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec12"/>
+</navPoint>
+</navPoint>
+<navPoint id="i418" playOrder="418">
+<navLabel>
+<text>Option Groups</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec5"/>
+</navPoint>
+<navPoint id="i419" playOrder="419">
+<navLabel>
+<text>DB Parameter Groups</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec6"/>
+</navPoint>
+<navPoint id="i420" playOrder="420">
+<navLabel>
+<text>Storage</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec7"/>
+</navPoint>
+<navPoint id="i421" playOrder="421">
+<navLabel>
+<text>Billing</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec8"/>
+</navPoint>
+<navPoint id="i422" playOrder="422">
+<navLabel>
+<text>Backups</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec9"/>
+</navPoint>
+<navPoint id="i423" playOrder="423">
+<navLabel>
+<text>Snapshots</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec10"/>
+</navPoint>
+<navPoint id="i424" playOrder="424">
+<navLabel>
+<text>Security</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec11"/>
+<navPoint id="i425" playOrder="425">
+<navLabel>
+<text>Encryption</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec13"/>
+</navPoint>
+</navPoint>
+<navPoint id="i426" playOrder="426">
+<navLabel>
+<text>Monitoring</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec12"/>
+</navPoint>
+<navPoint id="i427" playOrder="427">
+<navLabel>
+<text>Amazon Resource Names</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec13"/>
+</navPoint>
+<navPoint id="i428" playOrder="428">
+<navLabel>
+<text>Tagging</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec14"/>
+</navPoint>
+<navPoint id="i429" playOrder="429">
+<navLabel>
+<text>Best Practices</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec15"/>
+</navPoint>
+<navPoint id="i430" playOrder="430">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec16"/>
+<navPoint id="i431" playOrder="431">
+<navLabel>
+<text>Exercise</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec14"/>
+</navPoint>
+<navPoint id="i432" playOrder="432">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec15"/>
+</navPoint>
+<navPoint id="i433" playOrder="433">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev2sec16"/>
+</navPoint>
+</navPoint>
+<navPoint id="i434" playOrder="434">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch13.xhtml#ch13lev1sec17"/>
+</navPoint>
+</navPoint>
+<navPoint id="i435" playOrder="435">
+<navLabel>
+<text>Chapter 14 AWS NoSQL Database Service: Amazon DynamoDB</text>
+</navLabel>
+<content src="ch14.xhtml#ch14"/>
+<navPoint id="i436" playOrder="436">
+<navLabel>
+<text>Amazon DynamoDB</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec1"/>
+</navPoint>
+<navPoint id="i437" playOrder="437">
+<navLabel>
+<text>Data Types</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec2"/>
+</navPoint>
+<navPoint id="i438" playOrder="438">
+<navLabel>
+<text>Control Plane Operations</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec3"/>
+</navPoint>
+<navPoint id="i439" playOrder="439">
+<navLabel>
+<text>Data Plane Operations</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec4"/>
+</navPoint>
+<navPoint id="i440" playOrder="440">
+<navLabel>
+<text>SQL vs. NoSQL</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec5"/>
+</navPoint>
+<navPoint id="i441" playOrder="441">
+<navLabel>
+<text>DynamoDB Transactions</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec6"/>
+<navPoint id="i442" playOrder="442">
+<navLabel>
+<text>Read Consistency</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev2sec1"/>
+</navPoint>
+<navPoint id="i443" playOrder="443">
+<navLabel>
+<text>Read/Write Capacity Mode</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev2sec2"/>
+</navPoint>
+<navPoint id="i444" playOrder="444">
+<navLabel>
+<text>Isolation Levels</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev2sec3"/>
+</navPoint>
+</navPoint>
+<navPoint id="i445" playOrder="445">
+<navLabel>
+<text>DynamoDB Accelerator</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec7"/>
+<navPoint id="i446" playOrder="446">
+<navLabel>
+<text>DAX Components</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev2sec4"/>
+</navPoint>
+<navPoint id="i447" playOrder="447">
+<navLabel>
+<text>DAX Read</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev2sec5"/>
+</navPoint>
+<navPoint id="i448" playOrder="448">
+<navLabel>
+<text>DAX LRU</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev2sec6"/>
+</navPoint>
+<navPoint id="i449" playOrder="449">
+<navLabel>
+<text>DAX Cluster and Nodes</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev2sec7"/>
+</navPoint>
+<navPoint id="i450" playOrder="450">
+<navLabel>
+<text>DAX Control</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev2sec8"/>
+</navPoint>
+<navPoint id="i451" playOrder="451">
+<navLabel>
+<text>DAX Write</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev2sec9"/>
+</navPoint>
+<navPoint id="i452" playOrder="452">
+<navLabel>
+<text>DAX Encryption</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev2sec10"/>
+</navPoint>
+</navPoint>
+<navPoint id="i453" playOrder="453">
+<navLabel>
+<text>Auto-Scaling</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec8"/>
+</navPoint>
+<navPoint id="i454" playOrder="454">
+<navLabel>
+<text>Data Distribution</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec9"/>
+</navPoint>
+<navPoint id="i455" playOrder="455">
+<navLabel>
+<text>DynamoDB Local</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec10"/>
+</navPoint>
+<navPoint id="i456" playOrder="456">
+<navLabel>
+<text>DynamoDB Web</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec11"/>
+</navPoint>
+<navPoint id="i457" playOrder="457">
+<navLabel>
+<text>Secondary Indexes</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec12"/>
+</navPoint>
+<navPoint id="i458" playOrder="458">
+<navLabel>
+<text>DynamoDB Stream</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec13"/>
+</navPoint>
+<navPoint id="i459" playOrder="459">
+<navLabel>
+<text>Backup and Recovery</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec14"/>
+</navPoint>
+<navPoint id="i460" playOrder="460">
+<navLabel>
+<text>DynamoDB Global Tables</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec15"/>
+</navPoint>
+<navPoint id="i461" playOrder="461">
+<navLabel>
+<text>NoSQL Workbench</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec16"/>
+</navPoint>
+<navPoint id="i462" playOrder="462">
+<navLabel>
+<text>Data Protection</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec17"/>
+</navPoint>
+<navPoint id="i463" playOrder="463">
+<navLabel>
+<text>Maintenance Window</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec18"/>
+</navPoint>
+<navPoint id="i464" playOrder="464">
+<navLabel>
+<text>Logging and Monitoring</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec19"/>
+</navPoint>
+<navPoint id="i465" playOrder="465">
+<navLabel>
+<text>Infrastructure Security</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec20"/>
+</navPoint>
+<navPoint id="i466" playOrder="466">
+<navLabel>
+<text>Security Best Practices</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec21"/>
+</navPoint>
+<navPoint id="i467" playOrder="467">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec22"/>
+<navPoint id="i468" playOrder="468">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev2sec11"/>
+</navPoint>
+<navPoint id="i469" playOrder="469">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev2sec12"/>
+</navPoint>
+<navPoint id="i470" playOrder="470">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev2sec13"/>
+</navPoint>
+</navPoint>
+<navPoint id="i471" playOrder="471">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch14.xhtml#ch14lev1sec23"/>
+</navPoint>
+</navPoint>
+</navPoint>
+<navPoint id="i472" playOrder="472">
+<navLabel>
+<text>Part VI AWS Application Integration and Management</text>
+</navLabel>
+<content src="ch14_part6.xhtml#part6"/>
+<navPoint id="i473" playOrder="473">
+<navLabel>
+<text>Chapter 15 Amazon Simple Queue Service and Simple Notification Service</text>
+</navLabel>
+<content src="ch15.xhtml#ch15"/>
+<navPoint id="i474" playOrder="474">
+<navLabel>
+<text>Amazon Simple Queue Service</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev1sec1"/>
+</navPoint>
+<navPoint id="i475" playOrder="475">
+<navLabel>
+<text>Amazon SQS Architecture</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev1sec2"/>
+<navPoint id="i476" playOrder="476">
+<navLabel>
+<text>Queue Lifecycle</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec1"/>
+</navPoint>
+<navPoint id="i477" playOrder="477">
+<navLabel>
+<text>Standard Queues</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec2"/>
+</navPoint>
+<navPoint id="i478" playOrder="478">
+<navLabel>
+<text>First In/First Out Queues</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec3"/>
+</navPoint>
+<navPoint id="i479" playOrder="479">
+<navLabel>
+<text>Short Polling</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec4"/>
+</navPoint>
+<navPoint id="i480" playOrder="480">
+<navLabel>
+<text>Long Polling</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec5"/>
+</navPoint>
+<navPoint id="i481" playOrder="481">
+<navLabel>
+<text>Dead-Letter Queues</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec6"/>
+</navPoint>
+<navPoint id="i482" playOrder="482">
+<navLabel>
+<text>Visibility Timeout</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec7"/>
+</navPoint>
+<navPoint id="i483" playOrder="483">
+<navLabel>
+<text>Inflight Messages</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec8"/>
+</navPoint>
+<navPoint id="i484" playOrder="484">
+<navLabel>
+<text>Delay Queues</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec9"/>
+</navPoint>
+<navPoint id="i485" playOrder="485">
+<navLabel>
+<text>Temporary Queues</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec10"/>
+</navPoint>
+<navPoint id="i486" playOrder="486">
+<navLabel>
+<text>Virtual Queues</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec11"/>
+</navPoint>
+<navPoint id="i487" playOrder="487">
+<navLabel>
+<text>Message Timers</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec12"/>
+</navPoint>
+<navPoint id="i488" playOrder="488">
+<navLabel>
+<text>Large Messages</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec13"/>
+</navPoint>
+</navPoint>
+<navPoint id="i489" playOrder="489">
+<navLabel>
+<text>Data Encryption</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev1sec3"/>
+<navPoint id="i490" playOrder="490">
+<navLabel>
+<text>Virtual Private Cloud Endpoints</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec14"/>
+</navPoint>
+<navPoint id="i491" playOrder="491">
+<navLabel>
+<text>Logging</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec15"/>
+</navPoint>
+<navPoint id="i492" playOrder="492">
+<navLabel>
+<text>Monitoring</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec16"/>
+</navPoint>
+</navPoint>
+<navPoint id="i493" playOrder="493">
+<navLabel>
+<text>Amazon Simple Notification Service</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev1sec4"/>
+</navPoint>
+<navPoint id="i494" playOrder="494">
+<navLabel>
+<text>Amazon SNS Architecture</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev1sec5"/>
+<navPoint id="i495" playOrder="495">
+<navLabel>
+<text>Fanout</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec17"/>
+</navPoint>
+<navPoint id="i496" playOrder="496">
+<navLabel>
+<text>Alerts</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec18"/>
+</navPoint>
+<navPoint id="i497" playOrder="497">
+<navLabel>
+<text>Push Message</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec19"/>
+</navPoint>
+<navPoint id="i498" playOrder="498">
+<navLabel>
+<text>Push Notifications</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec20"/>
+</navPoint>
+<navPoint id="i499" playOrder="499">
+<navLabel>
+<text>Message Durability</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec21"/>
+</navPoint>
+<navPoint id="i500" playOrder="500">
+<navLabel>
+<text>Message Delivery Status</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec22"/>
+</navPoint>
+<navPoint id="i501" playOrder="501">
+<navLabel>
+<text>Message Delivery Retries</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec23"/>
+</navPoint>
+<navPoint id="i502" playOrder="502">
+<navLabel>
+<text>Delivery Policies</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec24"/>
+</navPoint>
+<navPoint id="i503" playOrder="503">
+<navLabel>
+<text>Creating a Delivery Policy</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec25"/>
+</navPoint>
+<navPoint id="i504" playOrder="504">
+<navLabel>
+<text>Dead-Letter Queues</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec26"/>
+</navPoint>
+<navPoint id="i505" playOrder="505">
+<navLabel>
+<text>Message Attributes</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec27"/>
+</navPoint>
+<navPoint id="i506" playOrder="506">
+<navLabel>
+<text>Message Filtering</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec28"/>
+</navPoint>
+<navPoint id="i507" playOrder="507">
+<navLabel>
+<text>Tags</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec29"/>
+</navPoint>
+<navPoint id="i508" playOrder="508">
+<navLabel>
+<text>Data Encryption</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec30"/>
+</navPoint>
+<navPoint id="i509" playOrder="509">
+<navLabel>
+<text>Logging</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec31"/>
+</navPoint>
+<navPoint id="i510" playOrder="510">
+<navLabel>
+<text>Monitoring</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec32"/>
+</navPoint>
+<navPoint id="i511" playOrder="511">
+<navLabel>
+<text>Infrastructure Security</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec33"/>
+</navPoint>
+</navPoint>
+<navPoint id="i512" playOrder="512">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev1sec6"/>
+<navPoint id="i513" playOrder="513">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec34"/>
+</navPoint>
+<navPoint id="i514" playOrder="514">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec35"/>
+</navPoint>
+<navPoint id="i515" playOrder="515">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev2sec36"/>
+</navPoint>
+</navPoint>
+<navPoint id="i516" playOrder="516">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch15.xhtml#ch15lev1sec7"/>
+</navPoint>
+</navPoint>
+<navPoint id="i517" playOrder="517">
+<navLabel>
+<text>Chapter 16 Amazon Simple Workflow Service, Amazon API Gateway, and AWS Step Functions</text>
+</navLabel>
+<content src="ch16.xhtml#ch16"/>
+<navPoint id="i518" playOrder="518">
+<navLabel>
+<text>Amazon Simple Workflow Service</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev1sec1"/>
+<navPoint id="i519" playOrder="519">
+<navLabel>
+<text>Development Environment</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec1"/>
+</navPoint>
+<navPoint id="i520" playOrder="520">
+<navLabel>
+<text>Tags</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec2"/>
+</navPoint>
+<navPoint id="i521" playOrder="521">
+<navLabel>
+<text>Monitoring</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec3"/>
+</navPoint>
+<navPoint id="i522" playOrder="522">
+<navLabel>
+<text>Logging</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec4"/>
+</navPoint>
+</navPoint>
+<navPoint id="i523" playOrder="523">
+<navLabel>
+<text>Amazon API Gateway</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev1sec2"/>
+<navPoint id="i524" playOrder="524">
+<navLabel>
+<text>REST API</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec5"/>
+</navPoint>
+<navPoint id="i525" playOrder="525">
+<navLabel>
+<text>API with Lambda Integration</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec6"/>
+</navPoint>
+<navPoint id="i526" playOrder="526">
+<navLabel>
+<text>Create a REST API</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec7"/>
+</navPoint>
+</navPoint>
+<navPoint id="i527" playOrder="527">
+<navLabel>
+<text>AWS Step Functions</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev1sec3"/>
+<navPoint id="i528" playOrder="528">
+<navLabel>
+<text>Standard Workflows</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec8"/>
+</navPoint>
+<navPoint id="i529" playOrder="529">
+<navLabel>
+<text>Express Workflows</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec9"/>
+</navPoint>
+<navPoint id="i530" playOrder="530">
+<navLabel>
+<text>Standard vs. Express Workflows</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec10"/>
+</navPoint>
+<navPoint id="i531" playOrder="531">
+<navLabel>
+<text>Step Functions Local</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec11"/>
+</navPoint>
+<navPoint id="i532" playOrder="532">
+<navLabel>
+<text>Tagging</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec12"/>
+</navPoint>
+<navPoint id="i533" playOrder="533">
+<navLabel>
+<text>Monitoring</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec13"/>
+</navPoint>
+<navPoint id="i534" playOrder="534">
+<navLabel>
+<text>Logging</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec14"/>
+</navPoint>
+<navPoint id="i535" playOrder="535">
+<navLabel>
+<text>Security</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec15"/>
+</navPoint>
+</navPoint>
+<navPoint id="i536" playOrder="536">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev1sec4"/>
+<navPoint id="i537" playOrder="537">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec16"/>
+</navPoint>
+<navPoint id="i538" playOrder="538">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec17"/>
+</navPoint>
+<navPoint id="i539" playOrder="539">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev2sec18"/>
+</navPoint>
+</navPoint>
+<navPoint id="i540" playOrder="540">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch16.xhtml#ch16lev1sec5"/>
+</navPoint>
+</navPoint>
+<navPoint id="i541" playOrder="541">
+<navLabel>
+<text>Chapter 17 Monitoring Using Amazon CloudWatch, AWS CloudTrail, and AWS Config</text>
+</navLabel>
+<content src="ch17.xhtml#ch17"/>
+<navPoint id="i542" playOrder="542">
+<navLabel>
+<text>Amazon CloudWatch</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev1sec1"/>
+<navPoint id="i543" playOrder="543">
+<navLabel>
+<text>Metrics</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec1"/>
+</navPoint>
+<navPoint id="i544" playOrder="544">
+<navLabel>
+<text>CloudWatch Agent</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec2"/>
+</navPoint>
+<navPoint id="i545" playOrder="545">
+<navLabel>
+<text>Data Protection</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec3"/>
+</navPoint>
+<navPoint id="i546" playOrder="546">
+<navLabel>
+<text>Logging</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec4"/>
+</navPoint>
+</navPoint>
+<navPoint id="i547" playOrder="547">
+<navLabel>
+<text>AWS CloudTrail</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev1sec2"/>
+<navPoint id="i548" playOrder="548">
+<navLabel>
+<text>The CloudTrail Lifecycle</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec5"/>
+</navPoint>
+<navPoint id="i549" playOrder="549">
+<navLabel>
+<text>Control Access</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec6"/>
+</navPoint>
+<navPoint id="i550" playOrder="550">
+<navLabel>
+<text>AWS CloudTrail Security</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec7"/>
+</navPoint>
+</navPoint>
+<navPoint id="i551" playOrder="551">
+<navLabel>
+<text>AWS Config</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev1sec3"/>
+<navPoint id="i552" playOrder="552">
+<navLabel>
+<text>Security Analysis</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec8"/>
+</navPoint>
+<navPoint id="i553" playOrder="553">
+<navLabel>
+<text>Resource Configuration</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec9"/>
+</navPoint>
+<navPoint id="i554" playOrder="554">
+<navLabel>
+<text>Managing AWS Config</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec10"/>
+</navPoint>
+<navPoint id="i555" playOrder="555">
+<navLabel>
+<text>AWS Config Managed and Custom Rules</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec11"/>
+</navPoint>
+<navPoint id="i556" playOrder="556">
+<navLabel>
+<text>Monitoring AWS Config</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec12"/>
+</navPoint>
+</navPoint>
+<navPoint id="i557" playOrder="557">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev1sec4"/>
+<navPoint id="i558" playOrder="558">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec13"/>
+</navPoint>
+<navPoint id="i559" playOrder="559">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec14"/>
+</navPoint>
+<navPoint id="i560" playOrder="560">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev2sec15"/>
+</navPoint>
+</navPoint>
+<navPoint id="i561" playOrder="561">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch17.xhtml#ch17lev1sec5"/>
+</navPoint>
+</navPoint>
+<navPoint id="i562" playOrder="562">
+<navLabel>
+<text>Chapter 18 Infrastructure as Code Using AWS CloudFormation</text>
+</navLabel>
+<content src="ch18.xhtml#ch18"/>
+<navPoint id="i563" playOrder="563">
+<navLabel>
+<text>AWS CloudFormation</text>
+</navLabel>
+<content src="ch18.xhtml#ch18lev1sec1"/>
+<navPoint id="i564" playOrder="564">
+<navLabel>
+<text>Templates</text>
+</navLabel>
+<content src="ch18.xhtml#ch18lev2sec1"/>
+</navPoint>
+<navPoint id="i565" playOrder="565">
+<navLabel>
+<text>Stacks</text>
+</navLabel>
+<content src="ch18.xhtml#ch18lev2sec2"/>
+</navPoint>
+<navPoint id="i566" playOrder="566">
+<navLabel>
+<text>Change Sets</text>
+</navLabel>
+<content src="ch18.xhtml#ch18lev2sec3"/>
+</navPoint>
+<navPoint id="i567" playOrder="567">
+<navLabel>
+<text>Export</text>
+</navLabel>
+<content src="ch18.xhtml#ch18lev2sec4"/>
+</navPoint>
+<navPoint id="i568" playOrder="568">
+<navLabel>
+<text>AWS CloudFormation Registry</text>
+</navLabel>
+<content src="ch18.xhtml#ch18lev2sec5"/>
+</navPoint>
+</navPoint>
+<navPoint id="i569" playOrder="569">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch18.xhtml#ch18lev1sec2"/>
+<navPoint id="i570" playOrder="570">
+<navLabel>
+<text>Exercise</text>
+</navLabel>
+<content src="ch18.xhtml#ch18lev2sec6"/>
+</navPoint>
+<navPoint id="i571" playOrder="571">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch18.xhtml#ch18lev2sec7"/>
+</navPoint>
+<navPoint id="i572" playOrder="572">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch18.xhtml#ch18lev2sec8"/>
+</navPoint>
+</navPoint>
+<navPoint id="i573" playOrder="573">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch18.xhtml#ch18lev1sec3"/>
+</navPoint>
+</navPoint>
+</navPoint>
+<navPoint id="i574" playOrder="574">
+<navLabel>
+<text>Part VII Developing Cloud Native Applications in AWS</text>
+</navLabel>
+<content src="ch18_part7.xhtml#part7"/>
+<navPoint id="i575" playOrder="575">
+<navLabel>
+<text>Chapter 19 Developing Serverless Applications with Lambda</text>
+</navLabel>
+<content src="ch19.xhtml#ch19"/>
+<navPoint id="i576" playOrder="576">
+<navLabel>
+<text>AWS Lambda</text>
+</navLabel>
+<content src="ch19.xhtml#ch19lev1sec1"/>
+<navPoint id="i577" playOrder="577">
+<navLabel>
+<text>AWS Lambda Functions</text>
+</navLabel>
+<content src="ch19.xhtml#ch19lev2sec1"/>
+</navPoint>
+<navPoint id="i578" playOrder="578">
+<navLabel>
+<text>AWS Lambda Applications</text>
+</navLabel>
+<content src="ch19.xhtml#ch19lev2sec2"/>
+</navPoint>
+<navPoint id="i579" playOrder="579">
+<navLabel>
+<text>AWS Lambda Layers</text>
+</navLabel>
+<content src="ch19.xhtml#ch19lev2sec3"/>
+</navPoint>
+<navPoint id="i580" playOrder="580">
+<navLabel>
+<text>AWS Lambda Security</text>
+</navLabel>
+<content src="ch19.xhtml#ch19lev2sec4"/>
+</navPoint>
+</navPoint>
+<navPoint id="i581" playOrder="581">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch19.xhtml#ch19lev1sec2"/>
+<navPoint id="i582" playOrder="582">
+<navLabel>
+<text>Exercise</text>
+</navLabel>
+<content src="ch19.xhtml#ch19lev2sec5"/>
+</navPoint>
+<navPoint id="i583" playOrder="583">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch19.xhtml#ch19lev2sec6"/>
+</navPoint>
+<navPoint id="i584" playOrder="584">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch19.xhtml#ch19lev2sec7"/>
+</navPoint>
+</navPoint>
+<navPoint id="i585" playOrder="585">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch19.xhtml#ch19lev1sec3"/>
+</navPoint>
+</navPoint>
+<navPoint id="i586" playOrder="586">
+<navLabel>
+<text>Chapter 20 Deploying a Static Website on Amazon S3 Bucket</text>
+</navLabel>
+<content src="ch20.xhtml#ch20"/>
+<navPoint id="i587" playOrder="587">
+<navLabel>
+<text>Amazon S3</text>
+</navLabel>
+<content src="ch20.xhtml#ch20lev1sec1"/>
+</navPoint>
+<navPoint id="i588" playOrder="588">
+<navLabel>
+<text>Deploy a Static Website Using Amazon S3</text>
+</navLabel>
+<content src="ch20.xhtml#ch20lev1sec2"/>
+</navPoint>
+<navPoint id="i589" playOrder="589">
+<navLabel>
+<text>Deploy a Static Website Using Amazon S3 and Amazon Route 53</text>
+</navLabel>
+<content src="ch20.xhtml#ch20lev1sec3"/>
+</navPoint>
+<navPoint id="i590" playOrder="590">
+<navLabel>
+<text>Deploy a Static Website Using Amazon S3, Amazon Route 53, and Amazon CloudFront</text>
+</navLabel>
+<content src="ch20.xhtml#ch20lev1sec4"/>
+</navPoint>
+<navPoint id="i591" playOrder="591">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch20.xhtml#ch20lev1sec5"/>
+<navPoint id="i592" playOrder="592">
+<navLabel>
+<text>Exercise</text>
+</navLabel>
+<content src="ch20.xhtml#ch20lev2sec1"/>
+</navPoint>
+<navPoint id="i593" playOrder="593">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch20.xhtml#ch20lev2sec2"/>
+</navPoint>
+<navPoint id="i594" playOrder="594">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch20.xhtml#ch20lev2sec3"/>
+</navPoint>
+</navPoint>
+<navPoint id="i595" playOrder="595">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch20.xhtml#ch20lev1sec6"/>
+</navPoint>
+</navPoint>
+<navPoint id="i596" playOrder="596">
+<navLabel>
+<text>Chapter 21 Deploying a Web Application Using AWS Elastic Beanstalk</text>
+</navLabel>
+<content src="ch21.xhtml#ch21"/>
+<navPoint id="i597" playOrder="597">
+<navLabel>
+<text>AWS Elastic Beanstalk</text>
+</navLabel>
+<content src="ch21.xhtml#ch21lev1sec1"/>
+</navPoint>
+<navPoint id="i598" playOrder="598">
+<navLabel>
+<text>Deploy an Application in AWS Elastic Beanstalk</text>
+</navLabel>
+<content src="ch21.xhtml#ch21lev1sec2"/>
+</navPoint>
+<navPoint id="i599" playOrder="599">
+<navLabel>
+<text>Migrate and Deploy an Application to AWS Elastic Beanstalk</text>
+</navLabel>
+<content src="ch21.xhtml#ch21lev1sec3"/>
+</navPoint>
+<navPoint id="i600" playOrder="600">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch21.xhtml#ch21lev1sec4"/>
+<navPoint id="i601" playOrder="601">
+<navLabel>
+<text>Exercise</text>
+</navLabel>
+<content src="ch21.xhtml#ch21lev2sec1"/>
+</navPoint>
+<navPoint id="i602" playOrder="602">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch21.xhtml#ch21lev2sec2"/>
+</navPoint>
+<navPoint id="i603" playOrder="603">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch21.xhtml#ch21lev2sec3"/>
+</navPoint>
+</navPoint>
+<navPoint id="i604" playOrder="604">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch21.xhtml#ch21lev1sec5"/>
+</navPoint>
+</navPoint>
+<navPoint id="i605" playOrder="605">
+<navLabel>
+<text>Chapter 22 Migrating Your Application and Database to AWS</text>
+</navLabel>
+<content src="ch22.xhtml#ch22"/>
+<navPoint id="i606" playOrder="606">
+<navLabel>
+<text>AWS Migration</text>
+</navLabel>
+<content src="ch22.xhtml#ch22lev1sec1"/>
+</navPoint>
+<navPoint id="i607" playOrder="607">
+<navLabel>
+<text>Application Migration</text>
+</navLabel>
+<content src="ch22.xhtml#ch22lev1sec2"/>
+<navPoint id="i608" playOrder="608">
+<navLabel>
+<text>AWS Server Migration Service</text>
+</navLabel>
+<content src="ch22.xhtml#ch22lev2sec1"/>
+</navPoint>
+</navPoint>
+<navPoint id="i609" playOrder="609">
+<navLabel>
+<text>Database Migration</text>
+</navLabel>
+<content src="ch22.xhtml#ch22lev1sec3"/>
+</navPoint>
+<navPoint id="i610" playOrder="610">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch22.xhtml#ch22lev1sec4"/>
+<navPoint id="i611" playOrder="611">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch22.xhtml#ch22lev2sec2"/>
+</navPoint>
+<navPoint id="i612" playOrder="612">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch22.xhtml#ch22lev2sec3"/>
+</navPoint>
+<navPoint id="i613" playOrder="613">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch22.xhtml#ch22lev2sec4"/>
+</navPoint>
+</navPoint>
+<navPoint id="i614" playOrder="614">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch22.xhtml#ch22lev1sec5"/>
+</navPoint>
+</navPoint>
+</navPoint>
+<navPoint id="i615" playOrder="615">
+<navLabel>
+<text>Part VIII Building, Deploying, and Debugging Cloud Applications</text>
+</navLabel>
+<content src="ch22_part8.xhtml#part8"/>
+<navPoint id="i616" playOrder="616">
+<navLabel>
+<text>Chapter 23 Hosting Secure Repositories Using AWS CodeCommit</text>
+</navLabel>
+<content src="ch23.xhtml#ch23"/>
+<navPoint id="i617" playOrder="617">
+<navLabel>
+<text>AWS CodeCommit</text>
+</navLabel>
+<content src="ch23.xhtml#ch23lev1sec1"/>
+</navPoint>
+<navPoint id="i618" playOrder="618">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch23.xhtml#ch23lev1sec2"/>
+<navPoint id="i619" playOrder="619">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch23.xhtml#ch23lev2sec1"/>
+</navPoint>
+<navPoint id="i620" playOrder="620">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch23.xhtml#ch23lev2sec2"/>
+</navPoint>
+<navPoint id="i621" playOrder="621">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch23.xhtml#ch23lev2sec3"/>
+</navPoint>
+</navPoint>
+<navPoint id="i622" playOrder="622">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch23.xhtml#ch23lev1sec3"/>
+</navPoint>
+</navPoint>
+<navPoint id="i623" playOrder="623">
+<navLabel>
+<text>Chapter 24 Building an Application Using AWS CodeBuild</text>
+</navLabel>
+<content src="ch24.xhtml#ch24"/>
+<navPoint id="i624" playOrder="624">
+<navLabel>
+<text>AWS CodeBuild</text>
+</navLabel>
+<content src="ch24.xhtml#ch24lev1sec1"/>
+<navPoint id="i625" playOrder="625">
+<navLabel>
+<text>Build Projects</text>
+</navLabel>
+<content src="ch24.xhtml#ch24lev2sec1"/>
+</navPoint>
+<navPoint id="i626" playOrder="626">
+<navLabel>
+<text>Build Environment</text>
+</navLabel>
+<content src="ch24.xhtml#ch24lev2sec2"/>
+</navPoint>
+</navPoint>
+<navPoint id="i627" playOrder="627">
+<navLabel>
+<text>Working with AWS CodeBuild</text>
+</navLabel>
+<content src="ch24.xhtml#ch24lev1sec2"/>
+</navPoint>
+<navPoint id="i628" playOrder="628">
+<navLabel>
+<text>Test Reporting</text>
+</navLabel>
+<content src="ch24.xhtml#ch24lev1sec3"/>
+</navPoint>
+<navPoint id="i629" playOrder="629">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch24.xhtml#ch24lev1sec4"/>
+<navPoint id="i630" playOrder="630">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch24.xhtml#ch24lev2sec3"/>
+</navPoint>
+<navPoint id="i631" playOrder="631">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch24.xhtml#ch24lev2sec4"/>
+</navPoint>
+<navPoint id="i632" playOrder="632">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch24.xhtml#ch24lev2sec5"/>
+</navPoint>
+</navPoint>
+<navPoint id="i633" playOrder="633">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch24.xhtml#ch24lev1sec5"/>
+</navPoint>
+</navPoint>
+<navPoint id="i634" playOrder="634">
+<navLabel>
+<text>Chapter 25 Deploying Applications Using CodeDeploy and CodePipeline</text>
+</navLabel>
+<content src="ch25.xhtml#ch25"/>
+<navPoint id="i635" playOrder="635">
+<navLabel>
+<text>AWS CodeDeploy</text>
+</navLabel>
+<content src="ch25.xhtml#ch25lev1sec1"/>
+</navPoint>
+<navPoint id="i636" playOrder="636">
+<navLabel>
+<text>AWS CodePipeline</text>
+</navLabel>
+<content src="ch25.xhtml#ch25lev1sec2"/>
+</navPoint>
+<navPoint id="i637" playOrder="637">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch25.xhtml#ch25lev1sec3"/>
+<navPoint id="i638" playOrder="638">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch25.xhtml#ch25lev2sec1"/>
+</navPoint>
+<navPoint id="i639" playOrder="639">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch25.xhtml#ch25lev2sec2"/>
+</navPoint>
+<navPoint id="i640" playOrder="640">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch25.xhtml#ch25lev2sec3"/>
+</navPoint>
+</navPoint>
+<navPoint id="i641" playOrder="641">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch25.xhtml#ch25lev1sec4"/>
+</navPoint>
+</navPoint>
+<navPoint id="i642" playOrder="642">
+<navLabel>
+<text>Chapter 26 Building a Scalable and Fault-Tolerant CI/CD Pipeline</text>
+</navLabel>
+<content src="ch26.xhtml#ch26"/>
+<navPoint id="i643" playOrder="643">
+<navLabel>
+<text>CI/CD Pipeline</text>
+</navLabel>
+<content src="ch26.xhtml#ch26lev1sec1"/>
+</navPoint>
+<navPoint id="i644" playOrder="644">
+<navLabel>
+<text>Chapter Review</text>
+</navLabel>
+<content src="ch26.xhtml#ch26lev1sec2"/>
+<navPoint id="i645" playOrder="645">
+<navLabel>
+<text>Exercises</text>
+</navLabel>
+<content src="ch26.xhtml#ch26lev2sec1"/>
+</navPoint>
+<navPoint id="i646" playOrder="646">
+<navLabel>
+<text>Questions</text>
+</navLabel>
+<content src="ch26.xhtml#ch26lev2sec2"/>
+</navPoint>
+<navPoint id="i647" playOrder="647">
+<navLabel>
+<text>Answers</text>
+</navLabel>
+<content src="ch26.xhtml#ch26lev2sec3"/>
+</navPoint>
+</navPoint>
+<navPoint id="i648" playOrder="648">
+<navLabel>
+<text>Additional Resources</text>
+</navLabel>
+<content src="ch26.xhtml#ch26lev1sec3"/>
+</navPoint>
+</navPoint>
+</navPoint>
+<navPoint id="i649" playOrder="649">
+<navLabel>
+<text>Part IX Appendixes and Acronyms and Glossary</text>
+</navLabel>
+<content src="ch26_part9.xhtml#part9"/>
+<navPoint id="i650" playOrder="650">
+<navLabel>
+<text>Appendix A AWS Certified Developer - Associate Exam Objective Map (DVA-C01)</text>
+</navLabel>
+<content src="ch27_appa.xhtml#appa"/>
+</navPoint>
+<navPoint id="i651" playOrder="651">
+<navLabel>
+<text>Appendix B About the Online Content</text>
+</navLabel>
+<content src="ch28_appb.xhtml#appb"/>
+<navPoint id="i652" playOrder="652">
+<navLabel>
+<text>System Requirements</text>
+</navLabel>
+<content src="ch28_appb.xhtml#appblev1sec1"/>
+</navPoint>
+<navPoint id="i653" playOrder="653">
+<navLabel>
+<text>Your Total Seminars Training Hub Account</text>
+</navLabel>
+<content src="ch28_appb.xhtml#appblev1sec2"/>
+<navPoint id="i654" playOrder="654">
+<navLabel>
+<text>Privacy Notice</text>
+</navLabel>
+<content src="ch28_appb.xhtml#appblev2sec1"/>
+</navPoint>
+</navPoint>
+<navPoint id="i655" playOrder="655">
+<navLabel>
+<text>Single User License Terms and Conditions</text>
+</navLabel>
+<content src="ch28_appb.xhtml#appblev1sec3"/>
+</navPoint>
+<navPoint id="i656" playOrder="656">
+<navLabel>
+<text>TotalTester Online</text>
+</navLabel>
+<content src="ch28_appb.xhtml#appblev1sec4"/>
+</navPoint>
+<navPoint id="i657" playOrder="657">
+<navLabel>
+<text>Technical Support</text>
+</navLabel>
+<content src="ch28_appb.xhtml#appblev1sec5"/>
+</navPoint>
+</navPoint>
+</navPoint>
+<navPoint id="i658" playOrder="658">
+<navLabel>
+<text>Acronyms and Glossary</text>
+</navLabel>
+<content src="ch29_gloss.xhtml#gloss"/>
+</navPoint>
+<navPoint id="i659" playOrder="659">
+<navLabel>
+<text>Index</text>
+</navLabel>
+<content src="ch30_index.xhtml#index"/>
+</navPoint>
+</navMap>
+</ncx>

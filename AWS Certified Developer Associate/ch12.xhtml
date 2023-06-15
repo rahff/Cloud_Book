@@ -1,0 +1,294 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch12"><span epub:type="pagebreak" id="page_327"/><span class="chap">CHAPTER <span class="chap1">12</span></span></h2>
+<h2 class="h2c1">Protecting Your Data Using Server-Side and Client-Side Encryption</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• Data protection</p>
+<p class="bulleta">• Server-side encryption</p>
+<p class="bulleta">• Client-side encryption</p>
+<p class="hr"/>
+<p class="noindentb">In this chapter, we will explore how to protect your data using both server-side encryption and client-side encryption.</p>
+<h3 class="h3" id="ch12lev1sec1">Data Protection</h3>
+<p class="noindent">AWS offers many services to protect your data at rest or in transit. First let’s look at some of the cryptographic concepts and then explore the services provided by AWS. Cryptography uses coded algorithms, signatures, and hashes to protect your data, which can be at rest, such as in a file on a hard drive, or in transit, such as electronic communication exchanged between two or more parties. The primary goals of cryptography are</p>
+<p class="bullett">• <strong>Confidentiality</strong>   To make sure the data is available only to authorized users and no one else.</p>
+<p class="bulleta">• <strong>Data Integrity</strong>   To ensure the data has not been manipulated during transit or at rest.</p>
+<p class="bulleta">• <strong>Authentication</strong>   To confirm the authenticity of the data or the identity of a user who has access to the data.</p>
+<p class="bulletb">• <strong>Nonrepudiation</strong>   To provide assurance to the sender and recipient of the data so neither can deny sending or receiving it.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_328"/>Cryptography uses a primitive, which is a cryptographic algorithm, including encryption algorithms, digital signature algorithms, hashes, and other functions to provide information security, and AWS uses well-established primitives.</p>
+<p class="bullett">• <strong>Plaintext</strong>   This is any data that is in human-readable or unprotected form, which needs to be encrypted for security or compliance reasons.</p>
+<p class="bulleta">• <strong>Encryption</strong>   This is the process of converting readable plaintext data into ciphertext, an unreadable form using an encryption algorithm that is nearly impossible to reverse without an encryption key. AWS supports and transparently encrypts the data that you store and decrypts it for you.</p>
+<p class="bulleta">• <strong>Encryption Algorithm</strong>   This is a defined set of instructions that lists exactly how plaintext data is converted into ciphertext by using an encryption key as input and the ciphertext as output. The AWS Key Management Service (KMS) uses the Advanced Encryption Standard (AES) symmetric algorithm.</p>
+<p class="bulleta">• <strong>Decryption</strong>   This is the process of transforming the ciphertext back to the original plaintext using an encryption key and any additional authenticated data (AAD).</p>
+<p class="bulleta">• <strong>Data Key</strong>   A data encryption key is used to protect data by encrypting data or other data keys. You can use the AWS Key Management Service to generate a data key, which returns a plaintext key, and to encrypt your customer master key.</p>
+<p class="bulleta">• <strong>Master Key</strong>   This is used to encrypt data keys and key encryption keys, and it must be kept in plaintext in order to decrypt the encrypted keys. The AWS Key Management Service generates and protects master keys, and the customer master keys (CMKs) are managed entirely within AWS KMS.</p>
+<p class="bulleta">• <strong>Private Key</strong>   This is one part of a pair of keys used to protect data in asymmetric encryption, where the public key is distributed to multiple entities and the private key is distributed to a single entity so only the private key holder can decrypt it.</p>
+<p class="bulleta">• <strong>Public Key</strong>   This is one part of a pair of keys used to protect data in an asymmetric encryption, where the public key is distributed to multiple entities and it can be authenticated, since the public key signature proves that a trusted entity encrypted and sent it.</p>
+<p class="bulleta">• <strong>Asymmetric and Symmetric Encryption</strong>   When both encryption and decryption use the same secret key, it’s called symmetric encryption. When a public key is used for encryption and its corresponding private key is used for decryption, it’s called asymmetric encryption.</p>
+<p class="bulleta">• <strong>AAD</strong>   This is additional data provided for encryption and decryption purposes that serves as an additional authenticity check and verifies integrity of the encrypted data. The data decryption will fail if the AAD supplied for encryption does not match the AAD supplied during the encryption process, and both the AWS Encryption software development kit (SDK) and AWS Key KMS support AAD.</p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_329"/><strong>Encryption Context</strong>   This is a type of AAD that consists of nonsecret name-value pairs that KMS uses to encrypt and decrypt data.</p>
+<p class="bulleta">• <strong>Stream Cipher</strong>   This is an algorithm that encrypts data one bit at a time.</p>
+<p class="bulleta">• <strong>Block Cipher</strong>   This is an algorithm that encrypts data one block at a time.</p>
+<p class="bulleta">• <strong>Ciphertext</strong>   This is encrypted data in an unreadable format.</p>
+<p class="bulleta">• <strong>Key Encryption Key</strong>   This encryption key is used to encrypt a data key or another key encryption key, and it is encrypted and protected with a master key.</p>
+<p class="bulletb">• <strong>Envelope Encryption</strong>   This is a strategy for protecting the encryption keys that were used to encrypt your data. Plaintext data is encrypted with a data key, which in turn is encrypted with the key encryption key. The data encryption key is encrypted with another encryption key, and finally, the master key is used to encrypt the key encryption key. The master key is the top-level plaintext key encryption key, as shown in <a href="ch12.xhtml#ch12fig1">Figure 12-1</a>.</p>
+<p class="imagef" id="ch12fig1"><img alt="images" src="f0329-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 12-1</strong>   Envelope encryption</p>
+<p class="indent"><span epub:type="pagebreak" id="page_330"/>The AWS Key Management Service protects the master key that must remain in plaintext, and it will never allow the master key to leave the service unencrypted.</p>
+<p class="bullett">• <strong>Cryptographic Algorithms</strong>   An encryption algorithm is set of instructions that transform readable plaintext into unreadable ciphertext. Algorithms use advanced mathematics to make it relatively easy to encrypt but virtually impossible to decrypt without the necessary keys. The AWS Key Management Service uses the AES algorithm with 256-bit secret keys.</p>
+<p class="bulleta">• <strong>Symmetric Algorithms</strong>   Encryption is symmetric if it uses the same key to both encrypt and decrypt your plaintext. AES with 128-, 192-, or 256-bit keys and Triple DES (3DES) with three 56-bit keys are two widely used symmetric algorithms.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   Symmetric encryption is known as shared key, shared secret, and secret key encryption.</p>
+</div>
+<p class="indent">An algorithm and a symmetric key are used to convert a plaintext message into ciphertext, as shown in <a href="ch12.xhtml#ch12fig2">Figure 12-2</a>.</p>
+<p class="imagef" id="ch12fig2"><img alt="images" src="f0330-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 12-2</strong>   Symmetric key encryption</p>
+<p class="indent"><a href="ch12.xhtml#ch12fig3">Figure 12-3</a> shows the same secret key and symmetric algorithm being used to turn ciphertext back into plaintext.</p>
+<p class="imagef" id="ch12fig3"><img alt="images" src="f0330-02.jpg"/></p>
+<p class="figcaption"><strong>Figure 12-3</strong>   Symmetric key decryption</p>
+<p class="indent"><span epub:type="pagebreak" id="page_331"/>Block ciphers and stream ciphers are the two types of symmetric key ciphers. When the plaintext is divided into fixed-length blocks and encrypts one block at a time, it is called a block cipher. It is more powerful and practical primitives but slower. When the plaintext is encrypted one unit at a time, it’s called a stream cipher.</p>
+<p class="bullett">• <strong>Asymmetric Algorithms</strong>   Encryption is asymmetric when it uses one key for encryption and another mathematically related key for decryption. One key is distributed publicly (a public key), while its other related key is kept private and secure (a private key). Public key cryptography is based on mathematical problems that cannot be easily reversed.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   AWS Signature Version 4 should be used for uploading or accessing objects encrypted by SSE-KMS for added security.</p>
+</div>
+<p class="bulletn">Data protection refers to both protecting your data while in transit as it travels to and from Amazon S3 and at rest while it is stored on disks in Amazon S3 datacenters. The data can be protected in transit using Secure Sockets Layer (SSL) or client-side encryption. You can use AWS CloudHSM to create and manage the hardware security modules that store your encryption keys. You can use AWS Key Management Service to protect your encryption keys. You can use AWS Encryption SDK, the DynamoDB Encryption Client, or the Amazon S3 Encryption Client to protect your data before sending it to AWS for client-side encryption.</p>
+<p class="bulleta">• <strong>Server-Side Encryption</strong>   Amazon S3 encrypts your object before saving it to disks and then decrypts it when you want to download the object.</p>
+<p class="bulleta">• <strong>Client-Side Encryption</strong>   You encrypt your data on the client side and upload the encrypted data to Amazon S3. Here, the customer (you) manages the encryption keys, encryption process, and its related tools.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   When you list objects in your bucket, the API returns a list of all objects, regardless of whether they are encrypted.</p>
+</div>
+<h3 class="h3" id="ch12lev1sec2">Server-Side Encryption</h3>
+<p class="noindent">When a service or application encrypts the data at its destination, it’s known as server-side encryption. Amazon S3 supports server-side encryption and encrypts your data before writing it to disks in its datacenters and then decrypts it when accessing the object. There is no difference in the way encrypted or unencrypted objects are accessed. Server-side encryption has three mutually exclusive options, as described next, depending on how you manage the encryption keys:</p>
+<p class="bullett">• <strong>Amazon S3–Managed Keys (SSE-S3)</strong>   Here each object is encrypted with a unique key in addition to encrypting the key itself with a master key, which is rotated regularly. Amazon S3 server-side encryption uses the 256-bit Advanced Encryption Standard to encrypt your data.</p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_332"/><strong>CMKs Using KMS</strong>   Here each object is encrypted with a unique key in addition to encrypting the key itself with a master key, which is rotated regularly. This requires separate permissions and provides an audit trail of when your CMK was used and by whom. You are allowed to create and manage customer-managed CMKs, or you can use AWS-managed CMKs that are unique to your region.</p>
+<p class="bulleta">• <strong>Customer-Provided Keys (SSE-C)</strong>   Here Amazon S3 uses a customer-provided encryption key to encrypt the data before writing it to the disks, and Amazon S3 decrypts the data when you access your objects by using the customer-provided key.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   You can’t apply different types of server-side encryption to the same object simultaneously.</p>
+</div>
+<h4 class="h4" id="ch12lev2sec1">Server-Side Encryption with Customer-Managed Keys in KMS</h4>
+<p class="noindent">When the data is encrypted at the destination by a service or application, it is known as server-side encryption. Amazon S3 uses AWS KMS CMKs to encrypt the objects in your Amazon S3 bucket if you choose. It encrypts only the object data, not its metadata, using the AWS Management Console or AWS KMS application programming interfaces (APIs). Amazon S3 creates an AWS-managed CMK when you add an SSE-KMS–encrypted object to a bucket and uses the same CMK for SSE-KMS encryption, unless you select a separate customer-managed CMK to add flexibility.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   AWS KMS CMK should be in the same region when you use SSE-KMS encryption with an S3 bucket.</p>
+</div>
+<p class="indent">You can create and manage a customer-managed key or use an Amazon S3 key that AWS manages for you. Both the AWS CMK– and customer-managed CMK are unique to your region and AWS account, where only Amazon S3 has permission to use this CMK on your behalf. The data key that was used to encrypt your data is encrypted and stored with the data it protects. You can use the AWS KMS console to create, disable, and rotate CMKs, and its security controls help you meet your encryption-related compliance requirements. The bucket policy can be used for server-side encryption of all objects in a particular Amazon S3 bucket. As shown next, the bucket policy allows the upload object (s3:PutObject) permission to apply to everyone only if the request includes the x-amz-server-side-encryption header, which is used with SSE-KMS.</p>
+<p class="imagep"><img alt="images" src="p0332-01.jpg"/></p>
+<div class="siden">
+<p class="imagen"><span epub:type="pagebreak" id="page_333"/><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   All GET and PUT requests should be made via either SSL or SigV4 for an object protected by AWS KMS; otherwise, the requests will fail.</p>
+</div>
+<p class="indent">You need to use the x-amz-server-side-encryption request header to request SSE-KMS in the object creation REST APIs. You need to use x-amz-server-side-encryption-aws-kms-key-id to specify the ID of the AWS KMS CMK that was used for the object. Amazon S3 APIs support the PUT operation to upload data and specify request headers. You can initiate a multipart upload for large objects using the multipart upload API. You can use the POST operation to upload an object instead of the request headers. The COPY operation can be used to copy an object from a source object to a target object. You can apply SSE-KMS headers to the target objects using the COPY operation, and the AWS SDK provides wrapper APIs to request SSE-KMS with Amazon S3.</p>
+<h4 class="h4" id="ch12lev2sec2">Server-Side Encryption with Amazon S3–Managed Encryption Keys</h4>
+<p class="noindent">You can protect your data at rest using server-side encryption, and Amazon S3 uses a unique key to encrypt each object; in addition, it encrypts the key itself with a master key that gets rotated regularly. Amazon S3 server-side encryption uses the 256-bit Advanced Encryption Standard to encrypt your data, and a bucket policy can be used to encrypt all the objects in a bucket. As shown here, the bucket policy allows permissions to upload an object when the request includes the x-amz-server-side-encryption header to request server-side encryption:</p>
+<p class="imagep"><img alt="images" src="p0333-01.jpg"/></p>
+<div class="siden">
+<p class="imagen"><span epub:type="pagebreak" id="page_334"/><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   In addition to kms:ReEncrypt, kms:GenerateDataKey, and kms:DescribeKey, you need the kms:Decrypt permission to upload or download an Amazon S3 object encrypted with an AWS KMS CMK.</p>
+</div>
+<p class="indent">You need to use the x-amz-server-side-encryption request header to request server-side encryption using the object creation REST APIs. The Amazon S3 APIs support PUT operations to specify the request header when uploading data. You can initiate multipart upload to upload large objects. COPY operations can be used to copy an object from a source object to a target object. You can use the AWS Management Console to upload objects and request server-side encryption, or use the AWS SDKs, which provide wrapper APIs, to request server-side encryption.</p>
+<h4 class="h4" id="ch12lev2sec3">Server-Side Encryption with Customer-Provided Encryption Keys</h4>
+<p class="noindent">You can protect your data at rest using server-side encryption with customer-provided encryption keys (SSE-C), where Amazon S3 manages both the encryption when it writes to disks and decryption as you access your objects. You don’t need to maintain any code to perform data encryption or decryption, except managing the encryption keys that you provided. Amazon S3 uses the encryption key when you upload an object to apply AES-256 encryption to your data. You must provide the same encryption key when you retrieve an object, and Amazon S3 first verifies the encryption key before decrypting the object data.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   If you lose encryption key, you lose the object because Amazon S3 does not store the encryption key and stores a randomly salted hash based message authentication code (HMAC) value instead, which cannot be used either to obtain the encryption key or to decrypt the contents of the encrypted object.</p>
+</div>
+<p class="indent"><span epub:type="pagebreak" id="page_335"/>You must use HTTPS because Amazon S3 rejects any requests made over HTTP when using SSE-C. You need to manage a mapping of which object is using which encryption key, since Amazon S3 does not store or manage the encryption keys. You are responsible for tracking each object’s encryption key, and each object version can have its own encryption key when you upload using this feature with versioning enabled. In addition to managing the encryption keys on the client side, you need to perform key rotation on the client side.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="caution.jpg"/></p>
+<p class="note"><strong>CAUTION</strong>   Any GET request without an encryption key fails if you lose the encryption key, and in turn you lose the object.</p>
+</div>
+<p class="indent">You must provide encryption key information when using server-side encryption with customer-provided encryption keys (SSE-C) for the x-amz-server-side-encryption-customer-algorithm to specify the encryption algorithm with the header value AES256. The x-amz-server-side-encryption-customer-key can be used to provide the 256-bit, base64-encoded encryption key for encrypting or decrypting your data. The x-amz-server-side-encryption-customer-key-MD5 can be used to provide the 128-bit MD5, base64-encoded encryption key for a message integrity check to make sure it was transmitted without error. AWS SDK wrapper libraries can be used to add the headers to your request, and you can make the Amazon S3 REST API calls directly in your application.</p>
+<p class="indent">Amazon S3 APIs support the GET operation when retrieving objects and the HEAD operation to retrieve object metadata by specifying the request headers. The PUT operation is used when uploading data, and the multipart upload is used to upload large objects. The POST operation can be used to upload an object, instead of the request headers, and the COPY operation to copy an object from a source object to a target object.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   The Amazon S3 console cannot be used to update an existing object or to upload an object and request SSE-C.</p>
+</div>
+<h3 class="h3" id="ch12lev1sec3">Client-Side Encryption</h3>
+<p class="noindent">When you encrypt data before sending it to Amazon S3, it is known as client-side encryption, and it can use either a CMK stored in AWS KMS or use a master key stored within your application.</p>
+<h4 class="h4" id="ch12lev2sec4">CMK Stored in AWS KMS</h4>
+<p class="noindent">When you use the CMK ID to upload an object, the client sends the request to AWS KMS for a CMK to encrypt your object data. AWS KMS returns two versions of a randomly generated data key, a plaintext version of the data key, and a cipher blob of the same data key. The client downloads the encrypted object from Amazon S3 along with object metadata when downloading an object. The client then sends the cipher blob to decrypt the object data using AWS KMS to get the plaintext version of the data key.</p>
+<div class="siden">
+<p class="imagen"><span epub:type="pagebreak" id="page_336"/><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   The client receives a unique data key for every uploaded object.</p>
+</div>
+<h4 class="h4" id="ch12lev2sec5">Master Key Stored in the Application</h4>
+<p class="noindent">You can use the master key stored within your application for client-side data encryption. It’s important to safely manage your encryption keys because neither client-side master keys nor your unencrypted data are sent to AWS, so you can’t decrypt your data if you lose it. You provide a client-side master key to the Amazon S3 encryption client when uploading an object. The master key is used by the client to encrypt the data; the encryption key is generated randomly. The Amazon S3 encryption client generates a one-time-use data encryption key, or data key, locally. It uses the data key to encrypt the data of a single Amazon S3 object, and the client generates a separate data key for each object. The client encrypts the data encryption key using the master key, and then the client uploads the encrypted data key as part of the object metadata. The client determines which client-side master key is used for decryption based on the material description. The client uploads the encrypted data and saves the encrypted data key in Amazon S3 as metadata. The client downloads the encrypted object when you download an object from Amazon S3. The client determines which master key from the object’s metadata to use it for decrypting the data key. The master key is used by the client to decrypt the data key, and then it uses the data key to decrypt the object. The symmetric key or a public/private key pair can be your client-side master key.</p>
+<h3 class="h3" id="ch12lev1sec4">Command-Line Encryption and Decryption</h3>
+<p class="noindent">Data is encrypted and decrypted at the command line using the AWS Encryption CLI, which has advanced data protection built into it. The AWS Encryption CLI is built for Python and supported on Linux, macOS, and Windows platforms. Data can be encrypted and decrypted in a shell on Linux and macOS, in a Command (CMD) Prompt window on Windows, or in a PowerShell console on any system.</p>
+<h4 class="h4" id="ch12lev2sec6">Encrypt a File</h4>
+<p class="noindent">We are going to encrypt the mask.txt file using the AWS Encryption CLI. The mask.txt file contains an AWS Developer string that is stored in your current directory, and the encrypted output will be stored to the same directory.</p>
+<p class="imagep"><img alt="images" src="p0336-01.jpg"/></p>
+<p class="indent">This example is using macOS shell, which is similar to Linux shell, a CMD Prompt, or a PowerShell.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_337"/>As shown in <a href="ch12.xhtml#ch12fig4">Figure 12-4</a>, you specify a data key when you encrypt data. We can use an AWS KMS CMK as the master key, and your credentials are available to the AWS Encryption CLI, which has permission to call Decrypt APIs and AWS KMS Generate-DataKey on the CMK. You need to save the AWS KMS CMK ID in the $keyID variable, as shown in the first line. Then you can use the <span class="code">-- encrypt</span> parameter to encrypt the data in the mask.txt file, as shown in the second line.</p>
+<p class="imagef" id="ch12fig4"><img alt="images" src="f0337-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 12-4</strong>   Encryption</p>
+<p class="imagep"><img alt="images" src="p0337-01.jpg"/></p>
+<p class="indent">The <span class="code">--encrypt</span> parameter specifies the encryption action, the <span class="code">--master-keys</span> parameter specifies the AWS KMS CMK ID, and the <span class="code">--encryption-context</span> parameter specifies an encryption context, a key-value pair, and purpose=enc-test—it is also a recommended best practice. The <span class="code">--metadata-output</span> parameter specifies the location to write the metadata, which includes the full paths to the input and output files. The <span class="code">--input parameter</span> is mask.txt, and the <span class="code">--output</span> parameter mask.txt.encrypted (which gets created when the <span class="code">-- encrypt</span> command is successful) and (.) represent the output location, which is the current directory. Now use <span class="code">ls</span> to view directory listing, as shown here.</p>
+<p class="imagep"><img alt="images" src="p0337-02.jpg"/></p>
+<p class="indent">The output file of the <span class="code">--encrypt</span> command will be same as the input filename and will have the .encrypted suffix by default, but it can be changed by using --<span class="code">suffix</span>. The mask.txt.encrypted file contains the secure encrypted message, including metadata, encryption context, and encrypted copy of the data key, in addition to the encrypted data.</p>
+<h4 class="h4" id="ch12lev2sec7"><span epub:type="pagebreak" id="page_338"/>Decrypt a File</h4>
+<p class="noindent">Now, let us decrypt the mask.txt.encrypted file that we created in the previous section. Use the following command to decrypt the contents of the mask.txt.encrypted file:</p>
+<p class="imagep"><img alt="images" src="p0338-01.jpg"/></p>
+<p class="indent">The <span class="code">--decrypt</span> command requires the <span class="code">--input</span> parameter as mask.txt.encrypted file and the <span class="code">--output</span> parameter mask.txt.encrypted.decrypted (which is created when the <span class="code">-- decrypt</span> command is successful), and (.) represents the output location, which is the current directory. We need to supply the same <span class="code">--encryption-context</span> parameter that was used in the <span class="code">encrypt</span> command as a best practice. The <span class="code">--metatdata-output</span> parameter defines the location of the metadata for the <span class="code">decrypt</span> command.</p>
+<p class="indent">As shown in <a href="ch12.xhtml#ch12fig5">Figure 12-5</a>, the <span class="code">decrypt</span> command generates the file of decrypted (plaintext) data when it is successful; use the <span class="code">ls</span> command to list the files in the current location and then the <span class="code">cat</span> command to display the contents of the file.</p>
+<p class="imagef" id="ch12fig5"><img alt="images" src="f0338-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 12-5</strong>   Decryption</p>
+<p class="imagep"><img alt="images" src="p0338-02.jpg"/></p>
+<p class="indent">As you can see, the decrypt output file has the same name as the input file with the .decrypted suffix, and we can use the <span class="code">--suffix</span> parameter to create a custom suffix. We have gone through the steps to encrypt and decrypt a single file, and you can use the AWS Encryption CLI to encrypt and decrypt all or just selected files in a directory and its subdirectories.</p>
+<h3 class="h3" id="ch12lev1sec5"><span epub:type="pagebreak" id="page_339"/>Data Protection Best Practices</h3>
+<p class="noindent">The following best practices describe the steps that you need to take to secure your data using encryption.</p>
+<p class="bullett">• <strong>Identify data protection requirements</strong>   Plan and identify your data protection requirements, like encryption for data in transit, at rest, and data retention, that meet your compliance, legal, and organizational requirements.</p>
+<p class="bulleta">• <strong>Secure key administration</strong>   Define strict controls to store and rotate your encryption keys, and use different keys based on data classification and retention requirements.</p>
+<p class="bulleta">• <strong>Encryption at rest</strong>   It is mandatory to encrypt all your data at rest as a best practice to help protect it.</p>
+<p class="bulleta">• <strong>Strict access control</strong>   Enforce least privileges and provide only the access required. Monitor the access list regularly, and remove users who no longer need access.</p>
+<p class="bulleta">• <strong>Protect sensitive data</strong>   Expose as an API or create an Amazon QuickSight dashboard instead of providing direct access to your sensitive data.</p>
+<p class="bulleta">• <strong>Identify compliance requirements</strong>   Discover the organizational, legal, and compliance requirements your workload needs to comply with.</p>
+<p class="bulleta">• <strong>Data retention</strong>   Identify your data retention requirements, including the length of time and number of previous versions or copies.</p>
+<p class="bulleta">• <strong>AWS Secrets Manager</strong>   You can manage secrets like database credentials, passwords, third-party API keys, and any arbitrary text using AWS Secrets Manager.</p>
+<p class="bulleta">• <strong>Split data by classification</strong>   You can use different AWS accounts for production and nonproduction environments.</p>
+<p class="bulleta">• <strong>Amazon S3 encryption</strong>   Take advantage of Amazon S3 encryption and encrypt your objects using either client-side or server-side techniques.</p>
+<p class="bulleta">• <strong>Encrypt Amazon Machine Images (AMIs)</strong>   You can use Copy to encrypt an existing AMI with encryption enabled to automatically encrypt root volumes and snapshots.</p>
+<p class="bulleta">• <strong>Enable Amazon RDS encryption</strong>   Enable encryption for the Amazon RDS database and snapshots at rest.</p>
+<p class="bulleta">• <strong>Amazon DynamoDB encryption</strong>   Use the AWS KMS–managed encryption key to encrypt DynamoDB data at rest.</p>
+<p class="bulleta">• <strong>AWS Encryption SDK</strong>   Use AWS KMS with AWS Encryption SDK to encrypt data on the client side based on your application requirements.</p>
+<h3 class="h3" id="ch12lev1sec6"><span epub:type="pagebreak" id="page_340"/>Chapter Review</h3>
+<p class="noindent">This chapter began by explaining data protection while the data is in transit and at rest. It then introduced server-side encryption, where your object is encrypted before being saved to disks. The object is then decrypted when you download it. Client-side encryption is used to encrypt your data on the client side and upload the encrypted data to Amazon S3. Amazon S3–managed keys were discussed next, where each object is encrypted with a unique key in addition to encrypting the key itself with a master key, which is rotated regularly. Amazon S3 server-side encryption uses the 256-bit Advanced Encryption Standard to encrypt your data. CMKs using KMS is used to encrypt objects with a unique key, in addition to encrypting the key itself with a master key, which is rotated regularly. Customer-provided keys are used by Amazon S3 to encrypt the data before writing it to the disks, and Amazon S3 decrypts the data when you access your objects using the customer-provided key. You can use client-side encryption to encrypt your objects before sending them to Amazon S3 by using either a CMK stored in AWS KMS or using a master key stored in your application. The chapter then showed the steps to encrypt and decrypt the data at the command line using AWS Encryption CLI and finally listed best practices to help protect your data.</p>
+<h4 class="h4" id="ch12lev2sec8">Exercises</h4>
+<p class="noindent">The following exercises will help you practice creating and managing CMKs. You need to create an AWS account, as explained earlier, to perform these exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5">Exercise 12-1: Create CMKs Using the AWS Management Console</h5>
+<p class="noindent">The step-by-step instructions will help you create a customer-managed key using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in and then navigate to the AWS KMS console at <a href="https://console.aws.amazon.com/kms/">https://console.aws.amazon.com/kms/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the navigation pane on the left, choose Customer Managed Keys.</p>
+<p class="number"><strong>4.</strong> Click the Create Key button.</p>
+<p class="number"><strong>5.</strong> Type <strong>my-custom-key</strong> for the alias.</p>
+<p class="number"><strong>6.</strong> Type <strong>This is my first customer managed key my-custom-key</strong> for the description.</p>
+<p class="number"><strong>7.</strong> In Advanced Options choose KMS, which is the default.</p>
+<p class="number"><strong>8.</strong> Choose Next to navigate to the next page.</p>
+<p class="number"><strong>9.</strong> Type <strong>Name</strong> for the tag key and <strong>My First Custom Key</strong> for the tag value.</p>
+<p class="number1"><strong>10.</strong> Choose Next to navigate to the next page.</p>
+<p class="number1"><strong>11.</strong> Select the IAM users and roles from the list that can administer this CMK.</p>
+<p class="number1"><strong>12.</strong> From the Key Deletion section at the bottom of the page, leave the default checkbox Allow Key Administrators To Delete This Key selected.</p>
+<p class="number1"><strong>13.</strong> <span epub:type="pagebreak" id="page_341"/>Choose Next.</p>
+<p class="number1"><strong>14.</strong> Select the IAM users and roles from the list that can use the CMK for cryptographic operations.</p>
+<p class="number1"><strong>15.</strong> You can also allow other AWS accounts to use this CMK for cryptographic operations by choosing Add Another AWS Account or leave this at the default.</p>
+<p class="number1"><strong>16.</strong> Choose Next to navigate to the next screen.</p>
+<p class="number1"><strong>17.</strong> Review the key policy JSON document that was created based on your previous choices. You can edit it from here as well.</p>
+<p class="number1"><strong>18.</strong> Click on the Finish button to create the CMK.</p>
+<p class="number1"><strong>19.</strong> You will see a success message with the alias name, key ID, status, and creation date.</p>
+<h5 class="h5">Exercise 12-2: Create a List of Your Customer-Managed Keys in the AWS Management Console</h5>
+<p class="noindent">The step-by-step instructions will assist you in listing all your customer-managed keys using AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in and then navigate to the AWS KMS console at <a href="https://console.aws.amazon.com/kms/">https://console.aws.amazon.com/kms/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> You can choose to view the customer-managed keys or AWS-managed keys by selecting from the left navigation menu.</p>
+<p class="number"><strong>4.</strong> From the Customer Managed Keys page, in the top-center filter box, enter all or part of the alias name or the key ID <strong>my-custom-key</strong> of a CMK.</p>
+<h5 class="h5">Exercise 12-3: Enable Key Rotations Using the AWS Management Console</h5>
+<p class="noindent">The following step-by-step instructions will help you enable key rotations using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in and then navigate to the AWS KMS console at <a href="https://console.aws.amazon.com/kms/">https://console.aws.amazon.com/kms/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the left navigation pane, choose Customer Managed Keys.</p>
+<p class="number"><strong>4.</strong> Choose the alias my-custom-key that you want to enable key rotation for.</p>
+<p class="number"><strong>5.</strong> Select the Key Rotation tab below the General Configuration area.</p>
+<p class="number"><strong>6.</strong> Select the Automatically Rotate This CMK Every Year checkbox.</p>
+<p class="number"><strong>7.</strong> Click Save to save your updates.</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_342"/>Exercise 12-4: Update the CMK Tag in the AWS Management Console</h5>
+<p class="noindent">The following step-by-step instructions will help you update the customer-managed key tags using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in and then navigate to the AWS KMS console at <a href="https://console.aws.amazon.com/kms/">https://console.aws.amazon.com/kms/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the left navigation pane, choose Customer Managed Keys.</p>
+<p class="number"><strong>4.</strong> Choose the alias my-custom-key to edit its description.</p>
+<p class="number"><strong>5.</strong> From the upper-right corner, choose Edit, which is next to Key Actions.</p>
+<p class="number"><strong>6.</strong> For Description, type <strong>This is my updated customer managed key my-custom-key</strong>.</p>
+<p class="number"><strong>7.</strong> Click Save to save your changes.</p>
+<h5 class="h5">Exercise 12-5: Disable CMK Using the AWS Management Console</h5>
+<p class="noindent">The following step-by-step instructions will assist you in disabling the customer-managed key using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in and then navigate to the AWS KMS console at <a href="https://console.aws.amazon.com/kms/">https://console.aws.amazon.com/kms/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the left navigation pane, choose Customer Managed Keys.</p>
+<p class="number"><strong>4.</strong> Select the check box next to my-custom-key.</p>
+<p class="number"><strong>5.</strong> To disable the my-custom-key CMK, choose Key Actions, Disable.</p>
+<p class="number"><strong>6.</strong> From the pop-up menu, select Confirm and click on Disable Key.</p>
+<h4 class="h4" id="ch12lev2sec9">Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best responses for each question.</p>
+<p class="numbert"><strong><a href="ch12.xhtml#rch12qa1" id="ch12qa1">1.</a></strong> You are storing sensitive data on Amazon Simple Storage Service (S3) that must be encrypted at rest per your company’s compliance requirements. Which of the following methods can achieve this? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> You can use Amazon S3 server-side encryption with AWS Key Management Service–managed keys.</p>
+<p class="alphau"><strong>B.</strong> You can use Amazon S3 server-side encryption with customer-provided keys.</p>
+<p class="alphau"><strong>C.</strong> <span epub:type="pagebreak" id="page_343"/>You can encrypt the data on the client side before writing to Amazon S3 using your own master key.</p>
+<p class="alphau"><strong>D.</strong> You can use Amazon S3 bucket policies to restrict access to the data at rest.</p>
+<p class="number"><strong><a href="ch12.xhtml#rch12qa2" id="ch12qa2">2.</a></strong> Your company security policy mandates that you encrypt data before ingesting it to Amazon S3. What are the options to enable client-side encryption? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> You can use a customer master key stored in AWS Key Management Service.</p>
+<p class="alphau"><strong>B.</strong> You can use a master key you store within your application.</p>
+<p class="alphau"><strong>C.</strong> You can use server-side encryption with Amazon S3–managed keys.</p>
+<p class="alphau"><strong>D.</strong> You can use server-side encryption with keys stored in AWS Key Management Service.</p>
+<p class="number"><strong><a href="ch12.xhtml#rch12qa3" id="ch12qa3">3.</a></strong> Which of the following request headers are supported in Amazon S3 APIs? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> Use the PUT operation to upload your data using the PUT API.</p>
+<p class="alphau"><strong>B.</strong> Use the MULTIPLY operation to upload large objects using the multipart upload API.</p>
+<p class="alphau"><strong>C.</strong> Use the POST operation to upload an object.</p>
+<p class="alphau"><strong>D.</strong> Use the COPY operation to copy an object from the source to the target.</p>
+<p class="number"><strong><a href="ch12.xhtml#rch12qa4" id="ch12qa4">4.</a></strong> What request header can be explicitly specified when you are uploading an object to Amazon S3 to request server-side encryption using the REST API?</p>
+<p class="alphau"><strong>A.</strong> x-amz-storage-class</p>
+<p class="alphau"><strong>B.</strong> Content-MD5</p>
+<p class="alphau"><strong>C.</strong> x-amz-security-token</p>
+<p class="alphau"><strong>D.</strong> x-amz-server-side-encryption</p>
+<p class="number"><strong><a href="ch12.xhtml#rch12qa5" id="ch12qa5">5.</a></strong> You are downloading an encrypted object from Amazon S3, which was encrypted using server-side encryption. How you can decrypt the object after downloading it from the S3 bucket?</p>
+<p class="alphau"><strong>A.</strong> Amazon S3 does not support server-side decryption.</p>
+<p class="alphau"><strong>B.</strong> Amazon S3 provides a separate server-side key to encrypt and decrypt the object.</p>
+<p class="alphau"><strong>C.</strong> You need to decrypt each object using your own private key.</p>
+<p class="alphau"><strong>D.</strong> Amazon S3 manages encryption and decryption automatically.</p>
+<p class="number"><strong><a href="ch12.xhtml#rch12qa6" id="ch12qa6">6.</a></strong> A company stores static web content in Amazon S3 in us-west-1 that is encrypted using SSE-KMS encryption. Where must the AWS KMS CMK reside?</p>
+<p class="alphau"><strong>A.</strong> AWS KMS CMK must be in the eu-central-1 region.</p>
+<p class="alphau"><strong>B.</strong> AWS KMS CMK must be in the us-east-1 region.</p>
+<p class="alphau"><strong>C.</strong> AWS KMS CMK must be in us-west-1 region.</p>
+<p class="alphau"><strong>D.</strong> AWS KMS CMK must be in the eu-west-1 region.</p>
+<p class="number"><strong><a href="ch12.xhtml#rch12qa7" id="ch12qa7">7.</a></strong> <span epub:type="pagebreak" id="page_344"/>Your company is planning to encrypt all objects uploaded to Amazon S3 from an application. They don’t want to implement their own encryption algorithm; instead, they are planning to use server-side encryption by supplying their own key. Which of the following parameters is not required while making a call for SSE-C?</p>
+<p class="alphau"><strong>A.</strong> x-amz-server-side-encryption-customer-algorithm</p>
+<p class="alphau"><strong>B.</strong> x-amz-server-side-encryption-customer-key-AES256(Ans)</p>
+<p class="alphau"><strong>C.</strong> x-amz-server-side-encryption-customer-key-MD5</p>
+<p class="alphau"><strong>D.</strong> x-amz-server-side-encryption-customer-key</p>
+<p class="number"><strong><a href="ch12.xhtml#rch12qa8" id="ch12qa8">8.</a></strong> You have enabled versioning on an Amazon S3 bucket with server-side encryption for data at rest. What is the recommended best practice in terms of security when you supply your own keys for encryption (SSE-C)?</p>
+<p class="alphau"><strong>A.</strong> You should always use Amazon S3 encryption key for increased security.</p>
+<p class="alphau"><strong>B.</strong> You should not use your own security key, as it is not entirely secure.</p>
+<p class="alphau"><strong>C.</strong> You need to configure Amazon S3 to use SSL for more security.</p>
+<p class="alphau"><strong>D.</strong> You need to keep rotating the encryption key manually at the client side.</p>
+<p class="number"><strong><a href="ch12.xhtml#rch12qa9" id="ch12qa9">9.</a></strong> A company wants to encrypt all their objects stored in Amazon S3 using server-side encryption. But your company does not want to use the AES 256 encryption key provided by Amazon S3. What is the solution?</p>
+<p class="alphau"><strong>A.</strong> The company should upload its secret key for Amazon S3 to decrypt the objects.</p>
+<p class="alphau"><strong>B.</strong> The company should upload the encryption key to each S3 bucket.</p>
+<p class="alphau"><strong>C.</strong> Amazon S3 does not support client-supplied encryption keys.</p>
+<p class="alphau"><strong>D.</strong> The company should send the keys and encryption algorithm with each API call.</p>
+<p class="number1"><strong><a href="ch12.xhtml#rch12qa10" id="ch12qa10">10.</a></strong> A company has enabled versioning on all their Amazon S3 buckets and is using server-side encryption for data at rest. If the company is supplying its own keys for encryption (SSE-C), which of the following statements is true?</p>
+<p class="alphau"><strong>A.</strong> The company should use just one encryption key for all versions of the same object.</p>
+<p class="alphau"><strong>B.</strong> Different encryption keys will be used for different versions of the same object.</p>
+<p class="alphau"><strong>C.</strong> Amazon S3 does not allow user keys for server-side encryption.</p>
+<p class="alphau"><strong>D.</strong> You cannot use SSE-C when versioning is enabled.</p>
+<h4 class="h4" id="ch12lev2sec10">Answers</h4>
+<p class="number"><strong><a href="ch12.xhtml#ch12qa1" id="rch12qa1">1.</a> A, B, C.</strong> You can use Amazon S3 server-side encryption with AWS Key Management Service–managed keys, use Amazon S3 server-side encryption with customer-provided keys, or encrypt the data on the client side before writing to Amazon S3 using your own master key.</p>
+<p class="number"><strong><a href="ch12.xhtml#ch12qa2" id="rch12qa2">2.</a></strong> <span epub:type="pagebreak" id="page_345"/><strong>A, B.</strong> You can use a customer master key stored in AWS Key Management Service, or use a master key you store within your application.</p>
+<p class="number"><strong><a href="ch12.xhtml#ch12qa3" id="rch12qa3">3.</a> A, C, D.</strong> Use the PUT operation to upload your data using the PUT API, the POST operation is used to upload an object, and the COPY operation is used to copy an object from the source to target.</p>
+<p class="number"><strong><a href="ch12.xhtml#ch12qa4" id="rch12qa4">4.</a> D.</strong> You need to use the x-amz-server-side-encryption request header explicitly in a request when you are uploading an object to Amazon S3 to request server-side encryption using the REST API.</p>
+<p class="number"><strong><a href="ch12.xhtml#ch12qa5" id="rch12qa5">5.</a> D.</strong> Amazon S3 manages encryption and decryption automatically.</p>
+<p class="number"><strong><a href="ch12.xhtml#ch12qa6" id="rch12qa6">6.</a> C.</strong> AWS KMS CMK must be in the us-west-1 region.</p>
+<p class="number"><strong><a href="ch12.xhtml#ch12qa7" id="rch12qa7">7.</a> B.</strong> The x-amz-server-side-encryption-customer-key-AES256 parameter is not required while making a call for SSE-C.</p>
+<p class="number"><strong><a href="ch12.xhtml#ch12qa8" id="rch12qa8">8.</a> D.</strong> When you supply your own keys for encryption (SSE-C), you need to keep rotating the encryption key manually on the client side.</p>
+<p class="number"><strong><a href="ch12.xhtml#ch12qa9" id="rch12qa9">9.</a> D.</strong> The company should send the keys and encryption algorithm with each API call.</p>
+<p class="number1"><strong><a href="ch12.xhtml#ch12qa10" id="rch12qa10">10.</a> B.</strong> Different encryption keys will be used for different versions of the same object.</p>
+<h3 class="h3" id="ch12lev1sec7">Additional Resources</h3>
+<p class="bulleta">• <strong>AWS Docs</strong>   There is no place like official AWS documentation to get the latest and most up-to-date information about all the AWS services. Always refer to the official AWS blogs to get the latest updates about new AWS services and updates to existing features.</p>
+<p class="bulletc"><img alt="images" src="p0345-01.jpg"/></p>
+<p class="bulleta">• <strong>Securing Data with AWS KMS Encryption</strong>   This blog explains key management, creating keys and encrypted databases, and how to rotate keys and control key access.</p>
+<p class="bulletc"><img alt="images" src="p0345-02.jpg"/></p>
+<p class="bulleta">• <strong>Create EBS-Backed EC2 Instances</strong>   This blog demonstrates how to use an unencrypted AMI and launch an encrypted EBS-backed Amazon EC2 instance using the AWS Management Console.</p>
+<p class="bulletc"><img alt="images" src="p0345-03.jpg"/></p>
+<p class="bulleta">• <strong>SQL Database Client-Side Encryption</strong>   This blog explains the approach to client-side encryption with SQL databases using AWS KMS.</p>
+<p class="bulletc"><img alt="images" src="p0345-04.jpg"/><span epub:type="pagebreak" id="page_346"/></p>
+</section>
+</body>
+</html>

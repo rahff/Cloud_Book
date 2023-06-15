@@ -1,0 +1,664 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2b" id="toc"><span epub:type="pagebreak" id="page_ix"/><span class="chapbm">CONTENTS</span></h2>
+<p class="toc-fm"><a href="ack.xhtml#ack">Acknowledgments</a></p>
+<p class="toc-fm"><a href="intro.xhtml#intro">Introduction</a></p>
+<p class="toc-part"><a href="ch00_fm09_part1.xhtml#part1">  <span class="gray1"><strong>Part I</strong></span>     Getting Started on the AWS Journey</a></p>
+<p class="toc-chap"><a href="ch01.xhtml#ch1"><strong>Chapter 1</strong>     Overview of Cloud Computing and AWS</a></p>
+<p class="toc-sec1"><a href="ch01.xhtml#ch1lev1sec1">Cloud Computing Overview</a></p>
+<p class="toc-sec2"><a href="ch01.xhtml#ch1lev2sec1">Cloud Computing Benefits</a></p>
+<p class="toc-sec2"><a href="ch01.xhtml#ch1lev2sec2">Cloud Deployment Models: IaaS, STaaS, PaaS, DaaS, FaaS, SaaS</a></p>
+<p class="toc-sec2"><a href="ch01.xhtml#ch1lev2sec3">Cloud Services Types: Public, Private, Hybrid, and Community</a></p>
+<p class="toc-sec1"><a href="ch01.xhtml#ch1lev1sec2">AWS History</a></p>
+<p class="toc-sec2"><a href="ch01.xhtml#ch1lev2sec4">AWS Regions and Availability Zones</a></p>
+<p class="toc-sec2"><a href="ch01.xhtml#ch1lev2sec5">AWS Services</a></p>
+<p class="toc-sec1"><a href="ch01.xhtml#ch1lev1sec3">AWS in Action</a></p>
+<p class="toc-sec1"><a href="ch01.xhtml#ch1lev1sec4">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch01.xhtml#ch1lev2sec6">Questions</a></p>
+<p class="toc-sec2"><a href="ch01.xhtml#ch1lev2sec7">Answers</a></p>
+<p class="toc-sec1"><a href="ch01.xhtml#ch1lev1sec5">Additional Resources</a></p>
+<p class="toc-chap"><a href="ch02.xhtml#ch2"><strong>Chapter 2</strong>     Interacting with AWS Using API, SDK, and CLI</a></p>
+<p class="toc-sec1"><a href="ch02.xhtml#ch2lev1sec1">Create a New AWS Account</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec1">Explore AWS Free Tiers</a></p>
+<p class="toc-sec1"><a href="ch02.xhtml#ch2lev1sec2">AWS Management Console</a></p>
+<p class="toc-sec1"><a href="ch02.xhtml#ch2lev1sec3">AWS Command Line Interface</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec2">Installing and Setting Up a Profile in the AWS CLI</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec3">Getting Help with CLI Commands</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec4">Working with EC2 Key Pairs Using the AWS CLI</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec5">Creating Security Groups Using the AWS CLI</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec6">Launching an Instance Using the AWS CLI</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec7">Creating an S3 Bucket Using the AWS CLI</a></p>
+<p class="toc-sec1"><a href="ch02.xhtml#ch2lev1sec4">AWS Software Development Kit</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec8">AWS SDK for Java 2.0</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec9">AWS SDK for .NET</a></p>
+<p class="toc-sec1"><a href="ch02.xhtml#ch2lev1sec5">AWS Tools for PowerShell</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec10">In Windows</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec11">On Linux and macOSX</a></p>
+<p class="toc-sec1"><span epub:type="pagebreak" id="page_x"/><a href="ch02.xhtml#ch2lev1sec6">AWS Serverless Application Model</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec12">Using the AWS SAM CLI</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec13">Installing Docker on Linux</a></p>
+<p class="toc-sec1"><a href="ch02.xhtml#ch2lev1sec7">AWS IDE Toolkits</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec14">The AWS Toolkit for Eclipse</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec15">The Toolkit for Visual Studio</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec16">AWS Tools for Visual Studio Team Services</a></p>
+<p class="toc-sec1"><a href="ch02.xhtml#ch2lev1sec8">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec17">Exercises</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec18">Questions</a></p>
+<p class="toc-sec2"><a href="ch02.xhtml#ch2lev2sec19">Answers</a></p>
+<p class="toc-sec1"><a href="ch02.xhtml#ch2lev1sec9">Additional Resources</a></p>
+<p class="toc-chap"><a href="ch03.xhtml#ch3"><strong>Chapter 3</strong>     Networking Using Amazon Virtual Private Cloud</a></p>
+<p class="toc-sec1"><a href="ch03.xhtml#ch3lev1sec1">Amazon Virtual Private Cloud</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec1">Subnets</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec2">Route Tables</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec3">Network Access Control Lists</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec4">Security Groups</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec5">Internet Gateways</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec6">Dynamic Host Configuration Protocol Option Sets</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec7">Elastic Internet Protocols</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec8">Endpoints</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec9">Network Address Translation Devices</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec10">Egress-Only Internet Gateways</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec11">Peering Connections</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec12">Virtual Private Gateways</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec13">Customer Gateways</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec14">Site-to-Site Virtual Private Network</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec15">Point-to-Site Virtual Private Network</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec16">Direct Connect</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec17">Transit Gateways</a></p>
+<p class="toc-sec1"><a href="ch03.xhtml#ch3lev1sec2">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec18">Exercises</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec19">Questions</a></p>
+<p class="toc-sec2"><a href="ch03.xhtml#ch3lev2sec20">Answers</a></p>
+<p class="toc-sec1"><a href="ch03.xhtml#ch3lev1sec3">Additional Resources</a></p>
+<p class="toc-chap"><a href="ch04.xhtml#ch4"><strong>Chapter 4</strong>     Creating a Virtual Machine Using Amazon EC2</a></p>
+<p class="toc-sec1"><a href="ch04.xhtml#ch4lev1sec1">Elastic Compute Cloud</a></p>
+<p class="toc-sec1"><a href="ch04.xhtml#ch4lev1sec2">Amazon Machine Image</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec1">Bundle Tasks</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec2">Root Device Types</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec3">The AWS Marketplace</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec4">AMIs Generated from Existing Instances</a></p>
+<p class="toc-sec1"><span epub:type="pagebreak" id="page_xi"/><a href="ch04.xhtml#ch4lev1sec3">Tenancy Options</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec5">Shared Tenancy</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec6">Dedicated Tenancy</a></p>
+<p class="toc-sec1"><a href="ch04.xhtml#ch4lev1sec4">Instance Types</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec7">General Purpose</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec8">Compute Optimized</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec9">Memory Optimized</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec10">Storage Optimized</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec11">Accelerated Computing</a></p>
+<p class="toc-sec1"><a href="ch04.xhtml#ch4lev1sec5">Pricing Model for EC2</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec12">On-Demand</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec13">Spot Instances</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec14">Reserved Instances</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec15">Dedicated Hosts</a></p>
+<p class="toc-sec1"><a href="ch04.xhtml#ch4lev1sec6">EC2 Instance Virtualization Types</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec16">HVM AMIs</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec17">PV AMIs</a></p>
+<p class="toc-sec1"><a href="ch04.xhtml#ch4lev1sec7">Storage Options for Amazon EC2</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec18">Instance Store–Backed Instances</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec19">Amazon EBS–Backed Instances</a></p>
+<p class="toc-sec1"><a href="ch04.xhtml#ch4lev1sec8">The EC2 Instance Lifecycle</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec20">Launching</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec21">Bootstrapping</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec22">VM Import/Export</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec23">Instance Recovery</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec24">Instance Metadata</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec25">Instance Stop and Restart</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec26">Instance Hibernate</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec27">Instance Reboot</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec28">Instance Retirement</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec29">Instance Termination</a></p>
+<p class="toc-sec1"><a href="ch04.xhtml#ch4lev1sec9">Generating Security Keys</a></p>
+<p class="toc-sec1"><a href="ch04.xhtml#ch4lev1sec10">Launching an Amazon EC2</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec30">Creating an Amazon EC2 Instance</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec31">Connecting to the Amazon EC2 Instance Using SSH</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec32">Connecting to an Amazon EC2 Instance Using a PuTTY Session</a></p>
+<p class="toc-sec1"><a href="ch04.xhtml#ch4lev1sec11">Security Groups that Protect the Instances</a></p>
+<p class="toc-sec1"><a href="ch04.xhtml#ch4lev1sec12">Best Practices for Amazon EC2</a></p>
+<p class="toc-sec1"><a href="ch04.xhtml#ch4lev1sec13">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec33">Exercises</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec34">Questions</a></p>
+<p class="toc-sec2"><a href="ch04.xhtml#ch4lev2sec35">Answers</a></p>
+<p class="toc-sec1"><a href="ch04.xhtml#ch4lev1sec14">Additional Resources</a></p>
+<p class="toc-part"><span epub:type="pagebreak" id="page_xii"/><a href="ch04_part2.xhtml#part2">  <span class="gray1"><strong>Part II</strong></span>    AWS High Availability and Fault Tolerance</a></p>
+<p class="toc-chap"><a href="ch05.xhtml#ch5"><strong>Chapter 5</strong>     Elastic Load Balancing and Auto Scaling</a></p>
+<p class="toc-sec1"><a href="ch05.xhtml#ch5lev1sec1">Elastic Load Balancing</a></p>
+<p class="toc-sec1"><a href="ch05.xhtml#ch5lev1sec2">Types of Elastic Load Balancers</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec1">Application Load Balancer</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec2">Network Load Balancer</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec3">Classic Load Balancer</a></p>
+<p class="toc-sec1"><a href="ch05.xhtml#ch5lev1sec3">Elastic Load Balancing Concepts</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec4">Load Balancer Subnets</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec5">Load Balancer Security Groups</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec6">Load Balancer States</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec7">Deletion Protection</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec8">Connection Idle Timeout</a></p>
+<p class="toc-sec1"><a href="ch05.xhtml#ch5lev1sec4">Load Balancer Listeners</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec9">Listener Configuration</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec10">Listener Rules</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec11">Rule Condition Types</a></p>
+<p class="toc-sec1"><a href="ch05.xhtml#ch5lev1sec5">Load Balancer Target Groups</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec12">Routing Configuration</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec13">Target Type</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec14">Registered Targets</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec15">Deregistration Delay</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec16">Slow Start Mode</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec17">Sticky Sessions</a></p>
+<p class="toc-sec1"><a href="ch05.xhtml#ch5lev1sec6">Load Balancer Monitoring</a></p>
+<p class="toc-sec1"><a href="ch05.xhtml#ch5lev1sec7">Elastic Load Balancer Best Practices</a></p>
+<p class="toc-sec1"><a href="ch05.xhtml#ch5lev1sec8">Amazon EC2 Auto Scaling</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec18">Advantages of Auto Scaling</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec19">The EC2 Auto Scaling Lifecycle</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec20">Scale Out and In</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec21">Attach and Detach</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec22">Lifecycle Hooks</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec23">Enter and Exit Standby</a></p>
+<p class="toc-sec1"><a href="ch05.xhtml#ch5lev1sec9">Launch Templates</a></p>
+<p class="toc-sec1"><a href="ch05.xhtml#ch5lev1sec10">Launch Configurations</a></p>
+<p class="toc-sec1"><a href="ch05.xhtml#ch5lev1sec11">Auto Scaling Groups</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec24">Scaling the Size</a></p>
+<p class="toc-sec1"><a href="ch05.xhtml#ch5lev1sec12">Maintaining the Number of Instances</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec25">Manual Scaling</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec26">Scheduled Scaling</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec27">Dynamic Scaling</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec28">Cooldown Period</a></p>
+<p class="toc-sec1"><a href="ch05.xhtml#ch5lev1sec13">Monitoring Auto Scaling Groups</a></p>
+<p class="toc-sec1"><span epub:type="pagebreak" id="page_xiii"/><a href="ch05.xhtml#ch5lev1sec14">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec29">Exercises</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec30">Questions</a></p>
+<p class="toc-sec2"><a href="ch05.xhtml#ch5lev2sec31">Answers</a></p>
+<p class="toc-sec1"><a href="ch05.xhtml#ch5lev1sec15">Additional Resources</a></p>
+<p class="toc-chap"><a href="ch06.xhtml#ch6"><strong>Chapter 6</strong>     Distributing the Contents via AWS CloudFront</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec1">Amazon CloudFront</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec2">CloudFront Origin Servers</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec3">CloudFront Pricing</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec4">Regional Edge Caches</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec1">Adding Content</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec2">Removing Content</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec5">Securing Content</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec3">HTTPS with CloudFront</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec4">Restrict Access in the Origin</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec5">Restrict Access in Edge Caches</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec6">Signed URLs and Signed Cookies</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec7">Origin Access Identity</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec8">AWS WAF to Control Access</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec9">Restricting Geographic Distribution</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec10">Field-Level Encryption</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec6">CloudFront Distributions</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec11">Distribution Contents</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec12">Origins for Web Distributions</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec7">Alternate Domain Names</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec8">WebSocket Protocol</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec9">Optimizing Content Caching</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec13">Cache Hit Ratio</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec14">Cache Lifetime</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec15">Query String Parameters</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec16">Caching Based on Cookie Values</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec17">Caching Based on Request Headers</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec10">Content Expiration at the Edge Cache</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec11">CloudFront Origin Groups</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec12">Domain Fronting</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec13">Custom Error Pages</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec18">Request and Response Behavior</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec14">Lambda@Edge</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec15">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec19">Exercises</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec20">Questions</a></p>
+<p class="toc-sec2"><a href="ch06.xhtml#ch6lev2sec21">Answers</a></p>
+<p class="toc-sec1"><a href="ch06.xhtml#ch6lev1sec16">Additional Resources</a></p>
+<p class="toc-chap"><span epub:type="pagebreak" id="page_xiv"/><a href="ch07.xhtml#ch7"><strong>Chapter 7</strong>     Domain Name System and Amazon Route 53</a></p>
+<p class="toc-sec1"><a href="ch07.xhtml#ch7lev1sec1">Domain Name System</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec1">How DNS Works</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec2">Domain Names</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec3">Name Servers</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec4">DNS Resolution</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec5">DNS Records and Zone Files</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec6">Types of DNS Records</a></p>
+<p class="toc-sec1"><a href="ch07.xhtml#ch7lev1sec2">Amazon Route 53</a></p>
+<p class="toc-sec1"><a href="ch07.xhtml#ch7lev1sec3">Route 53 Concepts</a></p>
+<p class="toc-sec1"><a href="ch07.xhtml#ch7lev1sec4">Domain Registration</a></p>
+<p class="toc-sec1"><a href="ch07.xhtml#ch7lev1sec5">Routing Traffic</a></p>
+<p class="toc-sec1"><a href="ch07.xhtml#ch7lev1sec6">Hosted Zones</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec7">Public Hosted Zone</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec8">Private Hosted Zone</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec9">Split-View DNS</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec10">Routing Traffic for Subdomains</a></p>
+<p class="toc-sec1"><a href="ch07.xhtml#ch7lev1sec7">Choosing a Routing Policy</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec11">Simple Routing</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec12">Failover Routing</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec13">Geolocation Routing</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec14">Geoproximity Routing</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec15">Latency-Based Routing</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec16">Multivalue Answer Routing</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec17">Weighted Routing</a></p>
+<p class="toc-sec1"><a href="ch07.xhtml#ch7lev1sec8">Amazon Route 53 Health Checks</a></p>
+<p class="toc-sec1"><a href="ch07.xhtml#ch7lev1sec9">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec18">Exercises</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec19">Questions</a></p>
+<p class="toc-sec2"><a href="ch07.xhtml#ch7lev2sec20">Answers</a></p>
+<p class="toc-sec1"><a href="ch07.xhtml#ch7lev1sec10">Additional Resources</a></p>
+<p class="toc-part"><a href="ch07_part3.xhtml#part3"><span class="gray1"><strong>Part III</strong></span>    Working with Cloud Storage</a></p>
+<p class="toc-chap"><a href="ch08.xhtml#ch8"><strong>Chapter 8</strong>     Working with Simple Storage Service</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec1">Amazon Simple Storage Service</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec2">Buckets</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec3">Creating a Bucket</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec1">Accessing Your Bucket</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec4">Bucket Configuration Options</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec2">Cross-Origin Resource Sharing</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec3">Cross-Region Replication</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec4">Amazon S3 Event Notifications</a></p>
+<p class="toc-sec2"><span epub:type="pagebreak" id="page_xv"/><a href="ch08.xhtml#ch8lev2sec5">Amazon S3 Transfer Acceleration</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec6">Billing and Usage Reporting for S3 Buckets</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec5">Requester Pays Buckets</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec7">Static Website on Amazon S3</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec8">Amazon S3 Server Access Logging</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec6">Folders</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec7">Objects</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec9">Object Key and Metadata</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec8">Storage Classes</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec10">General-Purpose Amazon S3 Standard</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec11">Unknown or Changing Access: Amazon S3 Intelligent-Tiering</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec12">Infrequent Access: Amazon S3 Standard-Infrequent Access</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec13">Amazon S3 One Zone-Infrequent Access</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec14">Archive: Amazon S3 Glacier</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec15">Amazon S3 Glacier Deep Archive</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec9">Object Lifecycle Management</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec16">Lifecycle Transitions</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec17">Configuring Object Expiration</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec10">Object Versioning</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec11">Identity and Access Management in Amazon S3</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec12">Operations on Objects</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec18">Getting Objects</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec19">Uploading Objects</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec20">Copying Objects</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec21">Listing Object Keys</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec22">Deleting Objects</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec23">Selecting Content from Objects</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec24">Restoring Archived Objects</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec13">Data Protection in Amazon S3</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec25">Access Control Lists</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec26">Amazon S3 Object Lock</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec27">Retention Periods</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec28">Legal Holds</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec14">Best Practices for Amazon S3</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec15">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec29">Exercises</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec30">Questions</a></p>
+<p class="toc-sec2"><a href="ch08.xhtml#ch8lev2sec31">Answers</a></p>
+<p class="toc-sec1"><a href="ch08.xhtml#ch8lev1sec16">Additional Resources</a></p>
+<p class="toc-chap"><a href="ch09.xhtml#ch9"><strong>Chapter 9</strong>     Amazon EBS, Amazon EFS, and Amazon S3 Glacier</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec1">Amazon Elastic Block Store</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec2">Create an Amazon EBS Volume</a></p>
+<p class="toc-sec1"><span epub:type="pagebreak" id="page_xvi"/><a href="ch09.xhtml#ch9lev1sec3">Working with Amazon EBS Volume</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec1">Detach an Amazon EBS Volume</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec2">Delete an Amazon EBS Volume</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec4">Monitor Amazon EBS Volumes</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec5">Amazon EBS Snapshots</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec3">Multivolume Snapshots</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec4">Delete an Amazon EBS Snapshot</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec5">Copy an Amazon EBS Snapshot</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec6">Amazon EBS Snapshot Lifecycle</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec6">Amazon EBS Elastic Volumes</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec7">Amazon EBS Encryption</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec7">Key Management</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec8">Restoring and Copying Snapshots</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec8">RAID Configuration on Linux</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec9">Amazon EBS Metrics</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec10">Amazon EBS Best Practices</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec11">Amazon Elastic File System</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec12">Amazon EFS with Amazon EC2</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec13">Amazon EFS with AWS Direct Connect and VPN</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec14">Data Consistency</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec15">Storage Classes</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec16">Amazon EFS Backup</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec17">Amazon EFS Encryption</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec18">Lifecycle Policy</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec19">Monitoring Amazon EFS</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec20">Amazon EFS Performance</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec21">Amazon EFS Best Practices</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec22">Amazon S3 Glacier</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec9">Vault</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec10">Archives</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec11">Jobs</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec12">Notification Configuration</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec23">Glacier Operations</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec13">Creating and Deleting Vaults</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec14">Archive Operations</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec15">Data Retrieval Policy</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec24">Vault Lock</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec25">Data Protection</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec26">Logging and Monitoring</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec27">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec16">Exercises</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec17">Questions</a></p>
+<p class="toc-sec2"><a href="ch09.xhtml#ch9lev2sec18">Answers</a></p>
+<p class="toc-sec1"><a href="ch09.xhtml#ch9lev1sec28">Additional Resources</a></p>
+<p class="toc-part"><span epub:type="pagebreak" id="page_xvii"/><a href="ch09_part4.xhtml#part4">  <span class="gray1"><strong>Part IV</strong></span>   Authentication and Authorization</a></p>
+<p class="toc-chap"><a href="ch10.xhtml#ch10"><strong>Chapter 10</strong>   Securing AWS Resources with Identity and Access Management</a></p>
+<p class="toc-sec1"><a href="ch10.xhtml#ch10lev1sec1">Identity and Access Management</a></p>
+<p class="toc-sec1"><a href="ch10.xhtml#ch10lev1sec2">Users</a></p>
+<p class="toc-sec2"><a href="ch10.xhtml#ch10lev2sec1">Users and Credentials</a></p>
+<p class="toc-sec1"><a href="ch10.xhtml#ch10lev1sec3">Password: Configure a Strong Password Policy</a></p>
+<p class="toc-sec1"><a href="ch10.xhtml#ch10lev1sec4">Multifactor Authentication</a></p>
+<p class="toc-sec1"><a href="ch10.xhtml#ch10lev1sec5">Groups</a></p>
+<p class="toc-sec1"><a href="ch10.xhtml#ch10lev1sec6">IAM Roles</a></p>
+<p class="toc-sec2"><a href="ch10.xhtml#ch10lev2sec2">AWS Service Role</a></p>
+<p class="toc-sec2"><a href="ch10.xhtml#ch10lev2sec3">AWS Service-Linked Role</a></p>
+<p class="toc-sec2"><a href="ch10.xhtml#ch10lev2sec4">Role Chaining</a></p>
+<p class="toc-sec2"><a href="ch10.xhtml#ch10lev2sec5">Delegation</a></p>
+<p class="toc-sec2"><a href="ch10.xhtml#ch10lev2sec6">Federation</a></p>
+<p class="toc-sec2"><a href="ch10.xhtml#ch10lev2sec7">Role for Cross-Account Access</a></p>
+<p class="toc-sec1"><a href="ch10.xhtml#ch10lev1sec7">Policies and Permissions</a></p>
+<p class="toc-sec2"><a href="ch10.xhtml#ch10lev2sec8">IAM Policy Types</a></p>
+<p class="toc-sec2"><a href="ch10.xhtml#ch10lev2sec9">Permissions Boundaries</a></p>
+<p class="toc-sec1"><a href="ch10.xhtml#ch10lev1sec8">IAM Policy</a></p>
+<p class="toc-sec2"><a href="ch10.xhtml#ch10lev2sec10">IAM Policy Structure</a></p>
+<p class="toc-sec2"><a href="ch10.xhtml#ch10lev2sec11">IAM Policy Versioning</a></p>
+<p class="toc-sec1"><a href="ch10.xhtml#ch10lev1sec9">IAM Best Practices</a></p>
+<p class="toc-sec1"><a href="ch10.xhtml#ch10lev1sec10">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch10.xhtml#ch10lev2sec12">Exercises</a></p>
+<p class="toc-sec2"><a href="ch10.xhtml#ch10lev2sec13">Questions</a></p>
+<p class="toc-sec2"><a href="ch10.xhtml#ch10lev2sec14">Answers</a></p>
+<p class="toc-sec1"><a href="ch10.xhtml#ch10lev1sec11">Additional Resources</a></p>
+<p class="toc-chap"><a href="ch11.xhtml#ch11"><strong>Chapter 11</strong>   Web Identity Federation and Amazon Cognito for User Authentication</a></p>
+<p class="toc-sec1"><a href="ch11.xhtml#ch11lev1sec1">Identity Federation and Providers</a></p>
+<p class="toc-sec1"><a href="ch11.xhtml#ch11lev1sec2">Web Identity Federation</a></p>
+<p class="toc-sec1"><a href="ch11.xhtml#ch11lev1sec3">Amazon Cognito</a></p>
+<p class="toc-sec2"><a href="ch11.xhtml#ch11lev2sec1">Cognito User Pools</a></p>
+<p class="toc-sec2"><a href="ch11.xhtml#ch11lev2sec2">Identity Pools</a></p>
+<p class="toc-sec2"><a href="ch11.xhtml#ch11lev2sec3">Amazon Cognito Sync</a></p>
+<p class="toc-sec2"><a href="ch11.xhtml#ch11lev2sec4">Amazon Cognito for Mobile Apps</a></p>
+<p class="toc-sec1"><a href="ch11.xhtml#ch11lev1sec4">Federating Users with SAML 2.0</a></p>
+<p class="toc-sec1"><a href="ch11.xhtml#ch11lev1sec5">Session Policies</a></p>
+<p class="toc-sec1"><a href="ch11.xhtml#ch11lev1sec6">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch11.xhtml#ch11lev2sec5">Exercises</a></p>
+<p class="toc-sec2"><a href="ch11.xhtml#ch11lev2sec6">Questions</a></p>
+<p class="toc-sec2"><a href="ch11.xhtml#ch11lev2sec7">Answers</a></p>
+<p class="toc-sec1"><a href="ch11.xhtml#ch11lev1sec7">Additional Resources</a></p>
+<p class="toc-chap"><span epub:type="pagebreak" id="page_xviii"/><a href="ch12.xhtml#ch12"><strong>Chapter 12</strong>   Protecting Your Data Using Server-Side and Client-Side Encryption</a></p>
+<p class="toc-sec1"><a href="ch12.xhtml#ch12lev1sec1">Data Protection</a></p>
+<p class="toc-sec1"><a href="ch12.xhtml#ch12lev1sec2">Server-Side Encryption</a></p>
+<p class="toc-sec2"><a href="ch12.xhtml#ch12lev2sec1">Server-Side Encryption with Customer-Managed Keys in KMS</a></p>
+<p class="toc-sec2"><a href="ch12.xhtml#ch12lev2sec2">Server-Side Encryption with Amazon S3–Managed Encryption Keys</a></p>
+<p class="toc-sec2"><a href="ch12.xhtml#ch12lev2sec3">Server-Side Encryption with Customer-Provided Encryption Keys</a></p>
+<p class="toc-sec1"><a href="ch12.xhtml#ch12lev1sec3">Client-Side Encryption</a></p>
+<p class="toc-sec2"><a href="ch12.xhtml#ch12lev2sec4">CMK Stored in AWS KMS</a></p>
+<p class="toc-sec2"><a href="ch12.xhtml#ch12lev2sec5">Master Key Stored in the Application</a></p>
+<p class="toc-sec1"><a href="ch12.xhtml#ch12lev1sec4">Command-Line Encryption and Decryption</a></p>
+<p class="toc-sec2"><a href="ch12.xhtml#ch12lev2sec6">Encrypt a File</a></p>
+<p class="toc-sec2"><a href="ch12.xhtml#ch12lev2sec7">Decrypt a File</a></p>
+<p class="toc-sec1"><a href="ch12.xhtml#ch12lev1sec5">Data Protection Best Practices</a></p>
+<p class="toc-sec1"><a href="ch12.xhtml#ch12lev1sec6">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch12.xhtml#ch12lev2sec8">Exercises</a></p>
+<p class="toc-sec2"><a href="ch12.xhtml#ch12lev2sec9">Questions</a></p>
+<p class="toc-sec2"><a href="ch12.xhtml#ch12lev2sec10">Answers</a></p>
+<p class="toc-sec1"><a href="ch12.xhtml#ch12lev1sec7">Additional Resources</a></p>
+<p class="toc-part"><a href="ch12_part5.xhtml#part5">  <span class="gray1"><strong>Part V</strong></span>    Creating SQL and NoSQL Database in AWS Cloud</a></p>
+<p class="toc-chap"><a href="ch13.xhtml#ch13"><strong>Chapter 13</strong>   AWS Relational Database Services</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec1">Amazon Relational Database Service</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec2">High Availability (Multi-AZ)</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec1">Multi-AZ Failover Process</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec3">The Amazon RDS Lifecycle</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec2">Modify</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec3">Maintain</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec4">Upgrade</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec5">Rename</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec6">Reboot</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec7">Stop</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec8">Start</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec9">Delete</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec4">Read Replicas</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec10">Create a Read Replica</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec11">Promote a Read Replica</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec12">Monitor Read Replication</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec5">Option Groups</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec6">DB Parameter Groups</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec7">Storage</a></p>
+<p class="toc-sec1"><span epub:type="pagebreak" id="page_xix"/><a href="ch13.xhtml#ch13lev1sec8">Billing</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec9">Backups</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec10">Snapshots</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec11">Security</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec13">Encryption</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec12">Monitoring</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec13">Amazon Resource Names</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec14">Tagging</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec15">Best Practices</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec16">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec14">Exercise</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec15">Questions</a></p>
+<p class="toc-sec2"><a href="ch13.xhtml#ch13lev2sec16">Answers</a></p>
+<p class="toc-sec1"><a href="ch13.xhtml#ch13lev1sec17">Additional Resources</a></p>
+<p class="toc-chap"><a href="ch14.xhtml#ch14"><strong>Chapter 14</strong>   AWS NoSQL Database Service: Amazon DynamoDB</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec1">Amazon DynamoDB</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec2">Data Types</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec3">Control Plane Operations</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec4">Data Plane Operations</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec5">SQL vs. NoSQL</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec6">DynamoDB Transactions</a></p>
+<p class="toc-sec2"><a href="ch14.xhtml#ch14lev2sec1">Read Consistency</a></p>
+<p class="toc-sec2"><a href="ch14.xhtml#ch14lev2sec2">Read/Write Capacity Mode</a></p>
+<p class="toc-sec2"><a href="ch14.xhtml#ch14lev2sec3">Isolation Levels</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec7">DynamoDB Accelerator</a></p>
+<p class="toc-sec2"><a href="ch14.xhtml#ch14lev2sec4">DAX Components</a></p>
+<p class="toc-sec2"><a href="ch14.xhtml#ch14lev2sec5">DAX Read</a></p>
+<p class="toc-sec2"><a href="ch14.xhtml#ch14lev2sec6">DAX LRU</a></p>
+<p class="toc-sec2"><a href="ch14.xhtml#ch14lev2sec7">DAX Cluster and Nodes</a></p>
+<p class="toc-sec2"><a href="ch14.xhtml#ch14lev2sec8">DAX Control</a></p>
+<p class="toc-sec2"><a href="ch14.xhtml#ch14lev2sec9">DAX Write</a></p>
+<p class="toc-sec2"><a href="ch14.xhtml#ch14lev2sec10">DAX Encryption</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec8">Auto-Scaling</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec9">Data Distribution</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec10">DynamoDB Local</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec11">DynamoDB Web</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec12">Secondary Indexes</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec13">DynamoDB Stream</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec14">Backup and Recovery</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec15">DynamoDB Global Tables</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec16">NoSQL Workbench</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec17">Data Protection</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec18">Maintenance Window</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec19">Logging and Monitoring</a></p>
+<p class="toc-sec1"><span epub:type="pagebreak" id="page_xx"/><a href="ch14.xhtml#ch14lev1sec20">Infrastructure Security</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec21">Security Best Practices</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec22">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch14.xhtml#ch14lev2sec11">Exercises</a></p>
+<p class="toc-sec2"><a href="ch14.xhtml#ch14lev2sec12">Questions</a></p>
+<p class="toc-sec2"><a href="ch14.xhtml#ch14lev2sec13">Answers</a></p>
+<p class="toc-sec1"><a href="ch14.xhtml#ch14lev1sec23">Additional Resources</a></p>
+<p class="toc-part"><a href="ch14_part6.xhtml#part6">  <span class="gray1"><strong>Part VI</strong></span>   AWS Application Integration and Management</a></p>
+<p class="toc-chap"><a href="ch15.xhtml#ch15"><strong>Chapter 15</strong>   Amazon Simple Queue Service and Simple Notification Service</a></p>
+<p class="toc-sec1"><a href="ch15.xhtml#ch15lev1sec1">Amazon Simple Queue Service</a></p>
+<p class="toc-sec1"><a href="ch15.xhtml#ch15lev1sec2">Amazon SQS Architecture</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec1">Queue Lifecycle</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec2">Standard Queues</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec3">First In/First Out Queues</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec4">Short Polling</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec5">Long Polling</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec6">Dead-Letter Queues</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec7">Visibility Timeout</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec8">Inflight Messages</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec9">Delay Queues</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec10">Temporary Queues</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec11">Virtual Queues</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec12">Message Timers</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec13">Large Messages</a></p>
+<p class="toc-sec1"><a href="ch15.xhtml#ch15lev1sec3">Data Encryption</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec14">Virtual Private Cloud Endpoints</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec15">Logging</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec16">Monitoring</a></p>
+<p class="toc-sec1"><a href="ch15.xhtml#ch15lev1sec4">Amazon Simple Notification Service</a></p>
+<p class="toc-sec1"><a href="ch15.xhtml#ch15lev1sec5">Amazon SNS Architecture</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec17">Fanout</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec18">Alerts</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec19">Push Message</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec20">Push Notifications</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec21">Message Durability</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec22">Message Delivery Status</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec23">Message Delivery Retries</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec24">Delivery Policies</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec25">Creating a Delivery Policy</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec26">Dead-Letter Queues</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec27">Message Attributes</a></p>
+<p class="toc-sec2"><span epub:type="pagebreak" id="page_xxi"/><a href="ch15.xhtml#ch15lev2sec28">Message Filtering</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec29">Tags</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec30">Data Encryption</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec31">Logging</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec32">Monitoring</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec33">Infrastructure Security</a></p>
+<p class="toc-sec1"><a href="ch15.xhtml#ch15lev1sec6">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec34">Exercises</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec35">Questions</a></p>
+<p class="toc-sec2"><a href="ch15.xhtml#ch15lev2sec36">Answers</a></p>
+<p class="toc-sec1"><a href="ch15.xhtml#ch15lev1sec7">Additional Resources</a></p>
+<p class="toc-chap"><a href="ch16.xhtml#ch16"><strong>Chapter 16</strong>   Amazon Simple Workflow Service, Amazon API Gateway, and AWS Step Functions</a></p>
+<p class="toc-sec1"><a href="ch16.xhtml#ch16lev1sec1">Amazon Simple Workflow Service</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec1">Development Environment</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec2">Tags</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec3">Monitoring</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec4">Logging</a></p>
+<p class="toc-sec1"><a href="ch16.xhtml#ch16lev1sec2">Amazon API Gateway</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec5">REST API</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec6">API with Lambda Integration</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec7">Create a REST API</a></p>
+<p class="toc-sec1"><a href="ch16.xhtml#ch16lev1sec3">AWS Step Functions</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec8">Standard Workflows</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec9">Express Workflows</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec10">Standard vs. Express Workflows</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec11">Step Functions Local</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec12">Tagging</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec13">Monitoring</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec14">Logging</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec15">Security</a></p>
+<p class="toc-sec1"><a href="ch16.xhtml#ch16lev1sec4">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec16">Exercises</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec17">Questions</a></p>
+<p class="toc-sec2"><a href="ch16.xhtml#ch16lev2sec18">Answers</a></p>
+<p class="toc-sec1"><a href="ch16.xhtml#ch16lev1sec5">Additional Resources</a></p>
+<p class="toc-chap"><a href="ch17.xhtml#ch17"><strong>Chapter 17</strong>   Monitoring Using Amazon CloudWatch, AWS CloudTrail, and AWS Config</a></p>
+<p class="toc-sec1"><a href="ch17.xhtml#ch17lev1sec1">Amazon CloudWatch</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec1">Metrics</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec2">CloudWatch Agent</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec3">Data Protection</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec4">Logging</a></p>
+<p class="toc-sec1"><span epub:type="pagebreak" id="page_xxii"/><a href="ch17.xhtml#ch17lev1sec2">AWS CloudTrail</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec5">The CloudTrail Lifecycle</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec6">Control Access</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec7">AWS CloudTrail Security</a></p>
+<p class="toc-sec1"><a href="ch17.xhtml#ch17lev1sec3">AWS Config</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec8">Security Analysis</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec9">Resource Configuration</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec10">Managing AWS Config</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec11">AWS Config Managed and Custom Rules</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec12">Monitoring AWS Config</a></p>
+<p class="toc-sec1"><a href="ch17.xhtml#ch17lev1sec4">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec13">Exercises</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec14">Questions</a></p>
+<p class="toc-sec2"><a href="ch17.xhtml#ch17lev2sec15">Answers</a></p>
+<p class="toc-sec1"><a href="ch17.xhtml#ch17lev1sec5">Additional Resources</a></p>
+<p class="toc-chap"><a href="ch18.xhtml#ch18"><strong>Chapter 18</strong>   Infrastructure as Code Using AWS CloudFormation</a></p>
+<p class="toc-sec1"><a href="ch18.xhtml#ch18lev1sec1">AWS CloudFormation</a></p>
+<p class="toc-sec2"><a href="ch18.xhtml#ch18lev2sec1">Templates</a></p>
+<p class="toc-sec2"><a href="ch18.xhtml#ch18lev2sec2">Stacks</a></p>
+<p class="toc-sec2"><a href="ch18.xhtml#ch18lev2sec3">Change Sets</a></p>
+<p class="toc-sec2"><a href="ch18.xhtml#ch18lev2sec4">Export</a></p>
+<p class="toc-sec2"><a href="ch18.xhtml#ch18lev2sec5">AWS CloudFormation Registry</a></p>
+<p class="toc-sec1"><a href="ch18.xhtml#ch18lev1sec2">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch18.xhtml#ch18lev2sec6">Exercise</a></p>
+<p class="toc-sec2"><a href="ch18.xhtml#ch18lev2sec7">Questions</a></p>
+<p class="toc-sec2"><a href="ch18.xhtml#ch18lev2sec8">Answers</a></p>
+<p class="toc-sec1"><a href="ch18.xhtml#ch18lev1sec3">Additional Resources</a></p>
+<p class="toc-part"><a href="ch18_part7.xhtml#part7"><span class="gray1"><strong>Part VII</strong></span>   Developing Cloud Native Applications in AWS</a></p>
+<p class="toc-chap"><a href="ch19.xhtml#ch19"><strong>Chapter 19</strong>   Developing Serverless Applications with Lambda</a></p>
+<p class="toc-sec1"><a href="ch19.xhtml#ch19lev1sec1">AWS Lambda</a></p>
+<p class="toc-sec2"><a href="ch19.xhtml#ch19lev2sec1">AWS Lambda Functions</a></p>
+<p class="toc-sec2"><a href="ch19.xhtml#ch19lev2sec2">AWS Lambda Applications</a></p>
+<p class="toc-sec2"><a href="ch19.xhtml#ch19lev2sec3">AWS Lambda Layers</a></p>
+<p class="toc-sec2"><a href="ch19.xhtml#ch19lev2sec4">AWS Lambda Security</a></p>
+<p class="toc-sec1"><a href="ch19.xhtml#ch19lev1sec2">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch19.xhtml#ch19lev2sec5">Exercise</a></p>
+<p class="toc-sec2"><a href="ch19.xhtml#ch19lev2sec6">Questions</a></p>
+<p class="toc-sec2"><a href="ch19.xhtml#ch19lev2sec7">Answers</a></p>
+<p class="toc-sec1"><a href="ch19.xhtml#ch19lev1sec3">Additional Resources</a></p>
+<p class="toc-chap"><span epub:type="pagebreak" id="page_xxiii"/><a href="ch20.xhtml#ch20"><strong>Chapter 20</strong>   Deploying a Static Website on Amazon S3 Bucket</a></p>
+<p class="toc-sec1"><a href="ch20.xhtml#ch20lev1sec1">Amazon S3</a></p>
+<p class="toc-sec1"><a href="ch20.xhtml#ch20lev1sec2">Deploy a Static Website Using Amazon S3</a></p>
+<p class="toc-sec1"><a href="ch20.xhtml#ch20lev1sec3">Deploy a Static Website Using Amazon S3 and Amazon Route 53</a></p>
+<p class="toc-sec1"><a href="ch20.xhtml#ch20lev1sec4">Deploy a Static Website Using Amazon S3, Amazon Route 53, and Amazon CloudFront</a></p>
+<p class="toc-sec1"><a href="ch20.xhtml#ch20lev1sec5">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch20.xhtml#ch20lev2sec1">Exercise</a></p>
+<p class="toc-sec2"><a href="ch20.xhtml#ch20lev2sec2">Questions</a></p>
+<p class="toc-sec2"><a href="ch20.xhtml#ch20lev2sec3">Answers</a></p>
+<p class="toc-sec1"><a href="ch20.xhtml#ch20lev1sec6">Additional Resources</a></p>
+<p class="toc-chap"><a href="ch21.xhtml#ch21"><strong>Chapter 21</strong>   Deploying a Web Application Using AWS Elastic Beanstalk</a></p>
+<p class="toc-sec1"><a href="ch21.xhtml#ch21lev1sec1">AWS Elastic Beanstalk</a></p>
+<p class="toc-sec1"><a href="ch21.xhtml#ch21lev1sec2">Deploy an Application in AWS Elastic Beanstalk</a></p>
+<p class="toc-sec1"><a href="ch21.xhtml#ch21lev1sec3">Migrate and Deploy an Application to AWS Elastic Beanstalk</a></p>
+<p class="toc-sec1"><a href="ch21.xhtml#ch21lev1sec4">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch21.xhtml#ch21lev2sec1">Exercise</a></p>
+<p class="toc-sec2"><a href="ch21.xhtml#ch21lev2sec2">Questions</a></p>
+<p class="toc-sec2"><a href="ch21.xhtml#ch21lev2sec3">Answers</a></p>
+<p class="toc-sec1"><a href="ch21.xhtml#ch21lev1sec5">Additional Resources</a></p>
+<p class="toc-chap"><a href="ch22.xhtml#ch22"><strong>Chapter 22</strong>   Migrating Your Application and Database to AWS</a></p>
+<p class="toc-sec1"><a href="ch22.xhtml#ch22lev1sec1">AWS Migration</a></p>
+<p class="toc-sec1"><a href="ch22.xhtml#ch22lev1sec2">Application Migration</a></p>
+<p class="toc-sec2"><a href="ch22.xhtml#ch22lev2sec1">AWS Server Migration Service</a></p>
+<p class="toc-sec1"><a href="ch22.xhtml#ch22lev1sec3">Database Migration</a></p>
+<p class="toc-sec1"><a href="ch22.xhtml#ch22lev1sec4">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch22.xhtml#ch22lev2sec2">Exercises</a></p>
+<p class="toc-sec2"><a href="ch22.xhtml#ch22lev2sec3">Questions</a></p>
+<p class="toc-sec2"><a href="ch22.xhtml#ch22lev2sec4">Answers</a></p>
+<p class="toc-sec1"><a href="ch22.xhtml#ch22lev1sec5">Additional Resources</a></p>
+<p class="toc-part"><a href="ch22_part8.xhtml#part8"><span class="gray1"><strong>Part VIII</strong></span> Building, Deploying, and Debugging Cloud Applications</a></p>
+<p class="toc-chap"><a href="ch23.xhtml#ch23"><strong>Chapter 23</strong>   Hosting Secure Repositories Using AWS CodeCommit</a></p>
+<p class="toc-sec1"><a href="ch23.xhtml#ch23lev1sec1">AWS CodeCommit</a></p>
+<p class="toc-sec1"><a href="ch23.xhtml#ch23lev1sec2">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch23.xhtml#ch23lev2sec1">Exercises</a></p>
+<p class="toc-sec2"><a href="ch23.xhtml#ch23lev2sec2">Questions</a></p>
+<p class="toc-sec2"><a href="ch23.xhtml#ch23lev2sec3">Answers</a></p>
+<p class="toc-sec1"><a href="ch23.xhtml#ch23lev1sec3">Additional Resources</a></p>
+<p class="toc-chap"><span epub:type="pagebreak" id="page_xxiv"/><a href="ch24.xhtml#ch24"><strong>Chapter 24</strong>   Building an Application Using AWS CodeBuild</a></p>
+<p class="toc-sec1"><a href="ch24.xhtml#ch24lev1sec1">AWS CodeBuild</a></p>
+<p class="toc-sec2"><a href="ch24.xhtml#ch24lev2sec1">Build Projects</a></p>
+<p class="toc-sec2"><a href="ch24.xhtml#ch24lev2sec2">Build Environment</a></p>
+<p class="toc-sec1"><a href="ch24.xhtml#ch24lev1sec2">Working with AWS CodeBuild</a></p>
+<p class="toc-sec1"><a href="ch24.xhtml#ch24lev1sec3">Test Reporting</a></p>
+<p class="toc-sec1"><a href="ch24.xhtml#ch24lev1sec4">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch24.xhtml#ch24lev2sec3">Exercises</a></p>
+<p class="toc-sec2"><a href="ch24.xhtml#ch24lev2sec4">Questions</a></p>
+<p class="toc-sec2"><a href="ch24.xhtml#ch24lev2sec5">Answers</a></p>
+<p class="toc-sec1"><a href="ch24.xhtml#ch24lev1sec5">Additional Resources</a></p>
+<p class="toc-chap"><a href="ch25.xhtml#ch25"><strong>Chapter 25</strong>   Deploying Applications Using CodeDeploy and CodePipeline</a></p>
+<p class="toc-sec1"><a href="ch25.xhtml#ch25lev1sec1">AWS CodeDeploy</a></p>
+<p class="toc-sec1"><a href="ch25.xhtml#ch25lev1sec2">AWS CodePipeline</a></p>
+<p class="toc-sec1"><a href="ch25.xhtml#ch25lev1sec3">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch25.xhtml#ch25lev2sec1">Exercises</a></p>
+<p class="toc-sec2"><a href="ch25.xhtml#ch25lev2sec2">Questions</a></p>
+<p class="toc-sec2"><a href="ch25.xhtml#ch25lev2sec3">Answers</a></p>
+<p class="toc-sec1"><a href="ch25.xhtml#ch25lev1sec4">Additional Resources</a></p>
+<p class="toc-chap"><a href="ch26.xhtml#ch26"><strong>Chapter 26</strong>   Building a Scalable and Fault-Tolerant CI/CD Pipeline</a></p>
+<p class="toc-sec1"><a href="ch26.xhtml#ch26lev1sec1">CI/CD Pipeline</a></p>
+<p class="toc-sec1"><a href="ch26.xhtml#ch26lev1sec2">Chapter Review</a></p>
+<p class="toc-sec2"><a href="ch26.xhtml#ch26lev2sec1">Exercises</a></p>
+<p class="toc-sec2"><a href="ch26.xhtml#ch26lev2sec2">Questions</a></p>
+<p class="toc-sec2"><a href="ch26.xhtml#ch26lev2sec3">Answers</a></p>
+<p class="toc-sec1"><a href="ch26.xhtml#ch26lev1sec3">Additional Resources</a></p>
+<p class="toc-part"><a href="ch26_part9.xhtml#part9">  <span class="gray1"><strong>Part IX</strong></span>   Appendixes and Acronyms and Glossary</a></p>
+<p class="toc-chap"><a href="ch27_appa.xhtml#appa"><strong>Appendix A</strong>  AWS Certified Developer - Associate Exam Objective Map (DVA-C01)</a></p>
+<p class="toc-chap"><a href="ch28_appb.xhtml#appb"><strong>Appendix B</strong>  About the Online Content</a></p>
+<p class="toc-sec1"><a href="ch28_appb.xhtml#appblev1sec1">System Requirements</a></p>
+<p class="toc-sec1"><a href="ch28_appb.xhtml#appblev1sec2">Your Total Seminars Training Hub Account</a></p>
+<p class="toc-sec2"><a href="ch28_appb.xhtml#appblev2sec1">Privacy Notice</a></p>
+<p class="toc-sec1"><a href="ch28_appb.xhtml#appblev1sec3">Single User License Terms and Conditions</a></p>
+<p class="toc-sec1"><a href="ch28_appb.xhtml#appblev1sec4">TotalTester Online</a></p>
+<p class="toc-sec1"><a href="ch28_appb.xhtml#appblev1sec5">Technical Support</a></p>
+<p class="toc-bm1"><a href="ch29_gloss.xhtml#gloss">Acronyms and Glossary</a></p>
+<p class="toc-bm1"><a href="ch30_index.xhtml#index">Index</a></p>
+</section>
+</body>
+</html>

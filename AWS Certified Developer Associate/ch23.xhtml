@@ -1,0 +1,173 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch23"><span epub:type="pagebreak" id="page_571"/><span class="chap">CHAPTER <span class="chap1">23</span></span></h2>
+<h2 class="h2c1">Hosting Secure Repositories Using AWS CodeCommit</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• AWS CodeCommit</p>
+<p class="hr"/>
+<p class="noindentb">This chapter will teach you how to create repository in AWS CodeCommit and pull, update, and commit changes from your local machine and AWS Cloud9.</p>
+<h3 class="h3" id="ch23lev1sec1">AWS CodeCommit</h3>
+<p class="noindent">As a developer, you often use a source code repository such as GitHub, GitLab, or other tools. AWS CodeCommit provides a private, secure, scalable, and managed source code repository that is closely integrated with other AWS services and third-party services. This section provides the step-by-step procedures to create a repository; pull code; create branches; and commit, compare, and merge your source code.</p>
+<p class="indent">You need to access AWS CodeCommit from your local machine using either an HTTPS or SSH connection, so you need the relevant credentials. AWS recommends using a separate user instead of using your root credentials. So, first create a new user with required access, as shown in the following illustration. Log in to the AWS Management Console and navigate to the IAM service. Select Users from the pane on the left and click on the Add User button. Enter a username—for example, <strong>Developer</strong>—and choose the <span epub:type="pagebreak" id="page_572"/>access type for both programmatic access and console access. Enter a password and click Next: Permissions.</p>
+<p class="image"><img alt="images" src="f0572-01.jpg"/></p>
+<p class="indent">Here you can either create a custom policy or attach an existing policy directly. Search for CodeCommit in the filter policies, and choose AWSCodeCommitFullAccess. If you have a user with similar permissions, then you can select Copy Or Add This User To A group. Once you select the required permissions, click the Next: Tags button.</p>
+<p class="image"><img alt="images" src="f0572-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_573"/>In accordance with the standard least-privilege security best practice, grant only the required permissions and click Create User.</p>
+<p class="image"><img alt="images" src="f0573-01.jpg"/></p>
+<p class="indent">Once the user is created, click on the username, and scroll down. Upload your SSH public key and download the HTTPS Git credentials for AWS CodeCommit. You just need either one normally, but this example is using both HTTPS and SSH to access AWS CodeCommit.</p>
+<p class="image"><img alt="images" src="f0573-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_574"/>Click on Generate Credentials for HTTPS, and you will be prompted with the following screen. Here either copy the username and password or download the credentials.</p>
+<p class="image"><img alt="images" src="f0574-01.jpg"/></p>
+<p class="indent">You can use Git Bash to simulate bash in Windows or use Terminal in Mac. Create and navigate to the .ssh folder and type <strong>ssh-keygen -t rsa -b 2048 -C “aws-codecommit”</strong> <span epub:type="pagebreak" id="page_575"/>and leave the defaults for other prompts. Now open your .pub file and copy the contents.</p>
+<p class="image"><img alt="images" src="f0575-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_576"/>Switch to your AWS Management Console and navigate to the IAM service. Select the Developer user and click Upload SSH Public Key. Paste your .pub content and click on Upload SSH Public Key. You can delegate repository access through the IAM role to other AWS accounts using AWS Security Token Service (STS), where an IAM user can assume the role when running commands.</p>
+<p class="image"><img alt="images" src="f0576-01.jpg"/></p>
+<p class="indent">Now log in to the AWS Management Console as the Developer user and navigate to the AWS CodeCommit service. Select Repositories on the left pane, and you will see the list of repositories that you created already.</p>
+<p class="image"><img alt="images" src="f0576-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_577"/>Enter <strong>my-app-code-repository</strong> for the name and provide a description. As a best practice add tags and click the Create button.</p>
+<p class="image"><img alt="images" src="f0577-01.jpg"/></p>
+<p class="indent">Note the connection details for HTTPS.</p>
+<p class="image"><img alt="images" src="f0577-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_578"/>Note the SSH connection details.</p>
+<p class="image"><img alt="images" src="f0578-01.jpg"/></p>
+<p class="indent">Click on the Create File button to create your first example source code.</p>
+<p class="image"><img alt="images" src="f0578-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_579"/>Type <strong>welcome to your secure, private source code repository</strong> and click Commit Changes.</p>
+<p class="image"><img alt="images" src="f0579-01.jpg"/></p>
+<p class="indent">Now we are ready to clone our new repository using the HTTPS connection. From your local machine, type <strong>git clone <a href="https://git-commit.us-east-1.amazoneaws.com/v1/repos/my-app-code-repository">https://git-commit.us-east-1.amazoneaws.com/v1/repos/my-app-code-repository</a></strong> and press <span class="smallcaps">enter</span>. Enter your HTTPS username and password and click OK.</p>
+<p class="image"><img alt="images" src="f0579-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_580"/>Navigate to your repository folder—for example, cd my-app-code-repository—and you can see the source file that we created earlier.</p>
+<p class="image"><img alt="images" src="f0580-01.jpg"/></p>
+<p class="indent">Create a new file called <strong>second-app.txt</strong> and add it to git using the git add command. Then commit the file using the git commit -m “comment” and push it to the remote AWS CodeCommit repository using the git push command.</p>
+<p class="image"><span epub:type="pagebreak" id="page_581"/><img alt="images" src="f0581-01.jpg"/></p>
+<p class="indent">Navigate to the AWS CodeCommit service in the AWS Management Console and select my-app-code-repository. You can see the new source code for second-app.txt that you pushed from your local machine.</p>
+<p class="image"><img alt="images" src="f0581-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_582"/>Click on the second-app.txt, and you can see the code.</p>
+<p class="indent">Now, let us clone the AWS CodeCommit repository using SSH, where you do not need to enter your credentials each time.</p>
+<p class="imagep"><img alt="images" src="p0582-01.jpg"/></p>
+<p class="indent">Navigate to the .ssh folder and create the config file, as shown here.</p>
+<p class="image"><img alt="images" src="f0582-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_583"/>Create a new source code file called <strong>third-app.txt</strong> and add it using the git add command. Then you need to commit it using the git commit -m “comment” and push the new code to your AWS CodeCommit remote repository using the git push command.</p>
+<p class="indent">Navigate to the AWS CodeCommit service in the AWS Management Console and select Code from the left pane. You can see third-app.txt is added to the repository.</p>
+<p class="image"><img alt="images" src="f0583-01.jpg"/></p>
+<p class="indent">Now we will use AWS Cloud9, which is an integrated development environment (IDE), to work on your repository using a browser instead of using your local machine. Navigate to AWS Cloud9 from the AWS Management Console and click Create Environment. For the name, enter <strong>my-cloud-ide</strong> and click Next Step.</p>
+<p class="image"><img alt="images" src="f0583-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_584"/>Leave all the default values selected and click Next Step.</p>
+<p class="image"><img alt="images" src="f0584-01.jpg"/></p>
+<p class="indent">Review all the details and click Create Environment.</p>
+<p class="image"><img alt="images" src="f0584-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_585"/>The AWS Cloud9 IDE environment creation is in progress.</p>
+<p class="indent">AWS Cloud9 IDE is ready, and you are logged in as the Developer user by default. You can clone the repository using the git clone HTTPS command. Create a new branch using the git branch my-new-branch command and navigate to the new branch. Create a new source code my-cloud9-app.txt and add it using the git add command. You can commit the code using the git commit -m “comment” and use git push to push the new source code.</p>
+<p class="image"><img alt="images" src="f0585-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_586"/>Since we created the new source code in a branch, you need to create a pull request on the AWS CodeCommit page. Select the destination as master and the source as my-new-branch. Click the Compare button before creating the pull request.</p>
+<p class="image"><img alt="images" src="f0586-01.jpg"/></p>
+<p class="indent">In the next screen, you will see the status as Mergeable. After reviewing the changes, click the Create Pull Request button.</p>
+<p class="image"><img alt="images" src="f0586-02.jpg"/></p>
+<p class="indent">You will see a success message with no merge conflicts. After reviewing the details, click the Merge button.</p>
+<p class="image"><img alt="images" src="f0586-03.jpg"/></p>
+<p class="indent">Here you have three merge options to select from. Choose Fast Forward Merge, which is the default git merge strategy, and click on the Merge Pull Request button. You can use other merge strategies, such as squash and merge or three-way merge, based on your requirements.</p>
+<p class="image"><span epub:type="pagebreak" id="page_587"/><img alt="images" src="f0587-01.jpg"/></p>
+<p class="indent">You can see that my-new-branch has been merged into the master with a success message.</p>
+<p class="image"><img alt="images" src="f0587-02.jpg"/></p>
+<p class="indent">When you click on Code on the left pane, you can see the new source code my-cloud9-app that we created using the AWS Cloud9 IDE.</p>
+<p class="image"><img alt="images" src="f0587-03.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_588"/>You can see all the commits by selecting Commits from the left pane. You can explore all the commits from here, and you can list commits from the master or from any of the branches.</p>
+<p class="image"><img alt="images" src="f0588-01.jpg"/></p>
+<p class="indent">You can explore all your branches by choosing Branches from left navigation pane.</p>
+<p class="image"><img alt="images" src="f0588-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_589"/>You can configure notification rules for a repository when comments are added to commits or pull requests. You also can set up a notification when a pull request is created or merged, in addition to the creation, deletion, or updating of branches. An Amazon CloudWatch Events rule and Amazon SNS topic can be configured for notifications. The existing Git repository can be migrated to the AWS CodeCommit repository. First, you need to create a repository in AWS CodeCommit. Then you need to clone the existing repository in your local machine and push it to AWS CodeCommit.</p>
+<h3 class="h3" id="ch23lev1sec2">Chapter Review</h3>
+<p class="noindent">This chapter began by explaining what AWS CodeCommit is. You created an IAM user with just AWS CodeCommit access. Then you went through the process of creating a repository; new source code; a new branch; and pull requests, as well as adding, committing, pushing, and comparing the source code using AWS CodeCommit from your local machine, as well as from the interactive development environment AWS Cloud9.</p>
+<p class="indent">You gained the experience of creating a source code repository using AWS CodeCommit service and cloned it to your local machine as well as to AWS Cloud9 IDE. You also created sample source code from different places and pushed it to your AWS CodeCommit remote repository. This experience will help you in AWS Developer certification as well as in real world when you start working on AWS cloud environment.</p>
+<h4 class="h4" id="ch23lev2sec1">Exercises</h4>
+<p class="noindent">The following exercises will help you practice using AWS CodeCommit. You need to create an AWS account, as explained earlier, before performing these exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5">Exercise 23-1: Delete the AWS CodeCommit Repository Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in to the AWS account and then navigate to the AWS CodeCommit console at <a href="https://console.aws.amazon.com/codecommit/">https://console.aws.amazon.com/codecommit/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the navigation pane on the left, choose Repositories.</p>
+<p class="number"><strong>4.</strong> Choose Settings.</p>
+<p class="number"><strong>5.</strong> Navigate to the Delete Repository on the General tab. Choose Delete Repository.</p>
+<p class="number"><strong>6.</strong> Enter delete in the popup window and choose to delete.</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_590"/>Exercise 23-2: Delete the AWS Cloud9 Environment Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in to the AWS account and then navigate to the AWS Cloud9 console at <a href="https://console.aws.amazon.com/cloud9/">https://console.aws.amazon.com/cloud9/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the navigation pane on the left, choose Environments.</p>
+<p class="number"><strong>4.</strong> Choose the environment you want to delete and click on the Delete button.</p>
+<p class="number"><strong>5.</strong> Enter delete in the popup window and choose to delete. The Amazon EC2 instance will be terminated by AWS Cloud9.</p>
+<h4 class="h4" id="ch23lev2sec2">Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best responses for each question.</p>
+<p class="numbert"><strong><a href="ch23.xhtml#rch23qa1" id="ch23qa1">1.</a></strong> Your company security team directed you to find a solution for storing source code securely, which should be a managed solution for everyone in your team who is spread across the globe. They should be able to use their existing git tools. Which AWS service you will suggest?</p>
+<p class="alphau"><strong>A.</strong> AWS CodeBuild</p>
+<p class="alphau"><strong>B.</strong> AWS CodeDeploy</p>
+<p class="alphau"><strong>C.</strong> AWS CodePipeline</p>
+<p class="alphau"><strong>D.</strong> AWS CodeCommit</p>
+<p class="number"><strong><a href="ch23.xhtml#rch23qa2" id="ch23qa2">2.</a></strong> Your company security policy mandates that the source code should not be cloned to your local machine. Your company is using AWS CodeCommit to store and share the source code repository securely across the team. Which AWS service you would recommend to clone and work on your source code securely?</p>
+<p class="alphau"><strong>A.</strong> Amazon Athena</p>
+<p class="alphau"><strong>B.</strong> AWS Cloud9</p>
+<p class="alphau"><strong>C.</strong> AWS Outposts</p>
+<p class="alphau"><strong>D.</strong> AWS Config</p>
+<p class="number"><strong><a href="ch23.xhtml#rch23qa3" id="ch23qa3">3.</a></strong> <span epub:type="pagebreak" id="page_591"/>Your company is developing a new product, and many teams are working on different features of this product. As a developer, how you will make sure each team can work on their feature set and merge the source code once ready in AWS CodeCommit?</p>
+<p class="alphau"><strong>A.</strong> Create a new repository for each team and combine when ready</p>
+<p class="alphau"><strong>B.</strong> Create a different branch for each team and merge to the master when ready</p>
+<p class="alphau"><strong>C.</strong> Ask each team to work on their local machine and upload to AWS CodeCommit when ready</p>
+<p class="alphau"><strong>D.</strong> AWS CodeCommit does not support merging the source code</p>
+<p class="number"><strong><a href="ch23.xhtml#rch23qa4" id="ch23qa4">4.</a></strong> A team member cloned the application source code repository to a local machine and made all the necessary changes. The team member is getting an error while pushing the code to AWS CodeCommit. What is the correct sequence of git command execution?</p>
+<p class="alphau"><strong>A.</strong> Git add – Git commit – Git push</p>
+<p class="alphau"><strong>B.</strong> Git add – Git push – Git commit</p>
+<p class="alphau"><strong>C.</strong> Git commit – Git Push – Git add</p>
+<p class="alphau"><strong>D.</strong> Git push – Git add – Git commit</p>
+<p class="number"><strong><a href="ch23.xhtml#rch23qa5" id="ch23qa5">5.</a></strong> Your development team should be able to push changes to only their branches but not allowed to push changes or create a merge pull request to the master branch in AWS CodeCommit. How can you achieve this in AWS?</p>
+<p class="alphau"><strong>A.</strong> Create a policy with allow push, merge, and add to the master and attach it to the developer IAM group</p>
+<p class="alphau"><strong>B.</strong> Enable server-side encryption for the master branch</p>
+<p class="alphau"><strong>C.</strong> Enable client-side encryption for the master branch</p>
+<p class="alphau"><strong>D.</strong> Create a policy with deny push, merge; add to the master; and attach it to the developer IAM group</p>
+<p class="number"><strong><a href="ch23.xhtml#rch23qa6" id="ch23qa6">6.</a></strong> Your company has many AWS accounts and created the AWS CodeCommit repository in the development AWS account. How can you allow cross-account access to the development account AWS CodeCommit repository?</p>
+<p class="alphau"><strong>A.</strong> Create an IAM role to delegate access and use AWS STS to assume the role in another AWS accounts</p>
+<p class="alphau"><strong>B.</strong> Create a VPN connection between all your AWS accounts to enable cross-account access</p>
+<p class="alphau"><strong>C.</strong> Create VPC peering to connect all your AWS accounts to enable cross-account access</p>
+<p class="alphau"><strong>D.</strong> Create an IAM user in each account and grant access directly from the development AWS account</p>
+<p class="number"><strong><a href="ch23.xhtml#rch23qa7" id="ch23qa7">7.</a></strong> <span epub:type="pagebreak" id="page_592"/>What three merge strategies are available in AWS CodeCommit? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> Two-way merge strategy</p>
+<p class="alphau"><strong>B.</strong> Squash merge strategy</p>
+<p class="alphau"><strong>C.</strong> Three-way merge strategy</p>
+<p class="alphau"><strong>D.</strong> Fast-forward merge strategy</p>
+<p class="number"><strong><a href="ch23.xhtml#rch23qa8" id="ch23qa8">8.</a></strong> A DevOps team configured an AWS CodeCommit repository, and they want to receive a notification whenever a developer commits or merges changes to the master. Which of the following steps will alert the DevOps team of this?</p>
+<p class="alphau"><strong>A.</strong> Set up an Amazon CloudWatch events rule to be triggered and add the Amazon SNS topic as the notification target</p>
+<p class="alphau"><strong>B.</strong> Set up Amazon CloudTrail for repository changes and add the Amazon SNS topic as the notification target</p>
+<p class="alphau"><strong>C.</strong> Set up AWS Lambda to be triggered every five minutes and add the Amazon SNS topic as the notification target</p>
+<p class="alphau"><strong>D.</strong> Set up AWS Batch to be triggered and add the Amazon SNS topic as the notification target</p>
+<p class="number"><strong><a href="ch23.xhtml#rch23qa9" id="ch23qa9">9.</a></strong> What two protocols are supported in AWS CodeCommit to clone a repository? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> TCP</p>
+<p class="alphau"><strong>B.</strong> HTTPS</p>
+<p class="alphau"><strong>C.</strong> HTTP</p>
+<p class="alphau"><strong>D.</strong> SSH</p>
+<p class="number1"><strong><a href="ch23.xhtml#rch23qa10" id="ch23qa10">10.</a></strong> You have an existing Git repository that you want to migrate to AWS CodeCommit. What migration steps do you need to perform? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> Create an AWS CodeCommit repository</p>
+<p class="alphau"><strong>B.</strong> Clone the existing Git repository in your local machine</p>
+<p class="alphau"><strong>C.</strong> Delete the AWS CodeCommit repository</p>
+<p class="alphau"><strong>D.</strong> Push the changes to your AWS CodeCommit repository</p>
+<h4 class="h4" id="ch23lev2sec3">Answers</h4>
+<p class="numbert"><strong><a href="ch23.xhtml#ch23qa1" id="rch23qa1">1.</a> D.</strong> You can use AWS CodeCommit to collaborate on the source code with other team members.</p>
+<p class="number"><strong><a href="ch23.xhtml#ch23qa2" id="rch23qa2">2.</a> B.</strong> AWS Cloud9 provides a secure integrated development environment in AWS Cloud.</p>
+<p class="number"><strong><a href="ch23.xhtml#ch23qa3" id="rch23qa3">3.</a> B.</strong> You can create a different branch for each team and merge them to the master when ready.</p>
+<p class="number"><strong><a href="ch23.xhtml#ch23qa4" id="rch23qa4">4.</a></strong> <span epub:type="pagebreak" id="page_593"/><strong>A.</strong> You need add the files first using git add, then commit the changes using git commit, and finally push the changes to the remote repository using git push.</p>
+<p class="number"><strong><a href="ch23.xhtml#ch23qa5" id="rch23qa5">5.</a> D.</strong> You can create a policy with deny access to push, merge, and add to the master and attach it to the developer IAM group.</p>
+<p class="number"><strong><a href="ch23.xhtml#ch23qa6" id="rch23qa6">6.</a> A.</strong> You need to create an IAM role to delegate access and use AWS STS to assume the role in another AWS account.</p>
+<p class="number"><strong><a href="ch23.xhtml#ch23qa7" id="rch23qa7">7.</a> B, C, D.</strong> The three merge strategies in AWS CodeCommit are fast-forward, squash, and three-way.</p>
+<p class="number"><strong><a href="ch23.xhtml#ch23qa8" id="rch23qa8">8.</a> A.</strong> Set up an Amazon CloudWatch events rule to be triggered and add the Amazon SNS topic as the notification target.</p>
+<p class="number"><strong><a href="ch23.xhtml#ch23qa9" id="rch23qa9">9.</a> B, D.</strong> HTTPS and SSH are the two protocols used in AWS CodeCommit.</p>
+<p class="number1"><strong><a href="ch23.xhtml#ch23qa10" id="rch23qa10">10.</a> A, B, D.</strong> First, create an AWS CodeCommit repository and then clone the existing Git repository in your local machine. Finally, push the changes to your AWS CodeCommit repository.</p>
+<h3 class="h3" id="ch23lev1sec3">Additional Resources</h3>
+<p class="bullett">• <strong>AWS CodeCommit</strong>   AWS official documentation is the only place where you will get up-to-date information about any AWS service, including AWS CodeCommit.</p>
+<p class="bulletc"><img alt="images" src="p0593-01.jpg"/></p>
+<p class="bulleta">• <strong>AWS CodeCommit Blog</strong>   AWS blogs are another great source of information where you get step-by-step implementations of AWS CodeCommit along with other AWS services.</p>
+<p class="bulletc"><img alt="images" src="p0593-02.jpg"/><span epub:type="pagebreak" id="page_594"/></p>
+</section>
+</body>
+</html>

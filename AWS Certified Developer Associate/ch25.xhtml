@@ -1,0 +1,212 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch25"><span epub:type="pagebreak" id="page_615"/><span class="chap">CHAPTER <span class="chap1">25</span></span></h2>
+<h2 class="h2c1">Deploying Applications Using CodeDeploy and CodePipeline</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• AWS CodeDeploy</p>
+<p class="bulleta">• AWS CodePipeline</p>
+<p class="hr"/>
+<p class="noindentb">This chapter will provide a practical approach to learn AWS CodeDeploy and AWS CodePipeline.</p>
+<h3 class="h3" id="ch25lev1sec1">AWS CodeDeploy</h3>
+<p class="noindent">As a developer, you might have used automated code deployment tools such as Jenkins, Bamboo, TeamCity, etc., including AWS CodeDeploy. AWS CodeDeploy automates your application deployments to Amazon EC2, Amazon ECS, AWS Lambda, and on-premises instances. You can deploy your application code, serverless functions, packages, executables, and web and configuration files from your git repositories and Amazon S3 buckets.</p>
+<p class="indent">You need to provide an application name to uniquely identify the deployment and specify the compute platform as EC2/On-premises, AWS Lambda, or Amazon ECS. The CodeDeploy agent is necessary when you use the EC2/On-Premises compute platform, but it is not required for AWS Lambda or Amazon ECS. You also need to specify the deployment configuration, such as canary, linear, or all at once to indicate how the traffic is routed during the deployment.</p>
+<p class="indent">The next component is the deployment, where you can choose either in-place deployment or blue/green deployment, based on whether your application needs to be available even during the application deployment. With in-place deployment, the application is stopped and the updated application is installed, tested, and started again. In blue/green deployment, the updated application is deployed to the deployment group while the application is online and the load balancer reroutes the traffic to the new deployment group without any downtime to the application. However, it works only with Amazon EC2 instances, not on-premises instances. The in-place deployment type is not available for Amazon ECS and AWS Lambda. AWS CodeDeploy APIs, AWS CLI, AWS SDKs, and AWS Management Console can be used to access and manage AWS CodeDeploy.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_616"/>Now let us explore the step-by-step procedure to automatically deploy a sample application using AWS CodeDeploy and add AWS CodePipeline to automatically pull source code changes from the code repository, such as AWS CodeCommit, and deploy it to an Amazon EC2 instance using AWS CodeDeploy. You need to log in to your AWS account and navigate to the AWS Identity And Access Management (IAM) page. But you first need to create a CodeDeployRole and attach the AWS managed policy AWSCodeDeployRole.</p>
+<p class="image"><img alt="images" src="f0616-01.jpg"/></p>
+<p class="indent">You need to create another service role—EC2-to-S3-Read-only—and attach the AWS managed policy AmazonS3ReadOnlyAccess to enable the Amazon EC2 instance to access Amazon S3 and read the objects.</p>
+<p class="indent">You then need to navigate to the AWS CodeCommit service page and create a repository—for example, DevOps-Repo—and click the Create button.</p>
+<p class="image"><img alt="images" src="f0616-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_617"/>Note either the HTTPS or SSH URL from this page to clone it in your local machine. Click the Copy button.</p>
+<p class="image"><img alt="images" src="f0617-01.jpg"/></p>
+<p class="indent">On your local machine, open git.bash, if it is Windows OS, or Terminal, if it is macOS. Clone the repository and then go to the DevOpsRepo directory. You can use any sample application code or use this Amazon sample application: <a href="https://s3.amazonaws.com/aws-codedeploy-us-east-1/samples/latest/SampleApp_Linux.zip">https://s3.amazonaws.com/aws-codedeploy-us-east-1/samples/latest/SampleApp_Linux.zip</a>, and move the contents of this ZIP file to the DevOps-Repo folder.</p>
+<p class="image"><img alt="images" src="f0617-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_618"/>Add the new files to the remote repository using the git add command, and commit the changes using the git commit command. Then push the code to the AWS CodeCommit repository using the git push command.</p>
+<p class="image"><img alt="images" src="f0618-01.jpg"/></p>
+<p class="indent">You can verify the source code changes by navigating to the AWS CodeCommit page and choosing Code Repository.</p>
+<p class="image"><img alt="images" src="f0618-02.jpg"/></p>
+<p class="indent">You need an Amazon EC2 instance to deploy the code. You can use your existing Amazon EC2 instance by just adding the tag Name with value DevOps or create a new instance by clicking the Launch Instance button.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_619"/>Choose the latest Amazon Linux 2 AMI from the list and click Next.</p>
+<p class="indent">We can use the Free Tier–eligible instance type for this example. Select t2.micro and click the Next: Configure Instance Details button.</p>
+<p class="indent">Choose either your default VPC or custom VPC that you have in your account, and choose a public subnet, since we are going to deploy our sample web application. You need to attach the EC2-to-S3-Read-Only service role.</p>
+<p class="indent">Scroll down and click on the Advanced Details section. Enter the following code in the user data to install the AWS CodeDeploy agent and click Next:</p>
+<p class="imagep"><img alt="images" src="p0619-01.jpg"/></p>
+<p class="image"><img alt="images" src="f0619-01.jpg"/></p>
+<p class="indent">You can add more storage if needed, but make sure Delete On Termination is checked to ensure this storage volume will be deleted when you terminate the instance.</p>
+<p class="indent">As per the best practice, you need to always add appropriate tags to each AWS resource. Here you must add a tag for the AWS CodeDeploy to identify your instance. Add a tag name with the value <strong>DevOps</strong>.</p>
+<p class="indent">You can create a new security group or select an existing security group. It is not advisable to open the traffic to 0.0.0.0/0, which is open to the public in your enterprise environment. You do need to open HTTP and SSH in case you need to log in to the instance later.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_620"/>Review all the options and click the Launch button.</p>
+<p class="image"><img alt="images" src="f0620-01.jpg"/></p>
+<p class="indent">You can either use your existing key pair or create a new key pair, which will be used to log in to the instance later.</p>
+<p class="image"><img alt="images" src="f0620-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_621"/>If everything is successful, you will see a message such as “your instances are now launching.” Click the View Instances button to verify the status.</p>
+<p class="image"><img alt="images" src="f0621-01.jpg"/></p>
+<p class="indent">Note down your public IP and verify the status checks are okay.</p>
+<p class="image"><img alt="images" src="f0621-02.jpg"/></p>
+<p class="indent">All the prerequisites are completed to get started with AWS CodeDeploy. Navigate to the AWS CodeDeploy service in the AWS Management Console and click the Create Application button.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_622"/>Enter the application name as <strong>CodeDeply-Appln</strong> and select the compute platform as EC2/On-premises from the dropdown.</p>
+<p class="image"><img alt="images" src="f0622-01.jpg"/></p>
+<p class="indent">Next click the Create Deployment Group button.</p>
+<p class="image"><img alt="images" src="f0622-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_623"/>Enter the deployment group name as <strong>CodeDeploy-Appln-group</strong> and select the CodeDeployRole that you created initially.</p>
+<p class="image"><img alt="images" src="f0623-01.jpg"/></p>
+<p class="indent">Choose the in-place deployment type and select Amazon EC2 instances for the environment configuration. Enter the tag that you specified on the instance, and note that it identified the instance with a message such as “1 unique matched instance.”</p>
+<p class="image"><img alt="images" src="f0623-02.jpg"/></p>
+<p class="indent">The deployment settings can be all at once, which is default, but you can also choose half at a time and one at a time based on your requirements. Also, you can place the deployment behind a load balancer if you choose. For simplicity, choose AllAtOnce for <span epub:type="pagebreak" id="page_624"/>Deployment Settings, uncheck Enable Load Balancing, and click Create Deployment Group.</p>
+<p class="image"><img alt="images" src="f0624-01.jpg"/></p>
+<p class="indent">Verify the deployment group details, such as application name, deployment type, compute platform, service role, and deployment configuration.</p>
+<p class="image"><img alt="images" src="f0624-02.jpg"/></p>
+<h3 class="h3" id="ch25lev1sec2"><span epub:type="pagebreak" id="page_625"/>AWS CodePipeline</h3>
+<p class="noindent">Many tools are available for creating continuous integration/continuous delivery (CI/CD) pipelines, such as Jenkins, CircleCI, Spinnaker, Buddy, and Bamboo, to name a few. AWS CodePipeline provides easy integration with other AWS developer tools like AWS CodeCommit, AWS CodeBuild, and AWS CodeDeploy. You can configure, visualize, and automate different stages of your software release process, such as building, testing, and deployment, using AWS CodePipeline. You can use the AWS Management Console, AWS SDK, and AWS CLI to configure and manage your CI/CD pipeline in AWS CodePipeline. AWS CodePipeline provides a consistent set of release processes, which helps to speed up the delivery of new features to your application, resolve bug fixes with improved quality, and avoid manual errors.</p>
+<p class="indent">You can use your existing source code repository or AWS CodeCommit to push source code changes, which will be picked up automatically by the build process using tools such as AWS CodeBuild. The release cycle then moves to the deploy and testing stage by using tools such as AWS CodeDeploy.</p>
+<p class="indent">A stage is a logical unit, such as a build stage or deployment stage, which contains the actions that are performed on an application artifact, such as source code. An action is a group of operations that can be performed on your source code change or when deploying an application to instances. A transition is the point where the execution moves from one stage to another, like moving from commit to build to deploy. A pipeline can be defined as a workflow that specifies how the different stages progress in the software release process, and it tracks each execution. A pipeline can be triggered either manually or automatically when the source code is changed by your developer, or you can schedule pipeline execution using Amazon CloudWatch events. You can stop pipeline execution in two ways: stop and wait or stop and abandon. When you use stop and wait, the actions in progress will be completed and all the remaining actions will not be started. When you use stop and abandon, all the actions in progress, including any future actions, will be stopped. You can always use the retry option to start the pipeline execution again. The best practice is to group all the related actions for each application environment, such as development, QA, or production. You can create notification rules to alert you when any important changes, like pipeline execution, are completed.</p>
+<p class="indent">Navigate to the AWS CodePipeline service in the AWS Management Console and click on Create Pipeline.</p>
+<p class="indent">Enter a name for the pipeline—for example, <strong>DevOps-Pipeline</strong>—and choose a service role, if it already exists. If it does not, choose to create a new service role and check <span epub:type="pagebreak" id="page_626"/>Allow AWS CodePipeline To Create A Service Role So It Can Be Used With This New Pipeline.</p>
+<p class="image"><img alt="images" src="f0626-01.jpg"/></p>
+<p class="indent">Now, add the source stage by choosing AWS CodeCommit from the dropdown and choose the repository name, DevOps-Repo, with its branch name. Choose Amazon CloudWatch Events to detect changes and click Next.</p>
+<p class="image"><img alt="images" src="f0626-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_627"/>In this exercise you are not going to build using the pipeline, since you created the EC2 instance already. So, click the Skip Build Stage button.</p>
+<p class="image"><img alt="images" src="f0627-01.jpg"/></p>
+<p class="indent">In the popup window, click Skip.</p>
+<p class="image"><img alt="images" src="f0627-02.jpg"/></p>
+<p class="indent">Add the deploy stage to your pipeline by selecting AWS CodeDeploy from the dropdown Deploy Provider menu. Select your region, select your AWS CodeDeploy application name as CodeDeploy-Appln and your deployment group as CodeDeploy-Appln-Group, and click Next.</p>
+<p class="image"><img alt="images" src="f0627-03.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_628"/>Review all the options that you selected and click Create Pipeline.</p>
+<p class="image"><img alt="images" src="f0628-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_629"/>The application source code is automatically pulled from AWS CodeCommit and the source stage is completed successfully. The deploy stage is in progress.</p>
+<p class="image"><img alt="images" src="f0629-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_630"/>Within a minute, the deploy stage is also successfully completed.</p>
+<p class="image"><img alt="images" src="f0630-01.jpg"/></p>
+<p class="indent">Open the browser of your choice and enter the public IP of your EC2 instance. When you press the <span class="smallcaps">enter</span> key, you can see the “Congratulations” message.</p>
+<p class="image"><img alt="images" src="f0630-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_631"/>Now, go to your local machine and edit the index.html file to change the header-1 to <strong>Hello World!</strong> and header-2 to <strong>This application was deployed using AWS CodeDeploy and AWS Pipeline.</strong></p>
+<p class="image"><img alt="images" src="f0631-01.jpg"/></p>
+<p class="indent">Save the source code change and add it to the repository using the git add command. Then commit the changes using the git commit command and push the updated source code to the remote repository using the git push command.</p>
+<p class="image"><img alt="images" src="f0631-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_632"/>Navigate to the AWS CodePipeline and verify that the source for the updated index file has completed successfully. You will notice that the deploy stage is in progress for the updated index file.</p>
+<p class="image"><img alt="images" src="f0632-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_633"/>Within a few seconds, the deploy stage is completed successfully.</p>
+<p class="image"><img alt="images" src="f0633-01.jpg"/></p>
+<p class="indent">Open a browser and enter the public IP of your Amazon EC2 instance. You will see the updated application code deployed successfully.</p>
+<p class="image"><img alt="images" src="f0633-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_634"/>You can review the pipeline’s execution history. It shows the source revisions, duration, and triggers, etc.</p>
+<p class="image"><img alt="images" src="f0634-01.jpg"/></p>
+<p class="indent">When you click on Settings for the pipeline, you can see the general details, notifications (if configured), and pipeline tags. You also can see the artifact store, version, and region details.</p>
+<p class="image"><img alt="images" src="f0634-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_635"/>Navigate to the AWS CodeDeploy deployment history and review the deployment details.</p>
+<p class="image"><img alt="images" src="f0635-01.jpg"/></p>
+<p class="indent">You have successfully created a pipeline and automatically deployed the changes. You need to clean up all the resources that you created as a best practice for your Free Tier to avoid any charges.</p>
+<h3 class="h3" id="ch25lev1sec3">Chapter Review</h3>
+<p class="noindent">This chapter began by describing AWS CodeDeploy and how it helps you automate application deployments to your Amazon EC2 instances. AWS CodePipeline was introduced, which is used to create continuous integration and continuous deployment pipelines and visualize the execution. This is another practical chapter where we created an Amazon EC2 instance and automatically deployed the sample application using AWS CodePipeline. Then we changed the source code and observed the automatic execution of source code deployment into the application. You gained important experience in terms of your certification and how it will relate to the real world in this chapter.</p>
+<h4 class="h4" id="ch25lev2sec1">Exercises</h4>
+<p class="noindent">The following exercises will help you practice using AWS CodeDeploy and AWS CodePipeline. You need to create an AWS account, as explained earlier, before performing these exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5">Exercise 25-1: Delete the AWS CodeDeploy Application Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account email address and password to sign in to the AWS account and then navigate to the AWS CodeDeploy console at <a href="https://console.aws.amazon.com/codedeploy/">https://console.aws.amazon.com/codedeploy/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the navigation pane, expand Deploy. Then choose Applications.</p>
+<p class="number"><strong>4.</strong> <span epub:type="pagebreak" id="page_636"/>Choose the DevOps-Appln that you created in this chapter and click on the application name.</p>
+<p class="number"><strong>5.</strong> On the Application Details page, click Delete Application.</p>
+<p class="number"><strong>6.</strong> In response to the prompt, confirm you want to delete.</p>
+<h5 class="h5">Exercise 25-2: Delete the AWS CodePipeline Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in to the AWS account and then navigate to the AWS CodePipeline console at <a href="https://console.aws.amazon.com/codepipeline/">https://console.aws.amazon.com/codepipeline/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the navigation pane on the left, choose Name.</p>
+<p class="number"><strong>4.</strong> Choose the DevOps-Pipeline that you created in this chapter.</p>
+<p class="number"><strong>5.</strong> Click on Edit on the Details page.</p>
+<p class="number"><strong>6.</strong> Click on Delete from the Edit page.</p>
+<p class="number"><strong>7.</strong> In response to the prompt, confirm you want to delete the pipeline.</p>
+<h5 class="h5">Exercise 25-3: Delete the AWS CodeCommit Repository Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in to the AWS account and then navigate to the AWS CodeCommit console at <a href="https://console.aws.amazon.com/codecommit/">https://console.aws.amazon.com/codecommit/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the navigation pane on the left, choose Repositories.</p>
+<p class="number"><strong>4.</strong> Choose Settings.</p>
+<p class="number"><strong>5.</strong> Navigate to Delete Repository on the General tab.</p>
+<p class="number"><strong>6.</strong> Choose Delete Repository.</p>
+<p class="number"><strong>7.</strong> Enter <strong>delete</strong> in the popup window and choose to delete.</p>
+<h5 class="h5">Exercise 25-4: Delete the Amazon EC2 Instance Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in to the AWS account and then navigate to the Amazon EC2 console at <a href="https://console.aws.amazon.com/ec2/">https://console.aws.amazon.com/ec2/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_637"/>From the navigation pane on the left, choose Instances.</p>
+<p class="number"><strong>4.</strong> Choose the DevOps instance and select Actions from the dropdown.</p>
+<p class="number"><strong>5.</strong> Click Instance State and choose Terminate.</p>
+<p class="number"><strong>6.</strong> When prompted, choose Yes to terminate the instance.</p>
+<h4 class="h4" id="ch25lev2sec2">Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best responses for each question.</p>
+<p class="numbert"><strong><a href="ch25.xhtml#rch25qa1" id="ch25qa1">1.</a></strong> Your company wants to improve the application deployment process in AWS and asked you to find an appropriate tool that makes it easy to rapidly release new features and avoid any downtime during deployment and scale the deployment to thousands of instances when required. Which of the following AWS service provides those features?</p>
+<p class="alphau"><strong>A.</strong> AWS CodeCommit</p>
+<p class="alphau"><strong>B.</strong> AWS CodeBuild</p>
+<p class="alphau"><strong>C.</strong> AWS CodeDeploy</p>
+<p class="alphau"><strong>D.</strong> AWS CodePipeline</p>
+<p class="number"><strong><a href="ch25.xhtml#rch25qa2" id="ch25qa2">2.</a></strong> Which of the following compute platforms does AWS CodeDeploy use to deploy applications? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> AWS Lambda</p>
+<p class="alphau"><strong>B.</strong> Amazon ECS</p>
+<p class="alphau"><strong>C.</strong> Amazon EC2/On-Premises</p>
+<p class="alphau"><strong>D.</strong> Amazon S3</p>
+<p class="number"><strong><a href="ch25.xhtml#rch25qa3" id="ch25qa3">3.</a></strong> Which of the following deployment configurations does AWS CodeDeploy use to specify how traffic is routed during deployment? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> Canary</p>
+<p class="alphau"><strong>B.</strong> Linear</p>
+<p class="alphau"><strong>C.</strong> All-at-once</p>
+<p class="alphau"><strong>D.</strong> Rolling</p>
+<p class="number"><strong><a href="ch25.xhtml#rch25qa4" id="ch25qa4">4.</a></strong> Which of the following compute platforms requires the CodeDeploy agent in AWS CodeDeploy deployment?</p>
+<p class="alphau"><strong>A.</strong> Amazon EC2/On-Premises</p>
+<p class="alphau"><strong>B.</strong> Amazon ECS</p>
+<p class="alphau"><strong>C.</strong> AWS Lambda</p>
+<p class="alphau"><strong>D.</strong> Amazon S3</p>
+<p class="number"><strong><a href="ch25.xhtml#rch25qa5" id="ch25qa5">5.</a></strong> <span epub:type="pagebreak" id="page_638"/>What two deployment types are available in AWS CodeDeploy? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> Reckless deployment</p>
+<p class="alphau"><strong>B.</strong> In-place deployment</p>
+<p class="alphau"><strong>C.</strong> Shadow deployment</p>
+<p class="alphau"><strong>D.</strong> Blue/green deployment</p>
+<p class="number"><strong><a href="ch25.xhtml#rch25qa6" id="ch25qa6">6.</a></strong> A company started using AWS CodeDeploy to automate application deployments. Which of the following deployments cannot use an in-place deployment type? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> Amazon EC2</p>
+<p class="alphau"><strong>B.</strong> Amazon ECS</p>
+<p class="alphau"><strong>C.</strong> AWS Lambda</p>
+<p class="alphau"><strong>D.</strong> Amazon S3</p>
+<p class="number"><strong><a href="ch25.xhtml#rch25qa7" id="ch25qa7">7.</a></strong> Which of the following can be used to access and manage AWS CodeDeploy? (Choose all that apply.)</p>
+<p class="alphau"><strong>A.</strong> AWS CodeDeploy API</p>
+<p class="alphau"><strong>B.</strong> AWS SDK</p>
+<p class="alphau"><strong>C.</strong> AWS Management Console</p>
+<p class="alphau"><strong>D.</strong> AWS CLI</p>
+<p class="number"><strong><a href="ch25.xhtml#rch25qa8" id="ch25qa8">8.</a></strong> Your company has a hybrid environment and has applications with instances on both AWS Cloud and On-Premises. You enabled blue/green deployments on AWS CodeDeploy to make the applications highly available. Which of the following is true?</p>
+<p class="alphau"><strong>A.</strong> Blue/green deployments work only with Amazon EC2 instances</p>
+<p class="alphau"><strong>B.</strong> Blue/green deployments are not supported in the AWS Lambda compute platform</p>
+<p class="alphau"><strong>C.</strong> Blue/green deployments work only with On-Premises instances</p>
+<p class="alphau"><strong>D.</strong> Blue/green deployments are not supported in the Amazon ECS compute platform</p>
+<p class="number"><strong><a href="ch25.xhtml#rch25qa9" id="ch25qa9">9.</a></strong> A company wants to automate and visualize the continuous integration and continuous deployment pipeline to release software code to production. Which of the following AWS services has the functionality that provides this solution?</p>
+<p class="alphau"><strong>A.</strong> AWS CodePipeline</p>
+<p class="alphau"><strong>B.</strong> AWS CodeBuild</p>
+<p class="alphau"><strong>C.</strong> AWS CodeDeploy</p>
+<p class="alphau"><strong>D.</strong> AWS CodeCommit</p>
+<p class="number1"><strong><a href="ch25.xhtml#rch25qa10" id="ch25qa10">10.</a></strong> <span epub:type="pagebreak" id="page_639"/>Which of the following can be used to stop pipeline execution in AWS CodePipeline? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> Stop and wait</p>
+<p class="alphau"><strong>B.</strong> Stop and start</p>
+<p class="alphau"><strong>C.</strong> Stop and abandon</p>
+<p class="alphau"><strong>D.</strong> Stop and terminate</p>
+<h4 class="h4" id="ch25lev2sec3">Answers</h4>
+<p class="numbert"><strong><a href="ch25.xhtml#ch25qa1" id="rch25qa1">1.</a> C.</strong> AWS CodeDeploy can be used to rapidly release new features to applications and avoid any downtime during deployment and scale the deployment to thousands of instances when required.</p>
+<p class="number"><strong><a href="ch25.xhtml#ch25qa2" id="rch25qa2">2.</a> A, B, C.</strong> AWS Lambda, Amazon ECS, and Amazon EC2/On-Premises are the compute platforms available in AWS CodeDeploy.</p>
+<p class="number"><strong><a href="ch25.xhtml#ch25qa3" id="rch25qa3">3.</a> A, B, C.</strong> All-at-once, canary, and linear are the deployment configurations that AWS CodeDeploy uses to specify how traffic is routed during deployment.</p>
+<p class="number"><strong><a href="ch25.xhtml#ch25qa4" id="rch25qa4">4.</a> A.</strong> Amazon EC2/On-Premises requires the CodeDeploy agent in AWS CodeDeploy deployment.</p>
+<p class="number"><strong><a href="ch25.xhtml#ch25qa5" id="rch25qa5">5.</a> B, D.</strong> In-place deployment and blue/green deployment are available in AWS CodeDeploy.</p>
+<p class="number"><strong><a href="ch25.xhtml#ch25qa6" id="rch25qa6">6.</a> B, C.</strong> Amazon ECS and AWS Lambda cannot use an in-place deployment type in AWS CodeDeploy.</p>
+<p class="number"><strong><a href="ch25.xhtml#ch25qa7" id="rch25qa7">7.</a> A, B, C, D.</strong> AWS CodeDeploy API, AWS SDK, AWS Management Console, and AWS CLI can be used to access and manage AWS CodeDeploy.</p>
+<p class="number"><strong><a href="ch25.xhtml#ch25qa8" id="rch25qa8">8.</a> A.</strong> Blue/green deployments work only with Amazon EC2 instances.</p>
+<p class="number"><strong><a href="ch25.xhtml#ch25qa9" id="rch25qa9">9.</a> A.</strong> AWS CodePipeline can be used to automate and visualize the end-to-end continuous integration and continuous delivery pipeline to release software code to production.</p>
+<p class="number1"><strong><a href="ch25.xhtml#ch25qa10" id="rch25qa10">10.</a> A, C.</strong> Stop and wait and stop and abandon are the two ways used to stop pipeline execution in AWS CodePipeline.</p>
+<h3 class="h3" id="ch25lev1sec4">Additional Resources</h3>
+<p class="bullett">• <strong>AWS CodeDeploy</strong>   The official AWS documentation is the best place to get the latest updates and new features for each service, including AWS CodeDeploy.</p>
+<p class="bulletc"><img alt="images" src="p0639-01.jpg"/></p>
+<p class="bulleta">• <strong>AWS CodeDeploy Blogs</strong>   These blogs will help you explore AWS CodeDeploy in more depth and include many best-practice architectures to practice and implement.</p>
+<p class="bulletc"><img alt="images" src="p0639-02.jpg"/></p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_640"/><strong>AWS CodePipeline</strong>   The official AWS documentation is the best place to get all the latest information on all the AWS services, including AWS CodePipeline.</p>
+<p class="bulletc"><img alt="images" src="p0640-01.jpg"/></p>
+<p class="bulleta">• <strong>AWS CodePipeline Blogs</strong>   These AWS DevOps blogs will help you explore many reference architectures and best practices that can be used for your proof of concept and to practice and implement in your own environment.</p>
+<p class="bulletc"><img alt="images" src="p0640-02.jpg"/></p>
+</section>
+</body>
+</html>

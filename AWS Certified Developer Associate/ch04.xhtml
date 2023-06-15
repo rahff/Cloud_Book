@@ -1,0 +1,452 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch4"><span epub:type="pagebreak" id="page_107"/><span class="chap">CHAPTER <span class="chap1">4</span></span></h2>
+<h2 class="h2c1">Creating a Virtual Machine Using Amazon EC2</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• What is EC2?</p>
+<p class="bulleta">• Amazon Machine Image (AMI)</p>
+<p class="bulleta">• Tenancy options</p>
+<p class="bulleta">• Instance types</p>
+<p class="bulleta">• Pricing model for EC2</p>
+<p class="bulleta">• EC2 instance virtualization types</p>
+<p class="bulleta">• Storage options for Amazon EC2</p>
+<p class="bulleta">• EC2 instance lifecycle</p>
+<p class="bulleta">• Generating security keys</p>
+<p class="bulleta">• Launching an Amazon EC2</p>
+<p class="bulleta">• Security groups that protect instances</p>
+<p class="bulleta">• Best practices for Amazon EC2</p>
+<p class="hr"/>
+<p class="noindentb">This chapter will explain how Amazon Elastic Compute Cloud (Amazon EC2) provides scalable, secure, and resizable elastic compute capacity in the cloud and how it is designed to make web-scale cloud computing easier for developers.</p>
+<h3 class="h3" id="ch4lev1sec1">Elastic Compute Cloud</h3>
+<p class="noindent">Amazon EC2 is a simple web service interface that allows you to obtain and boot new server instances in minutes. It allows you to quickly scale up and down to the required capacity whenever there is a spike or dip in your computing requirements, which reduces your need to forecast traffic. Amazon EC2 saves the cost of computing by allowing you to pay only for capacity that you actually use. You don’t need to invest in hardware up-front, which allows you to develop and deploy applications faster. You can configure security, networking, and manage storage, and use EC2 to launch as many or as few virtual servers based on your need.</p>
+<div class="siden">
+<p class="imagen"><span epub:type="pagebreak" id="page_108"/><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   You need to know the basics of launching an Amazon EC2 instance. In order to launch an instance, you must specify an AMI, which defines the software on the instance at launch, and an instance type, which defines the virtual hardware supporting the instance (memory, CPUs, storage, etc.).</p>
+</div>
+<h3 class="h3" id="ch4lev1sec2">Amazon Machine Image</h3>
+<p class="noindent">An Amazon Machine Image (AMI) is a machine template that provides the information required to launch a new instance. You must specify an AMI when you launch an instance, and you can launch multiple instances from a single AMI. The AMI can be one or more Amazon Elastic Block Store (Amazon EBS) snapshots, instance store–backed AMIs, or a template for the root volume of the instance. AWS controls which account can use the AMI to launch instances based on permissions. When an AMI is launched, a block device mapping specifies the list of volumes that need to be attached to the instance.</p>
+<p class="indent">As shown in <a href="ch04.xhtml#ch4fig1">Figure 4-1</a>, you can launch instances from an AMI if either you created the AMI or the owner granted you launch permissions. You need to register an AMI after creating it before you can launch new instances. The AMI can be copied between regions or different AWS accounts. You can deregister the AMI when you no longer require it.</p>
+<p class="imagef" id="ch4fig1"><img alt="images" src="f0108-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 4-1</strong>   AMI lifecycle</p>
+<p class="indent">You can search for an AMI based on the criteria provided by AWS or from community AMIs or from the AWS Marketplace. As soon as you create an instance from an AMI, you can connect to it and use it just like you would any other server.</p>
+<h4 class="h4" id="ch4lev2sec1">Bundle Tasks</h4>
+<p class="noindent">A Windows instance can be bundled in order to create a Windows instance store–backed AMI. It can be used to create bundles of Amazon instances, and you need to register these bundles as AMIs before launching new instances.</p>
+<h4 class="h4" id="ch4lev2sec2"><span epub:type="pagebreak" id="page_109"/>Root Device Types</h4>
+<p class="noindent">The root device volume contains the image that will be used to boot when you launch an instance. When AWS introduced EC2, all AMIs were backed by the instance store. That means the root device is an instance store volume, which is typically created from a template stored in Amazon S3. When AWS introduced Amazon EBS, the AMIs were backed by it, which means that the root device for an instance was launched from the AMI, whereas the Amazon EBS volume was created from an Amazon EBS snapshot.</p>
+<h4 class="h4" id="ch4lev2sec3">The AWS Marketplace</h4>
+<p class="noindent">The AWS Marketplace is similar to any online store where you can buy products, and here you will buy software that runs on AWS, which includes the AMIs that you can use to launch your EC2 instance. In the AWS Marketplace, AMIs are organized into categories to allow you to find products that suit your requirements. Amazon EC2 is integrated with the AWS Marketplace to enable developers to charge other Amazon EC2 users for their use of AMIs or to provide support for the Marketplace instances.</p>
+<p class="indent">No additional parameters are required when launching an instance from a paid AMI or launching it from any other AMI. The instance is charged the standard usage fees of the related web services, like any other instances, in addition to the rates set by the owner of the AMI, along with any additional taxes.</p>
+<h4 class="h4" id="ch4lev2sec4">AMIs Generated from Existing Instances</h4>
+<p class="noindent">You can generate an AMI from an existing instance that has been made available for other developers to use that has the components they need, although they can add custom content. Share AMIs at your own risk—Amazon won’t vouch for their integrity or security. When you receive a shared AMI, you need to perform the appropriate due diligence and treat it as you would any unknown code that you might consider deploying in your own datacenter. AWS recommends getting shared AMIs from trusted sources. The owner of the AMI is not charged when it is launched by other AWS accounts, and only the accounts that are launching the shared AMI are billed for their use. Since AMIs are a regional resource, it is available only in the same region by default; if you want to make it available in a different region, you need to copy the AMI to that region and then share it. However, AMIs with encrypted volumes cannot be made public.</p>
+<h3 class="h3" id="ch4lev1sec3">Tenancy Options</h3>
+<p class="noindent">AWS provides a couple of options for tenancy, including the default type of shared and dedicated models. For example, assume you have a single family house—you could consider this a dedicated tenancy, since only one family lives there. However, if you have an apartment building, several families will be living in it, which would be a shared tenancy model.</p>
+<p class="indent">Likewise, if multiple EC2 instances from different customers reside on the same physical hardware, it’s called a shared tenancy model. If only your EC2 instances run on hardware and no other customers can use that hardware, it’s called a dedicated model.</p>
+<h4 class="h4" id="ch4lev2sec5"><span epub:type="pagebreak" id="page_110"/>Shared Tenancy</h4>
+<p class="noindent">The default tenancy model is the most commonly used, where multiple customers will share the same hardware even though they don’t interact with each other. A hypervisor is running on the physical host to handle the virtualization of CPU, memory, storage, etc. When you choose to deploy an EC2 instance, AWS launches onto the appropriate physical host and isolates it from other customers, even if it’s sharing the same physical resources. Unless you have regulatory compliance or licensing restrictions to use the dedicated model, you should be using shared tenancy, which is the cheaper option.</p>
+<h4 class="h4" id="ch4lev2sec6">Dedicated Tenancy</h4>
+<p class="noindent">A dedicated tenancy ensures that your EC2 instances are run on hardware dedicated to your account, but it is a costlier option. You might use it for exclusive scenarios, like if you’re trying to use bring your own license (BYOL), which is based on the socket model, where the number of hosts sockets or cores are used for software licensing. In another scenario, regulatory compliance may dictate that you can’t use the shared model. AWS offers two different options for dedicated tenancy: dedicated hosts and dedicated instances.</p>
+<h5 class="h5">Dedicated Hosts</h5>
+<p class="noindent">A dedicated host is a fully dedicated physical server that allows you to use your existing licenses, including Windows and Linux Enterprise Server. You’re allowed to spin up as many EC2 instances as that host will allow for no additional charge, much like how you would manage an on-premises solution. You cannot mix EC2 instance types on the same dedicated host. You’ll pay for the whole host, so you are responsible for the utilization. If you can manage that capacity well, this option may be cheaper than the shared tenancy model.</p>
+<h5 class="h5">Dedicated Instances</h5>
+<p class="noindent">Dedicated instances are for a single customer that runs on dedicated hardware, and even though it belongs to a different AWS account, it is physically isolated at the hardware level. The dedicated instances physically isolated at the hardware level are linked to a single-payer account. With a dedicated instance, you are not paying for the entire host all at once but you’re still receiving the benefits of having separate hosts from the rest of the AWS customers. You are charged a higher rate for the instances, but you do not need to worry about the capacity of the hosts. This type of instance model ensures they’re kept separate, which is similar to the default model where you don’t worry about where the instances are. You don’t want to manage the hosts, but you need a dedicated instance for compliance reasons that require that hosts are not shared between customers, and you can use the BYOL options for anything licensed by the user.</p>
+<h3 class="h3" id="ch4lev1sec4">Instance Types</h3>
+<p class="noindent">The instance type determines the hardware of the host computer, for example, different compute, storage, and memory, and it is grouped into families based on these capabilities. When you launch an instance, you can select an instance type based on your requirements in terms of application or software need.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_111"/>The CPU, memory, and instance storage are dedicated to a particular instance and share the network and disk subsystem among other EC2 instances. Each instance on a host computer receives an equal share of those shared resources, so it tries to use as much of these shared resources as possible. However, an instance can consume a higher share of a resource when another resource is underused. The instance types will have a larger allocation of shared resources and provide higher or lower minimum performance from a shared resource, like the instance types with high I/O performance.</p>
+<h4 class="h4" id="ch4lev2sec7">General Purpose</h4>
+<p class="noindent">General-purpose instances can be used for a variety of workloads and provide a balance between compute, memory, and networking resources.</p>
+<h5 class="h5">A1 Instances</h5>
+<p class="noindent">The EC2 A1 instances offer significant cost savings and are ideally suited for scale-out workloads like web servers, containerized microservices, caching fleets, distributed data stores, and Arm-based workloads that are supported by the Arm ecosystem.</p>
+<h5 class="h5">M5, M5a, M5ad, and M5d Instances</h5>
+<p class="noindent">M5 instances offer a balance of compute, memory, and networking resources for a broad range of applications like web and application servers, small and medium databases, gaming servers, caching fleets, running SAP backend servers, SharePoint, and cluster computing.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   m5.metal and m5d.metal instances provide your applications with direct access to the physical resources of the host server, such as processors and memory. They are suitable for workloads that require access to low-level hardware features that are not available or fully supported in virtualized environments. They are also suitable for applications that require a nonvirtualized environment for licensing or support.</p>
+</div>
+<h5 class="h5">T2, T3, and T3a Instances</h5>
+<p class="noindent">These instances provide the ability to burst to a higher level of CPU performance for any period of time when required by your workload. They are suitable for web applications; code repositories; development, build, test, and staging environments; and microservices.</p>
+<h4 class="h4" id="ch4lev2sec8">Compute Optimized</h4>
+<p class="noindent">Compute-optimized instances are ideal for compute-bound applications like media transcoding, high-performance web servers, high-performance computing (HPC), ad serving engines, scientific modeling, dedicated gaming servers, machine learning inference, batch processing workloads, and other compute-intensive applications that benefit from high-performance processors.</p>
+<h4 class="h4" id="ch4lev2sec9"><span epub:type="pagebreak" id="page_112"/>Memory Optimized</h4>
+<p class="noindent">Memory-optimized R instances are designed to deliver fast performance for workloads that process large data sets in memory, like relational, NoSQL, and in-memory databases. They are also well suited for applications that perform real-time processing of big unstructured data.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   r5.metal and r5d.metal instances provide direct access to the physical resources of the host server, such as processors and memory. They are well suited for workloads that require access to low-level hardware features that are either not available or not fully supported in virtualized environments and for any applications that require a nonvirtualized environment for licensing or support.</p>
+</div>
+<h5 class="h5">High Memory Instances</h5>
+<p class="noindent">High memory x1 and z1 instances offer 6TiB, 9TiB, or 12TiB of memory per instance and are designed to run large in-memory databases, like production installations of SAP HANA (an in-memory database), big data processing engines such as Apache Spark or Presto, and HPC applications and databases. These type of instances offer bare metal performance since it is directly attached to the host hardware.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   z1d.metal instances provide your applications with direct access to the physical resources of the host server, such as processors and memory. These instances are well suited for workloads that require access to low-level hardware and applications that require a nonvirtualized environment for licensing or support.</p>
+</div>
+<h4 class="h4" id="ch4lev2sec10">Storage Optimized</h4>
+<p class="noindent">Storage-optimized instances are designed for workloads that require write access to very large data sets on local storage, as well as high workloads that perform sequential reads, like massive parallel processing (MPP) data warehouses, large log or data processing applications, MapReduce, and Hadoop distributed computing. They are optimized to deliver tens of thousands of low-latency, random I/O operations per second (IOPS) to applications like high-frequency online transaction processing (OLTP) systems, relational databases, NoSQL databases, caching for in-memory databases, data warehousing applications, and distributed file systems.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   i3.metal instances provide your applications with direct access to the physical resources of the host server, such as processors and memory. The workloads that require access to low-level hardware features are well suited for these instances because they are either not available or not fully supported in virtualized environments. They are also ideal for applications that require a nonvirtualized environment for licensing or support.</p>
+</div>
+<h4 class="h4" id="ch4lev2sec11"><span epub:type="pagebreak" id="page_113"/>Accelerated Computing</h4>
+<p class="noindent">Accelerated computing instances enable more parallelism for higher throughput on compute-intensive workloads, and they provide access to hardware-based compute accelerators such as graphics processing units (GPUs) or field programmable gate arrays (FPGAs).</p>
+<p class="indent">GPU-based instances provide access to NVIDIA GPUs with thousands of compute cores, which can be used to accelerate scientific, engineering, and rendering applications by leveraging the Compute Unified Device Architecture (CUDA) or Open Computing Language (OpenCL) parallel computing frameworks. This can be used for graphics applications like game streaming and 3-D application streaming.</p>
+<p class="indent">The elastic graphics accelerator is better suited for an instance type with different compute, memory, or storage specifications and can also be used when your application needs a small amount of additional graphics acceleration. The hardware acceleration code can either be purchased through the AWS Marketplace or you can develop it yourself.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   FPGA-based instances do not support Microsoft Windows.</p>
+</div>
+<h3 class="h3" id="ch4lev1sec5">Pricing Model for EC2</h3>
+<p class="noindent">AWS offers 750 hours of Linux and Windows t2.micro instances each month for one year as part of the Free Tier option. As long as you use only EC2 micro instances, you will stay within the Free Tier amount. AWS offers four cost models to pay for Amazon EC2 instances: on-demand, savings plans, reserved instances, and spot instances. If you require EC2 instance capacity on physical servers for your dedicated use, you will have pay for dedicated hosts.</p>
+<p class="indent">The EC2 instance lifecycle starts when it is newly launched and ends whenever you terminate that instance. The purchasing option and pricing affect the lifecycle as well. An on-demand instance runs from when you launch and ends when you terminate it. A spot instance runs until the capacity is available or until your maximum price is higher than the spot price. A scheduled instance is launched during its scheduled start time and is terminated three minutes before the scheduled time period ends.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   You need to know what kinds of purchasing options are best suited for your requirements. Spot instances are well suited for workloads that are short lived or that can accommodate interruption. Reserved instances are best for consistent, long-term compute needs. On-demand instances provide flexible compute power to respond to scaling needs.</p>
+</div>
+<p class="indent">AWS also offers per-second billing, which takes the cost of unused instance minutes and seconds in an hour off of your bill, allowing you to focus on improving your applications instead of planning to maximize the usage to the hour. This especially benefits instances that run for irregular periods of time, like development, testing, analytics, data processing, gaming applications, and batch processing.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_114"/>EC2 usage and provisioned storage for EBS volumes are billed in per-second increments, with a minimum of 60 seconds. Per-second billing is available for on-demand, reserved, and spot instances in all regions and availability zones for Amazon Linux and Ubuntu.</p>
+<h4 class="h4" id="ch4lev2sec12">On-Demand</h4>
+<p class="noindent">On-demand instances are billed either per second or per hour for compute capacity, depending on which instances you run. You don’t need any up-front payments or any long-term commitments and only pay the specified hourly rates for the instance you use.</p>
+<p class="indent">AWS recommends on-demand instances for first-time application development or proof of concepts (POCs) or for applications with short-term, spiky, or unpredictable workloads. They have the advantage of low cost and flexibility when launching EC2 without long-term commitments or up-front payments.</p>
+<h4 class="h4" id="ch4lev2sec13">Spot Instances</h4>
+<p class="noindent">EC2 spot instances provide spare or unused Amazon EC2 computing capacity for a price up to 90 percent less than the on-demand price. You can lower your Amazon EC2 costs significantly, since spot instances are available at steep discounts. Spot instance pricing is charged in hourly increments. AWS sets and adjusts the spot price gradually based on the long-term supply of and demand for spot instances in each availability zone. The spot instance will be available to you when the maximum price per hour for your request exceeds the spot price and the requested instance type capacity is available.</p>
+<p class="indent">If your applications can be interrupted at any time or your application is flexible in terms of starting, then the spot instance is a cost-effective solution with, as mentioned, nearly 90 percent savings. Spot instances are well suited for applications that have flexible start and end times, optional tasks, background processing, data analysis, and batch jobs.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   You need to know the properties of the Amazon EC2 pricing options to help your customers save on cost. On-demand instances require no up-front commitment, can be launched at any time, and are billed by the hour. Reserved instances require an up-front commitment and vary in cost, depending on whether they are paid entirely up-front, partially up-front, or not at all up-front. When your bid price exceeds the current spot price, spot instances are launched. Spot instances are terminated as soon as the spot price exceeds your bid price, although you will be given a two-minute warning before they terminate.</p>
+</div>
+<h4 class="h4" id="ch4lev2sec14">Reserved Instances</h4>
+<p class="noindent">Reserved instances offer a significant discount—up to 72 percent in savings—compared to the on-demand instance pricing. Reserved instances provide a capacity reservation, since they are assigned to a specific availability zone, which gives you the ability to launch instances whenever you need them. The discount on reserved instances applies to on-demand instances or instances running in your AWS account. Reserved instances are not physical instances. In order to benefit from the billing discount, those on-demand instances must meet certain attributes.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_115"/>If your applications have a steady state of predictable usage over a long period, reserved instances provide you with significant savings compared to using on-demand instances. Customers are allowed to purchase reserved instances over a one-year (31,536,000 seconds) or three-year (94,608,000 seconds) term to reduce total computing costs; the three-year plan offers a deeper discount compared to the one-year commitment.</p>
+<h4 class="h4" id="ch4lev2sec15">Dedicated Hosts</h4>
+<p class="noindent">An Amazon EC2 dedicated host is a physical server fully dedicated to your use with an EC2 instance capacity only allocated to you. Dedicated hosts allow you to reduce costs by using your existing per-socket, per-core, or per-VM software licenses, and can also help you meet compliance requirements. It can be purchased on-demand on an hourly basis or as a reservation for up to 70 percent off the on-demand price.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   You need to know how to combine multiple pricing options that result in cost optimization and scalability. When you need to scale up a web application that is running on reserved instances in response to a temporary traffic spike, you can use on-demand instances. For a workload with several reserved instances reading from a queue, it’s possible to use spot instances to alleviate heavy traffic in a cost-effective way.</p>
+</div>
+<h3 class="h3" id="ch4lev1sec6">EC2 Instance Virtualization Types</h3>
+<p class="noindent">Paravirtual (PV) and hardware virtual machine (HVM) are two types of virtualization that Linux Amazon Machine Images use. The way the AMIs boot and whether they use a special hardware extension for better performance determine whether it is a PV or HVM AMI. AWS recommends using the current-generation instance types and HVM AMIs when you launch your instances for the best performance.</p>
+<h4 class="h4" id="ch4lev2sec16">HVM AMIs</h4>
+<p class="noindent">HVM AMIs boot your image by executing the master boot record of the root block device and use a fully virtualized set of hardware. Without any modification, you have the ability to run an operating system directly on top of a virtual machine, as if it were run on the bare metal hardware. It emulates some or all of the underlying hardware to the guest.</p>
+<p class="indent">The host’s underlying hardware can be accessed quickly using HVM guest hardware extensions. AMIs built using HVM provide enhanced networking and GPU processing. The HVM virtualization provides native hardware platform access to the OS through instructions to the network and GPU devices.</p>
+<h4 class="h4" id="ch4lev2sec17">PV AMIs</h4>
+<p class="noindent">PV AMIs use PV-GRUB, a special boot loader, which starts the boot cycle and then chain-loads the kernel specified in the menu.lst file on your image. PV guests cannot take advantage of special hardware extensions, such as enhanced networking or GPU <span epub:type="pagebreak" id="page_116"/>processing, but they can run on host hardware that does not have explicit support for virtualization. Current-generation instance types do not support PV AMIs, whereas the previous generation instance types, like C1, C3, HS1, M1, M3, M2, and T1, do support PV AMIs. Using the AWS console or the <span class="code">describe-images</span> command, you can find a PV AMI and verify that the virtualization type is set to paravirtual.</p>
+<h3 class="h3" id="ch4lev1sec7">Storage Options for Amazon EC2</h3>
+<p class="noindent">You have the option to choose between AMIs backed by Amazon EBS and AMIs backed by the Amazon EC2 instance store, based on your requirements. However, AWS recommends using AMIs backed by Amazon EBS instead of instance store–backed AMIs, because the EBS-backed AMI launches faster and uses persistent storage.</p>
+<h4 class="h4" id="ch4lev2sec18">Instance Store–Backed Instances</h4>
+<p class="noindent">The root device has one or more instance store volumes available automatically for the instances that use instance stores, with at least one volume serving as the root device volume. The image that is used to boot the instance is copied to the root volume when you create the instance. You can also use additional instance store volumes, depending on the instance type.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   You cannot stop the instance store–backed instances because this action is not supported.</p>
+</div>
+<p class="indent">As long as the instance is running, the data on the instance store volumes persists. The instance store data is deleted when the instance is terminated or when the instance fails because of an underlying drive issue. These instances cannot be restored in this scenario, so AWS recommends you distribute the data on your instance stores across multiple availability zones. You need to have solid backup strategy for your critical data of your instance store volumes to persist the storage on a regular basis.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   You need to know the lifetime of an instance store. When the instance is stopped or terminated, the data on an instance store is lost. However, the instance store data will survive an OS reboot.</p>
+</div>
+<h4 class="h4" id="ch4lev2sec19">Amazon EBS–Backed Instances</h4>
+<p class="noindent">Root devices have an Amazon EBS volume attached automatically for instances that use Amazon EBS. AWS creates an EBS volume for each of the EBS snapshots referenced by the AMI that you use when you launch an EBS-backed instance. Depending on the instance type, you can either use other Amazon EBS volumes or instance store volumes for your EBS-backed instances.</p>
+<p class="indent">The advantage of an Amazon EBS–backed instance is that it can be stopped and (re)started without affecting data that is stored in the attached volumes. When an <span epub:type="pagebreak" id="page_117"/>Amazon EBS–backed instance is in a stopped state, you can attach your root volume to a different running instance, update the kernel it is using, modify the properties of the instance, or change its size.</p>
+<p class="indent">You can attach the volume to the new instance by creating a snapshot of the root volume and registering a new AMI. Based on your requirements, launch a new instance from this new AMI. Then detach the remaining EBS volumes from the old instance and reattach them to the new instance.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   You need to know how Amazon EBS–optimized instances affect Amazon EBS performance. In addition to the IOPS that controls performance in and out of the Amazon EBS volume, use Amazon EBS–optimized instances to ensure additional dedicated capacity for Amazon EBS I/O.</p>
+</div>
+<h3 class="h3" id="ch4lev1sec8">The EC2 Instance Lifecycle</h3>
+<p class="noindent">The EC2 instance lifecycle starts from the moment you launch, and it goes through various states until the instance terminates. This allows you to provide the best possible experience to your customers with the applications or sites that are hosted on the EC2. It is important to understand and know how the instance lifecycle affects the EC2 instance billing, as shown in <a href="ch04.xhtml#ch4fig2">Figure 4-2</a>, both from the exam point of view and to support your enterprise environment.</p>
+<p class="imagef" id="ch4fig2"><img alt="images" src="f0117-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 4-2</strong>   Instance lifecycle</p>
+<p class="indent">When you launch an EC2 instance or when you restart an EC2 after being in the stopped state, it first enters into the pending state. The pending state is not billed for because the instance is preparing to enter the running state at this time. Billing starts when <span epub:type="pagebreak" id="page_118"/>the instance is in the running state and ready for use. The instance is not billed for when it is preparing to be stopped; however, billing does take place when the instance is preparing to hibernate. The instance is not billed for when it is shut down and cannot be used. During this state, the instance can be restarted at any time. It is not billed for when the instance is preparing to be terminated (i.e., permanently deleted and cannot be restarted).</p>
+<h4 class="h4" id="ch4lev2sec20">Launching</h4>
+<p class="noindent">As soon as you launch an instance, it goes to the pending state. AWS uses the instance type to determine the hardware of the host computer and uses the AMI to boot the instance. It enters into the running state once the instance is ready. You can connect to your running instance the same way that you’d connect to any computer to use it.</p>
+<p class="indent">As soon as your instance transitions to the running state, even if the instance remains idle and you don’t connect to it, you’re billed for each hour or partial hour that you keep the instance running. An EC2 instance is a virtual server, and you launch it using an AMI, which provides the application server, operating system, and applications for your instance.</p>
+<p class="indent">You can get started with Amazon EC2 for free when you sign up for AWS using the Free Tier. You can use a micro instance for free for 12 months, and Free Tier offers 750 hours per month of t2.micro or t3.micro instances, depending on the region. If you launch an instance, you incur the standard Amazon EC2 usage fees if it is not within the Free Tier.</p>
+<p class="indent">You can connect to an instance after you launch it. However, there might be a short time before you can connect to it. The instance receives a public DNS name that you can use to contact the instance from the Internet. Other instances within the same Virtual Private Cloud (VPC) can use the instance’s private DNS name to contact it.</p>
+<h4 class="h4" id="ch4lev2sec21">Bootstrapping</h4>
+<p class="noindent">Bootstrapping can be used to install additional software or to customize the configuration of the EC2 instances. You have the option of passing user bootstrap data to the instance when you launch it that can be used to perform common automated configuration tasks, and you can run scripts after the instance starts. Shell scripts and cloud-init directives are two types of user data that you can pass to Amazon EC2. When you use command-line tools to launch instances, you can pass this data to the launch wizard as plain text or as a file. When you use application programming interface (API) calls, you can pass the bootstrap data as base64-encoded text. You can pass user data to the instance when you launch a Windows instance in Amazon EC2, and it is treated as opaque data that will be used by automated configuration tasks or scripts that are run after the instance starts.</p>
+<h4 class="h4" id="ch4lev2sec22">VM Import/Export</h4>
+<p class="noindent">The VM Import/Export service helps you to easily import and export virtual machine images from your on-premises environment to Amazon EC2 and back. Instead of building the VMs from scratch to meet your IT security, configuration management, and <span epub:type="pagebreak" id="page_119"/>compliance requirements, you can leverage your existing investments in the virtual machines and bring them into Amazon EC2 as ready-to-use instances. You can deploy workloads across your IT infrastructure by exporting the instances back to your on-premises virtualization infrastructure. Except for the standard usage charges of Amazon EC2 and Amazon S3, the VM Import/Export service is available at no additional charge to you.</p>
+<p class="indent">You can use the AWS command-line interface (CLI) or other developer tools to import a virtual machine (VM) image from your on-premises VMware environment. You can use the AWS Management Portal for vCenter that converts your VM into an Amazon EC2 AMI as part of the import process that you can use to run Amazon EC2 instances.</p>
+<p class="indent">You can export previously imported EC2 instances by specifying the target instance, virtual machine file format, and a destination S3 bucket, and VM Import/Export will automatically export the instance to the S3 bucket. You can then download from the S3 bucket and launch the exported VM into your on-premises virtualization infrastructure. Windows and Linux VMs can be imported that use Microsoft Hyper-V, Workstation, Citrix Xen, and VMware ESX virtualization formats. Also you can export the previously imported EC2 instances to Microsoft Hyper-V, Citrix Xen formats, or VMware ESX.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   You need to know the capabilities of VM Import/Export. You can import your existing virtual machines as AMIs or Amazon EC2 instances to AWS using VM Import/Export. Amazon EC2 instances that were imported through VM Import/Export can also be exported back to a virtual environment.</p>
+</div>
+<h4 class="h4" id="ch4lev2sec23">Instance Recovery</h4>
+<p class="noindent">You can create Amazon CloudWatch alarms that stop, terminate, reboot, or recover an instance. You can monitor the EC2 instances and automatically recover one when it becomes impaired due to any underlying hardware failure or a problem that requires repair by AWS. However, terminated instances cannot be recovered. The instance ID, private IP addresses, elastic IP addresses, and all instance metadata of the recovered instance will be identical to the original instance. The recovered instance runs in the placement group if the impaired instance was launched in one.</p>
+<p class="indent">The recovery action is initiated when the StatusCheckFailed_System alarm is triggered, and you will be notified by the associated Amazon SNS topic. The instance is migrated during an instance reboot, and any data that is in memory is lost during instance recovery. The information is published to the SNS topic when the process is complete, and you will receive an e-mail notification that includes the status of the recovery attempt and any further instructions. If you log in to the AWS Management console and navigate to the EC2 main page, you will notice an instance reboot on the recovered instance. In addition, when AWS schedules stop or retire an instance due to the degradation of its underlying hardware, the recovery action can be triggered. The public IPv4 address of your instance will be retained after recovery. Common causes of system status check failures are loss of network connectivity, hardware issues on the physical host that affect network reachability, loss of system power, and software issues on the physical host.</p>
+<h4 class="h4" id="ch4lev2sec24"><span epub:type="pagebreak" id="page_120"/>Instance Metadata</h4>
+<p class="noindent">Metadata is data about data, and EC2 instance metadata is data about the EC2 instances that you will be using to configure and manage your running instance. If you want to access user data that was specified when launching your instance, use instance metadata. You can either specify configuration parameters for your instance or attach it as a simple script. Instance metadata can be used to build more generic AMIs, and you can modify the configuration at launch time. For example, if you want to launch application servers for various medium-size businesses, you can use the same AMI and retrieve its content from your Amazon S3 bucket. If you want to add new small business customers at any time, simply create a new S3 bucket, add specific content to those new customers, and launch the new AMI. When an EC2 instance is launched, its dynamic data, like instance-identity/document, instance-identity/pkcs7, and instance-identity/signature, is generated.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   You will not be billed for HTTP requests used to retrieve instance metadata and user data.</p>
+</div>
+<p class="indent">You do not need to use the Amazon EC2 console or the AWS CLI to get your instance metadata. The instance metadata is available from your running instance, so you can write scripts to run from your instance like accessing the local IP address of your instance to manage a connection to an external application.</p>
+<p class="indent">All categories of instance metadata can be retrieved from a running instance using the following command:</p>
+<p class="imagep"><img alt="images" src="p0120-01.jpg"/></p>
+<p class="indent">The 169.254.169.254 IP address is a link-local address, and it is valid only if you run it from the instance. You can use PowerShell cmdlets for Windows to retrieve the details:</p>
+<p class="imagep"><img alt="images" src="p0120-02.jpg"/></p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   You need to know what instance metadata is and how it’s obtained. Metadata is information like instance ID, instance type, and security groups about an Amazon EC2 instance, available from within the instance. It can be obtained through an HTTP call to a specific IP address.</p>
+</div>
+<p class="indent">You can also install a third-party tool such as GNU Wget or cURL and run the following from Linux machines:</p>
+<p class="imagep"><img alt="images" src="p0120-03.jpg"/></p>
+<div class="siden">
+<p class="imagen"><span epub:type="pagebreak" id="page_121"/><img alt="Images" class="inlinen" src="caution.jpg"/></p>
+<p class="note"><strong>CAUTION</strong>   Instance metadata and user data are not protected by cryptographic methods. So anyone who has access to the instance can retrieve its metadata. Therefore, you should not store any sensitive data, such as usernames and passwords, as user data and should take suitable precautions to protect any sensitive data.</p>
+</div>
+<h4 class="h4" id="ch4lev2sec25">Instance Stop and Restart</h4>
+<p class="noindent">If your instance root volume uses an Amazon EBS volume, it can be stopped and restarted. The instance changes the public IPv4 address unless you have assigned an elastic IP, and it retains its private IPv4 address and instance ID.</p>
+<p class="indent">AWS shuts down the instance when you stop it, and you won’t be charged for data transfer fees or usage charge for any stopped instances, but you incur a charge for any attached Amazon EBS volumes. Every time you stop and restart the instance, AWS charges a full instance hour, even if you stop and start multiple times within a single hour.</p>
+<p class="indent">You can treat its root volume like any other volume while the instance is stopped and modify or repair any file system problems or update software. Once you stop the instance, you can just detach the volume and attach it to a running instance to make any required changes, detach the updated/repaired EBS volume from the running instance, and then reattach it to the original instance that was stopped. The storage device name should be the same as the root device in the block device mapping for the instance.</p>
+<p class="indent">When you stop a running instance, the instance performs a normal shutdown and stops running. The status of the instance changes to “stopping.” The data persists, and all the Amazon EBS volumes remain attached to the instance. The instance store volumes of the host computer or any data stored in the RAM of the host computer is deleted. The instance is migrated to a new underlying host computer when you restart the stopped instance. Whenever the instance is stopped and restarted, it retains its private IPv4 addresses and any IPv6 addresses. AWS assigns a new public IPv4 address when you restart the instance and releases the existing public IPv4 address but retains its associated elastic IP addresses. In this case, you will be charged for any elastic IP addresses associated with your stopped instance.</p>
+<p class="indent">When you stop and start a Windows instance, the EC2Config service changes the drive letters for any attached Amazon EBS volume. Amazon EC2 returns the IncorrectInstanceState error when you try to modify instance type, user data, kernel, and RAM disk attributes while the instance is running, and you can modify them only when it is stopped.</p>
+<h4 class="h4" id="ch4lev2sec26">Instance Hibernate</h4>
+<p class="noindent">Instance Hibernate signals the operating system to perform hibernation, which saves the contents from the instance memory (RAM) to the Amazon EBS root volume. AWS preserves your instance’s Amazon EBS root volume along with all other attached Amazon EBS data volumes during hibernation. When you restart your hibernated instance, the instance ID is retained, the EBS root volume is restored, the RAM contents are reloaded, and the processes are resumed in addition to reattaching the data volumes.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_122"/>AWS won’t charge when it is in the stopped state; however, it will charge for usage while the instance is in the stopped state during that time and the contents of the RAM are transferred to your EBS root volume. AWS won’t charge usage for data transfer, but it will charge for the EBS volume storage.</p>
+<h4 class="h4" id="ch4lev2sec27">Instance Reboot</h4>
+<p class="noindent">It takes only a few minutes to reboot your instance, and it remains on the same physical host by keeping the same public DNS name (IPv4), IPv6 address, private IPv4 address, and any data on its instance store volumes. Rebooting is does not incur a charge and doesn’t start a new instance billing period. You can schedule your instance for a reboot for necessary maintenance or any updates. You should use the Amazon EC2 console or a command-line tool or the Amazon EC2 API used to reboot your instance instead of using the operating system reboot command. AWS performs a hard reboot when you use the Amazon EC2 console, a command-line tool, or the Amazon EC2 API to reboot your instance but it does not cleanly shut down within four minutes.</p>
+<h4 class="h4" id="ch4lev2sec28">Instance Retirement</h4>
+<p class="noindent">AWS schedules an instance retirement when it detects an irreparable failure of the underlying hardware host. If your instance root device is an Amazon EBS volume, it is stopped; if your instance root device is an instance store volume, it is terminated by AWS as soon as it reaches its scheduled retirement date. Stopped instances migrate to a new hardware host, and the terminated instance cannot be used again.</p>
+<h4 class="h4" id="ch4lev2sec29">Instance Termination</h4>
+<p class="noindent">Terminating an instance refers to deleting your instance when you no longer need it. You stop incurring charges as soon as the state of an instance changes to shutting down or terminated. Once you have terminated the instance, you can’t connect to it or restart it. However, it remains visible in the console for a short while, until resources such as tags and volumes are gradually disassociated from the instance, and then the entry is automatically deleted. When an instance gets terminated, the data on any associated instance store volumes, Amazon EBS root device volumes, and any additional EBS volumes is deleted unless you have set the DeleteOnTermination attribute to false for EBS volumes.</p>
+<h3 class="h3" id="ch4lev1sec9">Generating Security Keys</h3>
+<p class="noindent">Public key cryptography is used by Amazon EC2 to encrypt and then decrypt login information for EC2 instances. A public key will be used to encrypt a piece of data, and then a private key will be used by the recipient to decrypt the data. This pair of public and private keys is called a key pair.</p>
+<p class="indent">You specify the key pair when you launch an instance. You can either specify a new key pair or an existing key pair that you create at the launch of an instance. The public key content is placed on the instance in an entry within ~/.ssh/authorized_keys at boot time. You must specify the private key to log in to your instance.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_123"/>Amazon EC2 will be used to create the key pair, or you can use third-party solutions. You store the private key, and Amazon EC2 stores the public key with the name that you specify as the key name. It is your responsibility to store your private keys in a secure place because anyone who possesses your private key can decrypt your login information. The 2048-bit SSH-2 RSA keys are used by Amazon EC2, and you are allowed to have up to 5,000 key pairs per region.</p>
+<p class="indent">You won’t be able to connect to the instance if you don’t specify a key pair when you launch it. You must specify the private key when you connect to the instance that corresponds to the key pair you specified when you launched it.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   AWS doesn’t store a copy of your private key, so if the private key that you own is lost, there is no way to recover it.</p>
+</div>
+<p class="indent">You can add user accounts to your instance when several users require access. You need to add the public key information of each user key pair to the .ssh/authorized_keys file on your instance. You can distribute corresponding private key files to each user instead of distributing the root account private key file to multiple users.</p>
+<h3 class="h3" id="ch4lev1sec10">Launching an Amazon EC2</h3>
+<p class="noindent">You can launch a micro instance for free for 12 months when you use the Free Tier. You will be charged the standard Amazon EC2 usage fees if you launch an instance that is not within the Free Tier.</p>
+<p class="indent">After you launch your instance, the state changes to pending. The instance will start booting before the state changes it to running. You can connect to the instance from the Internet using the public DNS name. You can also connect to the instance using its private DNS name.</p>
+<h4 class="h4" id="ch4lev2sec30">Creating an Amazon EC2 Instance</h4>
+<p class="noindent">The following are the steps to create your first Amazon EC2 instance:</p>
+<p class="numbert"><strong>1.</strong> Go to <a href="https://console.aws.amazon.com/ec2/">https://console.aws.amazon.com/ec2/</a> to open the Amazon EC2 console.</p>
+<p class="number"><strong>2.</strong> Select the region for the instance from the navigation bar at the top of the screen.</p>
+<p class="number"><strong>3.</strong> Choose Launch Instance from the Amazon EC2 console dashboard.</p>
+<p class="number"><strong>4.</strong> Choose an AMI on the Choose an Amazon Machine Image page:</p>
+<p class="bullet2">• Quick Start (this is the most popular option and lets you get started quickly)</p>
+<p class="bullet2">• My AMIs (private AMIs that either you own or are shared)</p>
+<p class="bullet2">• AWS Marketplace (an online store to buy AMIs that run on AWS)</p>
+<p class="bullet2">• Community AMIs (AWS community members share AMIs for others to use)</p>
+<p class="number"><strong>5.</strong> <span epub:type="pagebreak" id="page_124"/>On the Choose An Instance Type page, choose the t2.micro instance type to remain in the Free Tier.</p>
+<p class="number"><strong>6.</strong> Then choose Next: Add Storage.</p>
+<p class="number"><strong>7.</strong> In the Network option, select the VPC where you want to create this instance.</p>
+<p class="number"><strong>8.</strong> In the Subnet option, select the subnet where you want to launch your instance.</p>
+<p class="number"><strong>9.</strong> Select Auto-Assign Public IP to receive a public IPv4 address, or select Auto-Assign IPv6 IP if your instance needs an IPv6 address.</p>
+<p class="number1"><strong>10.</strong> Provide the AWS Identity and Access Management (IAM) role if you want to associate this with the Amazon EC2 instance that you are creating in this exercise.</p>
+<p class="number1"><strong>11.</strong> Then choose the option to either stop or terminate the instance when it is shut down.</p>
+<p class="number1"><strong>12.</strong> Select the check box to enable termination protection and prevent accidental termination.</p>
+<p class="number1"><strong>13.</strong> Select the check box to enable detailed Amazon CloudWatch monitoring.</p>
+<p class="number1"><strong>14.</strong> Choose Tenancy, Dedicated Hardware, or on a Dedicated Host, based on your requirements, for an additional cost.</p>
+<p class="number1"><strong>15.</strong> Select the T2/T3 Unlimited check box to burst beyond the baseline for an additional charge.</p>
+<p class="number1"><strong>16.</strong> Select an existing placement group if you want this instance to be placed in one.</p>
+<p class="number1"><strong>17.</strong> Specify user data to run a configuration script or to configure an instance during launch, or to attach a configuration file.</p>
+<p class="number1"><strong>18.</strong> On the Add Storage page, specify additional volumes to attach to the instance if required.</p>
+<p class="bullet2">• <strong>Type</strong>   Select the instance store or Amazon EBS volumes based on your requirement.</p>
+<p class="bullet2">• <strong>Device</strong>   Select the device name from the list for the volume.</p>
+<p class="bullet2">• <strong>Snapshot</strong>   To restore a volume, enter the name or ID of the snapshot.</p>
+<p class="bullet2">• <strong>Size</strong>   You can specify a storage size, but for the Free Tier, you must remain under 30GiB of total storage.</p>
+<p class="bullet2">• <strong>Volume Type</strong>   For EBS volumes, select Magnetic Volume or Provisioned IOPS SSD or General Purpose SSD.</p>
+<p class="bullet2">• <strong>IOPS</strong>   Enter the number of IOPS for the Provisioned IOPS SSD volume type.</p>
+<p class="bullet2">• <strong>Delete On Termination</strong>   To delete the volume when the instance is terminated, select this check box.</p>
+<p class="bullet2">• <strong>Encrypted</strong>   Select this option to encrypt the volume.</p>
+<p class="number1"><strong>19.</strong> On the Add Tags page, specify tags for key and value pairs for the instance and volumes.</p>
+<p class="number1"><strong>20.</strong> Choose Next to navigate to the Configure Security Group page.</p>
+<p class="number1"><strong>21.</strong> <span epub:type="pagebreak" id="page_125"/>Select an existing security group, or create new one to define the firewall rules for your instance.</p>
+<p class="number1"><strong>22.</strong> Choose Review And Launch.</p>
+<p class="number1"><strong>23.</strong> Check the details of your instance, and make changes if necessary.</p>
+<p class="number1"><strong>24.</strong> Choose Launch when you are ready.</p>
+<p class="number1"><strong>25.</strong> Now you will be prompted to select an existing key pair or create a new key pair.</p>
+<p class="number1"><strong>26.</strong> The instance will be in a pending state until the boot configuration is complete.</p>
+<p class="number1"><strong>27.</strong> You can connect to the instance as soon as its state changes to running.</p>
+<h4 class="h4" id="ch4lev2sec31">Connecting to the Amazon EC2 Instance Using SSH</h4>
+<p class="noindent">This exercise will help you connect to your Amazon EC2 instance using the SSH client.</p>
+<p class="numbert"><strong>1.</strong> You can connect to your instance and use it the way that you’d connect to any computer.</p>
+<p class="number"><strong>2.</strong> Verify that your instance passes the status checks.</p>
+<p class="number"><strong>3.</strong> Install an SSH client (<a href="http://openssh.com">openssh.com</a>) on your local computer if it’s not already installed (by typing <strong>ssh</strong> at the command line) by default.</p>
+<p class="number"><strong>4.</strong> Type <strong>ssh -i /mypath/my-ins-key-pair.pemec2-user@ec2-197-38-200-6.compute-1.amazonaws.com</strong> (this gets your EC2 instance host name from the EC2 console). The text breaks down as follows:</p>
+<p class="bullet2">• ssh command connects to the instance.</p>
+<p class="bullet2">• my-ins-key-pair.pem is your private key file along with its path.</p>
+<p class="bullet2">• ec2-user is the user name for your AMI.</p>
+<p class="bullet2">• ec2-197-38-200-6.compute-1.amazonaws.com is the public DNS name for your instance.</p>
+<p class="number"><strong>5.</strong> You will be asked if you want to continue connecting.</p>
+<p class="number"><strong>6.</strong> When you type <strong>yes</strong>, you will see a response similar to “Warning: Permanently added ‘ec2-198-51-100-1.compute-1.amazonaws.com’ (RSA) to the list of known hosts.” Now you are connected to your instance.</p>
+<h4 class="h4" id="ch4lev2sec32">Connecting to an Amazon EC2 Instance Using a PuTTY Session</h4>
+<p class="noindent">This exercise will show step-by-step details to connect to your Amazon EC2 instance using a PuTTy tool.</p>
+<p class="numbert"><strong>1.</strong> A few minutes after the instance is launched, the status checks will be passed and you are ready to connect.</p>
+<p class="number"><strong>2.</strong> Download and install PuTTY on your local computer.</p>
+<p class="number"><strong>3.</strong> Convert your private key format (.pem) to the PuTTYgeninto (.ppk) format.</p>
+<p class="number"><strong>4.</strong> <span epub:type="pagebreak" id="page_126"/>Start PuTTY from your Start menu.</p>
+<p class="number"><strong>5.</strong> Choose Session in the Category pane.</p>
+<p class="number"><strong>6.</strong> Enter <strong>user_name@public_dns_name</strong> in the Host Name box (the username is ec2-user for Amazon Linux AMI and ubuntu for Ubuntu AMI).</p>
+<p class="number"><strong>7.</strong> Select SSH under Connection Type.</p>
+<p class="number"><strong>8.</strong> The Port Value is 22.</p>
+<p class="number"><strong>9.</strong> In the Category pane, expand Connection, SSH, and then Auth.</p>
+<p class="number1"><strong>10.</strong> Choose Browse, select the .ppk file, and choose Open.</p>
+<p class="number1"><strong>11.</strong> You can save the session under Category then Session, enter a name, and choose Save.</p>
+<p class="number1"><strong>12.</strong> Choose Open.</p>
+<p class="number1"><strong>13.</strong> PuTTY displays a security warning asking whether you trust the host.</p>
+<p class="number1"><strong>14.</strong> Verify the fingerprint in the Security Alert dialog box to avoid a “man-in-the-middle” attack (this is an optional security feature).</p>
+<p class="number1"><strong>15.</strong> If the fingerprint matches, choose Yes. Now you are connected to your instance.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   You need to know the methods for accessing an instance over the Internet. You can access an Amazon EC2 instance over the Web via a public IP address, elastic IP address, or public DNS name. The private IP addresses and Elastic Network Interface (ENI) are additional ways to access an instance within an Amazon VPC.</p>
+</div>
+<h3 class="h3" id="ch4lev1sec11">Security Groups that Protect the Instances</h3>
+<p class="noindent">A security group acts like a virtual firewall by controlling traffic to or from its associated instances, and you can add rules to allow traffic. When you launch an instance, you need to specify one or more security groups; otherwise, AWS uses the default security group. When you modify the security group, the new rules are automatically applied to all of its associated instances. AWS evaluates all the rules from all the security groups that are associated with the instance before deciding whether to allow traffic or not. You can maintain your own firewall on any of your instances in addition to using security groups when you have requirements that aren’t met by security groups.</p>
+<p class="indent">Security groups allow all outbound traffic by default, and the rules are always permissive, which means you can’t create rules that deny access. Security groups are stateful, so the return response traffic for that request is allowed to flow in, regardless of inbound security group rules. Security Group rules can be added and removed at any time. Any changes you make to the security groups are automatically applied immediately to the associated instances.</p>
+<p class="indent">The rules from each security group are effectively aggregated when you associate multiple security groups with an instance to create one set of rules. AWS uses this set of rules <span epub:type="pagebreak" id="page_127"/>to determine whether to allow access to the instance. An instance can have hundreds of rules, since you can assign multiple security groups to an instance, but that might cause problems when accessing the instance. Thus AWS recommends that you condense your rules as much as possible.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   You need to know how security groups protect instances. Amazon EC2 instances use security groups as virtual firewalls, controlling traffic in and out of your instance. The inbound access of your custom security group is set to deny by default, and you can allow traffic by adding rules specifying traffic direction, port, protocol, and destination address via a Classless Inter-Domain Routing (CIDR) block. They are applied at the instance level, meaning that traffic between instances in the same security group must adhere to the rules of that security group. They are stateful, so if you send an outbound request from your instance, the return response inbound traffic is allowed, regardless of inbound security group rules, and vice versa.</p>
+</div>
+<p class="indent">The rule affects all instances associated with the security group when you specify a security group as the source or destination for a rule. Incoming traffic is allowed based on the private IP addresses, not the public IP or elastic IP addresses, of the instances that are associated with the source security group. AWS applies the most permissive rule if more than one rule is specified for a specific port.</p>
+<p class="indent">The security group tracks information about traffic to and from the instance. Rules are applied to determine if the traffic is allowed or denied based on its connection state. The responses to inbound traffic are allowed to flow out, regardless of outbound security group rules and vice versa because security groups are stateful. The response traffic is not tracked.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   You need to know how to interpret the effect of security groups. When an instance is a member of multiple security groups, the effect is a union of all the rules in all the groups. Understand how AWS applies the most permissive rule if more than one rule is specified for a given port.</p>
+</div>
+<h3 class="h3" id="ch4lev1sec12">Best Practices for Amazon EC2</h3>
+<p class="noindent">Follow these best practices to get the maximum benefit from Amazon EC2:</p>
+<p class="bullett">• It is very important to manage access to Amazon EC2 using identity federation, Identity and Access Management (IAM) users, and IAM roles.</p>
+<p class="bulleta">• Credential management policies and procedures needs to be established for creating, distributing, rotating, and revoking AWS access credentials.</p>
+<p class="bulleta">• The recommended approach is to implement the least permissive rules for your security group.</p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_128"/>You need to regularly patch, update, and secure the operating system and applications on your instance.</p>
+<p class="bulleta">• Make sure you understand the implications of your instance root device type for data persistence, backup, and recovery.</p>
+<p class="bulleta">• You need to use separate Amazon EBS volumes for the operating system versus your data.</p>
+<p class="bulleta">• If required, you need to ensure that the volume with your data persists after instance termination and keep in mind that it’s going to incur charges.</p>
+<p class="bulleta">• Use the instance store for your instance to store temporary data.</p>
+<p class="bulleta">• Always keep in mind that the data stored in an instance store is deleted when you stop or terminate your instance, so make sure you have a cluster with a replication factor that ensures fault tolerance when you use the instance store for database storage.</p>
+<p class="bulleta">• You need to use instance metadata and custom resource tags to track and identify your AWS resources.</p>
+<p class="bulleta">• Be aware of your current limits for Amazon EC2 and request any increases in advance if required.</p>
+<p class="bulleta">• You need to regularly back up your EBS volumes using Amazon EBS snapshots and create an AMI to save the configuration of your instance as a template for launching future instances.</p>
+<p class="bulleta">• AWS recommends deploying critical components of your application across multiple availability zones and replicating your data appropriately.</p>
+<p class="bulleta">• If you are not using elastic IP addresses, then design your applications to handle dynamic IP addressing when your instance restarts.</p>
+<p class="bulleta">• Use AWS CloudWatch Monitor to set up alerts and respond to events.</p>
+<p class="bulleta">• To handle failover, you can either manually attach a network interface or elastic IP address to your replacement instance or use Amazon EC2 Auto Scaling.</p>
+<p class="bulleta">• It is recommended that you regularly test the process of recovering your instances and Amazon EBS volumes if they fail as part of your business continuation plan.</p>
+<h3 class="h3" id="ch4lev1sec13">Chapter Review</h3>
+<p class="noindent">This chapter began by explaining all the necessary details that you need to know before creating your first EC2 instance. You learned what Amazon Elastic Compute Cloud (EC2) is. You explored the package with the bits that you need for your server, including the operating system and additional software, as preconfigured templates for your instances, also known as AMIs. PV and HVM are two types of virtualization that Linux AMIs use. The instance type relates to various configurations of CPU, memory, storage, and networking capacity. General-purpose instances can be used for a variety of workloads and provide a balance of compute, memory, and networking resources. Compute-optimized instances are ideal for compute-bound applications and other <span epub:type="pagebreak" id="page_129"/>compute-intensive applications that benefit from high-performance processors. If you have workloads that process large data sets in memory, you need memory-optimized instances that are designed to deliver fast performance. If you have workloads that require high, sequential read and write access to very large data sets on local storage, you need storage-optimized instances. Accelerated computing instances enable more parallelism for higher throughput on compute-intensive workloads and provide access to hardware-based compute accelerators.</p>
+<p class="indent">The chapter then explained how to secure login information for your instances using key pairs, where AWS stores the public key in the instance and you store your private key in a secure place. Amazon EC2 provides a web-based user interface called the Amazon EC2 console. You can access the Amazon EC2 console from the AWS Management Console and select the EC2 console page. You can launch Amazon EC2 resources, such as instances and volumes, directly from this console. The AWS CLI is supported on Windows, Mac, and Linux and provides commands for a broad set of AWS products. AWS also supports Windows PowerShell, which provides commands for a broad set of AWS products. Amazon EC2 provides a query API, and all these requests are HTTP or HTTPS requests that use the GET or POST and an Action parameter. AWS provides resources for software developers to build applications using language-specific APIs instead of submitting a request over HTTP or HTTPS. These libraries make it easier for you to get started by providing basic functions that automate tasks such as cryptographically signing your requests, handling error responses, and retrying requests.</p>
+<p class="indent">Instance store volumes are used for temporary data that is deleted when you stop or terminate your instance. Amazon EBS volumes are persistent storage volumes for your instance data and root volume. Your instances and EBS volumes can be spread across multiple physical locations known as regions and availability zones. Security groups act as another firewall that enables you to specify inbound and outbound rules for the protocols, ports, and source IP ranges that can reach your instances. Elastic IP addresses are static IPv4 addresses that can be assigned to your EC2 instances and network interfaces. Tags are stored as key values on your Amazon EC2 resources. Metadata is data about data, and EC2 instance metadata is data about the EC2 instances that you will be using to configure and manage your running instance.</p>
+<p class="indent">VM Import/Export is used to import VM images from your local on-premises environment into AWS and convert them into ready-to-use AMIs or instances. You can get started with Amazon EC2 for free using the Free Tier, and Amazon EC2 provides various purchasing options for additional instances. You can pay for the instances that you use and are charged per second, with no up-front payments or long-term commitments, by using on-demand instances. You can make a one-time, low, up-front payment for an instance and reserve it for a one- or three-year term, which allows you to pay a significantly lower hourly rate for your instances by using reserved instances. You can request unused EC2 instances, which can lower your costs significantly up to 90 percent by using spot instances.</p>
+<h4 class="h4" id="ch4lev2sec33">Exercises</h4>
+<p class="noindent">The following exercises will help you practice performing various tasks in Amazon EC2. You need to create an AWS account before you can perform these exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_130"/>Exercise 4-1: Choosing an AMI by Root Device Type</h5>
+<p class="noindent">The AMI that you specify when you launch your instance determines the type of root device volume that your instance has.</p>
+<p class="numbert"><strong>1.</strong> Open the Amazon EC2 console.</p>
+<p class="number"><strong>2.</strong> In the Navigation pane, choose AMIs.</p>
+<p class="number"><strong>3.</strong> From the filter lists, select the image type, and from the search bar choose Platform to select the operating system, like Amazon Linux, and Root Device Type to select EBS images.</p>
+<p class="number"><strong>4.</strong> Choose the Show/Hide Columns icon to see additional information, update the columns to display, and then choose Close.</p>
+<p class="number"><strong>5.</strong> Choose an AMI and write down its AMI ID.</p>
+<h5 class="h5">Exercise 4-2: Selecting an Instance Store–Backed AMI</h5>
+<p class="noindent">This exercise will show you the steps to select an instance store–backed AMI.</p>
+<p class="numbert"><strong>1.</strong> Open the Amazon EC2 console.</p>
+<p class="number"><strong>2.</strong> In the Navigation pane, choose AMIs.</p>
+<p class="number"><strong>3.</strong> From the filter lists, select the image type from the search bar, choose Platform to select the operating system, like Amazon Linux, and Root Device Type to select the Instance store.</p>
+<p class="number"><strong>4.</strong> Choose the Show/Hide Columns icon to get additional information to help you make your choice, update the columns to display, and then choose Close.</p>
+<p class="number"><strong>5.</strong> Choose an AMI and write down its AMI ID.</p>
+<h5 class="h5">Exercise 4-3: Checking the Root Device Type of an Instance</h5>
+<p class="noindent">This exercise will show you the steps to check whether the root device type of an instance is an instance store or EBS volume.</p>
+<p class="numbert"><strong>1.</strong> Open the Amazon EC2 console.</p>
+<p class="number"><strong>2.</strong> Choose Instances from the Navigation pane and select the instance you want.</p>
+<p class="number"><strong>3.</strong> You can then check the value of the Root device type in the Description tab.</p>
+<p class="number"><strong>4.</strong> This is an Amazon EBS–backed instance if the value is EBS. This is an instance store–backed instance if the value is instance store.</p>
+<h5 class="h5">Exercise 4-4: Modifying the Root Device Volume to Persist at Launch</h5>
+<p class="noindent">This exercise will show you the steps to modify the configuration of the root device volume at launch in order to persist this volume even after termination of its attached instance.</p>
+<p class="numbert"><strong>1.</strong> Open the Amazon EC2 console.</p>
+<p class="number"><strong>2.</strong> Choose Launch Instance from the Amazon EC2 console dashboard.</p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_131"/>Select the AMI to use from the Choose an AMI page, and choose Select.</p>
+<p class="number"><strong>4.</strong> Choose an Instance Type and Configure Instance Details pages in the wizard.</p>
+<p class="number"><strong>5.</strong> Deselect Delete On Termination for the root volume on the Add Storage page.</p>
+<p class="number"><strong>6.</strong> After completing the remaining wizard pages, choose Launch.</p>
+<p class="number"><strong>7.</strong> You can verify the setting on the instance’s Details pane by viewing details for the root device volume. Choose the entry for the root device volume next to Block Devices. Delete On Termination is True by default. Delete On Termination becomes False when you change the default behavior.</p>
+<h4 class="h4" id="ch4lev2sec34">Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of Amazon EC2. Read all the answers carefully because there might be more than one correct answer. Choose the best responses for each question.</p>
+<p class="numbert"><strong><a href="ch04.xhtml#rch04qa1" id="ch04qa1">1.</a></strong> You have launched an EBS–backed EC2 instance in the us-west-2a region. To save on costs, you have stopped the instance and then tried to start it back after 35 days, but you are getting the “Insufficient Instance Capacity” error. What could be the reason for this error?</p>
+<p class="alphau"><strong>A.</strong> AWS does not have sufficient on-demand capacity in that availability zone to service your request</p>
+<p class="alphau"><strong>B.</strong> AWS availability zone mapping is changed for your user account</p>
+<p class="alphau"><strong>C.</strong> There is an issue with the host machine capacity on which the instance is launched</p>
+<p class="alphau"><strong>D.</strong> Your AWS account has reached the maximum EC2 instance limit</p>
+<p class="number"><strong><a href="ch04.xhtml#rch04qa2" id="ch04qa2">2.</a></strong> You are trying to connect to a running EC2 instance using SSH and are getting an “Unprotected Private Key File” error. Which of the following options can be a possible reason?</p>
+<p class="alphau"><strong>A.</strong> Your private key file has the wrong file permission</p>
+<p class="alphau"><strong>B.</strong> The .ppk file used for SSH has read-only permission</p>
+<p class="alphau"><strong>C.</strong> The public key file has insufficient permission</p>
+<p class="alphau"><strong>D.</strong> The username that you have provided is incorrect</p>
+<p class="number"><strong><a href="ch04.xhtml#rch04qa3" id="ch04qa3">3.</a></strong> You have launched an EC2 instance, but it was terminated. Is it possible to find the reason for termination and, if so, where can you find the details?</p>
+<p class="alphau"><strong>A.</strong> It is not possible to find the details after the instance is terminated</p>
+<p class="alphau"><strong>B.</strong> You can get the information by checking the instance description under the State Transition Reason label from the AWS console</p>
+<p class="alphau"><strong>C.</strong> You can get the information by checking the instance description under the Status Change Reason label from the AWS console</p>
+<p class="alphau"><strong>D.</strong> You can get the information by checking the instance description under the Instance Change Reason label from the AWS console</p>
+<p class="number"><strong><a href="ch04.xhtml#rch04qa4" id="ch04qa4">4.</a></strong> <span epub:type="pagebreak" id="page_132"/>A user is trying to connect to a running EC2 instance using SSH, but the user gets a connection timeout error. Which is <em>not</em> a possible reason for rejection?</p>
+<p class="alphau"><strong>A.</strong> You are connecting with the appropriate username for your instance AMI</p>
+<p class="alphau"><strong>B.</strong> The security group is not configured properly to allow SSH</p>
+<p class="alphau"><strong>C.</strong> The private key used to connect to the instance is not correct</p>
+<p class="alphau"><strong>D.</strong> Your network ACL rules do not allow any inbound and outbound traffic</p>
+<p class="number"><strong><a href="ch04.xhtml#rch04qa5" id="ch04qa5">5.</a></strong> You are launching an EC2 instance in the US West region. Which option is recommended by AWS when selecting the availability zone?</p>
+<p class="alphau"><strong>A.</strong> Always select us-west-1aavailability zone for high availability</p>
+<p class="alphau"><strong>B.</strong> Do not select the availability zone; instead, let AWS choose it</p>
+<p class="alphau"><strong>C.</strong> You cannot select the availability zone when launching an instance</p>
+<p class="alphau"><strong>D.</strong> Always choose multiple availability zones when launching an instance</p>
+<p class="number"><strong><a href="ch04.xhtml#rch04qa6" id="ch04qa6">6.</a></strong> What are the two types of virtualization that Linux AMIs take advantage of in terms of special hardware extensions to boot the instance for better performance? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> Amazon EC2 placement groups</p>
+<p class="alphau"><strong>B.</strong> Amazon PV AMI</p>
+<p class="alphau"><strong>C.</strong> Amazon HVM AMI</p>
+<p class="alphau"><strong>D.</strong> Amazon VPC</p>
+<p class="number"><strong><a href="ch04.xhtml#rch04qa7" id="ch04qa7">7.</a></strong> Which of the following statements about Amazon instance store is correct?</p>
+<p class="alphau"><strong>A.</strong> Instance store volume data persists only for the duration of the life of the Amazon EC2 instance</p>
+<p class="alphau"><strong>B.</strong> When you update the security group rule, the data on the associated instance store volume will be lost</p>
+<p class="alphau"><strong>C.</strong> Even after the associated Amazon EC2 instance is terminated, the data on an instance store volume persists until you manually delete it</p>
+<p class="alphau"><strong>D.</strong> The instance store volume is recommended for the root volume of critical instances</p>
+<p class="number"><strong><a href="ch04.xhtml#rch04qa8" id="ch04qa8">8.</a></strong> You have launched an EC2 instance from an instance store–backed AMI and attached an additional instance store volume to it. Now you want to create an AMI from the running instance. Where will the additional instance store volume data be located?</p>
+<p class="alphau"><strong>A.</strong> The additional instance store volume information will be on the block device mapping</p>
+<p class="alphau"><strong>B.</strong> Only the root volume bundled on the instance uses instance store–backed AMIs</p>
+<p class="alphau"><strong>C.</strong> It is not possible to add an instance store volume to the existing instance store</p>
+<p class="alphau"><strong>D.</strong> It will not be a part of the AMI, since this is ephemeral storage</p>
+<p class="number"><strong><a href="ch04.xhtml#rch04qa9" id="ch04qa9">9.</a></strong> <span epub:type="pagebreak" id="page_133"/>A user is using an EBS-backed instance. Which statement is true?</p>
+<p class="alphau"><strong>A.</strong> Only when the instance is running will the user be charged for the volume and instance</p>
+<p class="alphau"><strong>B.</strong> The user will be charged for the volume even if the instance is stopped</p>
+<p class="alphau"><strong>C.</strong> Only the cost of the running instance will be charged to the user</p>
+<p class="alphau"><strong>D.</strong> The user will not be charged for the volume if the instance is stopped</p>
+<p class="number1"><strong><a href="ch04.xhtml#rch04qa10" id="ch04qa10">10.</a></strong> Status monitoring helps to quickly determine any problems that might prevent instances from running applications. EC2 automatically performs checks on every running EC2 instance to identify any hardware or software issues. Which of the following is true? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> Status checks are performed every minute, and each returns a pass or a fail status</p>
+<p class="alphau"><strong>B.</strong> If all checks pass, the overall status of the instance is OK</p>
+<p class="alphau"><strong>C.</strong> If one or more checks fail, the overall status is Impaired</p>
+<p class="alphau"><strong>D.</strong> Status checks cannot be disabled or deleted, since they are built into EC2</p>
+<h4 class="h4" id="ch4lev2sec35">Answers</h4>
+<p class="number"><strong><a href="ch04.xhtml#ch04qa1" id="rch04qa1">1.</a> A.</strong> If you get an “Insufficient Instance Capacity” error when you try to launch an instance or restart a stopped instance, AWS does not currently have enough available on-demand capacity to service your request.</p>
+<p class="number"><strong><a href="ch04.xhtml#ch04qa2" id="rch04qa2">2.</a> A.</strong> You need to set the 700 permission for the .ssh folder and set the 600 permission for the private key file. You need to grant the 644 permission to your public key file.</p>
+<p class="number"><strong><a href="ch04.xhtml#ch04qa3" id="rch04qa3">3.</a> B.</strong> You can get the information by checking the instance description under the State Transition Reason label from the AWS console.</p>
+<p class="number"><strong><a href="ch04.xhtml#ch04qa4" id="rch04qa4">4.</a> A.</strong> You are connecting with the appropriate username for your instance AMI. For the Amazon Linux AMI, the username is ec2-user; for an Ubuntu AMI, the username is ubuntu.</p>
+<p class="number"><strong><a href="ch04.xhtml#ch04qa5" id="rch04qa5">5.</a> B.</strong> Do not select the availability zone; instead, let AWS choose it.</p>
+<p class="number"><strong><a href="ch04.xhtml#ch04qa6" id="rch04qa6">6.</a> B, C.</strong> Amazon PV AMI and Amazon HVM AMI.</p>
+<p class="number"><strong><a href="ch04.xhtml#ch04qa7" id="rch04qa7">7.</a> A.</strong> The data of instance store volume on your Amazon EC2 instance persists only during the life of the instance.</p>
+<p class="number"><strong><a href="ch04.xhtml#ch04qa8" id="rch04qa8">8.</a> A.</strong> Yes, the additional instance store volume information will be on the block device mapping.</p>
+<p class="number"><strong><a href="ch04.xhtml#ch04qa9" id="rch04qa9">9.</a> B.</strong> As long as there are attached EBS volumes to the EC2 instance, the user will be charged even if the instance is stopped.</p>
+<p class="number1"><strong><a href="ch04.xhtml#ch04qa10" id="rch04qa10">10.</a> B, C.</strong> If all checks pass, the overall status of the instance is OK. If one or more checks fail, the overall status is Impaired.</p>
+<h3 class="h3" id="ch4lev1sec14"><span epub:type="pagebreak" id="page_134"/>Additional Resources</h3>
+<p class="bulleta">• <strong>AWS References</strong>   There is no place like official AWS documentation to get the most up-to-date information about all the AWS services. Always refer to the official AWS blogs to get the latest updates about new AWS services and updates to existing features.</p>
+<p class="bulletc"><img alt="images" src="p0134-01.jpg"/></p>
+<p class="bulleta">• <strong>Amazon EC2 Instance Connect</strong>   This blog provides detailed steps to configure instance connections using a custom AuthorizedKeysCommand script.</p>
+<p class="bulletc"><img alt="images" src="p0134-02.jpg"/></p>
+<p class="bulleta">• <strong>Hyper-V on Amazon EC2</strong>   This blog provides steps for launching, setting up, and configuring a Hyper-V–enabled host, launching a guest VM within Hyper-V running on i3.metal.</p>
+<p class="bulletc"><img alt="images" src="p0134-03.jpg"/></p>
+<p class="bulleta">• <strong>Amazon EC2 Spot Instances</strong>   This blog explains how to use the spot instance interruption notices in CloudWatch events to automatically deregister spot instances.</p>
+<p class="bulletc"><img alt="images" src="p0134-04.jpg"/></p>
+<p class="bulleta">• <strong>Twelve-Factor App</strong>   This blog explains how to apply and compare the Twelve-Factor methodology to serverless application development for building modern, cloud-native applications.</p>
+<p class="bulletc"><img alt="images" src="p0134-05.jpg"/></p>
+<p class="bulleta">• <strong>Lift-and-Shift EC2 Migration</strong>   This blog details the steps of automated migration using the CloudEndure tool to migrate a virtual machine from an on-premises environment to EC2 in AWS.</p>
+<p class="bulletc"><img alt="images" src="p0134-06.jpg"/></p>
+<p class="bulleta">• <strong>EC2 Predictive Scaling</strong>   This blog explains the steps to enable machine learning models to predict the EC2 usage and scale EC2 based on the prediction.</p>
+<p class="bulletc"><img alt="images" src="p0134-07.jpg"/></p>
+</section>
+</body>
+</html>

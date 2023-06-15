@@ -1,0 +1,225 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch26"><span epub:type="pagebreak" id="page_641"/><span class="chap">CHAPTER <span class="chap1">26</span></span></h2>
+<h2 class="h2c1">Building a Scalable and Fault-Tolerant CI/CD Pipeline</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• Build a CI/CD pipeline using AWS developer tools</p>
+<p class="hr"/>
+<p class="noindentb">In this chapter, we are going to build highly available, scalable, and fault-tolerant application using AWS developer tools such as AWS CodeCommit, AWS CodeBuild, AWS CodeDeploy, and AWS CodePipeline.</p>
+<h3 class="h3" id="ch26lev1sec1">CI/CD Pipeline</h3>
+<p class="noindent">A typical CI/CD pipeline automates the entire software code builds, automated testing, and deployment to a production environment process using DevOps tools. We are going to use AWS developer tools such as AWS CodeCommit for storing application source code, or you can use another source code repository such as GitHub; AWS CodeBuild to build and test the application code; AWS CodeDeploy to automate code deployments <span epub:type="pagebreak" id="page_642"/>using blue/green deployment; and AWS CodePipeline to automate the continuous delivery pipeline.</p>
+<p class="image"><img alt="images" src="f0642-01.jpg"/></p>
+<p class="indent">First, you need to log in to your AWS Management Console, navigate to the AWS CodeCommit service, and choose Create Repository. Enter the repository name—for example, <strong>HAFT-App-Repo</strong>—and provide a description of <strong>Highly Available Fault Tolerant Web Application</strong> and then click the Create button.</p>
+<p class="image"><img alt="images" src="f0642-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_643"/>Note the clone URL for HTTPS or SSH.</p>
+<p class="image"><img alt="images" src="f0643-01.jpg"/></p>
+<p class="indent">Go to your local machine and use git.bash for Windows and Terminal for macOS. You need to clone the AWS CodeCommit repository using the git clone and go to the HAFT-App-Repo folder. Download the AWS sample web application from <a href="https://github.com/aws-samples/aws-cicd-bluegreen/raw/master/WebApp.zip">https://github.com/aws-samples/aws-cicd-bluegreen/raw/master/WebApp.zip</a> and unzip it to the local repository. You also need to move and remove some files from it.</p>
+<p class="image"><img alt="images" src="f0643-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_644"/>Add the sample web application files to the repository using the git add command.</p>
+<p class="indent">Commit the files using the git commit command, and use the git push command to push the AWS sample web application files to the remote repository in AWS CodeCommit.</p>
+<p class="indent">Navigate to the AWS CodeCommit service in the AWS Management Console and verify your updated repository.</p>
+<p class="image"><img alt="images" src="f0644-01.jpg"/></p>
+<p class="indent">Next, you need to create the infrastructure using the template.yml file, which you extracted from WebApp.zip. Navigate to the AWS CloudFormation service in the AWS Management Console and click on Create Stack.</p>
+<p class="indent">Choose Template Is Ready in the Prepare Template section and choose Upload A Template File for the Template Source. Upload template.yml from your local machine and click View In Designer.</p>
+<p class="image"><img alt="images" src="f0644-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_645"/>The AWS CloudFormation designer is a graphical tool used to visualize and modify resources using a drag-and-drop interface. You can verify all the resources that will be created as part of this template.</p>
+<p class="image"><img alt="images" src="f0645-01.jpg"/></p>
+<p class="indent">Enter a stack name—for example, <strong>HAFT-Application</strong>—and click Next.</p>
+<p class="image"><img alt="images" src="f0645-02.jpg"/></p>
+<p class="indent">As per best practices, add a tag of <strong>Name</strong> with value of <strong>HAFT Application Stack</strong> and leave other options at their default settings. Click Next to continue.</p>
+<p class="image"><img alt="images" src="f0645-03.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_646"/>Review all the options that you selected, acknowledge that the AWS CloudFormation might create IAM resources, and click Create Stack.</p>
+<p class="indent">Select the Events tab to see all the events in your template execution, which have a “Resource creation initiated” status. As you recall from <a href="ch18.xhtml#ch18">Chapter 18</a>, AWS CloudFormation takes care of the dependencies regarding which resource needs to be created first, etc. Scroll down and verify that all the resources are created successfully.</p>
+<p class="image"><img alt="images" src="f0646-01.jpg"/></p>
+<p class="indent">Next, click the Outputs tab and note the Application Load Balancer (ALB) URL.</p>
+<p class="image"><img alt="images" src="f0646-02.jpg"/></p>
+<p class="indent">Open a browser on your local machine, enter the ALB URL, and press <span class="smallcaps">enter</span>. You will see the Hello World! message. You have successfully created the infrastructure VPC, subnets, web servers, ALB, Internet Gateway, NAT Gateway, etc.</p>
+<p class="image"><img alt="images" src="f0646-03.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_647"/>Navigate to the AWS CodeBuild service from the AWS Management Console and choose Create Build Project. Enter <strong>HAFT-App-Build</strong> for the project name and <strong>Highly Available Fault Tolerant Application Build</strong> for the description. In the Source section, choose AWS CodeCommit as the source provider and HAFT-App-Repo as the repository. Then select the reference type as Branch and choose Master.</p>
+<p class="image"><img alt="images" src="f0647-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_648"/>Select the environment image as Managed Image and the operating system as Ubuntu. Choose Runtime for the standard and aws/codebuild/standard:2.0 for the image. Choose Linux for the environment type as Linux and Always Use The Latest Image For This Runtime Version for the image version. Select Privileged if you want to build a Docker image (you can leave it unchecked for this application). Select New Service Role to create a new CodeBuild service role in your account.</p>
+<p class="image"><img alt="images" src="f0648-01.jpg"/></p>
+<p class="indent">In the Buildspec section, choose Use A Buildspec File. In the Artifacts section, choose Amazon S3 for the type and select the bucket name and filename. Choose Zip for the artifacts packaging to upload artifacts as a compressed file.</p>
+<p class="image"><img alt="images" src="f0648-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_649"/>Enable logs and choose either CloudWatch Logs or Amazon S3, or both, which will be helpful to verify detailed steps and for troubleshooting if required. Enter a group name and stream name.</p>
+<p class="image"><img alt="images" src="f0649-01.jpg"/></p>
+<p class="indent">Verify the build project details, such as source provider, primary repository, and artifacts upload location. Click the Start Build button.</p>
+<p class="image"><img alt="images" src="f0649-02.jpg"/></p>
+<p class="indent">Click the Start Build button again to start the initial build process of your application.</p>
+<p class="indent">Within a minute, the overall status is “Succeeded” and all the phases are listed, such as Submitted, Queued, Provisioning, Download_source, Install, Pre_build, Build, <span epub:type="pagebreak" id="page_650"/>Post_build, Upload_artifacts, Finalizing, and Completed. You can verify the build number, source version, start time, and end time.</p>
+<p class="image"><img alt="images" src="f0650-01.jpg"/></p>
+<p class="indent">Navigate to AWS CodeDeploy and choose Create Application. Enter an application name, such as <strong>HAFT-Appln</strong>, and select the compute platform as EC2/On-Premises from the dropdown. Click the Create Application button.</p>
+<p class="image"><img alt="images" src="f0650-02.jpg"/></p>
+<p class="indent">Create a deployment group by clicking the Create Deployment Group button.</p>
+<p class="indent">Enter <strong>HAFT-Appln-Group</strong> for the deployment group name and choose a service role that has access to CodeDeploy. Choose Blue/Green for the deployment type, which replaces the instances in the deployment group with new instances that have the latest <span epub:type="pagebreak" id="page_651"/>application revision. Once the new environment is registered with load balancer, the old environment will be deregistered and its instances terminated.</p>
+<p class="image"><img alt="images" src="f0651-01.jpg"/></p>
+<p class="indent">In the Environment Configuration area, choose Automatically Copy Amazon EC2 Auto Scaling Group to deploy the revised application to it. Choose the current Amazon EC2 Auto Scaling group name, such as BlueGreenAsGroup. In Deployment Settings, choose Reroute Traffic Immediately and choose Terminate The Original Instances In The Deployment Group.</p>
+<p class="image"><img alt="images" src="f0651-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_652"/>For the deployment configuration choose AllAtOnce, which is the default for CodeDeploy. In the Load Balancer section, choose Application Load Balancer, choose the target group from the dropdown, and click Create Deployment Group.</p>
+<p class="image"><img alt="images" src="f0652-01.jpg"/></p>
+<p class="indent">Your deployment group is successfully created, and now you need to create the deployment by clicking the Create Deployment button.</p>
+<p class="indent">In the Deployment settings, enter <strong>HAFT-Appln-Group</strong> for the deployment group name and choose My Application Is Stored In Amazon S3 for the revision type. Enter your Amazon S3 bucket location in the Revision location, and choose Zip from the dropdown for Revision Type.</p>
+<p class="image"><img alt="images" src="f0652-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_653"/>On the next page you can enter additional deployment behavior settings. For this example, leave everything at the default settings and click the Create Deployment button.</p>
+<p class="indent">In the Deployments section, you can see the status of provisioning replacement instances, installing application on the replacement instances, reroute traffic to replacement instances, and terminating the original instances. You can also view the traffic shifting progress here.</p>
+<p class="image"><img alt="images" src="f0653-01.jpg"/></p>
+<p class="indent">You have successfully configured AWS CodeDeploy, so navigate to AWS CodePipeline and click Create Pipeline.</p>
+<p class="indent">Enter a name for your pipeline, such as <strong>HAFT-APP-Pipeline</strong>, and choose to create a new service role. Check Allow AWS CodePipeline To Create A New Service Role To Be Used In This Pipeline and click Next.</p>
+<p class="image"><img alt="images" src="f0653-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_654"/>In the Add Source Stage area, choose AWS CodeCommit from the dropdown for the source provider. Enter <strong>HAFT-App-Repo</strong> for the Repository name and select Master for the branch name. Then select the recommended Amazon CloudWatch events for change detection options and click Next.</p>
+<p class="image"><img alt="images" src="f0654-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_655"/>In the Add Build Stage area, choose AWS Codebuild as the build provider from the dropdown and choose your region. Enter the build project name, such as <strong>HAFT-App-Build</strong>, leave the other settings at their defaults, and click Next.</p>
+<p class="image"><img alt="images" src="f0655-01.jpg"/></p>
+<p class="indent">In the Add Deploy Stage area, choose AWS CodeDeploy as the deploy provider from the dropdown and choose your region. Then enter the CodeDeploy application name, such as <strong>HAFT-Appln</strong>, and enter <strong>HAFT-Appln-Group</strong> for the deployment group. Click Next to continue.</p>
+<p class="image"><img alt="images" src="f0655-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_656"/>Review the pipeline settings and verify the source provider details.</p>
+<p class="image"><img alt="images" src="f0656-01.jpg"/></p>
+<p class="indent">Review the build stage details and the deploy action provider details. Click Create Pipeline once you are done.</p>
+<p class="image"><img alt="images" src="f0656-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_657"/>You have successfully created the HAFT-App-Pipeline, and you can visually see the progress of your CI/CD pipeline. The source stage is in progress and the build stage is waiting.</p>
+<p class="image"><img alt="images" src="f0657-01.jpg"/></p>
+<p class="indent">Within a few minutes the source stage and build stage have completed successfully. Now the deploy stage is in progress.</p>
+<p class="image"><img alt="images" src="f0657-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_658"/>When you click Deploy Stage Details, you can visually see the traffic staging progress where the two instances are running in the original deployment and another two instances are provisioned as replacement instances. Also, you can see the deployment status and verify that the provisioning replacement instances completed 100 percent and installing applications on replacement instances completed 100 percent. The rerouting traffic to replacement instances is halfway through, with 50 percent progress.</p>
+<p class="image"><img alt="images" src="f0658-01.jpg"/></p>
+<p class="indent">In a few more minutes, the rerouting traffic to replacement instances has completed 100 percent and terminating original instances is in progress. You can also view the traffic shifting progress is completed and moved to replacement instances.</p>
+<p class="image"><img alt="images" src="f0658-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_659"/>From your AWS Management Console, navigate to your ALB, which will be on the left navigation pane in the Amazon EC2 dashboard. Select your ALB and note the DNS name.</p>
+<p class="image"><img alt="images" src="f0659-01.jpg"/></p>
+<p class="indent">Now on your local machine, open a browser of your choice, enter the ALB DNS name, and press the <span class="smallcaps">enter</span> key. Congratulations! You just created a scalable, highly available, fault-tolerant web application by using an automated software release pipeline.</p>
+<p class="image"><img alt="images" src="f0659-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_660"/>It is easy to add a new feature or update your source code and deploy it in production automatically using the CI/CD pipeline that you created using AWS developer tools. Go to your source code repository in your local machine and edit index.html, which is stored in the public folder. For simplicity, change Congratulations to <strong>Hello World!</strong> and change the second line to <strong>You just deployed HAFT Node.js web application V2 successfully!!</strong></p>
+<p class="indent">Now add the index file using the git add command and commit the change using the git commit command. Next push your source code changes to your remote repository in AWS CodeCommit using the git push command.</p>
+<p class="image"><img alt="images" src="f0660-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_661"/>Navigate to AWS CodeBuild in the AWS Management Console and verify the build history. You can see the build process is in progress using the updated source code from AWS Commit.</p>
+<p class="image"><img alt="images" src="f0661-01.jpg"/></p>
+<p class="indent">In few minutes, you can see that the traffic is shifted to new instances. Also, you can verify from the deployment status that all the steps are completed 100 percent successfully.</p>
+<p class="image"><img alt="images" src="f0661-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_662"/>Next navigate to your CI/CD pipeline and verify that the updated HAFT application is in AWS CodeCommit. Next, you can see the build has succeeded using the updated HAFT application source. Finally, you can see the successful deployment in the deploy stage using the updated HAFT application.</p>
+<p class="image"><img alt="images" src="f0662-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_663"/>On your local machine, open a browser and enter the ALB URL that you noted down previously. When you press <span class="smallcaps">enter</span>, you can see the updated application is displayed successfully.</p>
+<p class="image"><img alt="images" src="f0663-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_664"/>Navigate to Amazon CloudWatch and click on Logs in the navigation pane. Choose Log Groups and click on the haft log group. You can verify all the messages that were created during the execution. This is helpful when troubleshooting any issues later to easily identify the root cause.</p>
+<p class="image"><img alt="images" src="f0664-01.jpg"/></p>
+<p class="indent">You have observed the demonstration of building a CI/CD pipeline using AWS CodeCommit, AWS CodeBuild, AWS CodeDeploy, and AWS CodePipeline. Using this CI/CD pipeline, you created a highly scalable, available, and fault-tolerant sample web application quickly. You also changed the application source code and observed from the AWS CodePipeline page the different stages of your software build, testing, and application deployment. This experience will help you in your certification exam, and you can practice in your test environment and possibly implement it in a real environment once you gain confidence. You can release new application software and additional features to your software rapidly by implementing continuous integration and continuous delivery using AWS developer tools, which accelerates your software development, testing, and release cycle.</p>
+<h3 class="h3" id="ch26lev1sec2"><span epub:type="pagebreak" id="page_665"/>Chapter Review</h3>
+<p class="noindent">This chapter began by explaining what a CI/CD pipeline is and how it automates the entire software code build, automated testing, and deploying to a different environment. We then used AWS developer tools to build a CI/CD pipeline. The AWS CodeCommit service is used for storing sample application source code. We used AWS CodeBuild to build and test the web application code. We also used AWS CodeDeploy to automate code deployments using the blue/green deployment type. The chapter showed how to use AWS CodePipeline to automate the continuous delivery pipeline. You also learned how to host your application code, build, test, and automatically deploy applications in AWS Cloud in this chapter.</p>
+<h4 class="h4" id="ch26lev2sec1">Exercises</h4>
+<p class="noindent">The following exercises will help you practice using AWS development tools. You need to create an AWS account, as explained earlier, before performing these exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5">Exercise 26-1: Delete the AWS CodeCommit Repository Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in to the AWS account and then navigate to the AWS CodeCommit console at <a href="https://console.aws.amazon.com/codecommit/">https://console.aws.amazon.com/codecommit/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the navigation pane on the left, choose Repositories.</p>
+<p class="number"><strong>4.</strong> Select HAFT-App-Repo and choose Settings.</p>
+<p class="number"><strong>5.</strong> Navigate to Delete Repository on the General tab.</p>
+<p class="number"><strong>6.</strong> Choose Delete Repository.</p>
+<p class="number"><strong>7.</strong> Enter delete in the popup window and choose to delete.</p>
+<h5 class="h5">Exercise 26-2: Delete the AWS CodeBuild Project Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in to the AWS account and then navigate to the AWS CodeBuild console at <a href="https://console.aws.amazon.com/codebuild/">https://console.aws.amazon.com/codebuild/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_666"/>From the navigation pane on the left, choose Build Projects.</p>
+<p class="number"><strong>4.</strong> Choose the radio button next to HAFT-App-Build project.</p>
+<p class="number"><strong>5.</strong> Choose Delete to delete your build project.</p>
+<h5 class="h5">Exercise 26-3: Delete the AWS CodeDeploy Application Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in to the AWS account and then navigate to the AWS CodeDeploy console at <a href="https://console.aws.amazon.com/codedeploy/">https://console.aws.amazon.com/codedeploy/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the navigation pane on the left, expand Deploy. Then choose Applications.</p>
+<p class="number"><strong>4.</strong> Choose HAFT-Appln that you created in this chapter.</p>
+<p class="number"><strong>5.</strong> Click on the application name.</p>
+<p class="number"><strong>6.</strong> On the Application Details page, click Delete Application.</p>
+<p class="number"><strong>7.</strong> In response to the prompt, confirm that you want to delete.</p>
+<h5 class="h5">Exercise 26-4: Delete the AWS CodePipeline Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in to the AWS account and then navigate to the AWS CodePipeline console at <a href="https://console.aws.amazon.com/codepipeline/">https://console.aws.amazon.com/codepipeline/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the navigation pane on the left, choose Name.</p>
+<p class="number"><strong>4.</strong> Choose the HAFT-App-Pipeline that you created in this chapter.</p>
+<p class="number"><strong>5.</strong> Click Edit on the Details page.</p>
+<p class="number"><strong>6.</strong> Click Delete from Edit page.</p>
+<p class="number"><strong>7.</strong> In response to the prompt, confirm you want to delete the pipeline.</p>
+<h5 class="h5">Exercise 26-5: Delete the AWS CloudFormation Stack Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in to the AWS account and then navigate to the AWS CloudFormation console at <a href="https://console.aws.amazon.com/cloudformation/">https://console.aws.amazon.com/cloudformation/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_667"/>From the navigation pane on the left, choose Stacks. Select the stack that you created in this chapter.</p>
+<p class="number"><strong>4.</strong> From the Stack Details page, choose Delete</p>
+<p class="number"><strong>5.</strong> When prompted, choose Delete Stack to delete the entire stack.</p>
+<h4 class="h4" id="ch26lev2sec2">Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best responses for each question.</p>
+<p class="numbert"><strong><a href="ch26.xhtml#rch26qa1" id="ch26qa1">1.</a></strong> What four AWS developer tools can be used to build a CI/CD pipeline? (Choose four.)</p>
+<p class="alphau"><strong>A.</strong> AWS CodeCommit</p>
+<p class="alphau"><strong>B.</strong> AWS CodeBuild</p>
+<p class="alphau"><strong>C.</strong> AWS CodeDeploy</p>
+<p class="alphau"><strong>D.</strong> AWS CodePipeline</p>
+<p class="number"><strong><a href="ch26.xhtml#rch26qa2" id="ch26qa2">2.</a></strong> Which of the following AWS developer tools provides a fully managed solution to host your application source code by creating a code repository and uses git commands to interact with your code repository?</p>
+<p class="alphau"><strong>A.</strong> AWS CLI</p>
+<p class="alphau"><strong>B.</strong> AWS Cloud9</p>
+<p class="alphau"><strong>C.</strong> AWS CodeCommit</p>
+<p class="alphau"><strong>D.</strong> AWS CodePipeline</p>
+<p class="number"><strong><a href="ch26.xhtml#rch26qa3" id="ch26qa3">3.</a></strong> Which of the following AWS developer tools provides the integrated development environment (IDE) for creating, executing, and debugging your source code from the AWS CodeCommit repository?</p>
+<p class="alphau"><strong>A.</strong> Amazon Corretto</p>
+<p class="alphau"><strong>B.</strong> AWS CDK</p>
+<p class="alphau"><strong>C.</strong> AWS CLI</p>
+<p class="alphau"><strong>D.</strong> AWS Cloud9</p>
+<p class="number"><strong><a href="ch26.xhtml#rch26qa4" id="ch26qa4">4.</a></strong> Which of the following AWS developer tools can be used to build your application and test your source code with continuous scaling?</p>
+<p class="alphau"><strong>A.</strong> AWS Cloud9</p>
+<p class="alphau"><strong>B.</strong> AWS CodeDeploy</p>
+<p class="alphau"><strong>C.</strong> <a id="_idTextAnchor000"/>AWS CodeBuild</p>
+<p class="alphau"><strong>D.</strong> AWS X-Ray</p>
+<p class="number"><strong><a href="ch26.xhtml#rch26qa5" id="ch26qa5">5.</a></strong> <span epub:type="pagebreak" id="page_668"/>Which of the following AWS developer tools can be used to automate your application code deployment and maintain your application uptime using blue/green deployment?</p>
+<p class="alphau"><strong>A.</strong> AWS CodeCommit</p>
+<p class="alphau"><strong>B.</strong> AWS CodeBuild</p>
+<p class="alphau"><strong>C.</strong> AWS CodeDeploy</p>
+<p class="alphau"><strong>D.</strong> AWS Device Farm</p>
+<p class="number"><strong><a href="ch26.xhtml#rch26qa6" id="ch26qa6">6.</a></strong> Which of the following AWS developer tools can be used to automate the software delivery using automated continuous delivery pipelines and also used for fast and reliable software code updates by visually monitoring the flow?</p>
+<p class="alphau"><strong>A.</strong> AWS CodeCommit</p>
+<p class="alphau"><strong>B.</strong> AWS Cloud9</p>
+<p class="alphau"><strong>C.</strong> AWS CodeDeploy</p>
+<p class="alphau"><strong>D.</strong> AWS CodePipeline</p>
+<p class="number"><strong><a href="ch26.xhtml#rch26qa7" id="ch26qa7">7.</a></strong> Your company is planning to deploy an application to the production environment frequently using AWS CodeDeploy. The application, which is hosted on Amazon EC2, needs to be always available even during application code change implementations. How you can meet your company’s requirement?</p>
+<p class="alphau"><strong>A.</strong> Use in-place deployment</p>
+<p class="alphau"><strong>B.</strong> Use blue/green deployment</p>
+<p class="alphau"><strong>C.</strong> Use rolling deployment</p>
+<p class="alphau"><strong>D.</strong> Use canary deployment</p>
+<p class="number"><strong><a href="ch26.xhtml#rch26qa8" id="ch26qa8">8.</a></strong> Your company uses the AWS Lambda platform and uses AWS CodeDeploy to deploy serverless applications to production. They want to direct the traffic in increments to the new AWS Lambda functions instead of directing all the traffic at once. How can you meet this requirement?</p>
+<p class="alphau"><strong>A.</strong> Use an all-at-once deployment configuration</p>
+<p class="alphau"><strong>B.</strong> Use a linear deployment configuration</p>
+<p class="alphau"><strong>C.</strong> Use a canary deployment configuration</p>
+<p class="alphau"><strong>D.</strong> Use a rolling deployment configuration</p>
+<p class="number"><strong><a href="ch26.xhtml#rch26qa9" id="ch26qa9">9.</a></strong> A company wants to remove the manual process in their software delivery process and use an automated process end to end from development, build, and deployment into production. They want to utilize AWS services to build the pipeline, and they use GitHub as their source code repository. What services stack do they need to build the CI/CD pipeline?</p>
+<p class="alphau"><strong>A.</strong> GitHub, AWS CodeBuild, AWS CodeDeploy, AWS CodePipeline</p>
+<p class="alphau"><strong>B.</strong> GitHub, AWS CodeBuild, AWS CodeDeploy, AWS CodeCommit</p>
+<p class="alphau"><strong>C.</strong> AWS Cloud9, AWS CodeBuild, AWS CodeDeploy, AWS CodePipeline</p>
+<p class="alphau"><strong>D.</strong> AWS CodeCommit, AWS CodeBuild, AWS CodeDeploy, AWS Cloud9</p>
+<p class="number1"><strong><a href="ch26.xhtml#rch26qa10" id="ch26qa10">10.</a></strong> <span epub:type="pagebreak" id="page_669"/>A company has enabled all the available options to store logs in AWS CodeDeploy. What are the two destinations where the logs will be stored? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> Amazon CloudWatch logs</p>
+<p class="alphau"><strong>B.</strong> Amazon EC2</p>
+<p class="alphau"><strong>C.</strong> Amazon S3</p>
+<p class="alphau"><strong>D.</strong> Amazon RDS</p>
+<h4 class="h4" id="ch26lev2sec3">Answers</h4>
+<p class="numbert"><strong><a href="ch26.xhtml#ch26qa1" id="rch26qa1">1.</a> A, B, C, D.</strong> You can use AWS CodeCommit to store the code repository, AWS CodeBuild to build your application, AWS CodeDeploy to automatically deploy your application, and AWS CodePipeline to build the CI/CD pipeline.</p>
+<p class="number"><strong><a href="ch26.xhtml#ch26qa2" id="rch26qa2">2.</a> C.</strong> AWS CodeCommit provides a fully managed service to host your application source code by creating a code repository, and you can use git commands to interact with your code repository.</p>
+<p class="number"><strong><a href="ch26.xhtml#ch26qa3" id="rch26qa3">3.</a> D.</strong> AWS Cloud9 provides the IDE for creating, executing, and debugging your source code from the AWS CodeCommit repository.</p>
+<p class="number"><strong><a href="ch26.xhtml#ch26qa4" id="rch26qa4">4.</a> C.</strong> AWS CodeBuild can be used to build your application and test your source code with continuous scaling.</p>
+<p class="number"><strong><a href="ch26.xhtml#ch26qa5" id="rch26qa5">5.</a> C.</strong> AWS CodeBuild can be used to automate your application code deployment and maintain your application uptime using blue/green deployment.</p>
+<p class="number"><strong><a href="ch26.xhtml#ch26qa6" id="rch26qa6">6.</a> D.</strong> AWS CodePipeline can be used to automate the software delivery using automated continuous delivery pipelines.</p>
+<p class="number"><strong><a href="ch26.xhtml#ch26qa7" id="rch26qa7">7.</a> B.</strong> Use blue/green deployment when the application needs to be always available even during application code change implementations.</p>
+<p class="number"><strong><a href="ch26.xhtml#ch26qa8" id="rch26qa8">8.</a> C.</strong> Use a canary deployment configuration to direct the traffic in increments to the new AWS Lambda functions.</p>
+<p class="number"><strong><a href="ch26.xhtml#ch26qa9" id="rch26qa9">9.</a> A.</strong> You can use GitHub, AWS CodeBuild, AWS CodeDeploy, and AWS CodePipeline to build the pipeline.</p>
+<p class="number1"><strong><a href="ch26.xhtml#ch26qa10" id="rch26qa10">10.</a> A, C.</strong> You can use Amazon CloudWatch logs and Amazon S3 as log destinations.</p>
+<h3 class="h3" id="ch26lev1sec3">Additional Resources</h3>
+<p class="bullett">• <strong>Blue/Green Deployment</strong>   This reference deployment guide has a quick-start guide with an architecture diagram and scripts to quickly deploy the CI/CD pipeline using AWS CodePipeline.</p>
+<p class="bulletc"><img alt="images" src="p0669-01.jpg"/></p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_670"/><strong>Automate Infrastructure Deployments</strong>   This blog demonstrates how to use AWS CodePipeline to orchestrate the end-to-end infrastructure and application deployment.</p>
+<p class="bulletc"><img alt="images" src="p0670-01.jpg"/></p>
+<p class="bulleta">• <strong>Build Containers with AWS CodePipeline</strong>   This blog explains the approach to building Windows Server containers using the CI/CD pipeline.</p>
+<p class="bulletc"><img alt="images" src="p0670-02.jpg"/></p>
+<p class="bulleta">• <strong>Continuous Kubernetes Deployment</strong>   This blog explains the steps to automatically build a Kubernetes cluster using AWS CodeCommit, AWS CodeBuild, and AWS CodePipeline.</p>
+<p class="bulletc"><img alt="images" src="p0670-03.jpg"/></p>
+</section>
+</body>
+</html>

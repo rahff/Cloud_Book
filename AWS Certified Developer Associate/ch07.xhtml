@@ -1,0 +1,395 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch7"><span epub:type="pagebreak" id="page_185"/><span class="chap">CHAPTER <span class="chap1">7</span></span></h2>
+<h2 class="h2c1">Domain Name System and Amazon Route 53</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• Domain name system (DNS)</p>
+<p class="bulleta">• Name servers</p>
+<p class="bulleta">• DNS records</p>
+<p class="bulleta">• DNS resolution</p>
+<p class="bulleta">• Amazon Route 53</p>
+<p class="bulleta">• Domain registration</p>
+<p class="bulleta">• Routing traffic</p>
+<p class="bulleta">• Hosted zone</p>
+<p class="bulleta">• Routing policy</p>
+<p class="bulleta">• Health checks</p>
+<p class="hr"/>
+<p class="noindentb">In this chapter, we will start with an introduction to domain name servers (DNS) and then discuss Amazon Route 53 in detail, which is a scalable and highly available cloud domain name system (also abbreviated as DNS) service.</p>
+<p class="indent">In general, DNS is the Internet’s equivalent of a telephone directory or a smartphone contact list, where all the domain names can be thought of as Internet Protocol (IP) addresses that are maintained in a central registry. Web hosting companies and Internet service providers (ISPs) regularly interact with this central registry in order to get updated DNS information. When you type a web address, like <a href="http://www.sample.com">www.sample.com</a>, the ISP views the DNS associated with the domain name and translates it into a machine-friendly IP address like 10.20.30.40 before directing the Internet connection to the right website.</p>
+<p class="indent">Amazon Route 53 is designed to give developers a reliable and cost-effective way to route end users to Internet applications by translating web addresses like <a href="http://www.sample.com">www.sample.com</a> into a numeric IP addresses like 10.20.30.40 that computers can use to connect to each other, and it supports IPv6 as well. Amazon Route 53 can also be used to configure DNS health checks to route traffic only to the healthy instances and to independently monitor the health of your applications. Route 53 uses different routing types, like <span epub:type="pagebreak" id="page_186"/>weighted round robin, latency-based routing and geoproximity, etc., to manage global traffic effectively, including DNS failover, to support a variety of fault-tolerant architectures. In addition, Route 53 can be used to purchase and manage domain names, and it will automatically configure the DNS settings.</p>
+<h3 class="h3" id="ch7lev1sec1">Domain Name System</h3>
+<p class="noindent">DNS is the Internet’s directory of names that match with IP addresses, which your instances use to communicate with each other. As mentioned, DNS directs web traffic by mapping memorable domain names like <a href="http://sample.com">sample.com</a> to IP addresses like 10.20.30.40. It is also possible to enter a particular IP address into your browser to reach the corresponding website.</p>
+<h4 class="h4" id="ch7lev2sec1">How DNS Works</h4>
+<p class="noindent">The hundreds of millions of domain names cannot be stored in a single directory in a single place, so the DNS directory that matches names to numbers is distributed around the world, stored on different domain name servers that communicate with each other consistently to provide updates and redundancies. Each domain name can be translated to more than one IP address because the server your instance reaches for <a href="http://www.amazon.com">www.amazon.com</a>, for example, is most likely completely different from the server that someone else in a different country would reach by typing the same site into their browser. It is even possible that Amazon CloudFront edge locations are being used to distribute the traffic closer to members around the world.</p>
+<p class="indent">Even though the DNS information is distributed and shared among many servers, it is also cached locally on user instances. When you first request <a href="http://www.sample.com">www.sample.com</a>, for example, it goes to a recursive resolver, a server operated by an ISP, and it identifies which DNS servers it needs to probe to resolve the name of a site with its IP address. Then the request goes to a root server, which stores top-level domains, such as .com, .net, and .org, along with country-level domains like .us (United States) and .ca (Canada), so it directs the user to the closest geographic location. Then the request goes to a top-level domain name server, which stores the corresponding second-level domain, like “amazon” in the <a href="http://amazon.com">amazon.com</a>. Finally, the request goes to the Domain Name Server, which has the corresponding IP address. As soon as the IP address is determined, the response is sent back to the user to visit the correct website: <a href="http://www.amazon.com">www.amazon.com</a>. Even though it looks like a very lengthy process, everything is done in milliseconds. Now, let us take a look at the different components of DNS.</p>
+<h4 class="h4" id="ch7lev2sec2">Domain Names</h4>
+<p class="noindent">The website you enter normally uses either the Hypertext Transfer Protocol (HTTP) or Hypertext Transfer Protocol Secure (HTTPS) protocol followed by subdomain(s), which is the name before the broad domain categorization like .com or .org, as shown in <a href="ch07.xhtml#ch7fig1">Figure 7-1</a>.</p>
+<p class="imagef" id="ch7fig1"><img alt="images" src="f0187-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 7-1</strong>   Domain Name System</p>
+<p class="indent"><span epub:type="pagebreak" id="page_187"/>Each name to the left of the top-level domain, which is separated by a period, is considered a more specific subdomain. The first-level subdomain (sample) plus its top-level domain (.com) are referred to as root domains or just domains.</p>
+<p class="imagep"><img alt="images" src="p0187-01.jpg"/></p>
+<p class="indent">Referring to the left of the string, “help” and “support” are the second- and third-level subdomains, respectively. The subdomains are typically used to uniquely identify specific services or pages defined by the domain owner.</p>
+<h4 class="h4" id="ch7lev2sec3">Name Servers</h4>
+<p class="noindent">Name servers are used to point your domain name to the hosting company that controls your domain’s DNS records. Normally, you will point your name servers to the company that hosts your website. The connecting user devices will know where to find your DNS information so your domain can resolve. The domain’s DNS information is stored in a text file called a zone file on the name servers. You’ll need to specify name servers on your domain registrar’s website, and they publish that information to the higher-level name servers. You need to specify at least two name servers so when one of the servers is down, the other server can continue to provide your DNS information.</p>
+<p class="indent">Sample name servers include the following:</p>
+<p class="imagep"><img alt="images" src="p0187-02.jpg"/></p>
+<h4 class="h4" id="ch7lev2sec4">DNS Resolution</h4>
+<p class="noindent">Now let us see how DNS resolution actually works. First the domain name is translated into your IP address. Then DNS verifies the zone file, which is a special text file that contains the human-friendly domain names with their corresponding computer-friendly IP addresses. A zone file is like a phone directory that matches names with phone numbers.</p>
+<p class="indent">The DNS lookup process works in the following way:</p>
+<p class="numbert"><strong>1.</strong> First your user types in a domain name like <a href="http://sample.com">sample.com</a> in the browser’s address bar.</p>
+<p class="number"><strong>2.</strong> The user’s computer is then connected to the Internet through their ISP. The root name server will be queried by the ISP’s DNS resolver to get the correct top-level domain (TLD) name server.</p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_188"/>The root name server returns the IP address for the .com name server.</p>
+<p class="number"><strong>4.</strong> The .com name server will be queried by the ISP’s DNS resolver, using the IP address from the root name server.</p>
+<p class="number"><strong>5.</strong> Then the .com name server returns the IP address of the requested sample.com name server.</p>
+<p class="number"><strong>6.</strong> The zone file of the domain (<a href="http://sample.com">sample.com</a>) name server will be read by the ISP’s DNS resolver.</p>
+<p class="number"><strong>7.</strong> The zone file shows the mapping of which IP address corresponds to the domain.</p>
+<p class="number"><strong>8.</strong> The domain name server returns the IP address of the website requested to the ISP.</p>
+<p class="number"><strong>9.</strong> Finally, the ISP has the IP address 44.34.24.14 for <a href="http://sample.com">sample.com</a>, which will be returned to your browser.</p>
+<p class="number1b"><strong>10.</strong> Using the IP address, the <a href="http://sample.com">sample.com</a> site will be accessed from the web server.</p>
+<p class="indent"><a href="ch07.xhtml#ch7fig2">Figure 7-2</a> shows what will happen only if your user’s computer or ISP has no current information about the requested domain. In reality, either your computer locally or your ISP caches the DNS information after it is resolved the first time, which results in faster lookups and avoid the trip to DNS servers each time.</p>
+<p class="imagef" id="ch7fig2"><img alt="images" src="f0188-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 7-2</strong>   DNS resolution</p>
+<h4 class="h4" id="ch7lev2sec5"><span epub:type="pagebreak" id="page_189"/>DNS Records and Zone Files</h4>
+<p class="noindent">The DNS record resolves domain names to IP addresses, and it automatically bundles it into a zone file, which allows connecting devices to look up the correct IP address for the domain. The default zone file contains records similar to the following:</p>
+<p class="imagep"><img alt="images" src="p0189-01.jpg"/></p>
+<p class="indent">Each zone file contains the DNS records, the name servers, and domain administrator’s e-mail address, and you can create a variety of DNS records for as many different subdomains as you wish.</p>
+<h4 class="h4" id="ch7lev2sec6">Types of DNS Records</h4>
+<p class="noindent">DNS records provide important information about a domain or hostname, and they are an essential part of getting domains to operate correctly by serving as a map that tells the DNS server which domain the IP address is associated with and how the access requests should be handled. The most common DNS record types are discussed in the following sections.</p>
+<h5 class="h5">A Record</h5>
+<p class="noindent">An A record points your domain or subdomain to your <a href="http://sample.com">sample.com</a> IP address, which permits the web traffic to reach your <a href="http://sample.com">sample.com</a> domain, and it is the core function of DNS. The normal A record definition looks like the following:</p>
+<p class="imagep"><img alt="images" src="p0189-02.jpg"/></p>
+<p class="indent">You are allowed to point different subdomains to different IP addresses, and if you want to point all your subdomains of <a href="http://sample.com">sample.com</a> to your 10.20.30.40 IP address, then you can use an asterisk (*) as your subdomain:</p>
+<p class="imagep"><img alt="images" src="p0189-03.jpg"/></p>
+<h5 class="h5">AAAA Record</h5>
+<p class="noindent">An AAAA record is similar to an A record, but it is used for 128-bit Internet address that represents the IPv6 IP addresses. You can use multiple AAAA records for the same domain in order to provide redundancy, and you can use <span class="code">dig</span> to determine the AAAA record associated with a domain name:</p>
+<p class="imagep"><img alt="images" src="p0189-04.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_190"/>A typical AAAA record looks like this:</p>
+<p class="imagep"><img alt="images" src="p0190-01.jpg"/></p>
+<h5 class="h5">AXFR</h5>
+<p class="noindent">An AXFR record is used for DNS replication and is also used on a slave DNS server to replicate the zone file from a master DNS server. For example, the <a href="http://sample.com">sample.com</a> administrator has two DNS servers, <a href="http://ns1.sample.com">ns1.sample.com</a> and <a href="http://ns2.sample.com">ns2.sample.com</a>. You can edit the <a href="http://sample.com">sample.com</a> data on <a href="http://ns1.sample.com">ns1.sample.com</a> and rely on AXFR to pull the same data to <a href="http://ns2.sample.com">ns2.sample.com</a>. However, there are more modern and secure ways to perform DNS replication. When a DNS server receives an AXFR request, it sends all known data to the requested domain by assuming the request has come from the replicating DNS server of the zone transfer. But if the DNS server is not configured correctly, then any user can access this data, resulting in security issue.</p>
+<h5 class="h5">CAA</h5>
+<p class="noindent">The DNS Certification Authority Authorization (CAA) record is used to specify which certificate authorities (CAs) are allowed to issue certificates for a domain. Any CA is allowed to issue a certificate for your domain when you have no CAA record, but when a CAA record is defined, then only the CAs listed are allowed to issue certificates. You can use the CAA record to set a policy for the entire domain or just specific hostnames. Since CAA records are inherited by subdomains, a CAA record set on <a href="http://sample.com">sample.com</a> also applies to any subdomain, like <a href="http://help.sample.com">help.sample.com</a>. You can control the issuance of certificate types, like single-name certificates or wildcard certificates or both, using CAA records.</p>
+<h5 class="h5">CNAME</h5>
+<p class="noindent">A CNAME record, or canonical name record, maps a domain or subdomain to a different domain. DNS lookups use the target domain’s DNS resolution as the alias’s resolution for the CNAME record. Here’s an example:</p>
+<p class="imagep"><img alt="images" src="p0190-02.jpg"/></p>
+<p class="indent">Using this configuration, when you request <a href="http://specimen.com">specimen.com</a>, the initial DNS lookup will find the CNAME entry with the target of <a href="http://sample.com">sample.com</a>, and a new DNS lookup will be initiated for <a href="http://sample.com">sample.com</a>, which will return the IP address 10.20.30.40. At the end, users directed to <a href="http://specimen.com">specimen.com</a> will be directed to 10.20.30.40.</p>
+<p class="indent">Domains can have aliases using CNAME records, and the target domain should have a normal A-record resolution. Chaining or looping CNAME records is not a recommended practice.</p>
+<p class="imagep"><img alt="images" src="p0190-03.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_191"/>As a result of this configuration, <a href="http://sample.com">sample.com</a> points to the server IP address 10.20.30.40, and <a href="http://www.sample.com">www.sample.com</a> points to the same address via <a href="http://sample.com">sample.com</a>. When the IP address changes in the future, you only need to update it in one place by editing the A record for <a href="http://sample.com">sample.com</a>, and <a href="http://www.sample.com">www.sample.com</a> automatically inherits the changes.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   A CNAME record must always point to another domain name, never directly to an IP address.</p>
+</div>
+<h5 class="h5">DKIM</h5>
+<p class="noindent">A Domain Keys Identified Mail (DKIM) record displays the public key for authenticating messages that have been signed with the DKIM protocol. This practice increases the capability to check mail authenticity, and it provides a way to validate that an organization delivering an e-mail has the right to do so by using a public key. The key is generally provided to you by the organization that is sending your e-mail, and it will either be inserted directly into your zone as a TXT record or CNAME pointing to the key of the DNS provider.</p>
+<p class="imagep"><img alt="images" src="p0191-01.jpg"/></p>
+<p class="indent">In the previous example the DKIM selector is Amazon.</p>
+<h5 class="h5">MX</h5>
+<p class="noindent">The Mail eXchange (MX) record defines the mail delivery destination for a domain or subdomain. You can have many MX records for a domain, which provides redundancy to ensure e-mail will always be delivered. A classic MX record looks like this:</p>
+<p class="imagep"><img alt="images" src="p0191-02.jpg"/></p>
+<p class="indent">This record configuration will direct mail for <a href="http://sample.com">sample.com</a> to the mail.<a href="http://sample.com">sample.com</a> server. The target domain should have its own A record that resolves to your mail server’s IP address. An MX record should ultimately point to a domain that is also the hostname for its server.</p>
+<p class="indent">Another component of MX records is priority. This is the number (20 in the previous example) written between the record type and the target server. You can designate fallback servers based on the priority for a particular domain, and the higher numbers have a lower priority, whereas the lower numbers have a higher priority. Here’s an example configuration of a domain that has two fallback mail servers:</p>
+<p class="imagep"><img alt="images" src="p0191-03.jpg"/></p>
+<p class="indent">Here when mail_1.sample.com is down, then mail will be delivered to mail_2.sample.com. The mail will be delivered to mail_3.sample.com when both mail_1.sample.com and mail_2.sample.com are down.</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_192"/>NS</h5>
+<p class="noindent">Name Server (NS) records are used to set the name servers for a domain or subdomain. The primary Name Server records for your domain are set both at your domain registrar and in your zone file. For example, the entries delegating <a href="http://sample.com">sample.com</a> to the name servers in the .com name servers is as shown here:</p>
+<p class="imagep"><img alt="images" src="p0192-01.jpg"/></p>
+<p class="indent">The name servers you designate at your domain registrar then carry the zone file for your domain. Different name servers can be set up for any of your subdomains. The primary domain’s zone file will be used to configure subdomain NS records. You can configure separate NS records in your zone file for the subdomain <a href="http://mail.sample.com">mail.sample.com</a>, as shown here:</p>
+<p class="imagep"><img alt="images" src="p0192-02.jpg"/></p>
+<p class="indent">Primary name servers are configured at your domain registrar, and secondary subdomain name servers are configured in the primary domain’s zone file. The order of NS records does not matter. The servers randomly receive DNS requests and respond accordingly. If any one of the server hosts fail to respond, another one will be queried.</p>
+<h5 class="h5">PTR</h5>
+<p class="noindent">A Pointer (PTR) record matches up an IP address to a domain or subdomain. It is the opposite of the A record, and it will give you the domain associated with a particular IP address, instead of vice versa. For reverse DNS searches in the reverse-lookup zones, you can use the PTR record. A valid A or AAAA record along with the IP address is the prerequisite for adding a PTR record. If you want an IPv4 PTR record, point the domain or subdomain to your IPv4 address. If you want an IPv6 PTR record, point the domain to your IPv6 address. IPv4 and IPv6 PTR records work similarly with the corresponding A or AAAA record.</p>
+<h5 class="h5">SOA</h5>
+<p class="noindent">A Start of Authority (SOA) record stores a zone file with the name of the host where it was originally created and then it lists the contact e-mail address for the person responsible for the domain. Normally the SOA record looks like this:</p>
+<p class="imagep"><img alt="images" src="p0192-03.jpg"/></p>
+<p class="bullett">• <strong>Primary name server</strong>   <a href="http://ns1.sample.com">ns1.sample.com</a>. is the primary name server for the domain <a href="http://sample.com">sample.com</a>.</p>
+<p class="bulleta">• <strong>Responsible party</strong>   <a href="http://admin.sample.com">admin.sample.com</a>. is the responsible party for the domain <a href="http://sample.com">sample.com</a>.</p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_193"/><strong>Serial number</strong>   2020011536 is the revision number for this domain’s zone file, and it changes when the file is updated.</p>
+<p class="bulleta">• <strong>Refresh time</strong>   13300 is the amount of time in seconds until the secondary DNS server will keep the zone file before it checks for changes.</p>
+<p class="bulleta">• <strong>Retry time</strong>   3322 is the amount of time the secondary DNS server will wait before retrying a failed zone file transfer.</p>
+<p class="bulleta">• <strong>Expire time</strong>   1108500 is the amount of time the secondary DNS server will wait before expiring its current zone file copy if it cannot update itself.</p>
+<p class="bulleta">• <strong>Minimum TTL</strong>   75300 is the minimum amount of time other servers should keep data cached from this zone file.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   The administrative e-mail address is written with a period (.) instead of an @ symbol.</p>
+</div>
+<h5 class="h5">SPF</h5>
+<p class="noindent">The Sender Policy Framework (SPF) record lists the designated mail servers for a domain or subdomain. The legitimacy of your mail server is established by reducing the chances of spoofing, which normally occurs when some hacker fakes the headers on an e-mail to make it look like it’s coming from your domain, even though it is not.</p>
+<p class="indent">An SPF record for your domain notifies the other receiving mail servers which outgoing server(s) are valid sources of e-mail so they can reject spoofed mail from your domain that has originated from unauthorized servers. A common SPF record looks like this:</p>
+<p class="imagep"><img alt="images" src="p0193-01.jpg"/></p>
+<p class="indent">You can list all the mail servers in your SPF record from which you send mail, and all the other servers are excluded. Your SPF record will have a domain or subdomain; a type, which is TXT or SPF based on your name server support; and text that starts with v=spf1.</p>
+<h5 class="h5">SRV</h5>
+<p class="noindent">A Service (SRV) record matches up a specific service that runs on your domain or subdomain to a target domain and directs and controls the traffic of specific services to another server. A typical SRV record looks like the following:</p>
+<p class="imagep"><img alt="images" src="p0193-02.jpg"/></p>
+<p class="bullett">• <strong>Protocol</strong>   service._protocol.sample.com is the name of the protocol must be preceded by an underscore (_) and followed by a period (.). The protocol could be something like _tcp.</p>
+<p class="bulleta">• <strong>Domain</strong>   SRV is the domain name that receives the original traffic.</p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_194"/><strong>Priority</strong>   5 is the first number that allows you to set the priority for the target server. Higher numbers have a lower priority.</p>
+<p class="bulleta">• <strong>Weight</strong>   When the two records have same priority, then weight is used. 0 is the weight in this example.</p>
+<p class="bulleta">• <strong>Port</strong>   The TCP or UDP port on which the service runs. 5357 is the port number in this example.</p>
+<p class="bulleta">• <strong>Target</strong>   <a href="http://service.sample.com">service.sample.com</a> is the target domain or subdomain.</p>
+<h5 class="h5">TXT</h5>
+<p class="noindent">The Text (TXT) record provides information about the domain in question to other resources on the Internet. The TXT record serves different kinds of purposes, depending on the contents, and it’s a flexible DNS record. One common use of the TXT record is to create an SPF record on name servers that don’t natively support SPF. Another use is ownership validation—to prove you own the domain, and a provider may require you to add a TXT record with a particular value to your domain. Another use is to create a DKIM record for mail signing.</p>
+<h3 class="h3" id="ch7lev1sec2">Amazon Route 53</h3>
+<p class="noindent">Amazon Route 53 is a highly available and scalable Domain Name System (DNS) that can be used to perform three main functions in any combination: domain registration, DNS routing, and health checking. When you want to create a new website you can use Route 53 to register the name of your website or web application (also called the domain name). When a user goes to a web browser and enters your domain name—for example, <a href="http://sample.com">sample.com</a>—or a subdomain name—for example, <a href="http://help.sample.com">help.sample.com</a>—in the address bar, then Route 53 supports the user browser connection with your website or web application. Also Route 53 sends automated requests to your resource, like a web server, to verify that it’s reachable, available, and functional. If you prefer, you can receive notifications when any of your instances becomes unavailable and route the traffic to healthy instances instead of unhealthy instances. Amazon Route 53 can be accessed in the following ways:</p>
+<p class="bullett">• AWS Management Console</p>
+<p class="bulleta">• AWS SDKs</p>
+<p class="bulleta">• Route 53 application programming interface (API)</p>
+<p class="bulleta">• AWS command-line interface</p>
+<p class="bulleta">• AWS tools for Windows PowerShell</p>
+<h3 class="h3" id="ch7lev1sec3">Route 53 Concepts</h3>
+<p class="noindent">Let us discuss some of the key concepts of Amazon Route 53 DNS:</p>
+<p class="bullett">• <strong>Domain name</strong>   The domain name is what any user types in the address bar of a web browser to access your website domain, like <a href="http://www.sample.com">www.sample.com</a>.</p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_195"/><strong>Domain registrar</strong>   An Internet Corporation for Assigned Names and Numbers (ICANN)–accredited company that processes domain registrations for particular top-level domains.</p>
+<p class="bulleta">• <strong>Domain registry</strong>   A company that has the right to sell domains for a particular top-level domain. It defines the rules for registering and maintains the authoritative database for all domains that have the same TLD.</p>
+<p class="bulleta">• <strong>Domain reseller</strong>   Amazon Route 53 is a domain reseller that sells domain names on behalf of registrars.</p>
+<p class="bulleta">• <strong>Top-level domain</strong>   The TLD is the end part of domain, like .com, or .org, and there are two types of top-level domains: (1) generic TLDs like .com or .bike or .hockey and (2) geographic TLDs like .us or .ca or au.</p>
+<p class="bulleta">• <strong>Alias record</strong>   A type of Route 53 record that is used to route traffic to AWS resources.</p>
+<p class="bulleta">• <strong>Authoritative name server</strong>   This has definitive information about the name servers for every registered .com domain, so when it receives a request for <a href="http://www.sample.com">www.sample.com</a> from a DNS resolver, it responds with the names of the name servers for the DNS service for the domain. Route 53 name servers are the authoritative name servers and store the hosted zones for the domains that use Route 53 as the DNS service.</p>
+<p class="bulleta">• <strong>DNS query</strong>   When a user opens a browser and types a domain name into the address bar, and the response to the DNS query typically is the IP address associated with a web server. The device that initiated the request uses the IP address to communicate with the web page from a web server.</p>
+<p class="bulleta">• <strong>DNS resolver</strong>   A DNS resolver managed by an ISP communicates with DNS name servers to get the IP address for the corresponding resource, such as a web server.</p>
+<p class="bulleta">• <strong>Domain Name System</strong>   This is a global network of servers that facilitate computers, smartphones, tablets, and other IP-enabled devices to communicate with each other by translating the easily understood names like <a href="http://sample.com">sample.com</a> into IP addresses to allow computers to find each other on the Internet.</p>
+<p class="bulleta">• <strong>Hosted zone</strong>   This contains information about how to route traffic for a domain and all of its subdomains.</p>
+<p class="bulleta">• <strong>IP address</strong>   All laptops, smartphones, and web servers are assigned an IP address (either IPv4 or IPv6) on the Internet to allow those devices to communicate with each other.</p>
+<p class="bulleta">• <strong>Name servers</strong>   This is a DNS resolver, also called a recursive name server or authoritative name server, that translates domain names into the IP addresses that computers use to communicate with one another.</p>
+<p class="bulleta">• <strong>Private DNS</strong>   A private DNS allows you to route traffic for a domain and its subdomains within one or more Amazon VPCs.</p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_196"/><strong>Record</strong>   A record, or DNS record, defines how you want to route traffic for your domain or subdomain. You can create records for <a href="http://sample.com">sample.com</a> and <a href="http://www.sample.com">www.sample.com</a> to route traffic to a web server that has an IP address of 10.30.50.70, for example.</p>
+<p class="bulleta">• <strong>Recursive name server</strong>   This translates domain names into the IP addresses that computers use to communicate with one another; this is also known as a DNS resolver.</p>
+<p class="bulleta">• <strong>Reusable delegation set</strong>   This is a set of authoritative name servers, where you can create a reusable delegation set and associate it with new hosted zones.</p>
+<p class="bulleta">• <strong>Routing policy</strong>   This determines how Route 53 responds to DNS queries and supports the following routing policies:</p>
+<p class="bullet2">• <strong>Simple routing policy</strong>   This is used to route Internet traffic to a single resource to perform a given function for your domain.</p>
+<p class="bullet2">• <strong>Failover routing policy</strong>   This is used to configure active-passive failover.</p>
+<p class="bullet2">• <strong>Geolocation routing policy</strong>   This used when you want to route Internet traffic to your resources based on your user’s location.</p>
+<p class="bullet2">• <strong>Geoproximity routing policy</strong>   This is used when you want to route traffic based on the location of your resources.</p>
+<p class="bullet2">• <strong>Latency routing policy</strong>   This is used when you want to route traffic to the resource that provides the best latency.</p>
+<p class="bullet2">• <strong>Multivalue answer routing policy</strong>   This is used when you want to respond to DNS queries with up to eight healthy records selected at random.</p>
+<p class="bullet2">• <strong>Weighted routing policy</strong>   This is used to route traffic to multiple resources in percentages that you specify.</p>
+<p class="bulleta">• <strong>Subdomain</strong>   This is a domain name that has one or more labels prefixed to the registered domain name. For example, if your domain name is <a href="http://sample.com">sample.com</a>, then <a href="http://help.sample.com">help.sample.com</a> is a subdomain.</p>
+<p class="bulleta">• <strong>Time to live (TTL)</strong>   This is the amount of time the DNS resolver caches the values of a record before submitting another request to Route 53 to get the current values.</p>
+<p class="bulleta">• <strong>A</strong>   The value of an A record is an IPv4 address in dotted decimal notation.</p>
+<p class="bulleta">• <strong>AAAA</strong>   The value of an AAAA record is an IPv6 address in colon-separated hexadecimal format.</p>
+<p class="bulleta">• <strong>CAA</strong>   This specifies which CAs are allowed to issue certificates for a domain or subdomain, and it helps to prevent the wrong CAs from issuing certificates for your domains.</p>
+<p class="bulleta">• <strong>CNAME</strong>   This is used to create CNAME records.</p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_197"/><strong>MX</strong>   This is an integer that represents the priority for an e-mail server and the domain name of the e-mail server.</p>
+<p class="bulleta">• <strong>NAPTR</strong>   This is used to convert one value to another or to replace one value with another.</p>
+<p class="bulleta">• <strong>NS</strong>   This is the domain name of a name server for the hosted zone.</p>
+<p class="bulleta">• <strong>PTR</strong>   This has the same format as a domain name.</p>
+<p class="bulleta">• <strong>SOA</strong>   This provides details about a domain and the corresponding Route 53 hosted zone.</p>
+<p class="bulleta">• <strong>SPF</strong>   This was used to verify the identity of the sender of e-mail messages. However, AWS no longer recommends creating SPF records; instead, you can create a TXT record that contains the applicable value.</p>
+<p class="bulleta">• <strong>SRV</strong>   This consists of four space-separated values representing priority, weight, domain name, and port.</p>
+<p class="bulleta">• <strong>TXT</strong>   This provides information about the domain and serves different kinds of purposes, depending on its content.</p>
+<h3 class="h3" id="ch7lev1sec4">Domain Registration</h3>
+<p class="noindent">To begin creating a website or a web application, you start by registering the name of the website, also known as a domain name, like <a href="http://sample.com">sample.com</a>, that your users enter in a browser to display your website. After choosing your domain name, Route 53 confirms whether it’s available to make sure that no one else has registered the domain name that you are requesting. If the domain name you want is already in use, then either you can try other names or try changing only the top-level domain, such as .com, to another top-level domain, such as .net or .org. If your new domain is available and you register the domain name with Route 53, you need to provide names and contact information for the domain owner and other contact information.</p>
+<p class="indent">During the domain registration, Route 53 automatically creates the DNS service by creating a hosted zone that has the same name as your new domain. It then assigns a set of four name servers to the hosted zone so when someone uses a browser to access your website, those name servers instruct the user browser where to find your resources. You can also add the name servers from the hosted zone to the domain. At the end of the registration process, AWS sends your information to the registrar for the domain, which is either Amazon Registrar, Inc. (for .com, .net, and .org) or their registrar associate Gandi (for .apartments, .boutique, and .camera). The registrar sends your information to the registry, which, as mentioned, sells domain registrations for one or more top-level domains. The registry stores your domain information in their database in addition to storing some information in the public WHOIS database. You can choose to transfer the domain registration to Route 53 if you already registered your domain name with another registrar, even though this isn’t mandatory to use other Route 53 features.</p>
+<h3 class="h3" id="ch7lev1sec5"><span epub:type="pagebreak" id="page_198"/>Routing Traffic</h3>
+<p class="noindent">All devices on the Internet, whether it is a smartphone, laptop, or enterprise server, that serves video content for websites need to communicate with one another by using IP addresses in one of the following formats:</p>
+<p class="bullett">• Internet Protocol version 4 (IPv4) format, such as 10.20.30.40, which is the most common</p>
+<p class="bulletb">• Internet Protocol version 6 (IPv6) format, such as 3112:1ec7:74b2:1111:2222:mnop:2223:7654</p>
+<p class="indent">You don’t have to remember and enter a long number for either IPv4 or IPv6 when you open a browser to visit a website. You can enter a domain name such as <a href="http://sample.com">sample.com</a> instead. The Amazon Route 53 DNS service handles the connection between domain names and IP addresses. You need to create the Name, Value, and Type resource record in your hosted zone, as noted next:</p>
+<p class="bullett">• <strong>Name</strong>   The name of the record can be either a domain name or subdomain name, but you need to make sure the name of every record (<a href="http://www.sample.com">www.sample.com</a>, <a href="http://help.sample.com">help.sample.com</a>) ends with the name of the hosted zone (<a href="http://sample.com">sample.com</a>).</p>
+<p class="bulleta">• <strong>Type</strong>   The resource (A = Web server or MX = e-mail server) type is specified in the record type.</p>
+<p class="bulletb">• <strong>Value</strong>   The value of the Type. So for the MX type, specify the e-mail server and for the A type specify an IP address.</p>
+<p class="indent">Let’s discuss what happens in just a few milliseconds when your user requests content from <a href="http://www.sample.com">www.sample.com</a> in AWS.</p>
+<p class="number"><strong>1.</strong> As shown in <a href="ch07.xhtml#ch7fig3">Figure 7-3</a>, the user enters <strong><a href="http://www.sample.com">www.sample.com</a></strong> in a web browser’s address bar.</p>
+<p class="number"><strong>2.</strong> The domain request for <a href="http://www.sample.com">www.sample.com</a> is first routed to a DNS resolver that is managed by your user’s Internet service provider.</p>
+<p class="number"><strong>3.</strong> The DNS resolver forwards the request to a DNS root name server.</p>
+<p class="number"><strong>4.</strong> The DNS resolver forwards the request again to one of the TLD name servers for .com domains.</p>
+<p class="number"><strong>5.</strong> The DNS resolver chooses Route 53 as the name server and forwards the request.</p>
+<p class="number"><strong>6.</strong> The Route 53 name server verifies the hosted zone record and gets the associated IP address for a web server and returns the IP address to the DNS resolver.</p>
+<p class="number"><strong>7.</strong> The DNS resolver now has the IP address that the user requested and returns it to your user’s web browser.</p>
+<p class="number"><strong>8.</strong> The web browser sends the request to the IP address 10.20.30.40 to the web server that’s configured as a website endpoint.</p>
+<p class="number"><strong>9.</strong> The web server then returns the web page for <a href="http://www.sample.com">www.sample.com</a> to the web browser, and the web browser displays the page.</p>
+<p class="imagef" id="ch7fig3"><img alt="images" src="f0199-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 7-3</strong>   Domain name resolution in AWS</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   The DNS resolver caches the IP address of your domain for a specified time in order to respond quickly the next time someone browses your domain.</p>
+</div>
+<h3 class="h3" id="ch7lev1sec6"><span epub:type="pagebreak" id="page_199"/>Hosted Zones</h3>
+<p class="noindent">A hosted zone is a container for records, which contains information about how you want to route traffic for a specific domain, such as <a href="http://sample.com">sample.com</a>, and its subdomains (<a href="http://help.sample.com">help.sample.com</a>, <a href="http://support.sample.com">support.sample.com</a>, etc.). There are two types of hosted zones: (1) public hosted zones contain records that specify how you want to route traffic on the Internet and (2) private hosted zones contain records that specify how you want to route traffic in an Amazon Virtual Private Cloud (VPC).</p>
+<h4 class="h4" id="ch7lev2sec7"><span epub:type="pagebreak" id="page_200"/>Public Hosted Zone</h4>
+<p class="noindent">A public hosted zone contains information about how traffic is routed on the Internet for a particular domain. You can create a public hosted zone when you want to route Internet traffic to your resources that you have hosted on EC2 instances. After creating a hosted zone, you can create records that specify how you want to route traffic for the domain and subdomains. You can delete a hosted zone when you no longer need it; however, this prevents you from accidentally deleting a hosted zone that still contains records.</p>
+<h4 class="h4" id="ch7lev2sec8">Private Hosted Zone</h4>
+<p class="noindent">A private hosted zone can be configured to respond to the DNS queries within one or more VPCs for a domain and its subdomains. You create a private hosted zone, such as <a href="http://sample.com">sample.com</a>, and specify the VPCs that you want to associate with the hosted zone. The hosted zone record determines how Route 53 responds to DNS queries for your domain and subdomains within or among your VPCs.</p>
+<p class="indent">For example, suppose you have a database server that runs on an EC2 instance in one of the VPCs in your private hosted zone. You create an A or AAAA record, such as <a href="http://db.sample.com">db.sample.com</a>, and you specify the IP address of the database server. When an application submits a DNS query for <a href="http://db.sample.com">db.sample.com</a>, Route 53 returns the corresponding IP address. The application must also be running on an EC2 instance in one of the VPCs that you associated with the <a href="http://sample.com">sample.com</a> private hosted zone. The application establishes the connection with the database server using the IP address that was received from Route 53.</p>
+<h4 class="h4" id="ch7lev2sec9">Split-View DNS</h4>
+<p class="noindent">Route 53 can be configured to use split-view DNS, also called split-horizon DNS. The public and private hosted zones can be configured to return different internal and external IP addresses for the same domain name if you want to maintain internal and external versions of the same website or if you are testing changes to your application before you make them public. You need to create a public and private hosted zone with the same domain name and create the same subdomains in both hosted zones.</p>
+<h4 class="h4" id="ch7lev2sec10">Routing Traffic for Subdomains</h4>
+<p class="noindent">When you want to route traffic to your resources for a subdomain, such as <a href="http://help.sample.com">help.sample.com</a> or <a href="http://support.sample.com">support.sample.com</a>, you have two options: (1) You can create a record in the hosted zone with the same domain name. For example, to route Internet traffic for <a href="http://help.sample.com">help.sample.com</a> to a web server, you need to create a record <a href="http://help.sample.com">help.sample.com</a> in the <a href="http://sample.com">sample.com</a> hosted zone. (2) You can create a hosted zone for the subdomain, like <a href="http://help.sample.com">help.sample.com</a>, and then you create records in the new hosted zone that define how you want to route traffic for the subdomain and its subdomains, such as <a href="http://backend.help.sample.com">backend.help.sample.com</a>.</p>
+<h3 class="h3" id="ch7lev1sec7"><span epub:type="pagebreak" id="page_201"/>Choosing a Routing Policy</h3>
+<p class="noindent">You can choose a routing policy when you create a record that determines how Amazon Route 53 responds to queries.</p>
+<h4 class="h4" id="ch7lev2sec11">Simple Routing</h4>
+<p class="noindent">Simple routing lets you configure standard DNS records to route traffic to a single resource. You can’t create multiple records that have the same name and type when you choose the simple routing policy in the Route 53 console. Route 53 returns all values to the recursive resolver in random order when you specify multiple values in a record, and the resolver returns the values to the client web browser that submitted the DNS query. The client then chooses a value and resubmits the query.</p>
+<h4 class="h4" id="ch7lev2sec12">Failover Routing</h4>
+<p class="noindent">Failover routing allows you to route traffic to healthy resources when any resource becomes unhealthy. The primary and secondary records can route traffic to healthy endpoints based on the configuration to a complex tree of records.</p>
+<h4 class="h4" id="ch7lev2sec13">Geolocation Routing</h4>
+<p class="noindent">Geolocation routing allows you to serve your traffic based on your user’s geographic location. It can be used to localize your content and present some of or your entire website in the language of your local users. It can also be used to restrict distribution of content to only the locations in which you have distribution rights. It can also be used to balance the load across endpoints, so that both locations are consistently routed to the same endpoint instance. You can specify geographic locations by continent, by country, or by state in the country.</p>
+<h4 class="h4" id="ch7lev2sec14">Geoproximity Routing</h4>
+<p class="noindent">Geoproximity routing allows you to route traffic based on the geographic location of your users and your resources. You can use bias to route more or less traffic to a given resource based on a value.</p>
+<h4 class="h4" id="ch7lev2sec15">Latency-Based Routing</h4>
+<p class="noindent">You can improve performance for your users by serving their requests from the AWS region that provides the lowest latency if your application is hosted in multiple AWS regions. You need to create latency records for your resources in multiple AWS regions to use latency-based routing. When Route 53 receives a DNS query for your domain or subdomain, it determines which AWS regions you’ve created latency records for, determines the lowest latency regions, and selects the latency record of that region. Then Route 53 responds with the IP address for a web server.</p>
+<h4 class="h4" id="ch7lev2sec16"><span epub:type="pagebreak" id="page_202"/>Multivalue Answer Routing</h4>
+<p class="noindent">Amazon Route 53 can be configured for multivalue answer routing to return multiple values, such as IP addresses for your web servers, in response to DNS queries. You can specify multiple values for almost any record, but multivalue answer routing also lets you check the health of each resource, so Route 53 returns only values for healthy resources.</p>
+<p class="indent">You need to create one multivalue answer record for each resource to route traffic more or less randomly to multiple resources, such as web servers, and associate a Route 53 health check with each record. Route 53 responds to DNS queries with up to eight healthy records and gives different answers to different DNS resolvers.</p>
+<h4 class="h4" id="ch7lev2sec17">Weighted Routing</h4>
+<p class="noindent">You can associate multiple resources with a single domain name (<a href="http://sample.com">sample.com</a>) or subdomain name (<a href="http://help.sample.com">help.sample.com</a>) using weighted routing and choose how much traffic is routed to each resource. This is used for a variety of purposes, including load balancing and testing new versions of the application. You need to create records that have the same name and type for each of your resources to configure weighted routing. You can then assign each record a relative weight that corresponds with how much traffic you want to send to each resource, for example, 20 percent to instance A and 80 percent to instance B.</p>
+<h3 class="h3" id="ch7lev1sec8">Amazon Route 53 Health Checks</h3>
+<p class="noindent">The health of your resources such as web servers and e-mail servers can be monitored by Amazon Route 53 health checks. Amazon CloudWatch alarms can be configured to receive a notification when a resource becomes unavailable. In Route 53, you can monitor whether a specified endpoint, such as a web server, is healthy and receive a notification when an endpoint becomes unhealthy. The resource endpoint, like a web server, can be configured to monitor the health check by specifying an endpoint by IPv4 address, by IPv6 address, or by domain name. Also you can configure the DNS failover to reroute the traffic from an unhealthy resource to a healthy resource. When you have more than one resource performing the same function, then Route 53 health checks can be configured to route traffic only to healthy resources.</p>
+<p class="indent"><a href="ch07.xhtml#ch7fig4">Figure 7-4</a> shows the overview of how health checking works in Amazon Route 53 when you want to be notified when a resource becomes unavailable.</p>
+<p class="imagef" id="ch7fig4"><img alt="images" src="f0203-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 7-4</strong>   Route 53 health check</p>
+<p class="numbert"><strong>1.</strong> You create a health check and specify values that define how you want the health check to work, such as the following:</p>
+<p class="bullet2">• Route 53 can monitor the IP address or domain name of your endpoint web server in addition to monitoring the status of other health checks and the state of a CloudWatch alarm.</p>
+<p class="bullet2">• Route 53 can check the HTTP, HTTPS, or TCP protocols.</p>
+<p class="bullet2">• <span epub:type="pagebreak" id="page_203"/>You can define the request interval in Route 53 to send a request to your endpoints.</p>
+<p class="bullet2">• The failure threshold can be set in Route 53 to verify how many consecutive times the endpoint must fail to respond to requests before considering it unhealthy.</p>
+<p class="bullet2">• You can use CloudWatch, which uses Amazon SNS, to notify users when Route 53 detects that the endpoint is unhealthy.</p>
+<p class="number"><strong>2.</strong> Route 53 starts to send a request to the endpoint at a specified interval, and it considers an endpoint healthy when it responds and continues to serve traffic.</p>
+<p class="number"><strong>3.</strong> Route 53 starts the count of consecutive requests when the endpoint doesn’t respond:</p>
+<p class="bullet2">• If the count reaches the failure threshold value, then Route 53 considers the endpoint to be unhealthy.</p>
+<p class="bullet2">• If the endpoint starts responding again before the failure threshold, then the count resets to 0.</p>
+<p class="number"><strong>4.</strong> Route 53 notifies CloudWatch when the endpoint is unhealthy, and if you didn’t configure a notification, the status can be checked from the Route 53 console.</p>
+<p class="numberb"><strong>5.</strong> CloudWatch triggers an alarm if you configured a notification for the health check and uses Amazon SNS to send the notification to the specified recipients.</p>
+<p class="indent">If you have multiple web servers or database servers that perform the same function and you want Route 53 to route traffic only to the healthy resources, then you can configure DNS failover by associating it with a health check. Route 53 has health checkers <span epub:type="pagebreak" id="page_204"/>around the world, and it determines whether the underlying resource is unhealthy. When you create a health check that monitors an endpoint, health checkers start to send requests to the endpoint that you specify. You can choose the locations and time intervals (10 or 30 seconds) for Route 53. Each health checker evaluates the health of the endpoint based on two values:</p>
+<p class="bullett">• <strong>Response time</strong>   A resource can either fail or be slow to respond to a health check request for different reasons.</p>
+<p class="bulletb">• <strong>Failure threshold</strong>   Whether the endpoint responds to a number of consecutive health checks that you specify.</p>
+<p class="indent">Route 53 determines whether the endpoint is healthy by aggregating the data from the health checkers. When more than 18 percent of health checkers report that an endpoint is healthy, Route 53 considers it healthy; otherwise, it considers it unhealthy. Route 53 must be able to establish a TCP connection with the endpoint within four seconds for HTTP and HTTPS health checks. After connecting, the endpoint must respond with a 2xx or 3xx HTTP status code within two seconds. Route 53 must be able to establish a TCP connection with the endpoint within ten seconds for TCP health checks.</p>
+<p class="indent">Route 53 health checks can also be used to monitor the status of other health checks, which is called a calculated health check. Parent health checks do the monitoring, and child health checks get monitored. Up to 255 child health checks can be monitored by one parent health check. When you create a health check based on a CloudWatch alarm, Route 53 monitors the data stream—the OK state is considered healthy and the Alarm state is considered unhealthy. Route 53 considers a new health check healthy until it has enough data to determine the actual status. You also can choose to invert the health check status, so a new health check is considered unhealthy until there is enough data.</p>
+<h3 class="h3" id="ch7lev1sec9">Chapter Review</h3>
+<p class="noindent">The chapter began by explaining DNS and then discussed Route 53, which is Amazon’s DNS service. It’s crucial to understand the Domain Name Service and how it works in AWS before implementing a cloud solution. The DNS is the Internet’s directory of names that match with IP addresses, which your instances use to communicate with each other. DNS directs web traffic by mapping memorable domain names to IP addresses. Name servers are used to point your domain name to the hosting company that controls your domain’s DNS records. The DNS record resolves domain names to IP addresses and automatically bundles them into a zone file, which allows connecting devices to look up the correct IP address for the domain. An A record points your domain or subdomain to your IP address, which permits the web traffic to reach your domain, and it is the core function of DNS. An AAAA record is similar to an A record, as explained, but it is used for 128-bit Internet addresses, which represent IPv6 IP addresses. An AXFR record is used for DNS replication, and they are used on a slave DNS server to replicate the zone <span epub:type="pagebreak" id="page_205"/>file from a master DNS server. A CAA record specifies which CAs are allowed to issue certificates for a particular domain. A CNAME record maps a domain or subdomain to a different domain. A DKIM record displays the public key for authenticating messages that have been signed with the DKIM protocol. An MX record defines the mail delivery destination for a domain or subdomain. NS records are used to set the name servers for a domain or subdomain. A PTR record matches up an IP address to a domain or subdomain. An SOA record stores a zone file with the name of the host where it was originally created and then it lists the contact e-mail address for the person responsible for the domain. The SPF record lists the designated mail servers for a domain or subdomain. An SRV record matches up a specific service that runs on your domain or subdomain to a target domain. A TXT record provides information about the domain in question to other resources on the Internet.</p>
+<p class="indent">The chapter then looked in detail at Amazon Route 53, which is a highly available and scalable DNS that can be used to perform three main functions in any combination: domain registration, DNS routing, and health checking. If you want to create a website or a web application, you need to register the name of the website. All devices on the Internet need to communicate with one another by using IP addresses. The health of your resources, such as web servers and e-mail servers, can be monitored by Amazon Route 53 health checks. The domain registrar is an ICANN-accredited company that processes domain registrations for particular top-level domains. The domain registry is a company that has the right to sell domains for a particular top-level domain. The top-level domain is the end part of the domain, like .com or .org, and there are two types of top-level domains: generic and geographic. The routing policy determines how Route 53 responds to DNS queries. A simple routing policy is used to route Internet traffic to a single resource to perform a given function for your domain. A failover routing policy is used to configure active-passive failover. A geolocation routing policy is used when you want to route Internet traffic to your resources based on your user’s location. A geoproximity routing policy is used when you want to route traffic based on the location of your resources. A latency routing policy is used when you want to route traffic to the resource that provides the best latency. A multivalue answer routing policy is used when you want to respond to DNS queries with up to eight healthy records selected at random. A weighted routing policy is used to route traffic to multiple resources in percentages that you specify. A hosted zone is a container for records, which contains information about how you want to route traffic for a specific domain and its subdomains. There are two types of hosted zones: public hosted zones and private hosted zones.</p>
+<h4 class="h4" id="ch7lev2sec18">Exercises</h4>
+<p class="noindent">The following exercises will help you practice using Amazon Route 53. You need to create an AWS account, as explained in earlier, before you can do these exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_206"/>Exercise 7-1: Register a New Domain Using <a href="http://freenom.com">freenom.com</a></h5>
+<p class="noindent">In this exercise, you will register a new domain.</p>
+<p class="numbert"><strong>1.</strong> Start by going to <a href="https://www.freenom.com/en/index.html?lang=en">https://www.freenom.com/en/index.html?lang=en</a>.</p>
+<p class="image"><img alt="images" src="f0206-01.jpg"/></p>
+<p class="number"><strong>2.</strong> Enter the domain name, for example, <strong>awsdeveloper</strong>, that you want to register, and choose Check Availability to find out whether the domain name is available.</p>
+<p class="image"><img alt="images" src="f0206-02.jpg"/></p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_207"/>If the domain is available, click Get It Now.</p>
+<p class="image"><img alt="images" src="f0207-01.jpg"/></p>
+<p class="number"><strong>4.</strong> Select the top-level domain that you like—I selected .ml—and click the Checkout button.</p>
+<p class="image"><img alt="images" src="f0207-02.jpg"/></p>
+<p class="number"><strong>5.</strong> The domain is free for 12 months. Click Continue.</p>
+<p class="image"><img alt="images" src="f0207-03.jpg"/></p>
+<p class="number"><strong>6.</strong> <span epub:type="pagebreak" id="page_208"/>In the shopping cart, provide the e-mail address that you want to register the domain for.</p>
+<p class="image"><img alt="images" src="f0208-01.jpg"/></p>
+<p class="number"><strong>7.</strong> To register, enter the address, accept the terms and conditions, and click Complete Order. Choose Services and then My Domains to list your domains.</p>
+<p class="image"><img alt="images" src="f0208-02.jpg"/></p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_209"/>Exercise 7-2: Create Two S3 Buckets for Static Website Hosting</h5>
+<p class="noindent">In this exercise, you will be creating two Amazon S3 buckets using AWS management console.</p>
+<p class="numbert"><strong>1.</strong> Log in to the AWS Management Console and select the Amazon S3 console at <a href="https://console.aws.amazon.com/s3/">https://console.aws.amazon.com/s3/</a>.</p>
+<p class="image"><img alt="images" src="f0209-01.jpg"/></p>
+<p class="number"><strong>2.</strong> Create two buckets that match your domain name and subdomain, for example, awsdeveloper.ml and <a href="http://www.awsdeveloper.ml">www.awsdeveloper.ml</a>.</p>
+<p class="image"><img alt="images" src="f0209-02.jpg"/></p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_210"/>Upload your static website data to the awsdeveloper.ml bucket as index.html and an image if you want one. Here is a sample index.html page:</p>
+<p class="numberc"><img alt="images" src="p0210-01.jpg"/></p>
+<p class="image"><img alt="images" src="f0210-01.jpg"/></p>
+<p class="number"><strong>4.</strong> In order to host your static website, you need to grant public read access for awsdeveloper.ml. Select the relevant checkbox.</p>
+<p class="image"><img alt="images" src="f0210-02.jpg"/></p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_211"/>Exercise 7-3: Configure Buckets for Website Hosting and Redirecting</h5>
+<p class="noindent">In this exercise, you will be configuring the Amazon S3 buckets for website hosting using AWS management console.</p>
+<p class="numbert"><strong>1.</strong> From the S3 console, in the Buckets list, choose your bucket: <a href="http://www.awsdeveloper.ml">www.awsdeveloper.ml</a>.</p>
+<p class="number"><strong>2.</strong> Choose Properties and then Static Website Hosting. Below the Use This Bucket To Host A Website option, type <strong>index.html</strong> and choose Save.</p>
+<p class="image"><img alt="images" src="f0211-01.jpg"/></p>
+<p class="number"><strong>3.</strong> Choose Properties and then Static Website Hosting. Choose Redirect Requests. In the Target Bucket Or Domain field, type <strong>awsdeveloper.ml</strong> and choose Save.</p>
+<p class="image"><img alt="images" src="f0211-02.jpg"/></p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_212"/>Exercise 7-4: Create a Route 53 Hosted Zone and Add Alias Records for awsdeveloper.ml and <a href="http://www.awsdeveloper.ml">www.awsdeveloper.ml</a></h5>
+<p class="noindent">In this exercise, you will be creating Amazon Route 53 hosted zone and create alias records using AWS management console.</p>
+<p class="numbert"><strong>1.</strong> Log in to AWS, go to the Route 53 console, and select Create Public Hosted Zone.</p>
+<p class="image"><img alt="images" src="f0212-01.jpg"/></p>
+<p class="numbert"><strong>2.</strong> Now go to <a href="http://freenom.com">freenom.com</a> and log in. Select Services. You will see your domain listed. Select Manage Domain and then Management Tools and then select Nameservers from the drop-down list.</p>
+<p class="image"><img alt="images" src="f0212-02.jpg"/></p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_213"/>Choose Create Record Set. Leave Type as <strong>A – IPv4 address</strong>. Then for Alias, choose Yes, and for Alias Target select awsdeveloper.ml. For the Routing Policy, choose Simple and then choose Create.</p>
+<p class="image"><img alt="images" src="f0213-01.jpg"/></p>
+<p class="number"><strong>4.</strong> Again, choose Record Set. Leave Type as <strong>A – IPv4 address</strong>. Then for Alias, choose Yes and for Alias Target select <a href="http://www.awsdeveloper.ml">www.awsdeveloper.ml</a>. Set the Routing Policy as Simple and choose Create.</p>
+<p class="image"><img alt="images" src="f0213-02.jpg"/></p>
+<p class="number"><strong>5.</strong> <span epub:type="pagebreak" id="page_214"/>Now you will see four records in your hosted zone.</p>
+<p class="image"><img alt="images" src="f0214-01.jpg"/></p>
+<p class="number"><strong>6.</strong> Now it is time to test your domain. Go to your browser and type <strong>awsdeveloper.ml</strong>.</p>
+<p class="image"><img alt="images" src="f0214-02.jpg"/></p>
+<p class="number"><strong>7.</strong> <span epub:type="pagebreak" id="page_215"/>This was successful, so now let’s test your domains. Go to your browser and type <strong><a href="http://www.awsdeveloper.ml">www.awsdeveloper.ml</a></strong>. You are redirected to awsdeveloper.ml, so you see the same domain awsdeveloper.ml.</p>
+<h4 class="h4" id="ch7lev2sec19">Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best responses for each question.</p>
+<p class="numbert"><strong><a href="ch07.xhtml#rch07qa1" id="ch07qa1">1.</a></strong> What is the Domain Name Systems (DNS)?</p>
+<p class="alphau"><strong>A.</strong> It is similar to a phone book of the Internet, which translates domain names to IP addresses so browsers can load websites.</p>
+<p class="alphau"><strong>B.</strong> It is a virtual server on AWS Cloud that can be accessed by IP address.</p>
+<p class="alphau"><strong>C.</strong> It is a special type of record that allows you to map your domain name to your Amazon S3 website bucket.</p>
+<p class="alphau"><strong>D.</strong> It lets you to assign weights to resource record sets to specify the frequency for different responses.</p>
+<p class="number"><strong><a href="ch07.xhtml#rch07qa2" id="ch07qa2">2.</a></strong> Which DNS record types are valid? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> A record – IPv4 address record</p>
+<p class="alphau"><strong>B.</strong> AAAA record – IPv6 address record</p>
+<p class="alphau"><strong>C.</strong> CNAME – Canonical name record</p>
+<p class="alphau"><strong>D.</strong> BAA record – Board Authority Approval record</p>
+<p class="number"><strong><a href="ch07.xhtml#rch07qa3" id="ch07qa3">3.</a></strong> Which of the following statements are true regarding CNAME and Alias records in Amazon Route 53? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> There are no differences, and you can use CNAME and Alias records interchangeably.</p>
+<p class="alphau"><strong>B.</strong> An Alias record can be created for both the root domain and subdomains, whereas CNAME records can be used only for subdomains.</p>
+<p class="alphau"><strong>C.</strong> Route 53 charges for CNAME queries, but it doesn’t charge for Alias queries to AWS resources.</p>
+<p class="alphau"><strong>D.</strong> A CNAME record can redirect DNS queries to any DNS record, whereas an Alias record can only redirect queries to selected AWS resources.</p>
+<p class="number"><strong><a href="ch07.xhtml#rch07qa4" id="ch07qa4">4.</a></strong> Which hosted zones are supported in AWS? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> Hybrid hosted zone</p>
+<p class="alphau"><strong>B.</strong> Public hosted zone</p>
+<p class="alphau"><strong>C.</strong> Private hosted zone</p>
+<p class="alphau"><strong>D.</strong> Community hosted zone</p>
+<p class="number"><strong><a href="ch07.xhtml#rch07qa5" id="ch07qa5">5.</a></strong> <span epub:type="pagebreak" id="page_216"/>What routing policy lets you choose resources closer to your users and lets you localize content in the language of your local users?</p>
+<p class="alphau"><strong>A.</strong> Simple routing policy</p>
+<p class="alphau"><strong>B.</strong> Failover routing policy</p>
+<p class="alphau"><strong>C.</strong> Geolocation routing policy</p>
+<p class="alphau"><strong>D.</strong> Latency routing policy</p>
+<p class="number"><strong><a href="ch07.xhtml#rch07qa6" id="ch07qa6">6.</a></strong> What routing policy is used when you want to route traffic to a healthy resource or to a different resource when the original resource becomes unhealthy?</p>
+<p class="alphau"><strong>A.</strong> Simple routing policy</p>
+<p class="alphau"><strong>B.</strong> Failover routing policy</p>
+<p class="alphau"><strong>C.</strong> Geolocation routing policy</p>
+<p class="alphau"><strong>D.</strong> Latency routing policy</p>
+<p class="number"><strong><a href="ch07.xhtml#rch07qa7" id="ch07qa7">7.</a></strong> Your application team wants to point the domain’s zone apex <a href="http://example.com">example.com</a> to an Elastic Load Balancer for a new application. Which of the following DNS records could be used to make it work?</p>
+<p class="alphau"><strong>A.</strong> You need to configure an Amazon Route 53 CNAME record</p>
+<p class="alphau"><strong>B.</strong> You need to configure an A record</p>
+<p class="alphau"><strong>C.</strong> You need to configure an AAAA record</p>
+<p class="alphau"><strong>D.</strong> You need to configure an Amazon Route 53 Alias record</p>
+<p class="number"><strong><a href="ch07.xhtml#rch07qa8" id="ch07qa8">8.</a></strong> Your company wants to do A/B testing by sending 25 percent of traffic to a new server on which they have made new changes and the remaining 75 percent traffic to the old server. They want to increase new server traffic to 50 percent and then 75 percent and finally 100 percent to the new server and decommission the old server without any disruption to users. How can you achieve this in Route 53?</p>
+<p class="alphau"><strong>A.</strong> You can use a latency routing policy</p>
+<p class="alphau"><strong>B.</strong> This cannot be achieved in Route 53</p>
+<p class="alphau"><strong>C.</strong> This can be achieved by using a weighted routing policy</p>
+<p class="alphau"><strong>D.</strong> This can be achieved by using a geoproximity routing policy</p>
+<p class="number"><strong><a href="ch07.xhtml#rch07qa9" id="ch07qa9">9.</a></strong> You want to configure Route 53 to use split-view DNS (split-horizon DNS) in order to maintain internal and external versions of the same website when testing changes to your application before making them public. How this can be achieved?</p>
+<p class="alphau"><strong>A.</strong> You need to set up a multivalue answer routing policy.</p>
+<p class="alphau"><strong>B.</strong> You need to create a local version of the CNAME record to route traffic for a domain and its subdomains.</p>
+<p class="alphau"><strong>C.</strong> You need to create a remote version of the Alias record to route traffic for a domain and its subdomains.</p>
+<p class="alphau"><strong>D.</strong> You need to configure public and private hosted zones to return different internal and external IP addresses for the same domain name.</p>
+<p class="number1"><strong><a href="ch07.xhtml#rch07qa10" id="ch07qa10">10.</a></strong> <span epub:type="pagebreak" id="page_217"/>You have an application server located on-premises in your datacenter and you want to use it as failover server. Is it possible to create a Route 53 DNS record to point to your on-premises server and set up health checks and failover during a disaster scenario?</p>
+<p class="alphau"><strong>A.</strong> Yes</p>
+<p class="alphau"><strong>B.</strong> No</p>
+<h4 class="h4" id="ch7lev2sec20">Answers</h4>
+<p class="number"><strong><a href="ch07.xhtml#ch07qa1" id="rch07qa1">1.</a> A.</strong> It is similar to phone book of the Internet, which translates domain names to IP addresses so browsers can load websites.</p>
+<p class="number"><strong><a href="ch07.xhtml#ch07qa2" id="rch07qa2">2.</a> A, B, C.</strong> A record for IPv4 addresses, AAAA record for IPv6 addresses, and CNAME for Canonical Name record.</p>
+<p class="number"><strong><a href="ch07.xhtml#ch07qa3" id="rch07qa3">3.</a> B, C, D.</strong> An Alias record can be created for both the root domain and subdomains, whereas CNAME records can be used only for subdomains. Route 53 charges for CNAME queries, but it doesn’t charge for Alias queries to AWS resources. A CNAME record can redirect DNS queries to any DNS record, whereas an Alias record can only redirect queries to selected AWS resources.</p>
+<p class="number"><strong><a href="ch07.xhtml#ch07qa4" id="rch07qa4">4.</a> B, C.</strong> You can use a public hosted zone to route Internet traffic to your resources and a private hosted zone to route traffic within your VPC.</p>
+<p class="number"><strong><a href="ch07.xhtml#ch07qa5" id="rch07qa5">5.</a> C.</strong> You need to configure a geolocation routing policy to route the traffic based on the user location.</p>
+<p class="number"><strong><a href="ch07.xhtml#ch07qa6" id="rch07qa6">6.</a> B.</strong> You need to configure a failover routing policy in order to configure active-passive failover.</p>
+<p class="number"><strong><a href="ch07.xhtml#ch07qa7" id="rch07qa7">7.</a> D.</strong> You need to configure an Amazon Route 53 Alias record for the domain’s zone apex (<a href="http://example.com">example.com</a>).</p>
+<p class="number"><strong><a href="ch07.xhtml#ch07qa8" id="rch07qa8">8.</a> C.</strong> This can be achieved by using a weighted routing policy to route traffic to more than one resource in percentages that you specify.</p>
+<p class="number"><strong><a href="ch07.xhtml#ch07qa9" id="rch07qa9">9.</a> D.</strong> You need to configure public and private hosted zones to return different internal and external IP addresses for the same domain name to maintain two different versions of the same application.</p>
+<p class="number1"><strong><a href="ch07.xhtml#ch07qa10" id="rch07qa10">10.</a> A.</strong> Yes. You can create a DNS record and set up health checks of your legacy application residing in your datacenter, and when the application running in AWS fails the health checks, it will fail over automatically to your instance.</p>
+<h3 class="h3" id="ch7lev1sec10">Additional Resources</h3>
+<p class="bulleta">• <strong>AWS Docs</strong>   There is no place like official AWS documentation to get the latest and most up-to-date information about all the AWS services. Always refer to the official AWS blogs to get the latest about new AWS services and updates to existing features.</p>
+<p class="bulletc"><img alt="images" src="p0217-01.jpg"/></p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_218"/><strong>Integrating Amazon Route 53 with AWS Transit Gateway and AWS PrivateLink</strong>   This blogs details the steps for using the AWS Transit Gateway, along with Amazon Route 53 Resolver, to share AWS PrivateLink interface endpoints between multiple connected Amazon Virtual Private Clouds (VPCs) and an on-premises environment to reduce the number of VPC endpoints, simplify VPC endpoint deployment, and help optimize costs when deploying at scale.</p>
+<p class="bulletc"><img alt="images" src="p0218-01.jpg"/></p>
+<p class="bulleta">• <strong>Connectivity Between On-Premises Network to AWS</strong>   This blog explains the details to configure the connectivity between your on-premises network and AWS VPC that uses Amazon Route 53 and AWS Directory Service to provide DNS resolution between on-premises networks and AWS VPC environments.</p>
+<p class="bulletc"><img alt="images" src="p0218-02.jpg"/></p>
+<p class="bulleta">• <strong>Protect Your Web Application Against DDoS Attacks</strong>   A distributed denial of service (DDoS) attacks is when a malicious actor floods your network, system, or application with more traffic than it can handle. This blog details the steps needed to protect the root domain of your web application by using Route 53.</p>
+<p class="bulletc"><img alt="images" src="p0218-03.jpg"/></p>
+<p class="bulleta">• <strong>DNS Management in a Multiaccount Environment</strong>   This blog explains the details to centralize DNS management in a multiaccount environment by using Route 53 Resolver without the need to run a domain controller in AWS.</p>
+<p class="bulletc"><img alt="images" src="p0218-04.jpg"/></p>
+<p class="bulleta">• <strong>Centralized DNS Management of a Hybrid Cloud</strong>   This blog explains the best practices while architecting centrally managed DNS and the recommended approach for managing DNS across multiple interconnected Amazon VPCs.</p>
+<p class="bulletc"><img alt="images" src="p0218-05.jpg"/></p>
+<p class="bulleta">• <strong>DNS Introduction</strong>   You can find a detailed introduction to DNS and additional networking tutorials in the following guide.</p>
+<p class="bulletc"><img alt="images" src="p0218-06.jpg"/></p>
+</section>
+</body>
+</html>

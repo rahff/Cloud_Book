@@ -1,0 +1,240 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch20"><span epub:type="pagebreak" id="page_499"/><span class="chap">CHAPTER <span class="chap1">20</span></span></h2>
+<h2 class="h2c1">Deploying a Static Website on Amazon S3 Bucket</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• Deploy a static website using Amazon S3</p>
+<p class="bulleta">• Deploy a static website using Amazon S3 and Amazon Route 53</p>
+<p class="bulleta">• Deploy a static website using Amazon S3, Amazon Route 53, and Amazon CloudFront</p>
+<p class="hr"/>
+<p class="noindentb">In this chapter, we will discuss various ways of creating static websites using Amazon S3.</p>
+<h3 class="h3" id="ch20lev1sec1">Amazon S3</h3>
+<p class="noindent"><a href="ch08.xhtml#ch8">Chapter 8</a> explored Amazon S3 and its different components in detail. It is an object storage service that can be used to store objects in buckets. It can also be used to deploy static websites, which have the following advantages:</p>
+<p class="bullett">• It is easy to set up static websites in Amazon S3.</p>
+<p class="bulleta">• It provides cost savings, as there are no web servers or databases to manage.</p>
+<p class="bulleta">• You can host the static website using Amazon Route 53.</p>
+<p class="bulleta">• You can deliver the contents locally using Amazon CloudFront.</p>
+<p class="bulleta">• You can use Amazon Route 53 to manage your custom domain.</p>
+<p class="bulleta">• You can deliver the contents securely using SSL from Amazon Certificate Manager.</p>
+<h3 class="h3" id="ch20lev1sec2"><span epub:type="pagebreak" id="page_500"/>Deploy a Static Website Using Amazon S3</h3>
+<p class="noindent">It is easy and simple to create a static website in Amazon S3. The following will take you on a step-by-step journey of creating a simple website.</p>
+<p class="numbert"><strong>1.</strong> First log in to your AWS console, navigate to the Amazon S3 service page, and click Create Bucket.</p>
+<p class="image"><img alt="images" src="f0500-01.jpg"/></p>
+<p class="number"><strong>2.</strong> <span epub:type="pagebreak" id="page_501"/>As shown next, a new Amazon S3 bucket called amazondeveloper.ml was created successfully.</p>
+<p class="image"><img alt="images" src="f0501-01.jpg"/></p>
+<p class="number"><strong>3.</strong> Click on the bucket name and select the Properties tab.</p>
+<p class="image"><img alt="images" src="f0501-02.jpg"/></p>
+<p class="number"><strong>4.</strong> <span epub:type="pagebreak" id="page_502"/>In order to make this Amazon S3 bucket a static website, select the Static Website Hosting box.</p>
+<p class="image"><img alt="Images" src="f0502-01.jpg"/></p>
+<p class="number"><strong>5.</strong> Select the option Use The Bucket To Host A Website and enter your index and error page.</p>
+<p class="image"><img alt="Images" src="f0502-02.jpg"/></p>
+<p class="number"><strong>6.</strong> <span epub:type="pagebreak" id="page_503"/>Now static website hosting is enabled. Click on the Permissions tab to give read-only access to your objects.</p>
+<p class="image"><img alt="Images" src="f0503-01.jpg"/></p>
+<p class="number"><strong>7.</strong> You can find the following Amazon read-only policy from the Amazon documentation (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html#example-bucket-policies-use-case-2">https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html#example-bucket-policies-use-case-2</a>). You need to update the bucket name to the new Amazon S3 bucket name that we created in step 2.</p>
+<p class="numberc"><img alt="Images" src="p0503-01.jpg"/></p>
+<p class="number"><strong>8.</strong> <span epub:type="pagebreak" id="page_504"/>Enter the policy and click Save.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   See the warning from AWS about granting public access to an Amazon S3 bucket, and never grant anonymous access unless it is absolutely necessary, such as when hosting a static website on Amazon S3.</p>
+</div>
+<p class="image"><img alt="images" src="f0504-01.jpg"/></p>
+<p class="number"><strong>9.</strong> You will see a warning in the Permissions tab regarding the bucket policy, since this bucket has public access.</p>
+<p class="image"><img alt="images" src="f0504-02.jpg"/></p>
+<p class="number1"><strong>10.</strong> <span epub:type="pagebreak" id="page_505"/>Now click the Overview tab to upload your HTML files and images.</p>
+<p class="image"><img alt="images" src="f0505-01.jpg"/></p>
+<p class="number1"><strong>11.</strong> Create two simple HTML files in your local machine. You can use the following sample code to create your index.html file.</p>
+<p class="numberc"><img alt="Images" src="p0505-01.jpg"/></p>
+<p class="numberc"><img alt="Images" src="p0506-01.jpg"/></p>
+<p class="number1"><span epub:type="pagebreak" id="page_506"/><strong>12.</strong> You can create a sample error.html page using the following sample code:</p>
+<p class="numberc"><img alt="Images" src="p0506-02.jpg"/></p>
+<p class="number1"><span epub:type="pagebreak" id="page_507"/><strong>13.</strong> Just replace nature1.jpg and sky1.jpg with pictures of your choice and upload them.</p>
+<p class="image"><img alt="images" src="f0507-01.jpg"/></p>
+<p class="number1"><strong>14.</strong> Choose the Standard storage class, since you will be frequently accessing this static site, as shown next. Note that here you have options to select Intelligent Tiering, Standard-IA, One Zone-IA, Glacier, Glacier Deep Archive, and Reduced Redundancy based on your requirements. Also, you have the option to encrypt the object using either the Amazon S3 master key or AWS KMS master key.</p>
+<p class="image"><img alt="images" src="f0507-02.jpg"/></p>
+<p class="number1"><strong>15.</strong> <span epub:type="pagebreak" id="page_508"/>Here you can review all the options that you chose so far and update if necessary by clicking on the Previous button, shown next. If everything looks good, click the Upload button to upload the files.</p>
+<p class="image"><img alt="images" src="f0508-01.jpg"/></p>
+<p class="number1"><strong>16.</strong> Once the upload is successful, it will take you to the bucket, where you can view all the uploaded objects. Now the building of a simple static website is complete using Amazon S3.</p>
+<p class="image"><img alt="images" src="f0508-02.jpg"/></p>
+<p class="number1"><strong>17.</strong> <span epub:type="pagebreak" id="page_509"/>You can access your new static website using your bucket name URL—for example, <a href="http://amazondeveloper.ml.s3-website-us-east-1.amazonaws.com">amazondeveloper.ml.s3-website-us-east-1.amazonaws.com</a>—without provisioning any web server or database.</p>
+<p class="image"><img alt="images" src="f0509-01.jpg"/></p>
+<p class="number1"><strong>18.</strong> You can also access your website using the index.html URL—for example, <a href="http://amazondeveloper.ml.s3-website-us-east-1.amazonaws.com/index.html">amazondeveloper.ml.s3-website-us-east-1.amazonaws.com/index.html</a>.</p>
+<p class="image"><img alt="images" src="f0509-02.jpg"/></p>
+<p class="number1"><strong>19.</strong> Similarly, you can access your website error page using the error.html URL—for example, <a href="http://amazondeveloper.ml.s3-website-us-east-1.amazonaws.com/error.html">amazondeveloper.ml.s3-website-us-east-1.amazonaws.com/error.html</a>.</p>
+<p class="image"><img alt="images" src="f0509-03.jpg"/></p>
+<p class="number1"><strong>20.</strong> <span epub:type="pagebreak" id="page_510"/>As a developer, you know very well that we need to test our implementation. So, let us enter the incorrect URL and see whether it displays the error page. You can add some word like “cloudy” at the end of the URL to test this—for example, <a href="http://amazondeveloper.ml.s3-website-us-east-1.amazonaws.com/cloudy">amazondeveloper.ml.s3-website-us-east-1.amazonaws.com/cloudy</a>.</p>
+<p class="image"><img alt="images" src="f0510-01.jpg"/></p>
+<h3 class="h3" id="ch20lev1sec3">Deploy a Static Website Using Amazon S3 and Amazon Route 53</h3>
+<p class="noindent">You can create the Amazon S3 static website using a custom URL and host it in Amazon Route 53. You can get a free domain from the freenom site that can be used for building your static website.</p>
+<p class="numbert"><strong>1.</strong> Go to <a href="https://www.freenom.com">https://www.freenom.com</a> and look for any domain name of your choice—for example, I checked amazondeveloper.ml.</p>
+<p class="image"><img alt="images" src="f0510-02.jpg"/></p>
+<p class="number"><strong>2.</strong> If the domain is available, you will see an option to select it.</p>
+<p class="image"><img alt="images" src="f0510-03.jpg"/></p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_511"/>When you click on Checkout after logging in, it will take you to the next page. Click Continue.</p>
+<p class="image"><img alt="images" src="f0511-01.jpg"/></p>
+<p class="number"><strong>4.</strong> Next you will see the Review And Checkout page, where you can complete the order to get your new domain (which you will have to pay for after 12 months).</p>
+<p class="image"><img alt="images" src="f0511-02.jpg"/></p>
+<p class="number"><strong>5.</strong> Now, you can go back to your AWS console and navigate to Amazon Route 53. Here you can see options for DNS management, traffic management, availability monitoring, and domain registration. Choose DNS Management to host your new domain.</p>
+<p class="image"><img alt="images" src="f0511-03.jpg"/></p>
+<p class="number"><strong>6.</strong> <span epub:type="pagebreak" id="page_512"/>The DNS management dashboard will appear, where you can create a hosted zone.</p>
+<p class="image"><img alt="images" src="f0512-01.jpg"/></p>
+<p class="number"><strong>7.</strong> Enter your domain name—for example, <strong>amazondeveloper.ml</strong>—in the Domain Name field, select Public Hosted Zone for the Type, and click the Create button.</p>
+<p class="image"><img alt="images" src="f0512-02.jpg"/></p>
+<p class="number"><strong>8.</strong> <span epub:type="pagebreak" id="page_513"/>Note the namespace values that you need to update in the <a href="https://www.freenom.com">https://www.freenom.com</a> website.</p>
+<p class="image"><img alt="images" src="f0513-01.jpg"/></p>
+<p class="number"><strong>9.</strong> Now, go to <a href="https://wwwfreenom.com">https://wwwfreenom.com</a> and navigate to Services | My Domains. Enter the namespace values from the previous step.</p>
+<p class="image"><img alt="images" src="f0513-02.jpg"/></p>
+<p class="number1"><strong>10.</strong> <span epub:type="pagebreak" id="page_514"/>Navigate back to the AWS console and go to Amazon Route 53 DNS Management, and create Record Set, shown next. Select the Type as A and leave the name blank. For Alias, select Yes, and select the Amazon S3 bucket that we created in the previous exercise from the dropdown for Alias Target. Select Simple for the Routing Policy and leave Evaluate Target Health set to No. After reviewing all the options, click the Create button.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   Set Evaluate Target Health to Yes for production implementations and for a failover routing policy.</p>
+</div>
+<p class="image"><img alt="images" src="f0514-01.jpg"/></p>
+<p class="number1"><strong>11.</strong> Now you have successfully hosted your Amazon S3 static website using your custom domain in Amazon Route 53. You can type your custom URL in your browser and press <span class="smallcaps">enter</span> to see your new site.</p>
+<p class="number1"><strong>12.</strong> <span epub:type="pagebreak" id="page_515"/>As you did before, test your implementation by adding any word at the end. The error.html page should appear and display the custom error message.</p>
+<p class="image"><img alt="images" src="f0515-01.jpg"/></p>
+<p class="number1"><strong>13.</strong> You also should be able to reach your website index.html page by entering <strong>/index.html</strong> at the end of your custom URL.</p>
+<p class="image"><img alt="images" src="f0515-02.jpg"/></p>
+<h3 class="h3" id="ch20lev1sec4">Deploy a Static Website Using Amazon S3, Amazon Route 53, and Amazon CloudFront</h3>
+<p class="noindent">Your website has become very popular, and you have customers worldwide now. You can add Amazon CloudFront to deliver globally with low latency and high performance from the nearby points of presence (PoPs). Also, you can secure access to your site by using SSL.</p>
+<p class="numbert"><strong>1.</strong> Log in to your AWS console and navigate to the Amazon CloudFront service. Click Get Started under the Web delivery method.</p>
+<p class="image"><img alt="images" src="f0515-03.jpg"/></p>
+<p class="number"><strong>2.</strong> <span epub:type="pagebreak" id="page_516"/>Enter your Amazon S3 bucket name in the Origin Domain Name field, and enter your domain name for the Origin ID—for example, amazondeveloper.ml—shown next. Restrict Bucket Access should be set to No for this exercise. Select Redirect HTTP to HTTPS for the Viewer Protocol policy, and allow only ready access by selecting GET in the Allowed HTTP Methods area.</p>
+<p class="image"><img alt="images" src="f0516-01.jpg"/></p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_517"/>In the distribution settings, select Price Class for Use All Edge Locations. The CNAME should be your custom domain URL, and to create an SSL certificate, click the Request Or Import A Certificate With ACM button.</p>
+<p class="image"><img alt="images" src="f0517-01.jpg"/></p>
+<p class="number"><strong>4.</strong> The Amazon Certificate Manager (ACM) page appears. Enter your domain name and click Next.</p>
+<p class="image"><img alt="images" src="f0517-02.jpg"/></p>
+<p class="number"><strong>5.</strong> <span epub:type="pagebreak" id="page_518"/>Select the DNS Validation method and click Next.</p>
+<p class="image"><img alt="images" src="f0518-01.jpg"/></p>
+<p class="number"><strong>6.</strong> It is always a best practice to add tags, so add a name with a value like Website SSL Certification and click on the Review button.</p>
+<p class="image"><img alt="images" src="f0518-02.jpg"/></p>
+<p class="number"><strong>7.</strong> In the Review page, make sure the values are correct. Click Confirm And Request.</p>
+<p class="image"><img alt="images" src="f0518-03.jpg"/></p>
+<p class="number"><strong>8.</strong> <span epub:type="pagebreak" id="page_519"/>While the validation is in progress, you have an option to create a record in Amazon Route 53. Click on the Create Record In Route 53 button.</p>
+<p class="image"><img alt="images" src="f0519-01.jpg"/></p>
+<p class="number"><strong>9.</strong> Here the values will be auto-populated for you to create the DNS record. Click the Create button to create the DNS record.</p>
+<p class="image"><img alt="images" src="f0519-02.jpg"/></p>
+<p class="number1"><strong>10.</strong> A success message appears. Since the validation status is in a pending state, you need to wait for couple of minutes.</p>
+<p class="image"><img alt="images" src="f0519-03.jpg"/></p>
+<p class="number1"><strong>11.</strong> The SSL certificate status will be changed to Issued.</p>
+<p class="image"><img alt="images" src="f0519-04.jpg"/></p>
+<p class="number1"><strong>12.</strong> <span epub:type="pagebreak" id="page_520"/>In the CloudFront page, select Custom SSL Certificate and select your ACM-issued SSL certificate.</p>
+<p class="image"><img alt="images" src="f0520-01.jpg"/></p>
+<p class="number1"><strong>13.</strong> The Security Policy should be the recommended TLS. Select HTTP/2, HTTP/1.1, and HTTP/1.0 as supported HTTP versions, shown next. You can leave the logging off and select the Distributed state as Enabled. Click the Create Distribution button to create your Amazon CloudFront distribution.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   You need to enable logging for your production implementation and to troubleshoot any issues.</p>
+</div>
+<p class="image"><img alt="images" src="f0520-02.jpg"/></p>
+<p class="number1"><strong>14.</strong> <span epub:type="pagebreak" id="page_521"/>You will be redirected to the CloudFront Distributions page with your web distribution set to Enabled.</p>
+<p class="image"><img alt="images" src="f0521-01.jpg"/></p>
+<p class="number1"><strong>15.</strong> You may need to wait for a couple of minutes to see the status change from In Progress to Deployed.</p>
+<p class="image"><img alt="images" src="f0521-02.jpg"/></p>
+<p class="number1"><strong>16.</strong> Navigate to your Route 53 service page and update the A record, which is pointing to your Amazon S3 bucket in the Alias Target.</p>
+<p class="image"><img alt="images" src="f0521-03.jpg"/></p>
+<p class="number1"><strong>17.</strong> Update the Alias Target to your new CloudFront Web distribution from the dropdown and click Save Record Set.</p>
+<p class="image"><img alt="images" src="f0521-04.jpg"/></p>
+<p class="number1"><strong>18.</strong> <span epub:type="pagebreak" id="page_522"/>You can type your custom domain name—for example, amazondeveloper.ml—in your browser and press <span class="smallcaps">enter</span>. Your Amazon S3 static website is now delivered through the Amazon CloudFront location nearest to you.</p>
+<p class="image"><img alt="images" src="f0522-01.jpg"/></p>
+<p class="number1"><strong>19.</strong> You can also reach your website using your index.html. For example, you can type <strong>amazondeveloper.ml/index.html</strong> and press <span class="smallcaps">enter</span> to see the index page.</p>
+<p class="image"><img alt="images" src="f0522-02.jpg"/></p>
+<p class="number1"><strong>20.</strong> Similarly, you can directly reach your error page by appending <strong>error.html</strong> to your custom domain name.</p>
+<p class="image"><img alt="images" src="f0522-03.jpg"/></p>
+<p class="number1"><strong>21.</strong> As a best practice, let us test our implementation by inserting a random word like “cloudy” after the domain name. It should take you to the error.html page and display your custom error.</p>
+<p class="image"><img alt="images" src="f0522-04.jpg"/></p>
+<p class="number1"><strong>22.</strong> <span epub:type="pagebreak" id="page_523"/>You can navigate to Amazon CloudWatch to see the performance of your CloudFront distribution.</p>
+<p class="image"><img alt="images" src="f0523-01.jpg"/></p>
+<h3 class="h3" id="ch20lev1sec5">Chapter Review</h3>
+<p class="noindent">This chapter began by explaining the advantages of using Amazon S3 to create a static website and then provided the detailed steps necessary to accomplish this. The chapter also provided the steps to create a custom domain and host it in Amazon Route 53 and then explained the steps to create a web distribution using Amazon CloudFront and the steps to create an SSL certificate using ACM. This experience will help you on the exam as well as in the real world.</p>
+<h4 class="h4" id="ch20lev2sec1">Exercise</h4>
+<p class="noindent">The following exercises will help you practice using Amazon S3 to deploy a website. You need to create an AWS account, as explained earlier, to perform these exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5">Exercise 20-1: Clean Up the Resources Created in This Chapter Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in and then navigate to the AWS CloudFront console at <a href="https://console.aws.amazon.com/cloudfront/">https://console.aws.amazon.com/cloudfront/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_524"/>From the navigation pane on the left, select the web distribution that you created in this chapter and choose to disable it. You will be prompted to confirm this action.</p>
+<p class="number"><strong>4.</strong> When the distribution is disabled, choose to delete it. You will be again prompted to confirm this action.</p>
+<p class="number"><strong>5.</strong> Now navigate to the Amazon Route 53 console at <a href="https://console.aws.amazon.com/route53/">https://console.aws.amazon.com/route53/</a>.</p>
+<p class="number"><strong>6.</strong> Go to Record Sets and delete the record set that you created in this chapter.</p>
+<p class="number"><strong>7.</strong> Go to Hosted Zone, select your domain, and delete it.</p>
+<p class="number"><strong>8.</strong> Then navigate to the Amazon S3 console at <a href="https://console.aws.amazon.com/s3/">https://console.aws.amazon.com/s3/</a>.</p>
+<p class="number"><strong>9.</strong> From the bucket list, select the bucket that you created in this chapter and delete all the objects before deleting the bucket.</p>
+<p class="number1"><strong>10.</strong> Verify all the resources you created in this chapter are deleted to prevent any charges from incurring.</p>
+<h4 class="h4" id="ch20lev2sec2">Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best responses for each question.</p>
+<p class="numbert"><strong><a href="ch20.xhtml#rch20qa1" id="ch20qa1">1.</a></strong> You need to create a website in very short time. The website will have only static contents, including video and audio files. Which of the following options can you use to create a website quickly?</p>
+<p class="alphau"><strong>A.</strong> Use AWS CloudFormation to create an EC2 instance and use RDS to deploy your website</p>
+<p class="alphau"><strong>B.</strong> You can use Amazon S3 to upload HTML files, video files, and audio files and to host your static website</p>
+<p class="alphau"><strong>C.</strong> Provision EC2 instances in each availability zone and use Elastic Load Balancer to route website requests</p>
+<p class="alphau"><strong>D.</strong> Provision Amazon RDS with a read replica to host your website</p>
+<p class="number"><strong><a href="ch20.xhtml#rch20qa2" id="ch20qa2">2.</a></strong> You created and hosted a static website in Amazon S3, but you cannot access your website. What do you need to configure to make your static website hosted in Amazon S3 work? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> You need to create and upload the index.html file</p>
+<p class="alphau"><strong>B.</strong> You need to enable website hosting in Properties</p>
+<p class="alphau"><strong>C.</strong> You need to add a bucket policy to make your bucket publically readable</p>
+<p class="alphau"><strong>D.</strong> You need to upload video files to your Amazon S3 bucket</p>
+<p class="number"><strong><a href="ch20.xhtml#rch20qa3" id="ch20qa3">3.</a></strong> <span epub:type="pagebreak" id="page_525"/>You created a static website hosted in Amazon S3, and your team want to use an existing URL instead of using the Amazon S3 URL. Which of the following AWS services can be used to achieve this?</p>
+<p class="alphau"><strong>A.</strong> Amazon Athena</p>
+<p class="alphau"><strong>B.</strong> AWS Lambda</p>
+<p class="alphau"><strong>C.</strong> AWS Fargate</p>
+<p class="alphau"><strong>D.</strong> Amazon Route 53</p>
+<p class="number"><strong><a href="ch20.xhtml#rch20qa4" id="ch20qa4">4.</a></strong> Your team hosts a static website using Amazon S3, and they want to display a user-friendly custom message when an error occurs. How can you achieve this?</p>
+<p class="alphau"><strong>A.</strong> Delete the Amazon S3 bucket and create it again using the S3 Glacier storage class</p>
+<p class="alphau"><strong>B.</strong> Encrypt your Amazon S3 bucket using Amazon S3 managed keys</p>
+<p class="alphau"><strong>C.</strong> Upload a custom error.html page and enter the name in the Error Document box</p>
+<p class="alphau"><strong>D.</strong> Create another Amazon S3 bucket to display the error message</p>
+<p class="number"><strong><a href="ch20.xhtml#rch20qa5" id="ch20qa5">5.</a></strong> Your customers are getting errors when accessing your static website, which is hosted on Amazon S3. How can you access the logs to perform analysis to troubleshoot and resolve this issue?</p>
+<p class="alphau"><strong>A.</strong> Amazon S3 does not support logging</p>
+<p class="alphau"><strong>B.</strong> Choose Enable Logging in Amazon S3 Properties Server Access Logging and provide the target bucket</p>
+<p class="alphau"><strong>C.</strong> You need to delete the Amazon S3 bucket and create it with client-side encryption</p>
+<p class="alphau"><strong>D.</strong> You need to set up a lifecycle policy to enable logging in Amazon S3</p>
+<p class="number"><strong><a href="ch20.xhtml#rch20qa6" id="ch20qa6">6.</a></strong> A company stores static web content in Amazon S3, and the security team requires the contents to be encrypted at rest. Amazon S3 provides which of the following options to encrypt the bucket objects? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> Use server-side encryption with Amazon S3 managed keys (SSE-S3)</p>
+<p class="alphau"><strong>B.</strong> Use server-side encryption with customer master keys (CMKs) stored in the AWS Key Management Service (SSE-KMS)</p>
+<p class="alphau"><strong>C.</strong> Use server-side encryption with customer-provided keys (SSE-C)</p>
+<p class="alphau"><strong>D.</strong> Use server-side encryption with an EC2 key pair (SSE-EC2)</p>
+<p class="number"><strong><a href="ch20.xhtml#rch20qa7" id="ch20qa7">7.</a></strong> Your team is planning to encrypt all static website objects being uploaded to Amazon S3, but they do not want to manage the encryption key. Which of the following options is available in Amazon S3 to achieve this?</p>
+<p class="alphau"><strong>A.</strong> Amazon S3 Managed Keys (SSE-S3)</p>
+<p class="alphau"><strong>B.</strong> AWS Key Management Service (SSE-KMS)</p>
+<p class="alphau"><strong>C.</strong> Customer-provided keys (SSE-C)</p>
+<p class="alphau"><strong>D.</strong> Client-provided keys (SSE-K)</p>
+<p class="number"><strong><a href="ch20.xhtml#rch20qa8" id="ch20qa8">8.</a></strong> <span epub:type="pagebreak" id="page_526"/>Your security team wants to restrict access to your Amazon S3 bucket, which you have used for static website hosting. How can you restrict access to your bucket and still allow users to access your static website?</p>
+<p class="alphau"><strong>A.</strong> Update your Amazon S3 bucket policy to deny access</p>
+<p class="alphau"><strong>B.</strong> Create an IAM role that denies Amazon S3 access and attach it to this bucket</p>
+<p class="alphau"><strong>C.</strong> You need to configure Amazon S3 to use SSL for more security</p>
+<p class="alphau"><strong>D.</strong> Create a CloudFront web distribution with option Yes selected to restrict bucket access and use the origin access identity</p>
+<p class="number"><strong><a href="ch20.xhtml#rch20qa9" id="ch20qa9">9.</a></strong> You hosted a static website using Amazon S3 and used Amazon Route 53 to host your domain. You configured Amazon CloudFront to deliver the content. After reviewing the logs, you discovered that your website is being delivered from Amazon S3 and not from Amazon CloudFront. How can you fix this?</p>
+<p class="alphau"><strong>A.</strong> Update the A record in Amazon Route 53 and choose Amazon CloudFront distribution as the Alias Target</p>
+<p class="alphau"><strong>B.</strong> Delete the Amazon CloudFront web distribution and create an RTMP distribution</p>
+<p class="alphau"><strong>C.</strong> Add a deny bucket policy to your Amazon S3 bucket</p>
+<p class="alphau"><strong>D.</strong> You need to use the Amazon CloudFront URL</p>
+<p class="number1"><strong><a href="ch20.xhtml#rch20qa10" id="ch20qa10">10.</a></strong> A global company has deployed their training website, which has thousands of large videos, using Amazon S3. Employees who are accessing content from a different country are complaining about video loading delays. How can you ensure that all employees have a seamless experience, regardless of which part of the world they log in from?</p>
+<p class="alphau"><strong>A.</strong> Create a separate Amazon S3 bucket for training videos</p>
+<p class="alphau"><strong>B.</strong> Use Amazon CloudFront to deliver the content</p>
+<p class="alphau"><strong>C.</strong> Enable server-side encryption for the Amazon S3 bucket</p>
+<p class="alphau"><strong>D.</strong> Upload the videos to Amazon DynamoDB</p>
+<h4 class="h4" id="ch20lev2sec3">Answers</h4>
+<p class="numbert"><strong><a href="ch20.xhtml#ch20qa1" id="rch20qa1">1.</a> B.</strong> You can use Amazon S3 to upload HTML files, video files, and audio files and to host your static website.</p>
+<p class="number"><strong><a href="ch20.xhtml#ch20qa2" id="rch20qa2">2.</a> A, B, C.</strong> You need to create and upload the index.html file and enable website hosting, and you need to add a bucket policy to make your bucket publicly readable.</p>
+<p class="number"><strong><a href="ch20.xhtml#ch20qa3" id="rch20qa3">3.</a> D.</strong> You can use Amazon Route 53 to host your custom domain.</p>
+<p class="number"><strong><a href="ch20.xhtml#ch20qa4" id="rch20qa4">4.</a> C.</strong> You can upload the custom error.html code and enter the name in the Error Document box.</p>
+<p class="number"><strong><a href="ch20.xhtml#ch20qa5" id="rch20qa5">5.</a> B.</strong> Choose Enable Logging in Amazon S3 Properties Server Access Logging and provide the target bucket.</p>
+<p class="number"><strong><a href="ch20.xhtml#ch20qa6" id="rch20qa6">6.</a></strong> <span epub:type="pagebreak" id="page_527"/><strong>A, B, C.</strong> You can use SSE-S3, SSE-KMS, and SSE-C to encrypt your Amazon S3 bucket objects.</p>
+<p class="number"><strong><a href="ch20.xhtml#ch20qa7" id="rch20qa7">7.</a> A.</strong> SSE-S3 is correct in this context.</p>
+<p class="number"><strong><a href="ch20.xhtml#ch20qa8" id="rch20qa8">8.</a> D.</strong> You can create a CloudFront web distribution with Yes selected to restrict bucket access and use the origin access identity.</p>
+<p class="number"><strong><a href="ch20.xhtml#ch20qa9" id="rch20qa9">9.</a> A.</strong> You need to update the A record in Amazon Route 53 and choose Amazon CloudFront distribution for the Alias Target.</p>
+<p class="number1"><strong><a href="ch20.xhtml#ch20qa10" id="rch20qa10">10.</a> B.</strong> You can use Amazon CloudFront to deliver the content.</p>
+<h3 class="h3" id="ch20lev1sec6">Additional Resources</h3>
+<p class="bulleta">• <strong>Amazon S3</strong>   The recommended documentation for any AWS service, including Amazon S3, is the official AWS documentation, where you can always get the most up-to-date information.</p>
+<p class="bulletc"><img alt="images" src="p0527-01.jpg"/></p>
+<p class="bulleta">• <strong>Amazon S3 Blog</strong>   This is the official blog for Amazon S3, which has all the latest information about different use cases in one place.</p>
+<p class="bulletc"><img alt="images" src="p0527-02.jpg"/></p>
+<p class="bulleta">• <strong>Amazon S3 Defense in Depth</strong>   This blog shows you how to achieve defense in depth by applying multiple security controls to prevent data leakage.</p>
+<p class="bulletc"><img alt="images" src="p0527-03.jpg"/><span epub:type="pagebreak" id="page_528"/></p>
+</section>
+</body>
+</html>

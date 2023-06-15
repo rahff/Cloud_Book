@@ -1,0 +1,285 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch1"><span epub:type="pagebreak" id="page_3"/><span class="chap">CHAPTER <span class="chap1">1</span></span></h2>
+<h2 class="h2c1">Overview of Cloud Computing and AWS</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bullet">• Cloud computing overview</p>
+<p class="bullet">• Benefits of cloud computing</p>
+<p class="bullet">• Cloud deployment models: IaaS, STaaS, PaaS, DaaS, FaaS, and SaaS</p>
+<p class="bullet">• Cloud services types: public, private, hybrid, and community</p>
+<p class="bullet">• AWS history</p>
+<p class="bullet">• AWS regions and availability zones (AZs)</p>
+<p class="bullet">• AWS services</p>
+<p class="bullet">• AWS in action</p>
+<p class="hr"/>
+<p class="noindentb">Congratulations on purchasing this <em>All-in-One Exam Guide</em>! You are one step closer to learning how to build applications for the cloud. I am excited to join you on this journey toward developing cloud native applications for Amazon Web Services (AWS) and of course becoming an AWS-certified developer associate. You will learn everything you need to create, automate, migrate, and monitor applications in the AWS cloud.</p>
+<h3 class="h3" id="ch1lev1sec1">Cloud Computing Overview</h3>
+<p class="noindent"><em>Cloud computing</em> is the on-demand delivery of computing resources, such as servers, storage, networking, databases, and other services, over the Internet. Its pay-as-you-go pricing means that you pay only for the services you use, which reduces or eliminates your organization’s total cost of ownership and lowers operating costs. Cloud computing enables you to run your infrastructure more efficiently: it enables faster business innovation, offers flexibility to scale as your business needs change, and helps create economies of scale.</p>
+<h4 class="h4" id="ch1lev2sec1"><span epub:type="pagebreak" id="page_4"/>Cloud Computing Benefits</h4>
+<p class="noindent">Cloud computing creates a major shift from the traditional methods used to access IT resources in organizations. Here are few basic benefits of migrating to cloud computing services:</p>
+<p class="bullett">• <strong>Global scale</strong>   Cloud computing enables you to deploy your IT infrastructure in other parts of the world quickly and easily. Suppose, for example, you operate a chain of successful stores in the United States and want to expand your business to other countries across the globe. Using traditional IT methods, this could take a few months to a year, based on the size and complexity required to build datacenters in those countries for operation. In contrast, if you use a public cloud provider such as AWS, you can deploy similar infrastructures in different countries or continents within a few hours. You can even set up a global disaster recovery system with only few mouse clicks.</p>
+<p class="bulleta">• <strong>Cost</strong>   Cloud computing reduces or eliminates the costs of purchasing server hardware and software; setting up datacenters; providing power supplies, cooling, and security; and hiring IT experts to manage your infrastructure. Suppose your startup company creates and markets a big data analytical solution that handles petabytes of data. With a traditional IT infrastructure and on-premises datacenter, this could require upfront costs of $200,000 to $300,000. Using cloud computing, however, you simply create an account with AWS and start building your infrastructure; then you can scale up or down as needed and pay for only the services you actually use.</p>
+<p class="bulleta">• <strong>Speed</strong>   In a traditional onsite infrastructure, capacity planning for each IT resource takes much time and effort. In AWS cloud computing, you can provision IT services on demand and within few minutes using the AWS self-service portal. You can also use automated scripts to provision a complex infrastructure quickly in different regions and scale it up or down to accommodate demand.</p>
+<p class="bulleta">• <strong>Security</strong>   You are responsible for the end-to-end security in a traditional on-premises datacenter, where the disconnected security and monitoring tools used by the many teams that manage different infrastructures can make security management difficult. In cloud computing, security tools are interconnected and mostly driven by the developer. The cloud’s shared security model can help relieve some of the organization’s security responsibilities.</p>
+<p class="bulleta">• <strong>Performance</strong>   The top cloud computing providers use high-speed networks to provide secure datacenters around the world in different regions and continents. These providers regularly upgrade their infrastructures with the latest generation of fast and efficient hardware and software. This offers great advantages over running your workload on a single corporate datacenter, including reduced latency for applications and global content delivery systems.</p>
+<h4 class="h4" id="ch1lev2sec2"><span epub:type="pagebreak" id="page_5"/>Cloud Deployment Models: IaaS, STaaS, PaaS, DaaS, FaaS, SaaS</h4>
+<p class="noindent">Cloud deployment models represent a specific, prepackaged stack of various types of services. <a href="ch01.xhtml#ch1fig1">Figure 1-1</a> shows the IT resources that are managed by cloud vendors based on their cloud deployment model offerings. The following sections are descriptions of each of the deployment models.</p>
+<p class="imagef" id="ch1fig1"><img alt="images" src="f0005-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 1-1</strong>   Cloud deployment models and the IT resources provided</p>
+<h5 class="h5">Infrastructure as a Service (IaaS)</h5>
+<p class="noindent">IaaS provides virtualized computing resources over the Internet, such as virtual servers with scalable CPU, memory, storage, network, security, and more. With IaaS, customers don’t need to manage or control the physical cloud framework; however, customers have full control over the operating systems, storage, and applications they deploy. <span epub:type="pagebreak" id="page_6"/>Because the IaaS customer doesn’t need its own physical datacenters, it can use IaaS as a fast, disposable, cheap infrastructure that can be expanded or terminated according to business requirements. If you are traditional organization on a tight budget, IaaS is a good choice, because you pay only for the services you use. The most popular cloud platforms that offer IaaS are Amazon Elastic Compute Cloud (Amazon EC2), Azure Virtual Machines, and Google Compute Engine, along with open source alternatives OpenStack and Apache CloudStack. (For more information, see <span class="code">https://www.g2.com/categories/infrastructure-as-a-service-iaas</span>.)</p>
+<h5 class="h5">Storage as a Service (STaaS)</h5>
+<p class="noindent">With STaaS, a platform such as AWS offers its storage infrastructure (in AWS, it’s Amazon Simple Storage Service, or S3) to another organization or individual to store files, objects, and backup data. Organizations and individuals find this very convenient, because they don’t need to manage the underlying storage infrastructure, which is highly available. STaaS works through a web-based application programming interface (API) that is remotely implemented through its interaction with the customer’s on-premises applications and the provider’s cloud storage infrastructure. If the organization ever loses its local data, it can be retrieved from the cloud storage. STaaS could be used as disaster recovery storage for an on-premises application infrastructure. The most popular enterprise-level cloud storage platforms are Amazon S3, Google Cloud Storage, and Microsoft Azure Storage, along with popular open source alternatives ownCloud and Cozy Cloud.</p>
+<h5 class="h5">Platform as a Service (PaaS)</h5>
+<p class="noindent">PaaS offers tools and services to help customers develop and deploy applications rapidly and efficiently. A PaaS cloud provider hosts and maintains the hardware and software for you. This helps your developers spend more time doing what they do best, developing solutions, rather than spending time installing and managing the hardware and software required to develop or run new applications. PaaS providers manage and control the underlying cloud infrastructure, including network, servers, operating systems, and storage, while cloud consumers control the deployed applications as well as configuration settings for the application-hosting environment. The most popular examples of PaaS platforms are AWS Lambda, AWS Elastic Beanstalk, Google App Engine, and Microsoft Azure App Service, along with open source alternatives such as Red Hat OpenShift, OpenPaaS, and Cloud Foundry.</p>
+<h5 class="h5">Data as a Service (DaaS)</h5>
+<p class="noindent">DaaS is a more advanced, fine-grained form of SaaS, in which data (as opposed to files) is readily accessible through a cloud-based system. Data in the form of databases or object containers is supplied on demand via cloud platforms. The DaaS cloud vendor provides tools that make it easier to access and explore the data, regardless of the user’s geographical location or organizational separation. This offers a number of significant opportunities. DaaS eliminates the single point of failure by providing redundancy and makes the data available for multiple users using different database tools. Popular enterprise-level DaaS database platforms are Amazon DynamoDB, Microsoft Azure Cosmos DB, and <span epub:type="pagebreak" id="page_7"/>Google Cloud Datastore, along with open source alternatives such as Apache Cassandra, CockroachDB, and Apache CouchDB.</p>
+<h5 class="h5">Function as a Service (FaaS)</h5>
+<p class="noindent">The idea of running serverless computing is behind FaaS, which means customers don’t have to provision or scale their servers. As a developer, you run a piece of business logic or deploy an individual function without worrying about the underlying infrastructure. The function will start executing your business logic within a few milliseconds, and after successful completion, it terminates the infrastructure in the background. The functions are event driven and scalable instantaneously in the background. FaaS completely abstracts the servers away from developers, and customers are billed based on their consumption and number of executions. FaaS is extremely popular among developers and was introduced by hook.io in 2014, followed by AWS Lambda, Google Cloud Functions, and Microsoft Azure Functions, with open source alternatives OpenWhisk and Fn project Functions.</p>
+<h5 class="h5">Software as a Service (SaaS)</h5>
+<p class="noindent">If you use e-mail, you are using SaaS. The vendor manages everything from the infrastructure side, and access to the applications is provided on a subscription basis, via a web browser, programming interface, or mobile platform. You don’t have to install any software with SaaS, and SaaS lets you access software from any device via the Internet, from any place, at any time. Installation, maintenance, security, and compliance are managed by the SaaS provider. The cloud giants AWS, Azure, Google Cloud, and many others offer SaaS services. Popular SaaS products include Google G Suite, Microsoft Office 365, and Slack.</p>
+<h4 class="h4" id="ch1lev2sec3">Cloud Services Types: Public, Private, Hybrid, and Community</h4>
+<p class="noindent">The cloud has increasingly become a default platform for developers. Cloud computing resources are built to provide abstraction from the management, architecting, and scaling requirements of a core infrastructure. Cloud-native applications are fully deployed on the cloud, and all related application services are running in the cloud.</p>
+<p class="indent">Four popular cloud service types vary significantly based on how the services are offered and by whom: the public cloud, private cloud, hybrid cloud, and community cloud.</p>
+<h5 class="h5">Public Cloud</h5>
+<p class="noindent">In the public cloud, resources such as servers, databases, storage, and networking are owned and operated by third-party cloud service vendors and delivered through the Internet. All the hardware, software, and other supporting infrastructure is owned and managed by the cloud vendor. Each customer organization shares the same hardware, storage, and network devices with other customer organizations, or cloud tenants. As a customer, you can access the cloud services and manage your account using a web browser. You don’t need to purchase hardware or software, and you pay only for the services you use. Your cloud vendor provides the maintenance and enables you to scale <span epub:type="pagebreak" id="page_8"/>on-demand to meet your business needs. The public clouds are usually built on massive hardware installations distributed in different locations throughout the country or across the globe. Their size enables economies of scale, which allows for maximum scalability to meet company requirements to expand or contract and to meet surges in demand in real time, and provides maximum reliability in case of hardware failures.</p>
+<h5 class="h5">Private Cloud</h5>
+<p class="noindent">In a private cloud, computing resources are used exclusively by one business or organization. The entire infrastructure is physically located at your organization’s on-premises datacenter, or it’s hosted by a third-party service provider. In a private cloud, the entire IT infrastructure is maintained within a private network and not shared with anyone. All the hardware and software are dedicated exclusively to your organization. A private cloud makes it easier for an organization to customize its infrastructure resources to meet specific IT and business requirements. Financial institutions, government agencies, and other midsize to large enterprises with business-critical operations use private clouds, which offer full control and security over their infrastructure environment. In a private cloud, the infrastructure sits behind your company firewall, which is accessed only through an intranet via encrypted connections. Private clouds provide enhanced levels of security and privacy since the entire IT infrastructure is dedicated to a single client. Private clouds are more expensive to install, maintain, and operate than public clouds, and organizations are limited to using only the current infrastructure unless they procure, install, and configure a new infrastructure to meet demands.</p>
+<h5 class="h5">Community Cloud</h5>
+<p class="noindent">A community cloud is similar to a private cloud, but it provides a cloud solution for particular business communities, such as banks or trading companies. The members of the community cloud share similar security, compliance, privacy, and performance requirements. Community cloud members normally own private cloud space that is built to meet the security, privacy, and compliance needs that are common in the community. Organizations involved in financial, health, and legal activities require community clouds that adhere to strict regulatory requirements. The community cloud service provider often combines different types of clouds with different service models to provide businesses with attractive cloud solutions to meet organization requirements.</p>
+<h5 class="h5">Hybrid Cloud</h5>
+<p class="noindent">The hybrid cloud offers the best of both worlds; it combines on-premises infrastructure with public and community clouds so organizations can reap the advantages of all three. It provides a way to secure sensitive data that remains within the private cloud, where high security standards can be maintained. Applications that do not contain sensitive data or that are not bound by compliance requirements use the public cloud, where infrastructure can be scaled to meet demands at a reduced cost. Hybrid clouds are most suited for running big data operations on nonsensitive data in the public cloud, while keeping sensitive data secured in the private cloud. In a hybrid cloud, it is easy to migrate the data and applications between private and public clouds for greater flexibility and more deployment options.</p>
+<h3 class="h3" id="ch1lev1sec2"><span epub:type="pagebreak" id="page_9"/>AWS History</h3>
+<p class="noindent">Amazon Web Services (AWS), one of the world’s most popular cloud computing platforms, emerged as a side business of <a href="http://Amazon.com">Amazon.com</a> in the early 2000s to help developers deal with the burgeoning growth of the company’s online presence and to improve the efficiency of Amazon’s own infrastructure. The beginnings of AWS as a development tool can be traced back to 2002, when an underlying beta was released that offered SOAP and XML interfaces for the Amazon product inventory database. It provided an amazing platform for developers and was the first step by Amazon in grasping the capability of developer-friendly tools, especially in an infrastructure area, as an actual cloud product.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   For more on AWS history, see <a href="https://www6.software.ibm.com/developerworks/education/ws-aws1/ws-aws1-ltr.pdf">https://www6.software.ibm.com/developerworks/education/ws-aws1/ws-aws1-ltr.pdf</a>.</p>
+</div>
+<p class="indent">In 2003, Amazon leadership brainstormed to identify the company’s top qualities to differentiate the company from the other similar organizations. One thing was abundantly clear: its infrastructure service—now known as AWS—gave the company an enormous advantage over its competition.</p>
+<p class="indent">From that point, a more remarkable idea arose to blend an infrastructure framework and development tools to create a pseudo-operating system framework that could be used over the Internet. The infrastructure framework was separated into different components, such as compute, storage, and database, and could be managed using a variety of developer tools. Amazon’s first acknowledgment of AWS was in a blog entry of AWS Chief Evangelist Jeff Barr in 2004, alluding to the development of AWS cloud computing.</p>
+<p class="indent">AWS launched Amazon Simple Storage Service (S3) and Amazon Elastic Compute Cloud (EC2) along with Amazon Simple Queue Service (SQS) on March 19, 2006. Amazon launched S3 and EC2 services in Europe in 2009. Along with the Amazon Elastic Block Store (EBS), the Amazon CloudFront content delivery network (CDN) became part of its formal AWS offerings. These developer-friendly services attracted enterprises such as Dropbox, Netflix, and Reddit along with all the cloud-ready customers in 2010 as early adopters. AWS continued innovating and spreading its footprint, attracting organizations from across the globe.</p>
+<h4 class="h4" id="ch1lev2sec4">AWS Regions and Availability Zones</h4>
+<p class="noindent">AWS serves more than a million dynamic customers in more than 190 nations. AWS continues to grow worldwide to enable its clients to accomplish lower latency and higher performance, and to guarantee that client data lives only in the AWS region the client designates. AWS helps organizations build their initial infrastructures and continually provides the scalable infrastructure that meets clients’ requirements worldwide.</p>
+<p class="indent">The AWS cloud infrastructure is connected globally and isolated as AWS regions and availability zones (AZs). An AWS region includes numerous AZs, each of which <span epub:type="pagebreak" id="page_10"/>comprises one or more separate datacenters, each with redundant power, networking, and connectivity, and isolated in a separate location. As shown in <a href="ch01.xhtml#ch1fig2">Figure 1-2</a>, AZs provide the infrastructure that enables organizations to create enterprise applications and databases that are more highly available, fault-tolerant, and scalable than what is possible with single, on-premises customer datacenters. As of June 2020, the AWS cloud covers 76 AZs in 24 geographically separate regions around the globe, with more regions and zones planned on the horizon. Please refer to <a href="https://aws.amazon.com/about-aws/global-infrastructure/?p=ngi&amp;loc=0">https://aws.amazon.com/about-aws/global-infrastructure/?p=ngi&amp;loc=0</a> for the latest information about regions and AZs.</p>
+<p class="imagef" id="ch1fig2"><img alt="images" src="f0010-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 1-2</strong>   Availability zone</p>
+<p class="indent">Each Amazon region is totally separate from others, as demonstrated in <a href="ch01.xhtml#ch1fig3">Figure 1-3</a>. This accomplishes the best options for dependability and to reduce critical failure issues. Although every AZ is segregated, AZs within a region are associated through low-latency links. This enables AWS to provide the flexibility for organizations to create instances and store data inside different geographic regions as well as over numerous AZs within a particular AWS region. Each AWS AZs are designed to prevent independent failure, which reduces the potential risk of a single point of failure.</p>
+<p class="imagef" id="ch1fig3"><img alt="images" src="f0011-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 1-3</strong>   Availability zones within an AWS region can be associated with low-latency links</p>
+<h4 class="h4" id="ch1lev2sec5"><span epub:type="pagebreak" id="page_11"/>AWS Services</h4>
+<p class="noindentb">AWS offers a variety of global cloud-based products, as shown in the following table, that provide for compute, database, storage, networking, security, management tools, mobile, developer tools, analytics, and Internet of Things (IoT). Millions of customers, from large enterprises, to fast-growing startups, to leading government agencies, trust AWS to host their workloads and help them become more agile. AWS services help organizations to move to the cloud more quickly, at lower IT costs and scale.</p>
+<p class="imageta"><img alt="images" src="t0011-01.jpg"/></p>
+<p class="imageta"><span epub:type="pagebreak" id="page_12"/><img alt="images" src="t0012-01.jpg"/></p>
+<p class="imageta"><span epub:type="pagebreak" id="page_13"/><img alt="images" src="t0013-01.jpg"/></p>
+<p class="imageta"><span epub:type="pagebreak" id="page_14"/><img alt="images" src="t0014-01.jpg"/></p>
+<p class="imageta"><span epub:type="pagebreak" id="page_15"/><img alt="images" src="t0015-01.jpg"/></p>
+<p class="imageta"><span epub:type="pagebreak" id="page_16"/><img alt="images" src="t0016-01.jpg"/></p>
+<p class="imageta"><span epub:type="pagebreak" id="page_17"/><img alt="images" src="t0017-01.jpg"/></p>
+<p class="imageta"><span epub:type="pagebreak" id="page_18"/><img alt="images" src="t0018-01.jpg"/></p>
+<p class="imageta"><span epub:type="pagebreak" id="page_19"/><img alt="images" src="t0019-01.jpg"/></p>
+<p class="imageta"><span epub:type="pagebreak" id="page_20"/><img alt="images" src="t0020-01.jpg"/></p>
+<p class="imageta"><span epub:type="pagebreak" id="page_21"/><img alt="images" src="t0021-01.jpg"/></p>
+<p class="imageta"><span epub:type="pagebreak" id="page_22"/><img alt="images" src="t0022-01.jpg"/></p>
+<p class="imageta"><span epub:type="pagebreak" id="page_23"/><img alt="images" src="t0023-01.jpg"/></p>
+<p class="imageta"><span epub:type="pagebreak" id="page_24"/><img alt="images" src="t0024-01.jpg"/></p>
+<p class="imagetb"><span epub:type="pagebreak" id="page_25"/><img alt="images" src="t0025-01.jpg"/></p>
+<h3 class="h3" id="ch1lev1sec3">AWS in Action</h3>
+<p class="noindent">Let’s now jump into action to showcase the capabilities of AWS. You will be building similar architectures on AWS in later chapters, where I will help you with step-by-step instructions. For this example, assume you have an e-commerce website in a traditional datacenter, as shown in <a href="ch01.xhtml#ch1fig4">Figure 1-4</a>.</p>
+<p class="imagef" id="ch1fig4"><img alt="images" src="f0026-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 1-4</strong>   Traditional e-commerce infrastructure</p>
+<p class="indent">Your company has decided to migrate to AWS without making any modifications to the web application and database. If this e-commerce application is moved to AWS as lift and shift without any changes, your AWS e-commerce infrastructure will look similar to that shown in <a href="ch01.xhtml#ch1fig5">Figure 1-5</a>. The traditional web server will be replaced by an AWS EC2 instance, and your traditional database will be replaced by Amazon RDS in an AWS AZ of your choice.</p>
+<p class="imagef" id="ch1fig5"><img alt="images" src="f0026-02.jpg"/></p>
+<p class="figcaption"><strong>Figure 1-5</strong>   AWS e-commerce infrastructure</p>
+<p class="indent">As your e-commerce website becomes more popular, you’ll need to scale your infrastructure to accommodate the increased flow of traffic from all over the world, 24 hours a day, without any interruption. If you were still using a traditional on-premises infrastructure, it would take weeks to months to scale up. But because you’ve migrated the infrastructure to AWS, scaling up will be simple: you’ll add a few more services manually via the AWS Management Console or use AWS CloudFormation to automate the infrastructure creation. Your scaled up infrastructure will look similar to <a href="ch01.xhtml#ch1fig6">Figure 1-6</a>.</p>
+<p class="imagef" id="ch1fig6"><img alt="images" src="f0027-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 1-6</strong>   AWS e-commerce high-availability infrastructure</p>
+<p class="indent"><span epub:type="pagebreak" id="page_26"/><span epub:type="pagebreak" id="page_27"/>Now your e-commerce site has both dynamic content, such as products and price, and static content, such as images and videos. Separating the dynamic and static content will reduce the load and latency and improve performance by delivering the static contents from the AWS content delivery network, CloudFront. The workload will be shared by <span epub:type="pagebreak" id="page_28"/>multiple smaller virtual machines behind an application load balancer. If one of the virtual machine fails, you’ll use Amazon Elastic Load Balancing (ELB) to send the customer traffic to other running virtual machines, which improves reliability.</p>
+<p class="indent">EC2 Auto Scaling will add a new instance to replace any failed instance and will add more instances automatically when traffic increases during a peak period. The RDS database instances will automatically failover to secondary instances if your primary database instance fails in a multi-AZ deployment. In addition, the Amazon RDS Read Replica will run all your read-only queries and reports. All of this can be configured and achieved in hours in AWS, versus weeks to months in a traditional datacenter environment.</p>
+<h3 class="h3" id="ch1lev1sec4">Chapter Review</h3>
+<p class="noindent">This chapter introduced and covered the benefits of cloud computing, along with various well-known cloud deployment models: Infrastructure as a Service (IaaS), Storage as a Service (STaaS), Platform as a Service (PaaS), Data as a Service (DaaS), Function as a Service (FaaS), and Software as a Service (SaaS). It also explained cloud services types—public, private, community, and hybrid—and offered a brief history of AWS, including how AWS started as an Amazon developer tool. I introduced you to various AWS regions and availability zones and discussed isolation techniques.</p>
+<p class="indent">You were briefly introduced to each AWS service. It’s crucial that you understand these—you should at least be familiar with what each service offers, to help you build highly available, highly scalable, and fault-tolerant applications in AWS.</p>
+<p class="indent">Finally, you saw AWS in action. I demonstrated how easy it is to migrate your workload from an on-premises infrastructure to the AWS cloud and quickly scale that infrastructure. You may feel a bit overwhelmed at this point, but in subsequent chapters I’ll provide practical and easy-to-follow information.</p>
+<p class="indent">In addition to earning your AWS Certified Developer – Associate certification, you will be building secure, cloud-native applications on the AWS cloud. Let’s begin the journey together. As the famous Chinese proverb says, “A journey of a thousand miles begins with a single step.”</p>
+<h4 class="h4" id="ch1lev2sec6">Questions</h4>
+<p class="noindentb">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best response for each question.</p>
+<p class="numbert"><strong><a href="ch01.xhtml#rch01qa1" id="ch01qa1">1.</a></strong> A traditional three-tier architecture comprises which of the following tiers? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> Security tier</p>
+<p class="alphau"><strong>B.</strong> Application tier</p>
+<p class="alphau"><strong>C.</strong> Web tier</p>
+<p class="alphau"><strong>D.</strong> Database tier</p>
+<p class="number"><span epub:type="pagebreak" id="page_29"/><strong><a href="ch01.xhtml#rch01qa2" id="ch01qa2">2.</a></strong> An AWS region comprises two or more physical locations that provide high availability and fault tolerance for your applications. Those physical locations are called what?</p>
+<p class="alphau"><strong>A.</strong> Cloud datacenters</p>
+<p class="alphau"><strong>B.</strong> Edge locations</p>
+<p class="alphau"><strong>C.</strong> Availability zones</p>
+<p class="alphau"><strong>D.</strong> DMZ zones</p>
+<p class="number"><strong><a href="ch01.xhtml#rch01qa3" id="ch01qa3">3.</a></strong> You want to deploy your applications and databases in a logically isolated section of the AWS cloud. Which AWS service provides you an isolated networking layer?</p>
+<p class="alphau"><strong>A.</strong> Regions</p>
+<p class="alphau"><strong>B.</strong> Amazon Route 53</p>
+<p class="alphau"><strong>C.</strong> Amazon VPC</p>
+<p class="alphau"><strong>D.</strong> Availability zones</p>
+<p class="number"><strong><a href="ch01.xhtml#rch01qa4" id="ch01qa4">4.</a></strong> You want to host a static website, and you don’t want to manage any servers. Which of the following services will help you achieve this?</p>
+<p class="alphau"><strong>A.</strong> AWS Lambda</p>
+<p class="alphau"><strong>B.</strong> Amazon EC2</p>
+<p class="alphau"><strong>C.</strong> Amazon OpsWorks</p>
+<p class="alphau"><strong>D.</strong> Amazon S3</p>
+<p class="number"><strong><a href="ch01.xhtml#rch01qa5" id="ch01qa5">5.</a></strong> You want to monitor your EC2 instances for CPU utilization and memory and visualize the health of the server using a dashboard. Which of the following AWS services could be used for this case?</p>
+<p class="alphau"><strong>A.</strong> Amazon OpsWorks</p>
+<p class="alphau"><strong>B.</strong> Amazon CloudWatch</p>
+<p class="alphau"><strong>C.</strong> AWS CloudTrial</p>
+<p class="alphau"><strong>D.</strong> Amazon VPC Flowlogs</p>
+<p class="number"><strong><a href="ch01.xhtml#rch01qa6" id="ch01qa6">6.</a></strong> You want to scale your current EC2 servers and you do not want to manage the scaling manually. Which AWS service will detect when an instance is unhealthy, terminate it, and replace it with a new one?</p>
+<p class="alphau"><strong>A.</strong> Amazon EC2 Auto Scaling</p>
+<p class="alphau"><strong>B.</strong> Amazon Route 53</p>
+<p class="alphau"><strong>C.</strong> Amazon CloudWatch</p>
+<p class="alphau"><strong>D.</strong> Amazon Elastic Load Balancing</p>
+<p class="number"><strong><a href="ch01.xhtml#rch01qa7" id="ch01qa7">7.</a></strong> <span epub:type="pagebreak" id="page_30"/>You have been storing your data in Amazon S3, and you are required to query the data without moving it to a database using ANSI SQL. Which AWS service enables you to quickly query the data stored in S3?</p>
+<p class="alphau"><strong>A.</strong> Amazon EMR</p>
+<p class="alphau"><strong>B.</strong> Amazon Simple Queue Service</p>
+<p class="alphau"><strong>C.</strong> Amazon Athena</p>
+<p class="alphau"><strong>D.</strong> Amazon Neptune</p>
+<p class="number"><strong><a href="ch01.xhtml#rch01qa8" id="ch01qa8">8.</a></strong> Your company needs a service that lets you run code without provisioning or managing servers. To save costs, the company doesn’t want to pay for infrastructure in an idle state. Which of the following services could you use for this scenario?</p>
+<p class="alphau"><strong>A.</strong> AWS Lambda</p>
+<p class="alphau"><strong>B.</strong> Amazon EC2</p>
+<p class="alphau"><strong>C.</strong> AWS Fargate</p>
+<p class="alphau"><strong>D.</strong> Amazon Lightsail</p>
+<p class="number"><strong><a href="ch01.xhtml#rch01qa9" id="ch01qa9">9.</a></strong> You want to migrate your relational database to AWS, but you don’t want to perform the time-consuming administration tasks such as database installation, patching, and backups. Which of the following will meet your needs?</p>
+<p class="alphau"><strong>A.</strong> AWS Fargate</p>
+<p class="alphau"><strong>B.</strong> Amazon RDS</p>
+<p class="alphau"><strong>C.</strong> Amazon S3</p>
+<p class="alphau"><strong>D.</strong> Amazon Athena</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa10" id="ch01qa10">10.</a></strong> Your gaming application is a data-intensive application and requires high throughput and low latency for gamers who access your application. Which AWS service provides support for an in-memory database?</p>
+<p class="alphau"><strong>A.</strong> Amazon EC2</p>
+<p class="alphau"><strong>B.</strong> Amazon RDS</p>
+<p class="alphau"><strong>C.</strong> Amazon S3</p>
+<p class="alphau"><strong>D.</strong> Amazon ElastiCache</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa11" id="ch01qa11">11.</a></strong> In your global enterprise, applications are running in different countries, and you want to route traffic to your applications based on a few criteria, such as the endpoint health of the server instance, the geographic location of the user, and latency. Which AWS service is most appropriate for this scenario?</p>
+<p class="alphau"><strong>A.</strong> Amazon Route 53</p>
+<p class="alphau"><strong>B.</strong> Application Load Balancer</p>
+<p class="alphau"><strong>C.</strong> Network Load Balancer</p>
+<p class="alphau"><strong>D.</strong> Classic Load Balancer</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa12" id="ch01qa12">12.</a></strong> <span epub:type="pagebreak" id="page_31"/>Your compliance team wants to audit your AWS environment to gain the event history of all your AWS account activity, including any actions taken using the AWS Management Console, AWS SDKs, or command-line tools. Which AWS service tracks user activity and API usage?</p>
+<p class="alphau"><strong>A.</strong> Amazon CloudWatch</p>
+<p class="alphau"><strong>B.</strong> AWS CloudTrail</p>
+<p class="alphau"><strong>C.</strong> Amazon VPC Flow Logs</p>
+<p class="alphau"><strong>D.</strong> Amazon Cognito</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa13" id="ch01qa13">13.</a></strong> You have strict requirement to protect stored data against site-level failures, errors, and threats. Which AWS service provides unmatched durability by automatically storing data across multiple availability zones within an AWS region?</p>
+<p class="alphau"><strong>A.</strong> Amazon Neptune</p>
+<p class="alphau"><strong>B.</strong> Amazon RDS</p>
+<p class="alphau"><strong>C.</strong> Amazon S3</p>
+<p class="alphau"><strong>D.</strong> Amazon Timestream</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa14" id="ch01qa14">14.</a></strong> You want to use a content delivery network (CDN) service to deliver data and videos securely to your global customers, with low latency and high transfer speeds. Which of the following AWS service will provide the CDN capability?</p>
+<p class="alphau"><strong>A.</strong> Amazon DynamoDB</p>
+<p class="alphau"><strong>B.</strong> Amazon S3</p>
+<p class="alphau"><strong>C.</strong> Amazon Route 53</p>
+<p class="alphau"><strong>D.</strong> Amazon CloudFront</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa15" id="ch01qa15">15.</a></strong> You have large amount of data in tape storage in an on-premises datacenter, and you want to migrate it to AWS to save costs and to meet long-term backup compliance requirements. Which AWS service provides data archival at a low cost?</p>
+<p class="alphau"><strong>A.</strong> Amazon S3 Glacier</p>
+<p class="alphau"><strong>B.</strong> Amazon S3</p>
+<p class="alphau"><strong>C.</strong> Amazon CloudFront</p>
+<p class="alphau"><strong>D.</strong> Amazon RDS</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa16" id="ch01qa16">16.</a></strong> You want to create and manage AWS users and groups to allow and deny access to AWS resources, but you do not want to pay for this service. Which of the following services provides this capability?</p>
+<p class="alphau"><strong>A.</strong> AWS IoT Core</p>
+<p class="alphau"><strong>B.</strong> Amazon Simple Notification Service (SNS)</p>
+<p class="alphau"><strong>C.</strong> AWS CloudFormation</p>
+<p class="alphau"><strong>D.</strong> AWS Identity and Access Management (IAM)</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa17" id="ch01qa17">17.</a></strong> <span epub:type="pagebreak" id="page_32"/>You have 75 terabytes of life sciences data in your datacenter and want to move to the AWS cloud quickly and efficiently. Which of the following services could quickly move the data to S3?</p>
+<p class="alphau"><strong>A.</strong> AWS Snowball</p>
+<p class="alphau"><strong>B.</strong> Amazon Redshift</p>
+<p class="alphau"><strong>C.</strong> Amazon DynamoDB</p>
+<p class="alphau"><strong>D.</strong> Amazon S3</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa18" id="ch01qa18">18.</a></strong> Your company wants to use a dedicated network connection from on-premises to AWS to reduce network costs and increase bandwidth throughput without using the Internet. Which of the following services provides these capabilities?</p>
+<p class="alphau"><strong>A.</strong> Amazon VPC</p>
+<p class="alphau"><strong>B.</strong> AWS CloudFront</p>
+<p class="alphau"><strong>C.</strong> AWS VPN</p>
+<p class="alphau"><strong>D.</strong> AWS Direct Connect</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa19" id="ch01qa19">19.</a></strong> Your new application needs a hybrid storage service that enables your on-premises applications to store data on AWS cloud storage. Which of the following provides the hybrid storage service?</p>
+<p class="alphau"><strong>A.</strong> AWS Storage Gateway</p>
+<p class="alphau"><strong>B.</strong> Amazon S3</p>
+<p class="alphau"><strong>C.</strong> Amazon S3 Glacier</p>
+<p class="alphau"><strong>D.</strong> Amazon EBS</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa20" id="ch01qa20">20.</a></strong> You are developing an application that will be used by millions of users, and you want your users to sign-up and sign-in easily using social identity providers such as Facebook, Google, and Amazon. Which of the following services helps you to achieve this solution?</p>
+<p class="alphau"><strong>A.</strong> Amazon Macie</p>
+<p class="alphau"><strong>B.</strong> Amazon Inspector</p>
+<p class="alphau"><strong>C.</strong> Amazon Cognito</p>
+<p class="alphau"><strong>D.</strong> Amazon GuardDuty</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa21" id="ch01qa21">21.</a></strong> You want use a managed distributed denial of service (DDoS) protection service to safeguard your applications that are running on AWS. Which AWS service provides always-on detection and automatic inline mitigations for DDoS protection?</p>
+<p class="alphau"><strong>A.</strong> Amazon Macie</p>
+<p class="alphau"><strong>B.</strong> AWS Shield</p>
+<p class="alphau"><strong>C.</strong> Amazon GuardDuty</p>
+<p class="alphau"><strong>D.</strong> AWS WAF</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa22" id="ch01qa22">22.</a></strong> <span epub:type="pagebreak" id="page_33"/>You want to use a web application firewall that helps protect your web applications from SQL injection and cross-site scripting. Which of the following services could be used to protect your web application?</p>
+<p class="alphau"><strong>A.</strong> AWS WAF</p>
+<p class="alphau"><strong>B.</strong> AWS Shield</p>
+<p class="alphau"><strong>C.</strong> Amazon Inspector</p>
+<p class="alphau"><strong>D.</strong> Amazon Macie</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa23" id="ch01qa23">23.</a></strong> You want to automate the build, test, and deploy phases of your release cycle every time there is a code change. Which of the following developer tools services could you use?</p>
+<p class="alphau"><strong>A.</strong> AWS CodeBuild</p>
+<p class="alphau"><strong>B.</strong> AWS CodeCommit</p>
+<p class="alphau"><strong>C.</strong> AWS CodeDeploy</p>
+<p class="alphau"><strong>D.</strong> AWS CodePipeline</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa24" id="ch01qa24">24.</a></strong> Your team wants to automate software deployments to eliminate the need for error-prone manual operations. Which of the following developer tools services automates software deployments?</p>
+<p class="alphau"><strong>A.</strong> AWS CodeBuild</p>
+<p class="alphau"><strong>B.</strong> AWS CodeCommit</p>
+<p class="alphau"><strong>C.</strong> AWS CodeDeploy</p>
+<p class="alphau"><strong>D.</strong> AWS CodePipeline</p>
+<p class="number1"><strong><a href="ch01.xhtml#rch01qa25" id="ch01qa25">25.</a></strong> You want use an automated process to compile your source code, run tests, and produce software packages that are ready to deploy. Which of the following developer tools automates the compilation and tests your software packages?</p>
+<p class="alphau"><strong>A.</strong> AWS CodePipeline</p>
+<p class="alphau"><strong>B.</strong> AWS CodeDeploy</p>
+<p class="alphau"><strong>C.</strong> AWS CodeCommit</p>
+<p class="alphau"><strong>D.</strong> AWS CodeBuild</p>
+<h4 class="h4" id="ch1lev2sec7">Answers</h4>
+<p class="numbert"><strong><a href="ch01.xhtml#ch01qa1" id="rch01qa1">1.</a> B, C, D.</strong> A traditional three-tier architecture consists of the Web tier, Application tier, and Database tier. In AWS, the Web tier will be in the public subnet, and the Application and Database tiers will be in a private subnet.</p>
+<p class="number"><strong><a href="ch01.xhtml#ch01qa2" id="rch01qa2">2.</a> C.</strong> There will be at least two availability zones in each AWS region to provide high availability and fault tolerance to your applications.</p>
+<p class="number"><strong><a href="ch01.xhtml#ch01qa3" id="rch01qa3">3.</a> C.</strong> Amazon Virtual Private Cloud (VPC) provides a logically isolated section of the AWS cloud and acts as a networking layer for your EC2 instances and database services.</p>
+<p class="number"><span epub:type="pagebreak" id="page_34"/><strong><a href="ch01.xhtml#ch01qa4" id="rch01qa4">4.</a> D.</strong> Amazon S3 (Simple Storage Service) will help you host a static website without your having to provision and maintain any servers.</p>
+<p class="number"><strong><a href="ch01.xhtml#ch01qa5" id="rch01qa5">5.</a> B.</strong> Amazon CloudWatch provides those metrics in one-minute and five-minute intervals. You can use a Personal Health Dashboard to monitor the EC2 instance’s performance.</p>
+<p class="number"><strong><a href="ch01.xhtml#ch01qa6" id="rch01qa6">6.</a> A.</strong> Amazon EC2 Auto Scaling will automatically detect when an instance is unhealthy, terminate it, and replace it with a new one.</p>
+<p class="number"><strong><a href="ch01.xhtml#ch01qa7" id="rch01qa7">7.</a> C.</strong> With Amazon Athena, you can query data stored in Amazon S3 by defining the schema. You start querying using standard ANSI SQL.</p>
+<p class="number"><strong><a href="ch01.xhtml#ch01qa8" id="rch01qa8">8.</a> A.</strong> Using AWS Lambda, you can run your code without provisioning or managing servers. Your company would pay only for the compute time that you consume, and there is no charge when your code is not running.</p>
+<p class="number"><strong><a href="ch01.xhtml#ch01qa9" id="rch01qa9">9.</a> B.</strong> Amazon Relational Database Service (Amazon RDS) automates time-consuming database administration tasks, such as database installation, patching, and daily backups.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa10" id="rch01qa10">10.</a> D.</strong> Amazon ElastiCache offers fully managed, in-memory data stores that can be used to build data-intensive gaming applications to provide high throughput and low latency for your users.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa11" id="rch01qa11">11.</a> A.</strong> The Amazon Route 53 service routes your traffic based on the endpoint health of your instance, the geographic location of the user, and latency.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa12" id="rch01qa12">12.</a> B.</strong> AWS CloudTrail helps you monitor continuously and provides event history of all AWS account activity.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa13" id="rch01qa13">13.</a> C.</strong> Amazon S3 provides 99.99999999999 percent durability by storing data across multiple systems within an AWS region.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa14" id="rch01qa14">14.</a> D.</strong> Amazon CloudFront is a CDN service that securely delivers videos, data, and applications to your customers.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa15" id="rch01qa15">15.</a> A.</strong> Amazon S3 Glacier provides extremely low-cost cloud storage for long-term backup.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa16" id="rch01qa16">16.</a> D.</strong> The AWS Identity and Access Management (IAM) service can be used to create and manage AWS users and groups to allow and deny access to AWS resources at no charge.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa17" id="rch01qa17">17.</a> A.</strong> The AWS Snowball service could be used to transfer the data to the device, which is then shipped back to AWS, where the data is copied into your S3 bucket.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa18" id="rch01qa18">18.</a> D</strong>. AWS Direct Connect provides private connectivity between AWS and your datacenter using a dedicated network connection to reduce network costs and increase bandwidth throughput without using the Internet.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa19" id="rch01qa19">19.</a> A.</strong> The AWS Storage Gateway service provides hybrid storage service that enables your on-premises applications to store data on the AWS cloud.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa20" id="rch01qa20">20.</a> C.</strong> Amazon Cognito scales to millions of users and supports sign-in with social identity providers via SAML 2.0.</p>
+<p class="number1"><span epub:type="pagebreak" id="page_35"/><strong><a href="ch01.xhtml#ch01qa21" id="rch01qa21">21.</a> B.</strong> AWS Shield provides a managed DDoS protection service that minimizes application downtime and latency.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa22" id="rch01qa22">22.</a> A.</strong> The AWS WAF service acts as web application firewall and protects your web applications from common attack patterns such as SQL injection.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa23" id="rch01qa23">23.</a> D.</strong> AWS CodePipeline is a fully managed continuous delivery service that helps you automate the build, test, and deploy phases of your release cycle every time there is a code change.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa24" id="rch01qa24">24.</a> C.</strong> AWS CodeDeploy is a managed deployment service that automates software deployments and makes it easier to rapidly release new features, while avoiding error-prone manual operations.</p>
+<p class="number1"><strong><a href="ch01.xhtml#ch01qa25" id="rch01qa25">25.</a> D.</strong> AWS CodeBuild is a managed continuous integration service that compiles your source code, runs tests, and produces software packages that are ready for deployment.</p>
+<h3 class="h3" id="ch1lev1sec5">Additional Resources</h3>
+<p class="bullett">• <strong>What is cloud computing?</strong>   Visit this site for in-depth information about cloud computing, including types and benefits.</p>
+<p class="bulletc"><img alt="images" src="p0035-01.jpg"/></p>
+<p class="bulleta">• <strong>Cloud Computing with AWS</strong>   Consult this site to learn more about AWS and global network infrastructures, read customer stories, and so on.</p>
+<p class="bulletc"><img alt="images" src="p0035-02.jpg"/></p>
+<p class="bulleta">• <strong>AWS Blog</strong>   This blog is organized by various categories, such as Compute, Database, DevOps, Storage, and Networking.</p>
+<p class="bulletc"><img alt="images" src="p0035-03.jpg"/></p>
+<p class="bulleta">• <strong>AWS News Blog</strong>   Read this blog periodically to learn what new AWS services and features are being launched.</p>
+<p class="bulletc"><img alt="images" src="p0035-04.jpg"/></p>
+<p class="bulleta">• <strong>AWS Training and Certification</strong>   Here you can find free digital training by AWS and AWS certification details. You can also register for the AWS Certification exam when you are ready.</p>
+<p class="bulletc"><img alt="images" src="p0035-05.jpg"/></p>
+<p class="bulleta">• <strong>AWS FAQs</strong>   This important resource for exam preparation lists the products and technical FAQs.</p>
+<p class="bulletc"><img alt="images" src="p0035-06.jpg"/></p>
+<p class="bulleta">• <strong>Cloud Products</strong>   Explore AWS products on this site.</p>
+<p class="bulletc"><img alt="images" src="p0035-07.jpg"/></p>
+<p class="bulleta">• <strong>AWS Solutions</strong>   Consult this site if you need help solving common problems and building faster. It offers solution details, a deployment guide, and instructions for automated deployment.</p>
+<p class="bulletc"><img alt="images" src="p0035-08.jpg"/></p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_36"/><strong>AWS Documentation and News Blog</strong>   On these two sites, you’ll find user guides, developer guides, API references, tutorials, and more. There is no place like official AWS documentation to get the latest and correct information about all the AWS services. Always refer to the official AWS blogs to get the latest updates about new AWS services and updates to existing features.</p>
+<p class="bulletc"><img alt="images" src="p0036-01.jpg"/></p>
+<p class="bulleta">• <strong>AWS Partner Network</strong>   This site offers information about the global partner program for businesses that use AWS to build solutions and services for customers. It provides valuable business, technical, and marketing support.</p>
+<p class="bulletc"><img alt="images" src="p0036-02.jpg"/></p>
+</section>
+</body>
+</html>

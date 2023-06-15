@@ -1,0 +1,142 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch21"><span epub:type="pagebreak" id="page_529"/><span class="chap">CHAPTER <span class="chap1">21</span></span></h2>
+<h2 class="h2c1">Deploying a Web Application Using AWS Elastic Beanstalk</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• Deploy a sample application in AWS Elastic Beanstalk</p>
+<p class="bulleta">• Create, migrate, and deploy a custom application into AWS Elastic Beanstalk</p>
+<p class="hr"/>
+<p class="noindentb">This chapter will provide the steps to deploy a simple web application into the AWS Elastic Beanstalk service.</p>
+<h3 class="h3" id="ch21lev1sec1">AWS Elastic Beanstalk</h3>
+<p class="noindent">As a developer, you always want to spend more time developing applications for your customers instead of installing, configuring, and managing the infrastructure to run those applications. AWS Elastic Beanstalk enables you to deploy your application developed in Java, .NET, PHP, Python, Node.js, Ruby, and Go by just uploading the application source bundle, such as the .war file for Java. AWS Elastic Beanstalk automatically takes care of provisioning EC2 instances, the load balancer, database, scaling, and monitoring application health. You can use the Elastic Beanstalk CLI or AWS CLI or the AWS Elastic Beanstalk console to interact with AWS Elastic Beanstalk. It is free to use AWS Elastic Beanstalk, and you are charged only for the underlying AWS resources.</p>
+<h3 class="h3" id="ch21lev1sec2"><span epub:type="pagebreak" id="page_530"/>Deploy an Application in AWS Elastic Beanstalk</h3>
+<p class="noindent">Let us deploy a sample application and explore the steps involved in using AWS Elastic Beanstalk.</p>
+<p class="numbert"><strong>1.</strong> Log in to your AWS console and navigate to AWS Elastic Beanstalk. You will see the list of environments and applications listed on this page if you provisioned them previously; if not, you will see the welcome page, shown next. Click on the Create Application button to get started.</p>
+<p class="image"><img alt="images" src="f0530-01.jpg"/></p>
+<p class="number"><strong>2.</strong> You will be provided with two options: Web Server Environment, which is the primary environment, and Worker Environment, which includes the Auto Scaling group and one or more Amazon EC2 instances to process additional requests using the SQS queue. Select Web Environment and enter <strong>my-first-web-app</strong> for <span epub:type="pagebreak" id="page_531"/>the application name and <strong>sample</strong> for the tag value. Select Java for the platform and leave the other values at their default settings. Click the Create Application button.</p>
+<p class="image"><img alt="images" src="f0531-01.jpg"/></p>
+<p class="number"><strong>3.</strong> The environment provisioning begins by creating a security group and elastic IP. You can see that it uses an Amazon S3 bucket for environment data.</p>
+<p class="image"><img alt="images" src="f0531-02.jpg"/></p>
+<p class="number"><strong>4.</strong> <span epub:type="pagebreak" id="page_532"/>After few minutes, Elastic Beanstalk provisions EC2 instances and a load balancer if required. Once ready, you will see the message such as “Successfully launched.”</p>
+<p class="image"><img alt="Images" src="f0532-01.jpg"/></p>
+<p class="number"><strong>5.</strong> The environment page lists the configuration, logs, health, monitoring, alarms, managed updates, events, and tags of your new application. The application name—my-first-web-app—and its URL—<a href="http://MyFirstWebApp-env.eba-jyyicdmx.us-east-1.elasticbeanstalk.com">MyFirstWebApp-env.eba-jyyicdmx.us-east-1.elasticbeanstalk.com</a>—are displayed at the top of the screen. You can see the health of the application as Ok and the Upload And Deploy button, which can be used to deploy an updated version of your application. All the recent events are displayed at the bottom of the screen. You can access the newly deployed <span epub:type="pagebreak" id="page_533"/>web application using the URL displayed—for example, <a href="http://MyFirstWebApp-env.eba-jyyicdmx.us-east-1.elasticbeanstalk.com">MyFirstWebApp-env.eba-jyyicdmx.us-east-1.elasticbeanstalk.com</a>.</p>
+<p class="image"><img alt="Images" src="f0533-01.jpg"/></p>
+<p class="number"><strong>6.</strong> You will see the Congratulations message for the sample web application.</p>
+<p class="image"><img alt="images" src="f0533-02.jpg"/></p>
+<p class="indent">You have successfully deployed your first web application using AWS Elastic Beanstalk. Next we will migrate a sample application from your local machine to AWS Elastic Beanstalk.</p>
+<h3 class="h3" id="ch21lev1sec3"><span epub:type="pagebreak" id="page_534"/>Migrate and Deploy an Application to AWS Elastic Beanstalk</h3>
+<p class="noindent">This example uses start.spring.io to get the sample spring boot application code, but you can use any sample application code.</p>
+<p class="numbert"><strong>1.</strong> Select the Maven Project and Java as the language, with the dependencies Spring and Spring Boot Actuator to see the health using a custom endpoint. For Group Name enter <strong>com.awsdeveloper</strong> and for Maven Artifact enter <strong>aws-beanstalk-app</strong>. Select war packaging and then click on Generate, which will generate the WAR file in ZIP format.</p>
+<p class="image"><img alt="images" src="f0534-01.jpg"/></p>
+<p class="number"><strong>2.</strong> <span epub:type="pagebreak" id="page_535"/>Go to the download location of the ZIP file in your local machine and unzip it. This example used IntelliJ IDEA, but you can use any IDE of your choice. Choose Open and select the location of the unzipped WAR folder.</p>
+<p class="image"><img alt="images" src="f0535-01.jpg"/></p>
+<p class="number"><strong>3.</strong> Explore the src, main, and java locations and see the standard Java files. Create another class by right-clicking com and selecting a new class for testing.</p>
+<p class="image"><img alt="images" src="f0535-02.jpg"/></p>
+<p class="number"><strong>4.</strong> <span epub:type="pagebreak" id="page_536"/>Create a new class called <strong>HelloWorld.java</strong> and enter the following code:</p>
+<p class="numberc"><img alt="Images" src="p0536-01.jpg"/></p>
+<p class="numbern">Then click the Maven on right side and select Package to create an updated WAR file. The WAR file location will be displayed at the bottom along with a build successful message.</p>
+<p class="image"><img alt="images" src="f0536-01.jpg"/></p>
+<p class="number"><strong>5.</strong> Log in to your AWS console, navigate to the AWS Elastic Beanstalk service, and click on the Create Application button.</p>
+<p class="number"><strong>6.</strong> <span epub:type="pagebreak" id="page_537"/>Enter <strong>my-welcome-web-app</strong> for the application name and add tags, which is a best practice to follow when creating any AWS resource. Select Tomcat for the platform and leave the other options at the default settings.</p>
+<p class="image"><img alt="images" src="f0537-01.jpg"/></p>
+<p class="number"><strong>7.</strong> <span epub:type="pagebreak" id="page_538"/>For the Application Code field, select the Upload Your Code option, which will display the source code origin. You can either use Amazon S3 bucket or upload your local file. Once you upload the WAR file that was generated in the previous step, you will see a successful upload message. Click the Create Application button to get started with AWS Elastic Beanstalk.</p>
+<p class="image"><img alt="images" src="f0538-01.jpg"/></p>
+<p class="numbern"><span epub:type="pagebreak" id="page_539"/>Within a few minutes, you will start seeing the resources like Elastic IP, EC2 instance, security group, and load balancer, if required. The application URL will also be displayed, along with the new application environment name.</p>
+<p class="image"><img alt="images" src="f0539-01.jpg"/></p>
+<p class="numbern">Once the provisioning is complete, it will display the environment page with health and platform details. You can deploy an updated version of your application using the Upload And Deploy button. You can view all the recent events at the bottom of the page. Also you have the option to explore configuration, logs, health, monitoring, alarms, managed updates, and events and tags.</p>
+<p class="image"><img alt="images" src="f0539-02.jpg"/></p>
+<p class="number"><strong>8.</strong> <span epub:type="pagebreak" id="page_540"/>Enter your new application URL—for example, <strong><a href="http://mywelcome.eba-mt6dripd.us-east-1.elasticbeanstalk.com/welcome">mywelcome.eba-mt6dripd.us-east-1.elasticbeanstalk.com/welcome</a></strong>—in your browser. The welcome message that we set up in our HelloWorld.java will be displayed here.</p>
+<p class="image"><img alt="images" src="f0540-01.jpg"/></p>
+<p class="numbern">You can also see your application’s health status using actuator in the URL—for example, <a href="http://mywelcome.eba-mt6dripd.us-east-1.elasticbeanstalk.com/welcome">mywelcome.eba-mt6dripd.us-east-1.elasticbeanstalk.com/welcome</a>.</p>
+<p class="image"><img alt="images" src="f0540-02.jpg"/></p>
+<p class="indent">You have successfully created a Java Spring boot application and built it using Maven before packaging it as a WAR file. You then migrated the application to AWS Elastic Beanstalk using the upload option and deployed it successfully.</p>
+<h3 class="h3" id="ch21lev1sec4">Chapter Review</h3>
+<p class="noindent">This chapter began by explaining how developers can use AWS Elastic Beanstalk to easily deploy their application instead of spending time provisioning and managing its infrastructure. First, the chapter provided the steps to successfully create and deploy a sample Java application in AWS Elastic Beanstalk. It then explained the process to create a Java Spring boot application locally and upload it to AWS Elastic Beanstalk to build the web application.</p>
+<h4 class="h4" id="ch21lev2sec1">Exercise</h4>
+<p class="noindent">The following exercises will help you practice deleting the environments that you created in this chapter. There is no charge to use AWS Elastic Beanstalk, but you will need to pay for the underlying resources. You need to create an AWS account, as explained earlier, to perform these exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5">Exercise 21-1: Delete the AWS Elastic Beanstalk Environment Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in and then navigate to the AWS Elastic Beanstalk console at <a href="https://console.aws.amazon.com/elasticbeanstalk/">https://console.aws.amazon.com/elasticbeanstalk/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the navigation pane on the left, choose Environments.</p>
+<p class="number"><strong>4.</strong> <span epub:type="pagebreak" id="page_541"/>Select the environments that you created in this chapter.</p>
+<p class="number"><strong>5.</strong> Choose Actions, navigate to the bottom, and select Terminate.</p>
+<p class="number"><strong>6.</strong> Wait for a couple of minutes and then verify the environments are terminated.</p>
+<p class="number"><strong>7.</strong> Now select Applications and delete the applications that you created in this chapter.</p>
+<p class="number"><strong>8.</strong> Navigate to EC2 and verify the instances are terminated and the EIPs are released.</p>
+<h4 class="h4" id="ch21lev2sec2">Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best responses for each question.</p>
+<p class="number"><strong><a href="ch21.xhtml#rch21qa1" id="ch21qa1">1.</a></strong> Your developers are complaining that they are spending more time troubleshooting the application infrastructure then developing applications. Which AWS service can help your developers concentrate only on application development?</p>
+<p class="alphau"><strong>A.</strong> Amazon EC2</p>
+<p class="alphau"><strong>B.</strong> Amazon S3</p>
+<p class="alphau"><strong>C.</strong> AWS Elastic Beanstalk</p>
+<p class="alphau"><strong>D.</strong> Amazon DynamoDB</p>
+<p class="number"><strong><a href="ch21.xhtml#rch21qa2" id="ch21qa2">2.</a></strong> Your company security policy mandates that your application should not be accessible publicly. How can you make your AWS Elastic Beanstalk application private?</p>
+<p class="alphau"><strong>A.</strong> You can use Amazon VPC, security group rules, network ACLs, and custom route tables to make it private</p>
+<p class="alphau"><strong>B.</strong> You cannot make AWS Elastic Beanstalk applications private, so you need to use Amazon EC2</p>
+<p class="alphau"><strong>C.</strong> By default, the AWS Elastic Beanstalk applications are private</p>
+<p class="alphau"><strong>D.</strong> You can use AWS IAM to deny public access</p>
+<p class="number"><strong><a href="ch21.xhtml#rch21qa3" id="ch21qa3">3.</a></strong> Which of the following languages are supported in AWS Elastic Beanstalk? (Choose all that apply.)</p>
+<p class="alphau"><strong>A.</strong> Java</p>
+<p class="alphau"><strong>B.</strong> Node.js</p>
+<p class="alphau"><strong>C.</strong> .NET</p>
+<p class="alphau"><strong>D.</strong> Python</p>
+<p class="number"><strong><a href="ch21.xhtml#rch21qa4" id="ch21qa4">4.</a></strong> How do you provision EC2 instances, RDS databases, and a load balancer for your AWS Elastic Beanstalk application?</p>
+<p class="alphau"><strong>A.</strong> Use the AWS CloudFormation template</p>
+<p class="alphau"><strong>B.</strong> Use Terraform to deploy the infrastructure</p>
+<p class="alphau"><strong>C.</strong> Use Ansible to provision those resources</p>
+<p class="alphau"><strong>D.</strong> AWS Elastic Beanstalk automatically provisions the infrastructure</p>
+<p class="number"><strong><a href="ch21.xhtml#rch21qa5" id="ch21qa5">5.</a></strong> <span epub:type="pagebreak" id="page_542"/>Your AWS Elastic Beanstalk application needs a database to store data. Which of the following databases are supported in AWS Elastic Beanstalk? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> Amazon SageMaker</p>
+<p class="alphau"><strong>B.</strong> Amazon RDS</p>
+<p class="alphau"><strong>C.</strong> Amazon DynamoDB</p>
+<p class="alphau"><strong>D.</strong> Amazon Cognito</p>
+<p class="number"><strong><a href="ch21.xhtml#rch21qa6" id="ch21qa6">6.</a></strong> Your company deployed applications in AWS Elastic Beanstalk and asked you to manage the platform updates. How can you manage the underlying platform to make sure it runs on the latest version?</p>
+<p class="alphau"><strong>A.</strong> Opt in to automatically update the platform using AWS Elastic Beanstalk</p>
+<p class="alphau"><strong>B.</strong> Set up a monitoring alarm to receive a notification when the new updates are available</p>
+<p class="alphau"><strong>C.</strong> The AWS Elastic Beanstalk underlying platform cannot be updated</p>
+<p class="alphau"><strong>D.</strong> You can use AWS CloudFormation to update the application platform</p>
+<p class="number"><strong><a href="ch21.xhtml#rch21qa7" id="ch21qa7">7.</a></strong> Your company is planning to migrate and deploy many applications in AWS Elastic Beanstalk. They asked you to find the cost of deploying 1,000 applications. Which is of the following is correct regarding the cost of AWS Elastic Beanstalk?</p>
+<p class="alphau"><strong>A.</strong> It uses a pay-as-you-go pricing model</p>
+<p class="alphau"><strong>B.</strong> You can use a reserved pricing model</p>
+<p class="alphau"><strong>C.</strong> There is no cost; you pay only for the underlying AWS resources</p>
+<p class="alphau"><strong>D.</strong> You can use a spot-pricing model</p>
+<p class="number"><strong><a href="ch21.xhtml#rch21qa8" id="ch21qa8">8.</a></strong> You have an application running in production that was deployed using AWS Elastic Beanstalk, and you added a new feature to your application in your local development environment. How can you deploy your updated application in AWS Elastic Beanstalk?</p>
+<p class="alphau"><strong>A.</strong> You can use the Upload And Deploy button on the environment overview page</p>
+<p class="alphau"><strong>B.</strong> You need to delete the existing application and deploy the updated application in AWS Elastic Beanstalk</p>
+<p class="alphau"><strong>C.</strong> You cannot update your application in AWS Elastic Beanstalk</p>
+<p class="alphau"><strong>D.</strong> You need to deploy the updated application in another region and use a load balancer</p>
+<p class="number"><strong><a href="ch21.xhtml#rch21qa9" id="ch21qa9">9.</a></strong> A company deployed many applications in AWS Elastic Beanstalk. One of the applications needs to be scaled using auto-scaling with minimum and maximum instances and a load balancer. How can you achieve this requirement?</p>
+<p class="alphau"><strong>A.</strong> You need to delete and create the application again with a load balanced type</p>
+<p class="alphau"><strong>B.</strong> You need to use Amazon EC2 instances to auto-scale your application</p>
+<p class="alphau"><strong>C.</strong> <span epub:type="pagebreak" id="page_543"/>You need to deploy another AWS Elastic Beanstalk and use Elastic Load Balancer</p>
+<p class="alphau"><strong>D.</strong> You can edit the capacity configuration and update the environment type to load balanced by providing the required number of instances</p>
+<p class="number1"><strong><a href="ch21.xhtml#rch21qa10" id="ch21qa10">10.</a></strong> Your company has deployed critical business application in AWS Elastic Beanstalk and tasked you with monitoring the application. How can you monitor this application and set up an alarm to alert you?</p>
+<p class="alphau"><strong>A.</strong> You need to set up a cron job to monitor the application</p>
+<p class="alphau"><strong>B.</strong> You need to set up Amazon CloudTrail for monitoring and to provide the alarm</p>
+<p class="alphau"><strong>C.</strong> You can add an alarm from the AWS Elastic Beanstalk Environments page</p>
+<p class="alphau"><strong>D.</strong> You cannot set up an alarm for the AWS Elastic Beanstalk application</p>
+<h4 class="h4" id="ch21lev2sec3">Answers</h4>
+<p class="number"><strong><a href="ch21.xhtml#ch21qa1" id="rch21qa1">1.</a> C.</strong> AWS Elastic Beanstalk can be used to save your developers from carrying out infrastructure provisioning.</p>
+<p class="number"><strong><a href="ch21.xhtml#ch21qa2" id="rch21qa2">2.</a> A.</strong> You can use Amazon VPC, security group rules, network ACLs, and custom route tables to make it private.</p>
+<p class="number"><strong><a href="ch21.xhtml#ch21qa3" id="rch21qa3">3.</a> A, B, C, D.</strong> Java, Node.js, .NET, Python, PHP, Ruby, and Go are supported languages.</p>
+<p class="number"><strong><a href="ch21.xhtml#ch21qa4" id="rch21qa4">4.</a> D.</strong> AWS Elastic Beanstalk automatically provisions the infrastructure for your application.</p>
+<p class="number"><strong><a href="ch21.xhtml#ch21qa5" id="rch21qa5">5.</a> B, C.</strong> Amazon RDS and Amazon DynamoDB are supported.</p>
+<p class="number"><strong><a href="ch21.xhtml#ch21qa6" id="rch21qa6">6.</a> A.</strong> You can opt in to automatically update the platform using AWS Elastic Beanstalk.</p>
+<p class="number"><strong><a href="ch21.xhtml#ch21qa7" id="rch21qa7">7.</a> C.</strong> There is no cost to use AWS Elastic Beanstalk; you pay only for the underlying AWS resources.</p>
+<p class="number"><strong><a href="ch21.xhtml#ch21qa8" id="rch21qa8">8.</a> A.</strong> You can use the Upload And Deploy option on the environment overview page to deploy the updated application.</p>
+<p class="number"><strong><a href="ch21.xhtml#ch21qa9" id="rch21qa9">9.</a> D.</strong> You can edit the capacity configuration and update the environment type to load balanced by providing the required number of instances.</p>
+<p class="number1"><strong><a href="ch21.xhtml#ch21qa10" id="rch21qa10">10.</a> C.</strong> You can add an alarm from the AWS Elastic Beanstalk Environments page.</p>
+<h3 class="h3" id="ch21lev1sec5">Additional Resources</h3>
+<p class="bulleta">• <strong>AWS Elastic Beanstalk</strong>   The recommended documentation for any AWS service, including AWS Elastic Beanstalk, is the official AWS documentation, where you can always get the most up-to-date information.</p>
+<p class="bulletc"><img alt="images" src="p0543-01.jpg"/></p>
+<p class="bulleta">• <strong>AWS Elastic Beanstalk Blog</strong>   This is the official blog of AWS Elastic Beanstalk, which has all the latest information about different use cases in one place.</p>
+<p class="bulletc"><img alt="images" src="p0543-02.jpg"/><span epub:type="pagebreak" id="page_544"/></p>
+</section>
+</body>
+</html>

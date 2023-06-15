@@ -1,0 +1,238 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch11"><span epub:type="pagebreak" id="page_309"/><span class="chap">CHAPTER <span class="chap1">11</span></span></h2>
+<h2 class="h2c1">Web Identity Federation and Amazon Cognito for User Authentication</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• Identity federation and providers</p>
+<p class="bulleta">• Web Identity Federation</p>
+<p class="bulleta">• Amazon Cognito</p>
+<p class="bulleta">• SAML 2.0</p>
+<p class="bulleta">• Session policies</p>
+<p class="hr"/>
+<p class="noindentb">In this chapter, we will see how Identity Federation works with AWS identity services and how to use Amazon Cognito for user management of your web and mobile apps using a username and password or through a third party such as Amazon, Google, or Facebook.</p>
+<h3 class="h3" id="ch11lev1sec1">Identity Federation and Providers</h3>
+<p class="noindent">Identity federation is based on the trust between two or more domains, which can be another business unit or your partner organization, to allow users of those domains to access your applications and services using the same identity. An identity broker is any Identity and Access Management (IAM) service provider who specializes in mediating the access control between multiple service providers, based on trust relationships. The trusted connection between two or more such identity brokers across organizations is known as identity federation. An identity provider can be any identity broker who is responsible for affirming digital identities with claims for service providers to consume. A resident identity provider is the identity provider responsible for affirming the digital identities within its trust domain—also known as a local identity provider. A federated identity provider is based on a trust domain and is responsible for affirming digital identities that belong to another specific trusted domain, and a trust relationship can be established between the two identity providers.</p>
+<p class="indent">Identity federation provides a seamless user experience by requiring users to remember only one set of credentials by using single sign-on and avoiding the administrative overhead by delegating account and password management responsibilities to the local identity provider, in place of having multiple identity silos to manage. It simplifies data <span epub:type="pagebreak" id="page_310"/>management and storage costs and also avoids privacy and compliance burdens. The federated identity management is used to provide access to users from supplier, distributor, and partner networks and acts as a temporary arrangement for supporting transitioning between IAM and Social Login such as Amazon, Facebook, Google, etc. Identify federation allows you to manage your access to AWS Cloud resources centrally using single sign-on (SSO) from your corporate directory. Federation exchanges the identity and security information between an identity provider (IdP) and an application using open standards like Security Assertion Markup Language 2.0 (SAML).</p>
+<p class="indent">AWS IAM can be used to sign in to your AWS accounts using your existing corporate credentials. AWS SSO can be used to manage SSO access to multiple AWS accounts and applications. Amazon Cognito can be used to add federation to your own web and mobile applications. Users can sign in to the AWS Management Console using AWS Microsoft Active Directory (AD), AWS Command Line Interface (CLI), and Windows applications running on the AWS Cloud using Microsoft AD credentials. When you manage user identities such as a corporate user directory outside of AWS, IAM identity providers can be used instead of creating IAM users in your AWS account. You can manage your user identities outside of AWS using an IdP, and it is useful if you are creating a mobile app or web application that requires access to AWS resources.</p>
+<p class="indent">You don’t have to create custom sign-in or manage user identities when using an IAM identity provider. Your external users sign in through a well-known IdP, such as Amazon, Google, or Facebook, and the permissions can be given to those external identities to use your AWS resources in your account. Since you don’t have to distribute or embed long-term security credentials like access keys to your application, the IAM identity providers help you to keep your AWS account secure. You need to create an IAM identity provider entity to establish a trust relationship between your AWS account and the IdP. Compatible IdPs like OpenID Connect (OIDC) or SAML 2.0 are supported by AWS IAM.</p>
+<h3 class="h3" id="ch11lev1sec2">Web Identity Federation</h3>
+<p class="noindent">Let’s say you are creating a mobile game application that stores player and score information in Amazon S3 and DynamoDB. Your mobile application makes requests to AWS using an AWS access key, but it is not a best practice to embed or distribute long-term AWS credentials with applications that a user can download to a device, or even in an encrypted store. Instead, your mobile application should be using the temporary AWS security credentials dynamically using web identity federation. An AWS role should be mapped to that temporary credential, which has only the permissions needed to perform the tasks required by the mobile application.</p>
+<p class="indent">You don’t need to create a custom sign-in or manage user identities when using an external IdP that receives an authentication token and then exchange the token for temporary security credentials that can be mapped to an IAM role with only required permissions to use the resources in your AWS account. AWS recommends using Amazon Cognito, since it acts as an identity broker and does the majority of the federation work for you. You need to write code to interact with a web IdP, like Amazon or Google, if you aren’t using Amazon Cognito, which calls the AssumeRoleWithWebIdentity application programming interface (API) to trade the authentication token for temporary AWS security credentials.</p>
+<h3 class="h3" id="ch11lev1sec3"><span epub:type="pagebreak" id="page_311"/>Amazon Cognito</h3>
+<p class="noindent">Amazon Cognito provides user management in addition to authentication and authorization for your web and mobile applications by allowing you to sign in directly with your username and password or through a third party such as Amazon or Google. The user pools and identity pools are the two main components of Amazon Cognito. The user directories that provide sign-up and sign-in options for your application users are called user pools. Identity pools allow you to grant users the required access to other AWS services. Both identity pools and user pools can be used together or separately.</p>
+<p class="indent"><a href="ch11.xhtml#ch11fig1">Figure 11-1</a> shows a common Amazon Cognito scenario where both the user pool and identity pool are used. The scenario involves authenticating a user and granting access to other AWS service(s).</p>
+<p class="bullett">• Your mobile application user signs in through the Cognito user pool and receives user pool tokens after a successful authentication.</p>
+<p class="bulleta">• Then the mobile application trades in the user pool tokens for AWS credentials through the Cognito identity pool.</p>
+<p class="bulleta">• Those AWS credentials can be used by your mobile application to access other AWS services such as DynamoDB or Amazon S3.</p>
+<p class="bulleta">• In turn, Cognito keeps your AWS account secure, since long-term security credentials are not distributed or embedded in your application.</p>
+<p class="imagef" id="ch11fig1"><img alt="images" src="f0311-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 11-1</strong>   Amazon Cognito</p>
+<h4 class="h4" id="ch11lev2sec1"><span epub:type="pagebreak" id="page_312"/>Cognito User Pools</h4>
+<p class="noindent">A user pool is a user directory where users can sign in through Amazon Cognito or federate through a third-party IdP to a directory profile that can be accessed through an SDK. User pools can be used for sign-up and sign-in services. They can be used for signing in with Amazon or Google, as well as SAML identity providers, from your user pool. Cognito also has a customizable built-in web user interface (UI) to sign in users along with multifactor authentication (MFA) and customized workflows. Amazon Cognito issues JSON web tokens (JWTs) after successful authentication that can be used to secure and authorize access to your own APIs, or exchange them for AWS credentials, as shown in <a href="ch11.xhtml#ch11fig2">Figure 11-2</a>.</p>
+<p class="imagef" id="ch11fig2"><img alt="images" src="f0312-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 11-2</strong>   Amazon Cognito user pool</p>
+<p class="indent">You can configure an identity pool to exchange user pool tokens for AWS credentials to enable users in your user pool to access AWS resources. Token handling takes place through the Amazon Cognito user pool identity SDKs for JavaScript, Android, and iOS.</p>
+<h4 class="h4" id="ch11lev2sec2">Identity Pools</h4>
+<p class="noindent">You can create unique identities for your users and authenticate them with identity providers using Amazon Cognito identity pools. You can obtain temporary, limited-privilege AWS credentials to access other AWS services using identity federation, and Cognito Identity Pool supports public identity providers such as Amazon, Google, and developer-authenticated identities.</p>
+<p class="indent">Mobile or web-based applications that need accesses to AWS resources need security credentials in order to make programmatic requests to AWS. AWS recommends using Amazon Cognito for most mobile and web-based application scenarios. Amazon Cognito can be used with the AWS Mobile SDK for iOS, Android, and Fire OS to create unique identities for users and can authenticate secure access to your specific AWS resources. Amazon Cognito supports developer-authenticated identities and guest (unauthenticated) access and also provides API operations for synchronizing and preserving user data as users move between devices. It works with the third-party services and supports anonymous sign-ins by doing most of the behind-the-scenes work with public identity provider services. You can also work directly with a third-party service like Login with Amazon, Google, Facebook, or any OIDC-compatible IdP.</p>
+<h4 class="h4" id="ch11lev2sec3"><span epub:type="pagebreak" id="page_313"/>Amazon Cognito Sync</h4>
+<p class="noindent">Amazon Cognito Sync is a client library that enables cross-device syncing of application-related user data. It can be used to synchronize user profile data across mobile devices and web applications. It caches the data locally in order for your application to read and write data, regardless if the device is online or offline. When the device is back online, the data will be synchronized, and if you configure push sync, then other devices are notified immediately about the available update.</p>
+<h4 class="h4" id="ch11lev2sec4">Amazon Cognito for Mobile Apps</h4>
+<p class="noindent">Let’s say you are a developer building a soccer game for a mobile device and your users’ data is stored in Amazon S3 and Amazon DynamoDB. You are using Amazon Cognito to keep your local data synchronized across devices. Since the long-term AWS security credentials should not be distributed with the game for security and maintenance reasons and the game will have a large number of users, you don’t want to create new user identities in IAM for each player. So, you create your mobile application to use external IdPs, such as Login with Amazon, Google, Facebook, or any IdP that is compatible with OIDC. Your mobile application will take advantage of the authentication mechanism from one of those providers to validate your users’ identity. You register the developer ID with your IdP to enable the mobile app to access their AWS resources, and you also configure the application with each of those providers. You can use Amazon Cognito to create IAM roles that precisely define permissions that the game needs from your AWS account that contains the Amazon S3 bucket and DynamoDB table for your soccer game mobile application.</p>
+<p class="indent">In the mobile application code, you can call the sign-in interface for the IdP that you configured, where the IdP handles all the details of letting the user sign in. The application gets an OAuth access token or OIDC ID token from the provider, and your application can trade this authentication information for a set of temporary security credentials that consist of a session token, a secret access key, and an AWS access key ID. Then the application uses those temporary credentials to access web services offered by AWS. The application is limited to those permissions that are defined in the role that it assumes. <a href="ch11.xhtml#ch11fig3">Figure 11-3</a> shows a flowchart for how using Login with Amazon as the IdP will work. The steps are as follows:</p>
+<p class="numbert"><strong>1.</strong> A user starts your game application on a mobile device, and the application asks the user to sign in.</p>
+<p class="number"><strong>2.</strong> The application redirects the user to Login with Amazon to accept the user’s credentials.</p>
+<p class="number"><strong>3.</strong> The application uses the Cognito API to exchange the Login with Amazon ID token for a Cognito token.</p>
+<p class="number"><strong>4.</strong> The application then passes the Cognito token and requests temporary security credentials from AWS Security Token Service (STS).</p>
+<p class="number"><strong>5.</strong> The temporary security credentials can then be used by your mobile application to access any AWS resources required, like Amazon S3 and Amazon DynamoDB. The associated role of the temporary security credentials determines what can be accessed from those AWS services.</p>
+<p class="imagef" id="ch11fig3"><img alt="images" src="f0314-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 11-3</strong>   Login with Amazon IdP</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_314"/>Authenticating with User Pool</h5>
+<p class="noindent"><a href="ch11.xhtml#ch11fig4">Figure 11-4</a> shows how to enable your users to authenticate with a user pool in this sample scenario.</p>
+<p class="numbert"><strong>1.</strong> First your application users need to sign in either directly through a user pool or through a third-party IdP.</p>
+<p class="number"><strong>2.</strong> The Cognito user pool handles the tokens that are returned from a social sign-in service like Google, Amazon, and SAML IdPs, or from OIDC.</p>
+<p class="number"><strong>3.</strong> After the authentication is successful, Amazon Cognito will send the user pool tokens to your application.</p>
+<p class="number"><strong>4.</strong> The user pool tokens can be used to retrieve AWS credentials to allow users to access other AWS services.</p>
+<p class="imagef" id="ch11fig4"><img alt="images" src="f0314-02.jpg"/></p>
+<p class="figcaption"><strong>Figure 11-4</strong>   Authenticate with the user pool</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_315"/>Accessing Server-Side Resources Using the User Pool</h5>
+<p class="noindent">In this sample scenario, we will see how to access server-side resources using the user pool, as shown in <a href="ch11.xhtml#ch11fig5">Figure 11-5</a>.</p>
+<p class="numbert"><strong>1.</strong> Your application users sign in through a user pool.</p>
+<p class="number"><strong>2.</strong> If the authentication is successful, Amazon Cognito will send the user pool tokens to your web or mobile application.</p>
+<p class="number"><strong>3.</strong> The user pool tokens will then be used to control access to your server-side resources.</p>
+<p class="number"><strong>4.</strong> User pool groups can be created to manage permissions and to specify different types of users.</p>
+<p class="number"><strong>5.</strong> You can use the hosted web UI provided by Amazon Cognito to add sign-up and sign-in pages to your app.</p>
+<p class="number"><strong>6.</strong> You can create your own resource server to access protected resources for your users using this OAuth 2.0 foundation.</p>
+<p class="imagef" id="ch11fig5"><img alt="images" src="f0315-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 11-5</strong>   Backend resource authentications</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_316"/>Accessing the API Gateway with a User Pool</h5>
+<p class="noindent">We will see how to access your API through the API Gateway and Lambda using a user pool. <a href="ch11.xhtml#ch11fig6">Figure 11-6</a> provides a diagram of the steps.</p>
+<p class="numbert"><strong>1.</strong> Your application users sign in to the Cognito user pool.</p>
+<p class="number"><strong>2.</strong> When the authentication is successful, Amazon Cognito will send the user pool tokens back to your application.</p>
+<p class="number"><strong>3.</strong> The user pool tokens will then be used to access your API through API Gateway.</p>
+<p class="number"><strong>4.</strong> API Gateway validates the user pool tokens and uses them to grant your users access to resources like Lambda functions or your API.</p>
+<p class="number"><strong>5.</strong> User pool groups can be created to control permissions with API Gateway by mapping group membership to IAM roles.</p>
+<p class="number"><strong>6.</strong> The user pool tokens can be submitted to request an API Gateway be verified by an Amazon Cognito authorizer Lambda function.</p>
+<p class="imagef" id="ch11fig6"><img alt="images" src="f0316-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 11-6</strong>   Accessing API Gateway</p>
+<h5 class="h5">Access AWS Services with a User Pool and an Identity Pool</h5>
+<p class="noindent">Your application users can sign in either directly through a user pool or federate through a third-party IdP, as you can see in <a href="ch11.xhtml#ch11fig7">Figure 11-7</a>.</p>
+<p class="numbert"><strong>1.</strong> The Cognito user pool handles the tokens that are returned from social sign-in services like Google, Amazon, and SAML IdPs or from OIDC.</p>
+<p class="number"><strong>2.</strong> After the authentication is successful, Amazon Cognito will send the user pool tokens to your application.</p>
+<p class="number"><strong>3.</strong> The user pool tokens can be exchanged for temporary access to other AWS services with an identity pool.</p>
+<p class="imagef" id="ch11fig7"><img alt="images" src="f0317-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 11-7</strong>   Authentication with Amazon Cognito user and identity pools</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_317"/>Authenticating with a Third-Party Identity Provider</h5>
+<p class="noindent">Your application users can federate through a third-party IdP, as you see in <a href="ch11.xhtml#ch11fig8">Figure 11-8</a>.</p>
+<p class="numbert"><strong>1.</strong> Your application gets the IdP token from social sign-in like Google, Amazon, and SAML IdPs or from OpenID Connect (OIDC).</p>
+<p class="number"><strong>2.</strong> The IdP tokens can be exchanged for temporary access to other AWS services with an identity pool.</p>
+<p class="imagef" id="ch11fig8"><img alt="images" src="f0317-02.jpg"/></p>
+<p class="figcaption"><strong>Figure 11-8</strong>   Authentication with an identity pool</p>
+<h3 class="h3" id="ch11lev1sec4"><span epub:type="pagebreak" id="page_318"/>Federating Users with SAML 2.0</h3>
+<p class="noindent">In most cases, your organization might already be using an identity provider software package that supports SAML 2.0, and you may need to create a trust between your company as the IdP and AWS as the service provider. SAML can be used to provide your users with federated SSO for access to call AWS API operations or to the AWS Management Console. For instance, you can federate using SAML 2.0 if your company uses Microsoft AD and Active Directory Federation Services. You may need to build a custom identity broker application to perform a similar function if your identity store is not compatible with SAML 2.0. Your custom broker application needs to authenticate users, request temporary credentials for users from AWS, and provide them to the user to access AWS resources. <a href="ch11.xhtml#ch11fig9">Figure 11-9</a> illustrates this scenario.</p>
+<p class="numbert"><strong>1.</strong> The user accesses your custom identity broker.</p>
+<p class="number"><strong>2.</strong> The identity broker authenticates the user using your corporate identity system, which can be Lightweight Directory Access Protocol (LDAP) or Active Directory.</p>
+<p class="number"><strong>3.</strong> The identity broker application calls either AssumeRole or GetFederationToken to obtain temporary security credentials.</p>
+<p class="number"><strong>4.</strong> The call returns credentials consisting of an AWS access key ID, a secret access key, and a session token.</p>
+<p class="numberb"><strong>5.</strong> The application uses the temporary credentials to call AWS API operations or the AWS Management Console.</p>
+<p class="imagef" id="ch11fig9"><img alt="images" src="f0318-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 11-9</strong>   Federate with SAML</p>
+<p class="indent"><span epub:type="pagebreak" id="page_319"/>The identity broker application stores these temporary security credentials to other internal company applications by caching the credentials until they expire and then requests a new set of temporary credentials.</p>
+<h3 class="h3" id="ch11lev1sec5">Session Policies</h3>
+<p class="noindent">An advanced policy that can be passed in a parameter when you programmatically create a temporary session for a role or federated user is known as a session policy. The intersection of the identity-based policies and resource-based policy for the IAM entity is used to create the session policies, where an explicit deny overrides allow. By using the AssumeRoleWithSAML, AssumeRole, or AssumeRoleWithWebIdentity API, the role session and pass session policies can be created programmatically. A single JSON inline session policy document can be passed using the Policy parameter, and the PolicyArns parameter can be used to specify up to ten managed session policies.</p>
+<p class="indent">You can use an IAM user’s access keys to create a federated user session by programmatically calling the GetFederationToken API operation and also pass session policies. This scenario results in session permissions that are the intersection of the IAM user’s identity-based policy and the session policy. A resource-based policy specifies the Amazon Resource Name (ARN) of the user or role as a principal, where the permissions from the resource-based policy are added to the role or user’s identity-based policy before the session is created. The session policy can be used to limit the total permissions granted by the resource-based policy and the identity-based policy. This scenario results in session permissions that are the intersection of the session policies and either the identity-based policy or the resource-based policy, as shown in <a href="ch11.xhtml#ch11fig10">Figure 11-10</a>.</p>
+<p class="imagef" id="ch11fig10"><img alt="images" src="f0319-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 11-10</strong>   Effective policies I</p>
+<p class="indent"><span epub:type="pagebreak" id="page_320"/>A resource-based policy can be specified by the ARN of the session as a principal, and the resource-based policy permissions are added after the session is created. The resource-based policy permissions are not limited by the session policy, which results in the permissions of the resource-based policy plus the intersection of the identity-based policy and the session policy, as shown in <a href="ch11.xhtml#ch11fig11">Figure 11-11</a>.</p>
+<p class="imagef" id="ch11fig11"><img alt="images" src="f0320-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 11-11</strong>   Effective policies II</p>
+<p class="indent">The maximum permissions for a user or role can be set using a permissions boundary to create a session. The resulting session’s permissions are the intersection of the identity-based policy, the permissions boundary, and the session policy, as shown in <a href="ch11.xhtml#ch11fig12">Figure 11-12</a>.</p>
+<p class="imagef" id="ch11fig12"><img alt="images" src="f0320-02.jpg"/></p>
+<p class="figcaption"><strong>Figure 11-12</strong>   Effective policies III</p>
+<p class="indent"><span epub:type="pagebreak" id="page_321"/>The AWS account root user cannot be attached to identity-based policies, and the permissions boundary cannot be set for the root user. But you can specify the root user as the principal in a resource-based policy.</p>
+<h3 class="h3" id="ch11lev1sec6">Chapter Review</h3>
+<p class="noindent">This chapter began by explaining identity federation and identity providers. It then explained Amazon Cognito, which provides user management using user pools and identity pools. Identity federation is based on the trust between two or more domains, which can be another business unit or your partner organization, to allow users of those domains to access your applications and services using the same identity. An identity broker is any IAM service provider who specializes in mediating the access control between multiple service providers, based on trust relationships. The trusted connection between two or more such identity brokers across organizations is known as identity federation. Federated identity management is used to provide access to users from supplier, distributor, and partner networks and acts as a temporary arrangement for supporting transitioning between IAM and social login services such as Amazon, Facebook, Google, etc. Identify federation allows you to manage your access to AWS Cloud resources centrally using SSO from your corporate directory. Federation exchanges the identity and security information between an IdP and an application using open standards like SAML.</p>
+<p class="indent">Amazon Cognito provides user management in addition to authentication and authorization for your web and mobile applications by allowing you to sign in directly with your username and password or through a third party such as Amazon or Google. User pools and identity pools are the two main components of Amazon Cognito. The user directories that provide sign-up and sign-in options for your application users are called user pools. Identity pools allow you to grant users the required access to other AWS services. Both identity pools and user pools can be used together or separately. SAML can be used to provide your users with federated SSO for access to call AWS API operations or to the AWS Management Console. For instance, you can federate using SAML 2.0 if your company uses Microsoft AD and Active Directory Federation Services. An advanced policy that can be passed in a parameter when you programmatically create a temporary session for a role or federated user is known as a session policy. The intersection of the identity-based policies and resource-based policy for the IAM entity is used to create the session policies, where an explicit deny overrides an allow.</p>
+<h4 class="h4" id="ch11lev2sec5">Exercises</h4>
+<p class="noindent">The following exercises will help you practice using Amazon Cognito user pools and identity pools. You need to create an AWS account, as explained earlier, to perform these exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_322"/>Exercise 11-1: Create an Amazon Cognito User Pool</h5>
+<p class="noindent">In this exercise, you will find the step-by-step guidelines to create an Amazon Cognito user pool using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Log in to your AWS console and provide your credentials to go to the Amazon Cognito console at <a href="https://console.aws.amazon.com/cognito/">https://console.aws.amazon.com/cognito/</a>.</p>
+<p class="number"><strong>2.</strong> Click on the Manage Your User Pools button. The Your User Pools page appears.</p>
+<p class="number"><strong>3.</strong> Click the Create A User Pool button in the upper-right corner.</p>
+<p class="number"><strong>4.</strong> Enter my-dev-pool for your user pool name.</p>
+<p class="number"><strong>5.</strong> Now you have two options: either choose Review Defaults to accept all the default values to save the name or choose Step Through Settings to choose attributes, policies, MFA, message, tags, devices, app clients, and triggers.</p>
+<p class="number"><strong>6.</strong> On the Review page, click the Create Pool button to create the user pool.</p>
+<h5 class="h5">Exercise 11-2: Create an Amazon Cognito Identity Pool</h5>
+<p class="noindent">This exercise will help you with the step-by-step guidelines to create an Amazon Cognito identity pool using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Log in to your AWS console and provide your credentials to go to the Amazon Cognito console at <a href="https://console.aws.amazon.com/cognito/">https://console.aws.amazon.com/cognito/</a>.</p>
+<p class="number"><strong>2.</strong> Click Manage Identity Pools to open the Getting Started Wizard page.</p>
+<p class="number"><strong>3.</strong> Choose Step-1 Create New Identity Pool.</p>
+<p class="number"><strong>4.</strong> Type <strong>my_dev_identity_pool</strong> for your identity pool name.</p>
+<p class="number"><strong>5.</strong> Choose to enable unauthenticated identities for guest access without login.</p>
+<p class="number"><strong>6.</strong> Choose the authentication providers Cognito, Amazon, Facebook, Google+, Twitter/Digits, OpenID, SAML, or Custom based on your need. Leave the defaults for this example.</p>
+<p class="number"><strong>7.</strong> Click on Create Pool.</p>
+<p class="number"><strong>8.</strong> Now you will be prompted for access to your AWS resources. Choose Allow to create the two default roles (Cognito_my_dev_identity_poolAuth_Role and Cognito_my_dev_identity_poolUnauth_Role) associated with your identity pool.</p>
+<p class="number"><strong>9.</strong> Store your identity pool ID number: us-west-1:321ab7c3-12d3-123e-f123-1f23456g7h89, // Identity pool ID. You will see different platforms like Android, iOS, JavaScript, Unity, Xamarin, and .NET.</p>
+<p class="number1"><strong>10.</strong> Click on Go To Dashboard to see the list of identity pools.</p>
+<h5 class="h5">Exercise 11-3: Delete an Amazon Cognito Identity Pool</h5>
+<p class="noindent">In this exercise, you will find the step-by-step instructions to delete your Amazon Cognito identity pool using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Log in to your AWS console and provide your credentials to go to the Amazon Cognito console at <a href="https://console.aws.amazon.com/cognito/">https://console.aws.amazon.com/cognito/</a>.</p>
+<p class="number"><strong>2.</strong> <span epub:type="pagebreak" id="page_323"/>Click on the Manage Identity Pools button.</p>
+<p class="number"><strong>3.</strong> From the list of identity pools, select my_dev_identity_pool. The Dashboard page will appear.</p>
+<p class="number"><strong>4.</strong> Choose Edit Identity Pool, which is in the top-right corner of the dashboard.</p>
+<p class="number"><strong>5.</strong> Scroll through the available options and choose the last option: Delete Identity Pool to expand it.</p>
+<p class="number"><strong>6.</strong> Click on the Delete Identity Pool button.</p>
+<p class="number"><strong>7.</strong> The popup window will ask you for confirmation. Choose Delete Pool.</p>
+<h5 class="h5">Exercise 11-4: Delete an Amazon Cognito User Pool</h5>
+<p class="noindent">In this exercise, you will find the step-by-step guidelines to delete your Amazon Cognito user pool using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Log in to your AWS console and provide your credentials to go to the Amazon Cognito console at <a href="https://console.aws.amazon.com/cognito/">https://console.aws.amazon.com/cognito/</a>.</p>
+<p class="number"><strong>2.</strong> Click on the Manage Your User Pools button. The Your User Pools page will appear.</p>
+<p class="number"><strong>3.</strong> Choose the user pool my-dev-pool that you created in Exercise 11-1.</p>
+<p class="number"><strong>4.</strong> On the General Settings page, click on the Delete Pool button, which is in the upper-right corner of the page.</p>
+<p class="number"><strong>5.</strong> Enter <strong>delete</strong> in the popup prompt to confirm and click Delete Pool.</p>
+<h4 class="h4" id="ch11lev2sec6">Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best responses for each question.</p>
+<p class="numbert"><strong><a href="ch11.xhtml#rch11qa1" id="ch11qa1">1.</a></strong> What is an Amazon Cognito user pool?</p>
+<p class="alphau"><strong>A.</strong> It is a user directory that can be configured for your web and mobile applications where you can securely store your users’ profile attributes.</p>
+<p class="alphau"><strong>B.</strong> It allows you to stream large volume of data to Kinesis in real time.</p>
+<p class="alphau"><strong>C.</strong> It enables developers to run multiple AWS Lambda functions.</p>
+<p class="alphau"><strong>D.</strong> It allows customers to encrypt their data using the Cognito key.</p>
+<p class="number"><strong><a href="ch11.xhtml#rch11qa2" id="ch11qa2">2.</a></strong> What is an Amazon Cognito identity pool?</p>
+<p class="alphau"><strong>A.</strong> It enables developers to run multiple AWS Lambda functions.</p>
+<p class="alphau"><strong>B.</strong> It allows customers to encrypt their data using the Cognito key.</p>
+<p class="alphau"><strong>C.</strong> It can be configured for your web and mobile applications where you can securely store your users’ profile attributes.</p>
+<p class="alphau"><strong>D.</strong> It allows you to create unique identities for users and authenticate them with third-party identity providers.</p>
+<p class="number"><strong><a href="ch11.xhtml#rch11qa3" id="ch11qa3">3.</a></strong> <span epub:type="pagebreak" id="page_324"/>Which AWS service supports SAML or OpenID Connect, social identity providers like Amazon, Twitter, and Facebook, and also allows you to integrate with your own identity provider?</p>
+<p class="alphau"><strong>A.</strong> AWS Lambda</p>
+<p class="alphau"><strong>B.</strong> Amazon EC2</p>
+<p class="alphau"><strong>C.</strong> Amazon Cognito</p>
+<p class="alphau"><strong>D.</strong> Amazon S3</p>
+<p class="number"><strong><a href="ch11.xhtml#rch11qa4" id="ch11qa4">4.</a></strong> Can you customize sign-up and sign-in by adding your application-specific logic to the user sign-up and sign-in flows in workflows?</p>
+<p class="alphau"><strong>A.</strong> No, it is not possible to customize the workflow.</p>
+<p class="alphau"><strong>B.</strong> Yes, it is possible to customize the workflow by using Amazon Route 53.</p>
+<p class="alphau"><strong>C.</strong> Yes, it is possible to customize the workflow by using Amazon EBS.</p>
+<p class="alphau"><strong>D.</strong> Yes, it is possible using Lambda functions to customize the workflow.</p>
+<p class="number"><strong><a href="ch11.xhtml#rch11qa5" id="ch11qa5">5.</a></strong> Is it possible to migrate your existing users to the Amazon Cognito user pool?</p>
+<p class="alphau"><strong>A.</strong> Yes, the import tool can be used to migrate the existing users to the user pool.</p>
+<p class="alphau"><strong>B.</strong> No, it is not possible to import the existing users other than manually adding them to the user pool.</p>
+<p class="alphau"><strong>C.</strong> Yes, it is possible using Amazon Polly.</p>
+<p class="alphau"><strong>D.</strong> Yes, you can use the AWS Database Migration Service to import the users to the user pool.</p>
+<p class="number"><strong><a href="ch11.xhtml#rch11qa6" id="ch11qa6">6.</a></strong> Where do you store data associated with a Cognito identity?</p>
+<p class="alphau"><strong>A.</strong> Data can be stored on the Amazon Aurora database and on Amazon S3.</p>
+<p class="alphau"><strong>B.</strong> Data can be stored both locally on the device and in the Cognito sync store as key/value pairs.</p>
+<p class="alphau"><strong>C.</strong> Data can be stored on the Amazon Redshift database and on Amazon Glacier.</p>
+<p class="alphau"><strong>D.</strong> Data can be stored on Amazon EBS volumes and on Amazon EFS.</p>
+<p class="number"><strong><a href="ch11.xhtml#rch11qa7" id="ch11qa7">7.</a></strong> You want to enable federated single sign-on (SSO) for your users to log in to the AWS Management Console or call the AWS API operations without creating an IAM user for everyone in your organization. Which of the following you can use as the solution for this scenario?</p>
+<p class="alphau"><strong>A.</strong> You can use an open standard such as SAML 2.0</p>
+<p class="alphau"><strong>B.</strong> Amazon Virtual Private Cloud (VPC)</p>
+<p class="alphau"><strong>C.</strong> Amazon Elastic Compute Cloud (EC2)</p>
+<p class="alphau"><strong>D.</strong> Amazon Route 53</p>
+<p class="number"><strong><a href="ch11.xhtml#rch11qa8" id="ch11qa8">8.</a></strong> <span epub:type="pagebreak" id="page_325"/>You don’t want your application to manage the overhead of handling the tokens returned from social sign-in through Amazon, Google, and Facebook. What feature of Amazon Cognito handles this for you?</p>
+<p class="alphau"><strong>A.</strong> Amazon Cognito sync</p>
+<p class="alphau"><strong>B.</strong> Amazon Cognito identity pool</p>
+<p class="alphau"><strong>C.</strong> Amazon Cognito user pool</p>
+<p class="alphau"><strong>D.</strong> AWS Identity and Access Management (IAM)</p>
+<p class="number"><strong><a href="ch11.xhtml#rch11qa9" id="ch11qa9">9.</a></strong> Your customer wants to add a second level of authentication instead of solely relying on a username and password combination to access your Amazon Cognito user pool. How can you achieve this?</p>
+<p class="alphau"><strong>A.</strong> You can add multifactor authentication (MFA) to a user pool.</p>
+<p class="alphau"><strong>B.</strong> You can add MFA to an identity pool.</p>
+<p class="alphau"><strong>C.</strong> You can add MFA to a sync.</p>
+<p class="alphau"><strong>D.</strong> It is not possible to add a second level of authentication.</p>
+<p class="number1"><strong><a href="ch11.xhtml#rch11qa10" id="ch11qa10">10.</a></strong> You can create an AWS Lambda function and then trigger that function during which of the following user pool operations with a Lambda trigger? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> User sign-up</p>
+<p class="alphau"><strong>B.</strong> Confirmation</p>
+<p class="alphau"><strong>C.</strong> Sign-in</p>
+<p class="alphau"><strong>D.</strong> Multiple Availability Zones (AZs)</p>
+<h4 class="h4" id="ch11lev2sec7">Answers</h4>
+<p class="numbert"><strong><a href="ch11.xhtml#ch11qa1" id="rch11qa1">1.</a> A.</strong> It is a user directory that can be configured for your web and mobile applications where you can securely store your users’ profile attributes.</p>
+<p class="number"><strong><a href="ch11.xhtml#ch11qa2" id="rch11qa2">2.</a> D.</strong> It allows you to create unique identities for users and authenticate them with third-party identity providers.</p>
+<p class="number"><strong><a href="ch11.xhtml#ch11qa3" id="rch11qa3">3.</a> C.</strong> Amazon Cognito supports SAML or OpenID Connect, social identity providers, and also allows your own identity provider.</p>
+<p class="number"><strong><a href="ch11.xhtml#ch11qa4" id="rch11qa4">4.</a> D.</strong> Yes, it is possible using Lambda functions to customize the workflow.</p>
+<p class="number"><strong><a href="ch11.xhtml#ch11qa5" id="rch11qa5">5.</a> A.</strong> Yes, the import tool can be used to migrate the existing users to the user pool.</p>
+<p class="number"><strong><a href="ch11.xhtml#ch11qa6" id="rch11qa6">6.</a> B.</strong> Data can be stored both locally on the device and in the Cognito sync store as key/value pairs.</p>
+<p class="number"><strong><a href="ch11.xhtml#ch11qa7" id="rch11qa7">7.</a> A.</strong> You can use an open standard such as SAML 2.0 to enable federated SSO.</p>
+<p class="number"><strong><a href="ch11.xhtml#ch11qa8" id="rch11qa8">8.</a> C.</strong> An Amazon Cognito user pool manages the overhead of handling the tokens returned from social sign-in.</p>
+<p class="number"><strong><a href="ch11.xhtml#ch11qa9" id="rch11qa9">9.</a></strong> <span epub:type="pagebreak" id="page_326"/><strong>A.</strong> You can add multifactor authentication (MFA) to a user pool for a second level of authentication.</p>
+<p class="number1"><strong><a href="ch11.xhtml#ch11qa10" id="rch11qa10">10.</a> A, B, C.</strong> The AWS Lambda function can be triggered during user sign-up, confirmation, and sign-in user pool operations.</p>
+<h3 class="h3" id="ch11lev1sec7">Additional Resources</h3>
+<p class="bulleta">• <strong>AWS Blogs</strong>   There is no place like official AWS documentation to get the latest and most up-to-date information about all the AWS services. Always refer to the official AWS blogs to get the latest updates about new AWS services and updates to existing features.</p>
+<p class="bulletc"><img alt="images" src="p0326-01.jpg"/></p>
+<p class="bulleta">• <strong>User Sign-in and Sign-up with Amazon Cognito</strong>   This blog explains how AWS Mobile Hub and Amazon Cognito enable user sign-up and sign-in.</p>
+<p class="bulletc"><img alt="images" src="p0326-02.jpg"/></p>
+<p class="bulleta">• <strong>Fine-Grained Authorization with Amazon Cognito</strong>   This blog explains how to integrate authentication and authorization by using Amazon Cognito to control permissions for different user groups in your application to ensure users have appropriate access to backend resources.</p>
+<p class="bulletc"><img alt="images" src="p0326-03.jpg"/></p>
+<p class="bulleta">• <strong>Migrating Users to Amazon Cognito</strong>   This blog explains the options and provides step-by-step instructions on how to use Amazon Cognito User Pools.</p>
+<p class="bulletc"><img alt="images" src="p0326-04.jpg"/></p>
+<p class="bulleta">• <strong>Use Amazon Cognito with AWS Lambda to Detect Cheating</strong>   This blog explains how to prevent an exploit using Amazon Cognito and AWS Lambda.</p>
+<p class="bulletc"><img alt="images" src="p0326-05.jpg"/></p>
+<p class="bulleta">• <strong>Passwordless E-mail Authentication Using Amazon Cognito</strong>   This blog explains how to implement passwordless authentication by sending a one-time login code to the user’s e-mail address.</p>
+<p class="bulletc"><img alt="images" src="p0326-06.jpg"/></p>
+</section>
+</body>
+</html>

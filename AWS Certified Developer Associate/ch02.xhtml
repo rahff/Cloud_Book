@@ -1,0 +1,657 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch2"><span epub:type="pagebreak" id="page_37"/><span class="chap">CHAPTER <span class="chap1">2</span></span></h2>
+<h2 class="h2c1">Interacting with AWS Using API, SDK, and CLI</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• Create new AWS account</p>
+<p class="bulleta">• Explore AWS free services</p>
+<p class="bulleta">• AWS Management Console</p>
+<p class="bulleta">• AWS command line interface</p>
+<p class="bulleta">• AWS Software Development Kit</p>
+<p class="bulleta">• AWS tools for PowerShell</p>
+<p class="bulleta">• AWS serverless application model</p>
+<p class="bulleta">• AWS integrated development environment toolkits</p>
+<p class="hr"/>
+<p class="noindentb">I am excited to welcome you to this chapter, which will discuss how to create a new AWS account and various ways of connecting to your AWS services. As an AWS developer, you need to know and be familiar with various tools that are available to connect and interact securely with AWS services.</p>
+<h3 class="h3" id="ch2lev1sec1">Create a New AWS Account</h3>
+<p class="noindent">AWS accounts are available for free for 12 months to help you familiarize yourself with various AWS services. To create a new AWS account, go to <span class="code">https://aws.amazon.com/free</span>, which is shown in <a href="ch02.xhtml#ch2fig1">Figure 2-1</a>.</p>
+<p class="imagef" id="ch2fig1"><img alt="images" src="f0038-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-1</strong>   AWS Free Tier launch page</p>
+<p class="indent">Click the Create a Free Account button to open the next screen, shown in <a href="ch02.xhtml#ch2fig2">Figure 2-2</a>.</p>
+<p class="imagef" id="ch2fig2"><img alt="images" src="f0038-02.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-2</strong>   AWS free account creation page</p>
+<p class="indent">Enter your e-mail address and a password for your AWS root account. Enter a name for your AWS account (this can be changed later). Click Continue after you entered the required information to open the next screen, shown in <a href="ch02.xhtml#ch2fig3">Figure 2-3</a>.</p>
+<p class="imagef" id="ch2fig3"><img alt="images" src="f0039-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-3</strong>   Contact information</p>
+<p class="indent">In this screen, select Professional if you intend to use this AWS account within your company, educational institution, or organization. Otherwise, select Personal and provide your contact details. Then read through the AWS Customer Agreement and click the check box to indicate that you’ve read it, before clicking Create Account and Continue. The next page is shown in <a href="ch02.xhtml#ch2fig4">Figure 2-4</a>.</p>
+<p class="imagef" id="ch2fig4"><img alt="images" src="f0039-02.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-4</strong>   Payment information</p>
+<p class="indent"><span epub:type="pagebreak" id="page_38"/>Enter your credit or debit card number, the card’s expiration date, and cardholder’s name and billing address. Click a button to indicate whether the billing address is the same or different from your contact address. Click Secure Submit to open the Select A Support Plan page, shown in <a href="ch02.xhtml#ch2fig5">Figure 2-5</a>.</p>
+<p class="imagef" id="ch2fig5"><img alt="images" src="f0040-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-5</strong>   Select a Support Plan page</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="caution.jpg"/></p>
+<p class="note"><strong>CAUTION</strong>   Be aware that this is not a 100 percent free account, because you will be charged if you exceed the free limit quota. (The free quota available for each service is explained at <a href="https://aws.amazon.com/free/explains">https://aws.amazon.com/free/explains</a>.) It’s always a best practice to delete any resources that you don’t need. You can also set up a cost budget to monitor your costs against a specified dollar amount (for example, you can set up a budget for $50 and you can receive alerts when your user-defined thresholds are met) or usage budget. You can monitor your usage of one or more specified usage types or usage type groups (for example, monitor your monthly EC2 instance free usage hours and receive alerts when your user-defined thresholds are met) and receive an e-mail alert if you reach your predefined thresholds for the month.</p>
+</div>
+<p class="indent"><span epub:type="pagebreak" id="page_39"/><span epub:type="pagebreak" id="page_40"/>On the Select a Support Plan Page, you can choose the level of support you need for your AWS account. AWS offers four different plans: a Basic Plan, which is free; a Developer Plan, which currently starts at $29 per month; a Business Plan, which currently starts at $100 per month; and an Enterprise Support plan, which currently costs $15,000 per month and provides premier support for your mission-critical production workloads. You’ll read more about AWS free services in the next section.</p>
+<p class="indent">Once you select the plan and provide your contact phone number, your new AWS free tier account will be created and a confirmation e-mail sent to the root user e-mail address.</p>
+<p class="indent">Type <strong><a href="https://console.aws.amazon.com">https://console.aws.amazon.com</a></strong> in your browser’s search bar to launch the sign-in page shown in <a href="ch02.xhtml#ch2fig6">Figure 2-6</a>, where you’ll enter your root user ID (the e-mail ID you used to create the AWS account) and password.</p>
+<p class="imagef" id="ch2fig6"><img alt="images" src="f0041-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-6</strong>   AWS sign-in page</p>
+<p class="indent">As soon as you’ve logged in the first time, you’ll be routed to the AWS Services page, shown in <a href="ch02.xhtml#ch2fig7">Figure 2-7</a>. Type <strong>IAM</strong> in the search bar to begin setting up the AWS Identity and Access Management (IAM) service. Click IAM, from the search drop-down, to launch the IAM service console. Then you’ll follow the IAM best practices to secure your account.</p>
+<p class="imagef" id="ch2fig7"><img alt="images" src="f0041-02.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-7</strong>   Type IAM in the search bar</p>
+<div class="siden">
+<p class="imagen"><span epub:type="pagebreak" id="page_41"/><img alt="Images" class="inlinen" src="caution.jpg"/></p>
+<p class="note"><strong>CAUTION</strong>   In IAM console, the best security practice is to delete your AWS root account access keys. Instead, use your IAM user access keys or temporary security credentials. You should never use your AWS root account for day-to-day interaction with AWS operations, because the root account provides unrestricted access to your AWS resources. You can also activate multifactor authentication (MFA) on your AWS root account to add another layer of protection. This will help to keep your account secure. For more information on IAM best practices, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html">https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html</a>.</p>
+</div>
+<p class="indent">When you create IAM groups and users, you should always apply default access policies or custom access policies based on the least privilege access requirements of the users or groups who will be using IAM. This simplifies managing and auditing permissions in your account.</p>
+<div class="siden">
+<p class="imagen"><span epub:type="pagebreak" id="page_42"/><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   I will be discussing IAM and security practices in great detail in <a href="ch10.xhtml#ch10">Chapter 10</a>.</p>
+</div>
+<h4 class="h4" id="ch2lev2sec1">Explore AWS Free Tiers</h4>
+<p class="noindent">When you choose the Basic Plan option, you can select from three tiers of free options based on the product you use:</p>
+<p class="bullett">• <strong>Always Free</strong>   Some AWS services are always free; in other words, use of these services does not expire even after your free use term ends. These services are available to all AWS customers.</p>
+<p class="bulleta">• <strong>12 Months Free</strong>   AWS offers free usage for certain services for 12 months from your initial sign-up day. After 12 months, you pay standard service rates.</p>
+<p class="bulletb">• <strong>Trials</strong>   These short-term free trial offers are available for many different software solutions. After the trial period expires, you pay standard service rates.</p>
+<p class="indent">You can explore the following services during the free-trial period:</p>
+<p class="bullett">• <strong>Amazon EC2</strong>   750 hours per month, with 750 hours of Linux, RHEL, or SLES t2.micro instance usage and 750 hours of Windows t2.micro instance usage</p>
+<p class="bulleta">• <strong>Amazon S3</strong>   5GB of free standard storage, 20,000 get requests, and 2000 put requests</p>
+<p class="bulleta">• <strong>Amazon RDS</strong>   750 hours per month of db.t2.micro database usage for MySQL, PostgreSQL, MariaDB, Oracle BYOL, or SQL Server, including 20GB of General Purpose (SSD) database storage and 20GB of storage for DB Snapshots and database backups</p>
+<p class="bulleta">• <strong>Amazon DynamoDB</strong>   25GB of storage, with 25 provisioned write capacity units (WCUs) and 25 provisioned read capacity units (RCUs); enough to handle up to 200 million requests per month.</p>
+<p class="bulleta">• <strong>Amazon SageMaker</strong>   250 hours per month of t2.medium notebook usage for the first two months and 50 hours per month of m4.xlarge for training for the first two months, along with 125 hours per month of m4.xlarge for hosting for the first two months</p>
+<p class="bulleta">• <strong>AWS Lambda</strong>   1 million free requests per month and up to 3.2 million seconds of compute time per month</p>
+<p class="bulleta">• <strong>Amazon Lightsail</strong>   750 hours per month, with a trial of the $3.50 Lightsail plan free for one month when using Linux/Unix; also a trial of the $8 plan free for one month when using Lightsail for Microsoft Windows Server.</p>
+<p class="bulleta">• <strong>AWS Elastic Load Balancing</strong>   750 hours per month shared between Classic and Application Load Balancers with 15GB of data processing for Classic Load Balancers and 15 LCUs for Application Load Balancers</p>
+<p class="bulleta"><span epub:type="pagebreak" id="page_43"/>• <strong>AWS Key Management Service</strong>   20,000 free requests per month</p>
+<p class="bulleta">• <strong>AWS Storage Gateway</strong>   First 100GB per account is free, and no data transfer charges into AWS</p>
+<p class="bulleta">• <strong>AWS Trusted Advisor</strong>   Four best-practice checks on performance and security (service limits, security groups, IAM, and MFA); notification and customization features</p>
+<p class="bulleta">• <strong>AWS CodeBuild</strong>   100 build minutes per month of build.general1.small compute type usage</p>
+<p class="bulleta">• <strong>AWS CodeCommit</strong>   Five active users per month along with 50GB per month of storage and 10,000 Git requests per month</p>
+<p class="bulleta">• <strong>AWS CodePipeline</strong>   One active pipeline per month</p>
+<p class="bulleta">• <strong>AWS Data Pipeline</strong>   Three low frequency preconditions and five low frequency activities</p>
+<p class="bulleta">• <strong>AWS Database Migration Service</strong>   750 hours of Amazon DMS single-AZ dms.t2.micro instance usage and 50GB of included General Purpose (SSD) storage</p>
+<p class="bulleta">• <strong>Amazon SWF</strong>   10,000 activity tasks and 30,000 workflow-days along with 1000 initiated executions</p>
+<p class="bulleta">• <strong>Amazon Redshift</strong>   Two-month free trial of 750 DC2.Large hours per month</p>
+<p class="bulleta">• <strong>Amazon SES</strong>   62,000 outbound messages per month to any recipient when you call Amazon SES from an Amazon EC2 instance directly or through AWS Elastic Beanstalk, and 1000 Inbound messages per month</p>
+<p class="bulleta">• <strong>Amazon EFS</strong>   5GB of storage</p>
+<p class="bulleta">• <strong>Amazon Elastic Block Storage (EBS)</strong>   30GiB of Amazon EBS with any combination of General Purpose (SSD) or Magnetic, and 2000,000 I/Os with EBS Magnetic storage along with 1GB of snapshot storage</p>
+<p class="bulleta">• <strong>Amazon Glacier</strong>   10GB of Amazon Glacier data retrievals per month; can be used any time during the month and also applies to Standard retrievals</p>
+<p class="bulleta">• <strong>Amazon ElastiCache</strong>   750 hours of cache.t2micro node usage along with enough hours to run continuously each month</p>
+<p class="bulleta">• <strong>Amazon Elasticsearch Service</strong>   t2.small.elasticsearch instance, 750 hours per month on a single AZ and 10GB per month of optional EBS storage, either Magnetic or General Purpose</p>
+<p class="bulleta">• <strong>Amazon CloudWatch</strong>   Ten custom metrics and ten alarms, along with 1 million API requests, plus 5GB of log data ingestion and 5GB of log data archive, and three dashboards with up to 50 metrics each per month</p>
+<p class="bulleta">• <strong>Amazon API Gateway</strong>   1 million API calls received per month</p>
+<p class="bulleta">• <strong>Amazon CloudFront</strong>   50GB of data transfer out and 2 million HTTP or HTTPS requests</p>
+<p class="bulleta"><span epub:type="pagebreak" id="page_44"/>• <strong>Amazon Connect</strong>   90 minutes per month of cloud-based contact center usage and a local direct inward dial (DID) number for the region; also 30 minutes per month of local inbound DID calls and 30 minutes per month of local outbound calls</p>
+<p class="bulleta">• <strong>Amazon SNS</strong>   1 million publishes and 100,000 HTTP/S deliveries, along with 1000 e-mail deliveries</p>
+<h3 class="h3" id="ch2lev1sec2">AWS Management Console</h3>
+<p class="noindent">The AWS Management Console is an API-based web application that provides easy access to all the AWS services. It comprises and refers to a broad collection of service consoles for managing your Amazon Web Services. When you first sign in, you see the console home page, shown in <a href="ch02.xhtml#ch2fig8">Figure 2-8</a>.</p>
+<p class="imagef" id="ch2fig8"><img alt="images" src="f0044-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-8</strong>   AWS Management Console home page</p>
+<p class="indent">The home page provides access to all AWS services and corresponding documentation and tips. If you navigate the individual service consoles in the navigation pane, you’ll see tools for working with EC2—for example, AMIs, Volumes, and Snapshots.</p>
+<p class="indent">The AWS Management Console provides various ways for navigating to individual service consoles. In the search field at the top of the console, enter a service name—<span epub:type="pagebreak" id="page_45"/>RDS was entered in <a href="ch02.xhtml#ch2fig9">Figure 2-9</a>. Then choose the service that you need from the list of search results.</p>
+<p class="imagef" id="ch2fig9"><img alt="images" src="f0045-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-9</strong>   Searching for the RDS service</p>
+<p class="indent">From the console you can add shortcuts for the service consoles that you use most frequently. To add a shortcut for the service consoles you use most, choose the pushpin icon on the navigation bar, which is shown in <a href="ch02.xhtml#ch2fig10">Figure 2-10</a>. You can drag the service shortcut from the menu to the navigation bar.</p>
+<p class="imagef" id="ch2fig10"><img alt="images" src="f0045-02.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-10</strong>   Click the pushpin and drag a shortcut to the navigation bar</p>
+<p class="indent"><span epub:type="pagebreak" id="page_46"/><a href="ch02.xhtml#ch2fig11">Figure 2-11</a> shows several shortcuts on the navigation bar. To remove a shortcut that you no longer need, simply drag it off the navigation bar.</p>
+<p class="imagef" id="ch2fig11"><img alt="images" src="f0046-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-11</strong>   Shortcuts on the navigation bar</p>
+<p class="indent">Along with other options on the navigation bar is a region option on the right side of the bar. Click the region displayed in the bar to see a menu of regions to choose from, as shown in <a href="ch02.xhtml#ch2fig12">Figure 2-12</a>. When you choose a region here, it becomes the default region used in the AWS Management Console.</p>
+<p class="imagef" id="ch2fig12"><img alt="images" src="f0046-02.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-12</strong>   Choosing a region</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="tip.jpg"/></p>
+<p class="note"><strong>TIP</strong>   Always make sure that you are working in the correct region—the one for which you intend to create or work on AWS services. I have experienced many people complaining that their resources are not available, only to realize that they are working in the wrong region. Also, beware of instances that use the same name in more than one region. When working in a secondary region, it’s easy to inadvertently shut down an instance that uses the same name used in the primary region, for example.</p>
+</div>
+<p class="indent"><span epub:type="pagebreak" id="page_47"/>Even though you are able to choose a region that specifies where your resources are managed, you do not choose a region for the AWS Management Console or for some services, such as S3 and IAM.</p>
+<p class="indent">In order to change the account settings, organization, billing dashboard, or security credential to change the password.</p>
+<p class="indent">Click your account name on the navigation bar, which is to the left of the region menu. You’ll see the options shown in <a href="ch02.xhtml#ch2fig13">Figure 2-13</a>. Click My Account to access the following information about your user account:</p>
+<p class="bullett">• Account Settings</p>
+<p class="bulleta">• Contact Information</p>
+<p class="bulleta">• Payment Currency Preference</p>
+<p class="bulleta">• Configure Security Challenge Questions</p>
+<p class="bulleta">• AWS Regions</p>
+<p class="bulleta">• IAM User and Role Access</p>
+<p class="bulleta">• Reserved Instance Marketplace Settings</p>
+<p class="bulleta">• Account Contract Information</p>
+<p class="bulleta">• Communication Preferences</p>
+<p class="bulleta">• Manage AWS Support Plans</p>
+<p class="bulleta">• GovCloud (US)</p>
+<p class="bulletb">• Close Account</p>
+<p class="imagef" id="ch2fig13"><img alt="images" src="f0047-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-13</strong>   Account information</p>
+<p class="indent">If you are an account owner, you can change your AWS account password from the AWS Management Console. Click your account name on the navigation bar and select Security Credentials. Then follow the instructions to navigate to the page where you can change your password. You need to enter your current password and your new password two times. The new password must follow the minimum password standard (at least eight characters long and must include a symbol, a number, an uppercase letter, and a lowercase letter). Once you’ve filled out the password form, choose Change Password or Save Changes.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_48"/>If you are a root user or have the necessary permissions, you can get information about your AWS charges from the console. Click your account name on the navigation bar and select My Billing Dashboard. The AWS Billing and Cost Management dashboard provides a summary a breakdown of your monthly spending.</p>
+<p class="indent">Another important resource for all the AWS users is the Support menu, at the far-right side of the navigation bar, and shown in <a href="ch02.xhtml#ch2fig14">Figure 2-14</a>. Use the Support menu to navigate to Support Center, Forums, Documentation, Training, and Other Resources. Visit the Support Center to create support tickets with AWS for any issues or to increase any soft limits. Forums are a treasure to AWS users and developers, because you’ll quickly and easily find solutions to many real-world scenarios or issues that have already been resolved by another developer. This can help you avoid reinventing the wheel. Choose Documentation, Training, or Other Learning Resources to find more information about AWS, training options, and other sources of information.</p>
+<p class="imagef" id="ch2fig14"><img alt="images" src="f0048-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-14</strong>   Support menu options</p>
+<p class="indent">The bell menu on the navigation bar offers a quick way to see any open issues or scheduled changes. In this menu, you’ll see the options Open Issues, Scheduled Change, Other Notifications, and View All Alerts, as shown in <a href="ch02.xhtml#ch2fig15">Figure 2-15</a>. Select an option to be directed to the CloudWatch dashboard, where you can quickly glance at all the open issues or scheduled changes.</p>
+<p class="imagef" id="ch2fig15"><img alt="images" src="f0048-02.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-15</strong>   Alerts menu options</p>
+<p class="indent">The Resource Groups menu is located on the left side of the navigation pane, as shown in <a href="ch02.xhtml#ch2fig16">Figure 2-16</a>. (You can also access a resource group by using the Resource <span epub:type="pagebreak" id="page_49"/>Groups API via the AWS CLI or by using AWS SDK programming languages, but you’ll learn more about these options later.) You use resource groups to organize your AWS resources. Resource groups make it easier to manage and automate tasks on large numbers of resources at one time, instead of accessing them one at a time. From this menu, you can save or create a resource group.</p>
+<p class="imagef" id="ch2fig16"><img alt="images" src="f0049-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 2-16</strong>   Resource Groups menu</p>
+<p class="indent">An important and very useful option on this menu is the Tag Editor. A tag is a key-value pair that acts as metadata for organizing all your AWS resources. You can add tags for most AWS resources during resource creation, whether your working with an Amazon S3 bucket or an Amazon EC2 instance. You can then build a query for resources of various types, and add, remove, or replace tags for the resources from your search results.</p>
+<h3 class="h3" id="ch2lev1sec3">AWS Command Line Interface</h3>
+<p class="noindent">The AWS Command Line Interface (CLI) is an open source tool you can use to interact with AWS services using command-line shell. You can start using AWS functionality with minimal configuration from the command prompt by using following programs:</p>
+<p class="bullett">• <strong>Linux shells</strong>   Use common shell programs such as bash, zsh, and tsch to run commands in Linux, macOS, or Unix.</p>
+<p class="bulleta">• <strong>Windows command line</strong>   Run commands in PowerShell or at the Windows command prompt.</p>
+<p class="bulletb">• <strong>Remote Access</strong>   Run commands on Amazon EC2 instances through a remote terminal such as Secure Shell (SSH) or PuTTY.</p>
+<p class="indent">All the functions available in the AWS Management Console are available in the AWS API and CLI immediately, or within 180 days of launch of any new service. Install the AWS CLI using pip3. You’ll need Python 2 version 2.6.5 or later, or Python 3 version 3.3 or later. The CLI can be installed on Windows, Linux, macOS, or Unix.</p>
+<p class="indent">As you will see, the AWS CLI uses a multipart structure on the command line that must be specified in this order:</p>
+<p class="imagep"><img alt="images" src="p0049-01.jpg"/></p>
+<div class="siden">
+<p class="imagen"><span epub:type="pagebreak" id="page_50"/><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   Be sure that you understand the structure of a CLI base command that calls to the AWS program. The top-level command typically corresponds to an AWS service supported by the AWS CLI. The subcommand specifies which operation to perform. Depending on the command and subcommand you specify, parameters can take various types of input values, such as numbers, strings, lists, maps, and JSON structures.</p>
+</div>
+<h4 class="h4" id="ch2lev2sec2">Installing and Setting Up a Profile in the AWS CLI</h4>
+<p class="noindent">If you already have pip3 and Python v3 or later, you can install the AWS CLI by using the following command:</p>
+<p class="imagep"><img alt="images" src="p0050-01.jpg"/></p>
+<p class="indent">The --upgrade option instructs pip3 to upgrade any requirements that are already installed. The --user option instructs pip3 to install the program to a subdirectory of your user directory.</p>
+<p class="indent">The bundled installer is for offline or automated installations on Linux, macOS, or Unix and includes the AWS CLI, its dependencies, and a shell script that performs the installation for you. You can also use the MSI installer on Windows.</p>
+<p class="indent">After installing the AWS CLI, you need to add the path to the executable file to your PATH variable. For Linux, macOS, or Unix, add the AWS CLI executable to your command-line path like this:</p>
+<p class="imagep"><img alt="images" src="p0050-02.jpg"/></p>
+<p class="noindent">This will add a path, ~/.local/bin, to your current PATH variable.</p>
+<p class="indent">To load the updated profile into your current session, execute the following:</p>
+<p class="imagep"><img alt="images" src="p0050-03.jpg"/></p>
+<p class="indent">In Windows, you can find where the AWS program is installed by running the following command. The /R path parameter tells it to search all folders.</p>
+<p class="imagep"><img alt="images" src="p0050-04.jpg"/></p>
+<p class="indent">Press the <span class="smallcaps">windows</span> key on your keyboard, type <strong>cmd</strong> in the search box, and press <span class="smallcaps">enter</span> to open the Environment Variable. You can also find the command prompt in the Windows accessories. You need to choose Edit environment variables for your account. Here you can choose PATH, and then choose Edit. Then add the path to the end of the variable value field (such as C:\Program Files\Amazon\AWSCLI\bin\aws.exe). The following example shows the system PATH of aws.exe:</p>
+<p class="imagep"><img alt="images" src="p0050-05.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_51"/>The AWS CLI stores the credentials in a local file named credentials, in the .aws folder. For Windows, use the following command to show the contents of the .aws folder:</p>
+<p class="imagep"><img alt="images" src="p0051-01.jpg"/></p>
+<p class="indent">And for Linux, macOS, or Unix, use the following to list the contents of the .aws folder:</p>
+<p class="imagep"><img alt="images" src="p0051-02.jpg"/></p>
+<p class="indent">The AWS CLI provides low-level, API-equivalent commands. But several AWS services provide customizations and direct access to the public APIs of AWS services, and you can customize using higher-level commands that simplify using a service with a complex API. For example, the following example provides a shell-like copy command and automatically performs a multipart upload to transfer large files quickly to Amazon S3:</p>
+<p class="imagep"><img alt="images" src="p0051-03.jpg"/></p>
+<p class="noindent">If you performed a similar task using the low-level commands, it would take a lot more effort.</p>
+<h5 class="h5">Configuring Profiles</h5>
+<p class="noindent">To configure a new profile, at the command line, enter <strong>aws configure</strong>, and then press <span class="smallcaps">enter</span>. This command is interactive, so the AWS CLI outputs lines of texts, prompting you to enter additional information. Enter each of your access keys in turn, and then press <span class="smallcaps">enter</span>. Then, enter an AWS region name in the format shown next, press <span class="smallcaps">enter</span>, and then press <span class="smallcaps">enter</span> a final time to skip the output format setting.</p>
+<p class="imagep"><img alt="images" src="p0051-04.jpg"/></p>
+<p class="noindent">This will result in a single profile named default.</p>
+<p class="indent">You can create additional configurations by specifying the name of a profile using the --profile option to configure multiple users:</p>
+<p class="imagep"><img alt="images" src="p0051-05.jpg"/></p>
+<p class="indent">When you run an AWS command, you can omit the --profile option to use the default profile:</p>
+<p class="imagep"><img alt="images" src="p0051-06.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_52"/>And you can specify a profile name with --profile to create a profile stored under that name:</p>
+<p class="imagep"><img alt="images" src="p0052-01.jpg"/></p>
+<p class="indent">To retrieve a value for any setting, use the get subcommand to view the current settings:</p>
+<p class="imagep"><img alt="images" src="p0052-02.jpg"/></p>
+<p class="indent">To modify the current setting, use the --profile option. For example, the following command updates the region setting in the profile named myuserprofile:</p>
+<p class="imagep"><img alt="images" src="p0052-03.jpg"/></p>
+<p class="indent">The following command updates the output setting in the profile named myuserprofile:</p>
+<p class="imagep"><img alt="images" src="p0052-04.jpg"/></p>
+<p class="indent">Here is a simple noninteractive command to output from the service in the JSON format:</p>
+<p class="imagep"><img alt="images" src="p0052-05.jpg"/></p>
+<p class="noindent">To use this example, enter the full text of the command (the bold text after the prompt), and then press <span class="smallcaps">enter</span>. (The name of the security group, my-secgrp, is replaceable. You could use the group name as shown, but you probably want to use a more descriptive name.) Note that the information within the curly braces is the JSON output of the command. JSON is the default output format, but if you configure your CLI to output in table or text format, the output will be formatted according to your choice.</p>
+<p class="indent">To avoid specifying the profile in every command, you can set the AWS_DEFAULT_PROFILE environment variable at the command line. In Linux, macOS, or Unix, use the following:</p>
+<p class="imagep"><img alt="images" src="p0052-06.jpg"/></p>
+<p class="indent">This changes the default profile until the end of your shell session, or until you set a different value. You can make an environment variable persistent across future sessions by adding the variable to the shell’s startup script.</p>
+<p class="indent">Here’s how it looks in Windows:</p>
+<p class="imagep"><img alt="images" src="p0052-07.jpg"/></p>
+<p class="noindent">Using <strong>setx</strong> to set an environment variable affects the value used in both the current command shell and all command shells that you create after running the command.</p>
+<h4 class="h4" id="ch2lev2sec3"><span epub:type="pagebreak" id="page_53"/>Getting Help with CLI Commands</h4>
+<p class="noindent">AWS offers a CLI command-completion feature: press <span class="smallcaps">tab</span> to complete a partially typed command. This feature is automatically configured and enabled by default on EC2 instances, but it isn’t automatically installed on most systems, so you’ll need to configure it manually if you want to use it. Here’s an example: to see a list of available commands, enter a partial command, <strong>s</strong> in this case, and then press <span class="smallcaps">tab</span>:</p>
+<p class="imagep"><img alt="images" src="p0053-01.jpg"/></p>
+<p class="indent">You can always get help with any command when using the AWS CLI. Simply type <strong>help</strong> at the end of a command name:</p>
+<p class="imagep"><img alt="images" src="p0053-02.jpg"/></p>
+<p class="indent">Here’s how to get help for Amazon EC2–specific commands.</p>
+<p class="imagep"><img alt="images" src="p0053-03.jpg"/></p>
+<p class="indent">To view the help file one page at a time, you can add a pipe (|) to the output of the help command to add the more command. Press the <span class="smallcaps">space bar</span> or <span class="smallcaps">pgdn</span> to view more of the document, or press <span class="smallcaps">q</span> to quit.</p>
+<p class="imagep"><img alt="images" src="p0053-04.jpg"/></p>
+<h4 class="h4" id="ch2lev2sec4">Working with EC2 Key Pairs Using the AWS CLI</h4>
+<p class="noindent">When you create an EC2 instance, you need to provide a key pair that you’ll use to authenticate when you try connecting to the instance.</p>
+<p class="indent">To create a key pair on Linux, use the create-key-pair command with the --query and --output text options to pipe your private key directly into a file:</p>
+<p class="imagep"><img alt="images" src="p0053-05.jpg"/></p>
+<p class="indent">Before you try connecting to your instance from a Linux computer, you need to change the permissions of your private key file so that only you can read it:</p>
+<p class="imagep"><img alt="images" src="p0053-06.jpg"/></p>
+<p class="indent">To display your key pairs, use the following command:</p>
+<p class="imagepa"><img alt="images" src="p0053-07.jpg"/></p>
+<p class="imagepb"><img alt="images" src="p0054-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_54"/>To delete a key pair, use the following command:</p>
+<p class="imagep"><img alt="images" src="p0054-02.jpg"/></p>
+<p class="indent">Note that in Windows PowerShell, the <strong>&gt;</strong> file redirection operator defaults to UTF-8 encoding, so you must convert the output by piping it to the out-file command by explicitly setting the -encoding option to ascii:</p>
+<p class="imagep"><img alt="images" src="p0054-03.jpg"/></p>
+<h4 class="h4" id="ch2lev2sec5">Creating Security Groups Using the AWS CLI</h4>
+<p class="noindent">You can create security groups associated for a specified Amazon Virtual Private Cloud (VPC) using the following command:</p>
+<p class="imagep"><img alt="images" src="p0054-04.jpg"/></p>
+<p class="indent">Use the describe-security-groups command to view initial information about your new security group. Notice that an EC2-VPC security group is referenced by its VPC ID (VcpID), not by its name:</p>
+<p class="imagep"><img alt="images" src="p0054-05.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_55"/>Confirm your public address using following command:</p>
+<p class="imagep"><img alt="images" src="p0055-01.jpg"/></p>
+<p class="indent">You can add a range to your security group to limit all the ingress traffic:</p>
+<p class="imagep"><img alt="images" src="p0055-02.jpg"/></p>
+<p class="indent">To enable SSH to instances in the my-sg-grp security group, add a rule by running the following command:</p>
+<p class="imagep"><img alt="images" src="p0055-03.jpg"/></p>
+<p class="indent">To view changes to the security group, use the describe command, as follows:</p>
+<p class="imagep"><img alt="images" src="p0055-04.jpg"/></p>
+<p class="indent">To delete a security group, use the delete-security-group command:</p>
+<p class="imagep"><img alt="images" src="p0055-05.jpg"/></p>
+<div class="siden">
+<p class="imagen"><span epub:type="pagebreak" id="page_56"/><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   You will not be able to delete a security group if it’s currently attached to an instance.</p>
+</div>
+<h4 class="h4" id="ch2lev2sec6">Launching an Instance Using the AWS CLI</h4>
+<p class="noindent">You can launch an Amazon EC2 instance by using the run-instances command to launch a t2.micro instance in the specified subnet of a VPC:</p>
+<p class="imagep"><img alt="images" src="p0056-01.jpg"/></p>
+<p class="indent">To add metadata to your resources that you can use for a variety of purposes, add tags to your instance by using the create-tags command:</p>
+<p class="imagep"><img alt="images" src="p0056-02.jpg"/></p>
+<p class="indent">Using AWS CLI, you can list all your instances or filter the results based on the instances that you want to see:</p>
+<p class="imagep"><img alt="images" src="p0056-03.jpg"/></p>
+<p class="indent">You can list multiple instances that were launched using ami-i7654321, ami-j7654321, or ami-k7654321 using the following command:</p>
+<p class="imagep"><img alt="images" src="p0056-04.jpg"/></p>
+<p class="indent">To terminate an instance you no longer need, use the terminate-instances command:</p>
+<p class="imagep"><img alt="images" src="p0056-05.jpg"/></p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   If you think you may need to reconnect to this instance later, use stop-instances instead of terminate-instances, because as soon as the state of the instance changes to terminated, it can’t be recovered unless you have a manual backup. You stop incurring charges for a terminated instance.</p>
+</div>
+<h4 class="h4" id="ch2lev2sec7"><span epub:type="pagebreak" id="page_57"/>Creating an S3 Bucket Using the AWS CLI</h4>
+<p class="noindent">Bucket names must be globally unique and should be DNS compliant. The names must start with a lowercase letter or number and can contain lowercase letters, dashes, periods, and numbers. They cannot contain underscores, have consecutive periods, end with a dash, or use dashes adjacent to a period.</p>
+<p class="indent">To create an S3 bucket, use the s3 mb command:</p>
+<p class="imagep"><img alt="images" src="p0057-01.jpg"/></p>
+<p class="indent">To list your S3 buckets, use the s3 ls command:</p>
+<p class="imagep"><img alt="images" src="p0057-02.jpg"/></p>
+<p class="indent">To list all the objects and folders in a bucket, use the following command:</p>
+<p class="imagep"><img alt="images" src="p0057-03.jpg"/></p>
+<p class="indent">To delete an S3 bucket, use the s3 rb command:</p>
+<p class="imagep"><img alt="images" src="p0057-04.jpg"/></p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="tip.jpg"/></p>
+<p class="note"><strong>TIP</strong>   You must delete all the contents in the bucket before the bucket can be deleted; the s3 rb command will fail if the bucket is not empty. You can, however, remove a non-empty bucket by including the --force option.</p>
+</div>
+<p class="indent">To remove all the objects and subfolders in a bucket and then delete the bucket, use the following command:</p>
+<p class="imagep"><img alt="images" src="p0057-05.jpg"/></p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   If versioning is enabled for this bucket, this command does not allow you to remove the bucket.</p>
+</div>
+<h3 class="h3" id="ch2lev1sec4">AWS Software Development Kit</h3>
+<p class="noindent">The AWS Software Development Kit (SDK) enables you to simplify the use of AWS services in your applications with an API tailored to your programming language or platform.</p>
+<h4 class="h4" id="ch2lev2sec8"><span epub:type="pagebreak" id="page_58"/>AWS SDK for Java 2.0</h4>
+<p class="noindent">Before you can begin the AWS SDK for Java setup, you need to create an IAM user and access key. In the AWS Management Console, navigate to the IAM Console. From the side menu, click Users to view a list of IAM users. You can log in using an existing user account or create a new account. Assuming you have already set up an IAM user account, select an IAM user from the list and open the Security Credentials tab, and then click Create Access Key. Here you can either click the Download Credentials button to download the credential file to your computer, or click Show User Security Credentials to view the IAM user’s access key ID and secret access key, which you can copy and paste, to use later.</p>
+<p class="indent">Depending on your build system or integrated development environment (IDE), you can use the following build tools:</p>
+<p class="bullett">• <strong>Gradle</strong>   Import the Maven bill of materials (BOM) to your Gradle project to automatically manage SDK dependencies.</p>
+<p class="bulletb">• <strong>Apache Maven</strong>   Specify only the SDK components you need as dependencies in your project. If you build the AWS SDK for Java using Maven, it downloads all the necessary dependencies, builds the SDK, and installs the SDK in one step.</p>
+<p class="indent">If you’re using Maven, your next step is to open the AWS SDK for Java 2.x and click the Clone or Download button to choose your download option. Then, from the terminal window, navigate to the directory where the downloaded the SDK source is located. Use the following command to build and install the SDK:</p>
+<p class="imagep"><img alt="images" src="p0058-01.jpg"/></p>
+<p class="indent">A .jar file will be built in the target directory. You can optionally build the API reference documentation using the following command:</p>
+<p class="imagep"><img alt="images" src="p0058-02.jpg"/></p>
+<p class="indent">Java 8.0 or later is required for the AWS SDK, or you can use the Open Java Development Kit (OpenJDK), which is distributed by Amazon Corretto. AWS recommends that you use the 64-bit version of the Java Virtual Machine (JVM) for the best performance of server-based applications with the AWS SDK for Java.</p>
+<p class="indent">You can set your credentials for use by the AWS SDK for Java in several ways. You can set credentials in the AWS credentials profile file on your local system at one of the following locations:</p>
+<p class="bullett">• <strong>Linux, macOS, or Unix</strong>   <span class="code">~/.aws/credentials</span></p>
+<p class="bulletb">• <strong>Windows</strong>   <span class="code">C:\Users\USERNAME\.aws\credentials</span></p>
+<p class="indent">This profile file should contain the following format:</p>
+<p class="imagep"><img alt="images" src="p0058-05.jpg"/></p>
+<p class="noindent">You’ll substitute your AWS credentials values for the values your_access_key_id and your_secret_access_key.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_59"/>To set these variables in Linux, macOS, or Unix, use the following:</p>
+<p class="imagep"><img alt="images" src="p0059-01.jpg"/></p>
+<p class="indent">To set these variables in Windows, use this:</p>
+<p class="imagep"><img alt="images" src="p0059-02.jpg"/></p>
+<p class="noindent">By default, the credential provider chain loads credentials automatically as soon as you issue one of the preceding commands.</p>
+<p class="indent">Similarly, you can set a default AWS region to use for accessing AWS services with the AWS SDK for Java. AWS recommends, for the best network performance, that you choose a region that’s geographically close to you or to your customers. You need to update the AWS config file on your local system to set the AWS region:</p>
+<p class="bullett">• <strong>Linux, macOS, or Unix</strong>   <span class="code">~/.aws/config</span></p>
+<p class="bulletb">• <strong>Windows</strong>   <span class="code">C:\Users\USERNAME\.aws\config</span></p>
+<p class="indent">The config file uses the following format:</p>
+<p class="imagep"><img alt="images" src="p0059-05.jpg"/></p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   Substitute your AWS region (for example, us-east-1) for your_aws_region.</p>
+</div>
+<p class="indent">You can also use the AWS_REGION environment variable.</p>
+<p class="indent">For Linux, macOS, or Unix, use the export command to set the region:</p>
+<p class="imagep"><img alt="images" src="p0059-06.jpg"/></p>
+<p class="indent">For Windows, use the set command to set the region:</p>
+<p class="imagep"><img alt="images" src="p0059-07.jpg"/></p>
+<h4 class="h4" id="ch2lev2sec9">AWS SDK for .NET</h4>
+<p class="noindent">Before you can begin the AWS SDK for .NET setup, you need to create an IAM user and access key. In the AWS Management Console, navigate to the IAM Console. Click Users from the side menu to view your IAM users. You can either use an existing user or create a new user. Assuming you have already set up an IAM user account, select the IAM user from the list and open the Security Credentials tab, and then click Create Access Key. Then click the Download Credentials button to download the credential file to your computer, or click Show User Security Credentials to view the IAM user’s access key ID and secret access key, which you can copy and paste to use later.</p>
+<p class="indent">Creating a profile for each set of credentials in the SDK Store is the preferred approach for handling credentials. You can create and manage profiles with the AWS Toolkit for <span epub:type="pagebreak" id="page_60"/>PowerShell using cmdlets, Visual Studio, or programmatically with the AWS SDK for .NET. All the credentials are encrypted and stored separately from any of your projects. When you reference the profile using your application name, the credentials are inserted at build time. This ensures that your credentials are not unintentionally exposed with your project on any public site.</p>
+<p class="indent">To install AWS SDK for .NET, you must have Microsoft .NET Framework 3.5 or later and Microsoft Visual Studio 2010 or later. The AWS SDK for .NET is installed with the AWS Toolkit for Visual Studio, along with a plug-in that provides a user interface for managing your AWS resources from Visual Studio. It also includes the AWS Tools for Windows PowerShell.</p>
+<p class="indent">To install the AWS SDK for .NET from the AWS Management Console, navigate to AWS SDK for .NET. Then, in the Downloads section, choose Download MSI Installer to download the installer. Run the downloaded installer to start installation, and follow the on-screen instructions. You can install the AWSSDK assemblies, as well as the TraceListener and SessionProvider extensions, to your application by installing the AWS assemblies with NuGet or by installing AWS SDK for .NET, available on GitHub. You can choose a different installation directory to install AWS SDK for .NET as a non-administrator.</p>
+<h3 class="h3" id="ch2lev1sec5">AWS Tools for PowerShell</h3>
+<p class="noindent">The AWS Tools for PowerShell Core and AWS Tools for Windows PowerShell are PowerShell modules that are built on the functionality exposed by the AWS SDK for .NET. The AWS PowerShell tools enable you to script operations on your AWS resources from the PowerShell command line. The cmdlets provide an idiomatic experience for specifying parameters and handling results, even though the cmdlets are implemented using the service clients and methods from the SDK. For example, you can pipe PowerShell objects in and out of the cmdlets.</p>
+<p class="indent">You can use the PowerShell tools with IAM user credentials, temporary security tokens, and IAM roles. These tools can be installed on Windows, Linux, or macOS operating systems.</p>
+<h4 class="h4" id="ch2lev2sec10">In Windows</h4>
+<p class="noindent">Depending on the release and edition, a Windows computer can run the AWS Tools for Windows PowerShell, the AWS Tools for PowerShell Core, or both. After you install Windows PowerShell 2.0 or later, you can either download and run the AWS Tools for Windows PowerShell MSI installer or start PowerShell.</p>
+<p class="indent">The AWS Tools for Windows PowerShell is an optional component that you can install for Windows installer .msi. To download the installer, go to <a href="http://aws.amazon.com/powershell">http://aws.amazon.com/powershell</a>, and then choose AWS Tools for Windows.</p>
+<p class="indent">The AWS Tools for Windows PowerShell is installed by default on all Windows-based Amazon Machine Images (AMIs). The AWS Tools for PowerShell Core can be installed for all users by running the Install-Module cmdlet as administrator:</p>
+<p class="imagep"><img alt="images" src="p0060-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_61"/>To install both AWS PowerShell and AWS PowerShell.NetCore on a Windows OS for the current user, run the following as administrator:</p>
+<p class="imagep"><img alt="images" src="p0061-01.jpg"/></p>
+<p class="indent">You need to uninstall the existing module before you install a newer release of the AWS Tools for PowerShell Core. Close any open AWS tools for Windows or PowerShell sessions before you uninstall the existing Tools for PowerShell Core package. Then run the following command to uninstall the package:</p>
+<p class="imagep"><img alt="images" src="p0061-02.jpg"/></p>
+<p class="indent">To install the updated module after the uninstall is completed, use the following command:</p>
+<p class="imagep"><img alt="images" src="p0061-03.jpg"/></p>
+<p class="indent">After you install the module, run</p>
+<p class="imagep"><img alt="images" src="p0061-04.jpg"/></p>
+<p class="noindent">to load the AWS Tools for PowerShell Core cmdlets into your PowerShell session.</p>
+<h4 class="h4" id="ch2lev2sec11">On Linux and macOSX</h4>
+<p class="noindent">To set up the AWS Tools for PowerShell Core on Linux machines, search for “Installing PowerShell on Linux” in your browser to see the latest instructions (the URL is <a href="https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-6">https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-6</a>). For macOS X, search for “Installing PowerShell on macOS” in your browser (<a href="https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-macos?view=powershell-6">https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-macos?view=powershell-6</a>).</p>
+<p class="indent">AWS releases new versions of the AWS Tools for PowerShell Core and AWS Tools for PowerShell periodically to support new AWS services and features. To determine the version installed on your OS, run the following cmdlet:</p>
+<p class="imagep"><img alt="images" src="p0061-05.jpg"/></p>
+<p class="indent">Before you uninstall the existing Tools for PowerShell Core package or install a newer release, close any open PowerShell or AWS Tools for PowerShell Core sessions by pressing <span class="smallcaps">ctrl-d</span>. Then run the following command to uninstall the package:</p>
+<p class="imagep"><img alt="images" src="p0061-06.jpg"/></p>
+<p class="indent">To install the updated module after uninstall is completed, use the following command:</p>
+<p class="imagep"><img alt="images" src="p0061-07.jpg"/></p>
+<p class="indent">After you install the module, run</p>
+<p class="imagep"><img alt="images" src="p0061-08.jpg"/></p>
+<p class="noindent">to load the AWS Tools for PowerShell Core cmdlets into your PowerShell session.</p>
+<h3 class="h3" id="ch2lev1sec6"><span epub:type="pagebreak" id="page_62"/>AWS Serverless Application Model</h3>
+<p class="noindent">The AWS Serverless Application Model (SAM) is an open source framework you can use to make serverless applications on AWS. A <em>serverless application</em> is combination of event sources, Lambda functions, and other resources that work together to perform certain tasks. A serverless application is more than just a Lambda function, because it can include additional resources such as APIs, databases, and event source mappings.</p>
+<p class="indent">You can use AWS SAM to outline your serverless applications and use the AWS SAM template specification to define your serverless applications. The template provides a simple and clean syntax you can use to describe the functions, APIs, permissions, configurations, and events that make up one, deployable, versioned serverless application.</p>
+<h4 class="h4" id="ch2lev2sec12">Using the AWS SAM CLI</h4>
+<p class="noindent">The SAM CLI is an open source framework you use to create serverless applications using a template. The CLI includes commands for invoking Lambda functions locally, stepping through Lambda function debugging, and verifying that AWS SAM template files are written according to specifications regarding packaging and deploying serverless applications to the AWS cloud.</p>
+<p class="indent">Because SAM integrates with other AWS services in creating serverless applications, it offers the following benefits:</p>
+<p class="bullett">• SAM makes it easy to organize related resources and components and operate on a single stack. You can share timeouts and memory configurations between resources using AWS SAM, and all the related resources can be deployed together as a versioned entity.</p>
+<p class="bulleta">• Because SAM is an extension of AWS CloudFormation, you’ll benefit from the latter’s reliable deployment capabilities. You can use AWS CloudFormation to define resources in your SAM template. You can also use the full suite of resources, intrinsic functions, and other template features that are available in CloudFormation.</p>
+<p class="bulleta">• Use SAM to define and deploy your infrastructure as a configuration, which makes it possible for you to enforce best practices, such as code reviews. With a few lines of configuration, you can enable safe deployments thru CodeDeploy and can enable tracing by using AWS X-Ray.</p>
+<p class="bulleta">• The SAM CLI enables you locally build, test, and debug serverless applications that are defined by SAM templates. The CLI provides a Lambda-like execution environment locally. You can catch issues proactively by providing parity with the actual Lambda execution environment.</p>
+<p class="bulletb">• You can use SAM with AWS toolkits, such as the AWS Toolkit for PyCharm, AWS Toolkit for JetBrains, AWS Toolkit for Visual Studio Code, and AWS Toolkit for IntelliJ to step through and debug your code and to understand what the code is doing. This tightens the feedback loop by enabling you to find and troubleshoot issues in the cloud.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_63"/>Use SAM along with a suite of AWS tools to build serverless applications. New applications can be discovered in the AWS Serverless Application Repository. Use the AWS Cloud9 IDE, for authoring, testing, and debugging SAM-based applications. Use CodeBuild, CodeDeploy, and CodePipeline to build a deployment pipeline for your serverless applications. A CI/CD pipeline is automatically configured for you, and you can also use AWS CodeStar to get started with a project structure, code repository. You can use the Jenkins plug-in to deploy your serverless application. To build production-ready applications, you can use the Stackery.io toolkit.</p>
+<p class="indent">Before installing the SAM CLI on macOS, Windows, and Linux, you must do the following:</p>
+<p class="bullett">• Create an AWS account.</p>
+<p class="bulleta">• Create an IAM user with administrator permissions.</p>
+<p class="bulleta">• Install the AWS CLI.</p>
+<p class="bulletb">• Install Docker.</p>
+<p class="indent">For additional installation instructions, see <a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html">https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html</a>.</p>
+<h4 class="h4" id="ch2lev2sec13">Installing Docker on Linux</h4>
+<p class="noindent">Assuming you’ve already created an AWS account and an IAM user, and installed the AWS CLI, you can next install Docker, which is a prerequisite for testing your applications locally. (For additional information, refer to <a href="https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-docker.html">https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-docker.html</a>.) Before you can run serverless projects and functions locally with the SAM CLI, Docker must be installed and running. The SAM CLI uses the DOCKER_HOST environment variable to contact the Docker daemon.</p>
+<p class="indent">To install Docker on Linux, in the left-hand column, choose Linux, and then choose your Linux distribution.</p>
+<p class="indent">To verify that Docker is working, run the docker ps command. (See <a href="https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-docker.html">https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-docker.html</a> for additional information.)</p>
+<p class="indent">You don’t need to install, fetch, or pull any containers because the SAM CLI does this automatically.</p>
+<h3 class="h3" id="ch2lev1sec7">AWS IDE Toolkits</h3>
+<p class="noindent">You can create, run, deploy, and debug applications using language-specific Integrated Development Environments (IDE), such as AWS Cloud9, Eclipse, IntelliJ, PyCharm, Visual Studio, Visual Studio Code, Visual Studio Team Services (VSTS), and Rider in Amazon Web Services.</p>
+<h4 class="h4" id="ch2lev2sec14">The AWS Toolkit for Eclipse</h4>
+<p class="noindent">The AWS Toolkit for Eclipse (<a href="https://aws.amazon.com/eclipse/">https://aws.amazon.com/eclipse/</a>) is an open source plug-in for the Eclipse Java IDE that makes easier for developers to develop, debug, and <span epub:type="pagebreak" id="page_64"/>deploy Java applications that use AWS services. The toolkit supports Windows, Linux, macOS, and Unix operating systems.</p>
+<p class="indent">The Toolkit for Eclipse enhances the features of Eclipse IDE with the following:</p>
+<p class="bullett">• When you create a new AWS project using the Toolkit for Eclipse, the AWS SDK for Java is included and managed by Maven.</p>
+<p class="bulleta">• AWS Explorer, an interface to AWS, lets you manage all your AWS resources from within the Eclipse environment.</p>
+<p class="bulleta">• AWS SAM project and AWS Lambda Java project blueprint creation, deployment and debugging.</p>
+<p class="bulleta">• AWS CodeCommit repository cloning</p>
+<p class="bulleta">• Integration with AWS CodeStar</p>
+<p class="bulleta">• AWS Elastic Beanstalk deployment and debugging</p>
+<p class="bulleta">• An AWS CloudFormation template editor</p>
+<p class="bulletb">• Support for multiple AWS accounts</p>
+<p class="indent">The following are prerequisites for using the AWS Toolkit for Eclipse:</p>
+<p class="bullett">• Java 1.8 or higher</p>
+<p class="bulletb">• Eclipse IDE for Java Developers 4.2 or later</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   If you want AWS Toolkit for Eclipse support for the AWS Mobile SDK for Android, you must install Google Android Development Tools (ADT).</p>
+</div>
+<h5 class="h5">Installing the AWS Toolkit for Eclipse</h5>
+<p class="noindent">Here’s how to install the AWS Toolkit for Eclipse:</p>
+<p class="numbert"><strong>1.</strong> Open the Eclipse main console.</p>
+<p class="number"><strong>2.</strong> Within Eclipse, click on the Help and then click Install New Software option.</p>
+<p class="number"><strong>3.</strong> In the Work with box, type <strong><a href="https://aws.amazon.com/eclipse">https://aws.amazon.com/eclipse</a></strong> and then press <span class="smallcaps">enter</span>.</p>
+<p class="number"><strong>4.</strong> Now you can choose the components of the AWS Toolkit for Eclipse that you want to install. Click Select All to install all the components at once. Only the AWS Toolkit for Eclipse Core is mandatory and all other components are optional.</p>
+<p class="number"><strong>5.</strong> Click Next to complete installation, once you have made all your selections.</p>
+<p class="numberb"><strong>6.</strong> After you have set up the AWS Toolkit for Eclipse then you should configure your AWS Credentials.</p>
+<p class="indent">It may take up to 30 minutes for the installation to complete, depending on the options selected, and on factors such as network speed, server latency, and system capabilities.</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_65"/>Upgrading the AWS Toolkit for Eclipse</h5>
+<p class="noindent">You can use the same instructions for installing the toolkit for upgrading or reinstalling the AWS Toolkit for Eclipse. Due to a bug in old versions of the Oomph plug-in, some versions of Eclipse, (Mars and Neon), may fail to fetch the latest artifacts. But there is a work around for this issue:</p>
+<p class="numbert"><strong>1.</strong> The AWS Toolkit for Eclipse update site should point to <a href="https://aws.amazon.com/eclipse/site.xml">https://aws.amazon.com/eclipse/site.xml</a></p>
+<p class="number"><strong>2.</strong> Then delete the ~/.eclipse/org.eclipse.oomph.p2/cache/ directory to remove any cached content.</p>
+<p class="numberb"><strong>3.</strong> Finally install the latest version of Oomph.</p>
+<h4 class="h4" id="ch2lev2sec15">The Toolkit for Visual Studio</h4>
+<p class="noindent">It is easier to develop, debug, and deploy .NET applications using AWS Toolkit for Visual Studio is a plug-in for the Visual Studio IDE that use Amazon Web Services. Visual Studio versions 2013 and later are supported.</p>
+<p class="indent">In order to install and configure the Toolkit for Visual Studio, you must have the following prerequisites.</p>
+<p class="indent">You should have Windows 10, Windows 8, or Windows 7 operating system. It is recommended to install the latest service packs and updates for the Windows version you’re using.</p>
+<p class="indent">You need to use Visual Studio 2013 or later including Community editions. It is recommended to install the latest service packs and updates.</p>
+<p class="indent">The Toolkit for Visual Studio for Visual Studio 2019 and Visual Studio 2017 is distributed in the Visual Studio Marketplace. Also, you can install and update the toolkit using the Extensions and Updates dialog your existing Visual Studio.</p>
+<p class="indent">The Toolkit for Visual Studio 2015 and 2013 versions are part of the AWS Tools for Windows.</p>
+<h5 class="h5">Installing the Toolkit for Visual Studio in Windows</h5>
+<p class="noindent">First, you need to download the installer for the AWS Toolkit for Visual Studio. The toolkit itself is installed automatically. Here’s how to do this in Windows:</p>
+<p class="numbert"><strong>1.</strong> Go to the page AWS Toolkit for Visual Studio.</p>
+<p class="number"><strong>2.</strong> Choose Toolkit for Visual Studio 2013–2015 to download the installer, from the Download section.</p>
+<p class="numberb"><strong>3.</strong> Run the downloaded installer to start the installation, and follow the instructions.</p>
+<p class="noindent">The Toolkit for Visual Studio is installed by default in the Program Files directory, which requires administrator privileges. You can specify a different installation directory to install the Toolkit for Visual Studio as a non-administrator.</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_66"/>Uninstalling the Toolkit for Visual Studio in Windows</h5>
+<p class="noindent">You must uninstall the AWS Tools for Windows before you can uninstall the AWS Toolkit for Visual Studio.</p>
+<p class="numbert"><strong>1.</strong> Open Programs and Features in the Control Panel.</p>
+<p class="number"><strong>2.</strong> You can run appwiz.cpl from a command prompt or the Windows Run dialog to open Programs and Features directly.</p>
+<p class="number"><strong>3.</strong> You need to choose AWS Tools for Windows, and then choose Uninstall to begin the installation.</p>
+<p class="numberb"><strong>4.</strong> You need to choose Yes to continue.</p>
+<p class="indent">Samples directory doesn’t get deleted after uninstalling the AWS Tools for Windows. This directory is saved for you in case you have modified the samples. You can manually remove this directory if you want to remove it.</p>
+<h4 class="h4" id="ch2lev2sec16">AWS Tools for Visual Studio Team Services</h4>
+<p class="noindent">Microsoft Visual Studio Team Services (VSTS) extension is AWS Tools for Microsoft Visual Studio Team Services. It contains tasks you can use in release and build definitions in VSTS and Microsoft Team Foundation Server (TFS) to interact with AWS services. The Visual Studio Marketplace has the AWS Tools for VSTS.</p>
+<h5 class="h5">Installing AWS Tools for Visual Studio Team Services</h5>
+<p class="noindent">You need to install the AWS Tools for VSTS to begin the setup and you also need to set up AWS credentials to use the tasks using either service endpoints, Amazon EC2 instance metadata or environment variables.</p>
+<p class="indent">To use Visual Studio Team Services (VSTS), you will first need to sign up for a Visual Studio Team Services Account. Then you can install the AWS Tools for VSTS Extension.</p>
+<p class="indent">The AWS Tools for VSTS can be installed from Visual Studio Marketplace. Do the following:</p>
+<p class="numbert"><strong>1.</strong> Sign in to your VSTS account, and then search for AWS Tools for Microsoft Visual Studio Team Services. You can choose Download to install into an on-premises Team Foundation Server or you can choose Install to download to VSTS. Download Team Services Extension and start setting up AWS Credentials for the AWS Tools for VSTS. You need to sign in to AWS and open IAM console to create an IAM user. Then choose Users in the sidebar to view your IAM users.</p>
+<p class="number"><strong>2.</strong> If you don’t have any IAM users set up already then choose Create New Users to create new User. You then need to select the IAM user from the list that you want to use to access AWS. Now open the Security Credentials tab and then choose Create Access Key. AWS allows you to have a maximum of two active access keys for any IAM user. If this IAM user has two access keys already then you need to delete one before creating a new key.</p>
+<p class="numberb"><strong>3.</strong> <span epub:type="pagebreak" id="page_67"/>From the pop-up dialog box that opens in a new window, you can either choose Download Credentials to download the file to your computer or choose Show User Security Credentials to view and can copy and paste. Once you close the dialog box, there is no way to obtain the secret access key. However, you can delete its associated access key ID and create a new key.</p>
+<p class="indent">You can supply credentials to the tasks in the following ways:</p>
+<p class="bullett">• You can configure a service endpoint, of type AWS, and reference the endpoint when configuring tasks.</p>
+<p class="bulleta">• You can create specific named variables in your build. The variable names for supplying credentials are AWS.SecretAccessKey, AWS.AccessKeyID, and AWS.SessionToken. In order to pass the region, you need to specify AWS.Region with the region code (eg us-east-1) of the region.</p>
+<p class="bulletb">• You can use the standard AWS environment variables in the build agent process. These variables are AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID, and AWS_SESSION_TOKEN. In order to pass the region, you need to specify AWS.Region with the region code (eg us-east-1) of the region.</p>
+<h3 class="h3" id="ch2lev1sec8">Chapter Review</h3>
+<p class="noindent">This chapter began by explaining all the necessary steps that you need to create a new AWS free account. Because as a developer, it’s crucial for you to have a free AWS account to practice everything. I then explained all the free services and limits that are available to you during the trial period and beyond. It’s another important thing that you need to be aware while working with AWS because if you exceed the free limit then you will be charged by AWS. I then, introduced you the AWS management console where you learned how to search any AWS service using the search box, adding and removing shortcuts for the services that you use frequently. Then we explored on how to change a region, as well as account information where you can change the security credentials, see the support plans, GovCloud, and have an option to close the account. Then we delve into the Support Center, Alerts, Resource Group, and Tag Editor on the navigation pane. You also learned how to install, configure, and how to control multiple AWS services from the command line and automate them through scripts using the AWS Command Line Interface (CLI).We then introduced the AWS SDK, which removes the complexity of hard coding against a service interface and making it easier to code applications. By providing many of Java API for many of AWS Services, the AWS SDK for Java helps take the high complexities out of coding. It is the collection of all the developer’s tools for the creation of .Net-based applications that run on AWS infrastructure, and it also helps to make AWS services and applications available through the web browser across many devices and operating systems in a reliable manner.</p>
+<p class="indent">We also learned AWS PowerShell administration by installing and configuring the AWS PowerShell tools. The PowerShell helps administrators and developers to manage the AWS services using PowerShell scripting environment. We also explored how to <span epub:type="pagebreak" id="page_68"/>run your serverless application locally for quick development and testing by using AWS Serverless Application Model (SAM). AWS SAM is open source and includes a template specification, which is an extension of CloudFormation template and a command-line interface (CLI) to invoke AWS Lambda functions and debug applications deployed on the AWS cloud. Finally, we have gone through the AWS Toolkit for Eclipse, which is an open source plug-in for the Eclipse Java IDE (Integrated Development Environment) that makes it easier for developers to develop, debug, and deploy Java applications that use AWS services. Also explored were the AWS Toolkit for Visual Studio, which is a plug-in for the Visual Studio IDE that makes it easier for developers to develop, debug, and deploy .NET applications that use AWS services. This chapter is the building block where we explored all the tools that you need to build the secure cloud native applications on the AWS cloud.</p>
+<h4 class="h4" id="ch2lev2sec17">Exercises</h4>
+<p class="noindent">The following exercises will help you practice to use the AWS CLI and the Console to perform various administrative tasks.</p>
+<p class="indent">You need to create an AWS account as explained earlier in this chapter for performing the following exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5">Exercise 2-1: Create an IAM User Using the AWS Management Console</h5>
+<p class="noindent">In this exercise, you create a new IAM User using the Console.</p>
+<p class="numbert"><strong>1.</strong> Sign in to the AWS Management Console and use search IAM in the console and go to <a href="https://console.aws.amazon.com/iam/">https://console.aws.amazon.com/iam/</a>.</p>
+<p class="number"><strong>2.</strong> Once you are in IAM navigation pane, choose Users and then choose Add User option.</p>
+<p class="number"><strong>3.</strong> You then need to type the user name for the new user. If you want to add more than one user at the same time, you can choose Add Another User for up to 10 users at one time.</p>
+<p class="number"><strong>4.</strong> Select the type of access for this user, either you can select programmatic access or access to the AWS Management Console, or both access.</p>
+<p class="number"><strong>5.</strong> On the Set permissions page, you can specify how you want to assign permissions from one of the following three options:</p>
+<p class="bullet2">• Add user to group</p>
+<p class="bullet2">• Copy permissions from existing user</p>
+<p class="bullet2">• Attach existing policies to user directly</p>
+<p class="number"><strong>6.</strong> Choose Next. Here you can enter Tags, which is the metadata to the user as key-value pairs.</p>
+<p class="number"><strong>7.</strong> Choose Next. Review all the options for the User.</p>
+<p class="number"><strong>8.</strong> You can choose Create User and then download access key IDs and secret access keys.</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_69"/>Exercise 2-2: Enable Multi-Factor Authentication MFA for an IAM User</h5>
+<p class="noindent">In this exercise, you create an Enabling Multifactor authentication.</p>
+<p class="numbert"><strong>1.</strong> You need to first sign in to the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/iam/">https://console.aws.amazon.com/iam/</a>.</p>
+<p class="number"><strong>2.</strong> In the IAM navigation pane, choose Users.</p>
+<p class="number"><strong>3.</strong> In the User Name list, choose the name to which you want to enable MFA user.</p>
+<p class="number"><strong>4.</strong> Then you need to choose the Security credentials tab. Next to Assigned MFA device you need to choose the Manage option.</p>
+<p class="number"><strong>5.</strong> From the Manage MFA Device wizard, you need to choose Virtual MFA device and then select Continue.</p>
+<p class="number"><strong>6.</strong> Open your virtual MFA app.</p>
+<p class="number"><strong>7.</strong> Then you can do one of the following:</p>
+<p class="bullet2">• From the wizard, you need to choose Show QR code, and use the app to scan the QR code.</p>
+<p class="bulletn">–<em>or</em>–</p>
+<p class="bullet2">• From the Manage MFA Device wizard, you choose Show secret key, and then type the secret key into your MFA app.</p>
+<p class="bulletn">When it’s finished, the virtual MFA device starts generating one-time passwords.</p>
+<p class="number"><strong>8.</strong> In the Manage MFA Device wizard, type the one-time password in MFA code 1 box that currently appears in the virtual MFA device. Then wait up to 30 seconds for the device to generate a new password. Now type the second password into the MFA code 2 box.</p>
+<p class="number"><strong>9.</strong> Choose Assign MFA option.</p>
+<p class="number1"><strong>10.</strong> Now the virtual MFA device is ready for use with AWS.</p>
+<h5 class="h5">Exercise 2-3: Use an AWS CLI to Create a Custom VPC and Subnets</h5>
+<p class="noindent">In this exercise, you create a custom VPC and subnets.</p>
+<p class="numbert"><strong>1.</strong> You can create a custom VPC with a 192.168.0.0/16 CIDR block.</p>
+<p class="numberc"><img alt="Images" src="p0069-01.jpg"/></p>
+<p class="number"><strong>2.</strong> Then create a subnet with a 192.168.1.0/24 CIDR block.</p>
+<p class="numberc"><img alt="Images" src="p0069-02.jpg"/></p>
+<p class="number"><strong>3.</strong> Also create a second subnet in your VPC with a 192.168.2.0/24 CIDR block.</p>
+<p class="numberc"><img alt="Images" src="p0069-03.jpg"/></p>
+<p class="number"><strong>4.</strong> In order to make your subnet public, you need to create an Internet gateway.</p>
+<p class="numberc"><img alt="Images" src="p0069-04.jpg"/></p>
+<p class="number"><strong>5.</strong> <span epub:type="pagebreak" id="page_70"/>Then you need to attach the Internet gateway to your VPC.</p>
+<p class="numberc"><img alt="Images" src="p0070-01.jpg"/></p>
+<p class="number"><strong>6.</strong> Create a custom route table for your VPC to route the traffic.</p>
+<p class="numberc"><img alt="Images" src="p0070-02.jpg"/></p>
+<p class="number"><strong>7.</strong> Now update the Route Table by creating a route that points all traffic (0.0.0.0/0) to the Internet gateway.</p>
+<p class="numberc"><img alt="Images" src="p0070-03.jpg"/></p>
+<p class="number"><strong>8.</strong> You then need to associate it with a subnet in your VPC, so that the traffic from that subnet is routed to the Internet gateway.</p>
+<p class="numberc"><img alt="Images" src="p0070-04.jpg"/></p>
+<p class="number"><strong>9.</strong> You need to modify the public IP addressing behavior of your subnet if you want the instances launched into the subnet to automatically receive a public IP address.</p>
+<p class="numberc"><img alt="Images" src="p0070-05.jpg"/></p>
+<h5 class="h5">Exercise 2-4: Use an AWS CLI to Create a Key Pair</h5>
+<p class="noindent">In this exercise, you use an AWS CLI to create a key pair.</p>
+<p class="numbert"><strong>1.</strong> Now you need to create a key pair, to launch and connect to an instance in your public subnet.</p>
+<p class="numberc"><img alt="Images" src="p0070-06.jpg"/></p>
+<p class="number"><strong>2.</strong> In order to use an SSH client on a Linux or Mac OS X operating system to connect to your EC2 instance, you need to use the following command to restrict the permissions of your private key file.</p>
+<p class="numberc"><img alt="Images" src="p0070-07.jpg"/></p>
+<h5 class="h5">Exercise 2-5: Use an AWS CLI to Create a Security Group and EC2 Instance</h5>
+<p class="noindent">In this exercise, you create an EC2 instance and security group using AWS CLI.</p>
+<p class="numbert"><strong>1.</strong> Create a security group in your VPC, and add a rule that allows SSH access from anywhere (it’s not recommended for allowing SSH access from anywhere and you might need to restrict to known IP ranges).</p>
+<p class="numberc"><img alt="Images" src="p0070-08.jpg"/></p>
+<p class="number"><strong>2.</strong> You can now launch an EC2 instance into your public subnet, using the security group and key pair that we have created in previous steps.</p>
+<p class="numberc"><img alt="Images" src="p0070-09.jpg"/></p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_71"/>After your instance is in the running state, you can connect to it using an SSH client from a Linux or Mac OS X computer by using the following command:</p>
+<p class="numberc"><img alt="Images" src="p0071-01.jpg"/></p>
+<h5 class="h5">Exercise 2-6: Use an AWS CLI to Delete the VPC and Subnets</h5>
+<p class="noindent">In this exercise, you delete the VPC and subnets using AWS CLI.</p>
+<p class="numbert"><strong>1.</strong> Once you’ve verified that you can connect to your EC2 instance, and then you can terminate it if you no longer need it to save cost. So, we need to delete the dependencies before deleting the VPC. First, delete your security group:</p>
+<p class="numberc"><img alt="Images" src="p0071-02.jpg"/></p>
+<p class="number"><strong>2.</strong> Then you can delete your subnets:</p>
+<p class="numberc"><img alt="Images" src="p0071-03.jpg"/></p>
+<p class="number"><strong>3.</strong> And then you can delete your custom route table:</p>
+<p class="numberc"><img alt="Images" src="p0071-04.jpg"/></p>
+<p class="number"><strong>4.</strong> You need to detach your Internet gateway from your VPC before deleting it.</p>
+<p class="numberc"><img alt="Images" src="p0071-05.jpg"/></p>
+<p class="number"><strong>5.</strong> Now you can delete your Internet gateway:</p>
+<p class="numberc"><img alt="Images" src="p0071-06.jpg"/></p>
+<p class="number"><strong>6.</strong> Finally, you can delete your VPC:</p>
+<p class="numberc"><img alt="Images" src="p0071-07.jpg"/></p>
+<h4 class="h4" id="ch2lev2sec18">Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best response for each question.</p>
+<p class="numbert"><strong><a href="ch02.xhtml#rch02qa1" id="ch02qa1">1.</a></strong> What parameters do you need to set up an AWS CLI? (Choose all that apply.)</p>
+<p class="alphau"><strong>A.</strong> AWS Access Key ID</p>
+<p class="alphau"><strong>B.</strong> AWS Secret Access Key</p>
+<p class="alphau"><strong>C.</strong> Default region name</p>
+<p class="alphau"><strong>D.</strong> Default output format</p>
+<p class="number"><strong><a href="ch02.xhtml#rch02qa2" id="ch02qa2">2.</a></strong> What is the command to create EC2 key pair using an AWS CLI?</p>
+<p class="alphau"><strong>A.</strong> <span class="code">aws ec2 create-key-pair --key-name 'my key pair'</span></p>
+<p class="alphau"><strong>B.</strong> <span class="code">aws ec2 modify-key-pair --key-name 'my key pair'</span></p>
+<p class="alphau"><strong>C.</strong> <span class="code">aws ec2 delete-key-pair --key-name 'my key pair'</span></p>
+<p class="alphau"><strong>D.</strong> <span class="code">aws ec2 stop-key-pair --key-name 'my key pair'</span></p>
+<p class="number"><strong><a href="ch02.xhtml#rch02qa3" id="ch02qa3">3.</a></strong> <span epub:type="pagebreak" id="page_72"/>Which of the following AWS CLI commands lists all your instances and view information about those EC2 instances?</p>
+<p class="alphau"><strong>A.</strong> <span class="code">aws ec2 display-instances</span></p>
+<p class="alphau"><strong>B.</strong> <span class="code">aws ec2 describe-instances</span></p>
+<p class="alphau"><strong>C.</strong> <span class="code">aws ec2 discover-instances</span></p>
+<p class="alphau"><strong>D.</strong> <span class="code">aws ec2 show-instances</span></p>
+<p class="number"><strong><a href="ch02.xhtml#rch02qa4" id="ch02qa4">4.</a></strong> Which of the following AWS PowerShell commands can be used to list your S3 bucket named my-s3-files?</p>
+<p class="alphau"><strong>A.</strong> <span class="code">PS C:\&gt; Read-S3Object -BucketName my-s3-files</span></p>
+<p class="alphau"><strong>B.</strong> <span class="code">PS C:\&gt; Get-S3BucketPolicy -BucketName my-s3-files</span></p>
+<p class="alphau"><strong>C.</strong> <span class="code">PS C:\&gt;Copy-S3Object -BucketName my-s3-files</span></p>
+<p class="alphau"><strong>D.</strong> <span class="code">PS C:\&gt;Get-S3Bucket -BucketName my-s3-files</span></p>
+<p class="number"><strong><a href="ch02.xhtml#rch02qa5" id="ch02qa5">5.</a></strong> You want to delete a S3 bucket named my-old-files. Which of the following AWS PowerShell commands can be used to delete it?</p>
+<p class="alphau"><strong>A.</strong> <span class="code">PS C:\&gt;Remove-S3Bucket -BucketName my-old-files</span></p>
+<p class="alphau"><strong>B.</strong> <span class="code">PS C:\&gt;Delete-S3Bucket -BucketName my-old-files</span></p>
+<p class="alphau"><strong>C.</strong> <span class="code">PS C:\&gt;Purge-S3Bucket -BucketName my-old-files</span></p>
+<p class="alphau"><strong>D.</strong> <span class="code">PS C:\&gt;Drop-S3Bucket -BucketName my-old-files</span></p>
+<p class="number"><strong><a href="ch02.xhtml#rch02qa6" id="ch02qa6">6.</a></strong> Which of the AWS PowerShell commands retrieves a collection of users in the current AWS account?</p>
+<p class="alphau"><strong>A.</strong> <span class="code">PS C:\&gt;Retrieve-IAMUserList</span></p>
+<p class="alphau"><strong>B.</strong> <span class="code">PS C:\&gt;Pull-IAMUserList</span></p>
+<p class="alphau"><strong>C.</strong> <span class="code">PS C:\&gt;Show-IAMUserList</span></p>
+<p class="alphau"><strong>D.</strong> <span class="code">PS C:\&gt;Get-IAMUserList</span></p>
+<p class="number"><strong><a href="ch02.xhtml#rch02qa7" id="ch02qa7">7.</a></strong> Mike left your team so you need to delete the IAM user named Mike using AWS PowerShell. Which of the following commands achieves this goal?</p>
+<p class="alphau"><strong>A.</strong> <span class="code">PS C:\&gt;Remove-IAMUser -UserName Mike</span></p>
+<p class="alphau"><strong>B.</strong> <span class="code">PS C:\&gt;Delete-IAMUser -UserName Mike</span></p>
+<p class="alphau"><strong>C.</strong> <span class="code">PS C:\&gt;Drop-IAMUser -UserName Mike</span></p>
+<p class="alphau"><strong>D.</strong> <span class="code">PS C:\&gt;Purge-IAMUser -UserName Mike</span></p>
+<p class="number"><strong><a href="ch02.xhtml#rch02qa8" id="ch02qa8">8.</a></strong> Which of the following is a CLI tool for local development and testing of Serverless applications?</p>
+<p class="alphau"><strong>A.</strong> <span class="code">AWS PowerShell</span></p>
+<p class="alphau"><strong>B.</strong> <span class="code">AWS CLI</span></p>
+<p class="alphau"><strong>C.</strong> <span class="code">AWS SAM Local</span></p>
+<p class="alphau"><strong>D.</strong> <span class="code">AWS SDK</span></p>
+<p class="number"><strong><a href="ch02.xhtml#rch02qa9" id="ch02qa9">9.</a></strong> <span epub:type="pagebreak" id="page_73"/>Your networking team provided 192.172.0.0/22 CIDR block for creating AWS VPC. Which of the following AWS CLIs creates the VPC for you using the correct CIDR block?</p>
+<p class="alphau"><strong>A.</strong> <span class="code">aws ec2 initiate-vpc --cidr-block 192.172.0.0/22</span></p>
+<p class="alphau"><strong>B.</strong> <span class="code">aws ec2 generate-vpc --cidr-block 192.172.0.0/22</span></p>
+<p class="alphau"><strong>C.</strong> <span class="code">aws ec2 write-vpc --cidr-block 192.172.0.0/22</span></p>
+<p class="alphau"><strong>D.</strong> <span class="code">aws ec2 create-vpc --cidr-block 192.172.0.0/22</span></p>
+<p class="number1"><strong><a href="ch02.xhtml#rch02qa10" id="ch02qa10">10.</a></strong> The following AWS CLI command attaches a volume (vol-9876543210fedcba0) to an instance (i-54321ab789c09876) as /dev/xvdh,</p>
+<p class="numberc"><img alt="Images" src="p0073-05.jpg"/></p>
+<p class="alphau"><strong>A.</strong> True</p>
+<p class="alphau"><strong>B.</strong> False</p>
+<p class="number1"><strong><a href="ch02.xhtml#rch02qa11" id="ch02qa11">11.</a></strong> As part of your disaster recovery strategy, you need to copy the specified AMI from us-west-2 region to us-east-1 region using dry run option. The following AWS CLI command copies the AWS AMI from us-east1 to us-west-2.</p>
+<p class="numberc"><img alt="Images" src="p0073-06.jpg"/></p>
+<p class="alphau"><strong>A.</strong> False</p>
+<p class="alphau"><strong>B.</strong> True</p>
+<p class="number1"><strong><a href="ch02.xhtml#rch02qa12" id="ch02qa12">12.</a></strong> Your development team wants you to create an image of an existing EC2 instance. Which AWS CLI command will achieve the image creation?</p>
+<p class="alphau"><strong>A.</strong> <span class="code">aws ec2 create-image --instance-id i-9876543210fedcba0</span></p>
+<p class="alphau"><strong>B.</strong> <span class="code">aws ec2 generate-image --instance-id i-9876543210fedcba0</span></p>
+<p class="alphau"><strong>C.</strong> <span class="code">aws ec2 copy-image --instance-id i-9876543210fedcba0</span></p>
+<p class="alphau"><strong>D.</strong> <span class="code">aws ec2 build-image --instance-id i-9876543210fedcba0</span></p>
+<p class="number1"><strong><a href="ch02.xhtml#rch02qa13" id="ch02qa13">13.</a></strong> As per best practice, you would like to add Tags to your AWS AMI to identify the environment. Which of the following AWS CLI commands creates a Tag for AMI?</p>
+<p class="alphau"><strong>A.</strong> <span class="code">aws ec2 generate-tags --resources ami-67b431221 --tags Key=ENV, Value=DEV</span></p>
+<p class="alphau"><strong>B.</strong> <span class="code">aws ec2 copy-tags --resources ami-67b431221 --tags Key=ENV, Value=DEV</span></p>
+<p class="alphau"><strong>C.</strong> <span class="code">aws ec2 create-tags --resources ami-67b431221 --tags Key=ENV, Value=DEV</span></p>
+<p class="alphau"><strong>D.</strong> <span class="code">aws ec2 build-tags --resources ami-67b431221 --tags Key=ENV, Value=DEV</span></p>
+<p class="number1"><strong><a href="ch02.xhtml#rch02qa14" id="ch02qa14">14.</a></strong> <span epub:type="pagebreak" id="page_74"/>You have created a custom VPC vpc-b12217d3 and want to create a route table for that VPC. Which of the following AWS CLI commands creates the route table?</p>
+<p class="alphau"><strong>A.</strong> <span class="code">aws ec2 build-route-table --vpc-id vpc-b12217d3</span></p>
+<p class="alphau"><strong>B.</strong> <span class="code">aws ec2 generate-route-table --vpc-id vpc-b12217d3</span></p>
+<p class="alphau"><strong>C.</strong> <span class="code">aws ec2 copy-route-table --vpc-id vpc-b12217d3</span></p>
+<p class="alphau"><strong>D.</strong> <span class="code">aws ec2 create-route-table --vpc-id vpc-b12217d3</span></p>
+<p class="number1"><strong><a href="ch02.xhtml#rch02qa15" id="ch02qa15">15.</a></strong> You created an EC2 instance with IP 55.166.46.122 using MyEC2KeyPair.pem key-pair and you want to connect to it using an SSH client from a Linux machine. Which of the following commands helps you to successfully connect to your EC2 instance?</p>
+<p class="alphau"><strong>A.</strong> <span class="code">ssh -connect "MyEC2KeyPair.pem" ec2-user@55.166.46.122</span></p>
+<p class="alphau"><strong>B.</strong> <span class="code">ssh -attach "MyEC2KeyPair.pem" ec2-user@55.166.46.122</span></p>
+<p class="alphau"><strong>C.</strong> <span class="code">ssh -i "MyEC2KeyPair.pem" ec2-user@55.166.46.122</span></p>
+<p class="alphau"><strong>D.</strong> <span class="code">ssh -link "MyEC2KeyPair.pem" ec2-user@55.166.46.122</span></p>
+<p class="number1"><strong><a href="ch02.xhtml#rch02qa16" id="ch02qa16">16.</a></strong> You Audit and Compliance team recommends using Least Privilege for IAM Users. How do you achieve it?</p>
+<p class="alphau"><strong>A.</strong> By granting only the permissions required to perform a task</p>
+<p class="alphau"><strong>B.</strong> By granting everyone root access to perform a task</p>
+<p class="alphau"><strong>C.</strong> By revoking all the access from IAM Users</p>
+<p class="alphau"><strong>D.</strong> By deleting the User from IAM console</p>
+<p class="number1"><strong><a href="ch02.xhtml#rch02qa17" id="ch02qa17">17.</a></strong> You want to remove the complexity out of Java coding by using ___________ for AWS services including Amazon S3, Amazon ECS, DynamoDB, and AWS Lambda.</p>
+<p class="alphau"><strong>A.</strong> AWS SDK</p>
+<p class="alphau"><strong>B.</strong> AWS CLI</p>
+<p class="alphau"><strong>C.</strong> AWS PowerShell</p>
+<p class="alphau"><strong>D.</strong> AWS SAM Local</p>
+<p class="number1"><strong><a href="ch02.xhtml#rch02qa18" id="ch02qa18">18.</a></strong> The ____________ is an open source plug-in for the Eclipse Java integrated development environment (IDE) and it makes it easier for developers to develop, debug, and deploy Java applications that use AWS.</p>
+<p class="alphau"><strong>A.</strong> AWS CodeCommit</p>
+<p class="alphau"><strong>B.</strong> AWS CodePipeline</p>
+<p class="alphau"><strong>C.</strong> AWS CodeBuild</p>
+<p class="alphau"><strong>D.</strong> AWS Toolkit for Eclipse</p>
+<p class="number1"><strong><a href="ch02.xhtml#rch02qa19" id="ch02qa19">19.</a></strong> <span epub:type="pagebreak" id="page_75"/>The ____________ is a plug-in for the Visual Studio integrated development environment (IDE) and it makes it easier for developers to develop, debug, and deploy .NET applications that use AWS?</p>
+<p class="alphau"><strong>A.</strong> AWS Toolkit for Visual Studio</p>
+<p class="alphau"><strong>B.</strong> AWS CodeCommit</p>
+<p class="alphau"><strong>C.</strong> AWS CodePipeline</p>
+<p class="alphau"><strong>D.</strong> AWS CodeBuild</p>
+<p class="number1"><strong><a href="ch02.xhtml#rch02qa20" id="ch02qa20">20.</a></strong> ________________ contains tasks you can use in build and release definitions in VSTS to interact with AWS services, and it is available through the Visual Studio Marketplace.</p>
+<p class="alphau"><strong>A.</strong> AWS CLI</p>
+<p class="alphau"><strong>B.</strong> AWS SDK</p>
+<p class="alphau"><strong>C.</strong> AWS PowerShell</p>
+<p class="alphau"><strong>D.</strong> AWS Tools for Visual Studio Team Services (VSTS)</p>
+<h4 class="h4" id="ch2lev2sec19">Answers</h4>
+<p class="numbert"><strong><a href="ch02.xhtml#ch02qa1" id="rch02qa1">1.</a> A, B, C, D.</strong> You need the AWS Access Key ID, AWS Secret Access Key, Default region name, and Default output format parameters to setup AWS CLI.</p>
+<p class="number"><strong><a href="ch02.xhtml#ch02qa2" id="rch02qa2">2.</a> A.</strong> This is the correct AWS CLI command to create the EC2 key pair.</p>
+<p class="number"><strong><a href="ch02.xhtml#ch02qa3" id="rch02qa3">3.</a> B.</strong> This AWS CLI command lists all your instances and let you view information about those EC2 instances.</p>
+<p class="number"><strong><a href="ch02.xhtml#ch02qa4" id="rch02qa4">4.</a> D.</strong> This AWS PowerShell command lists your S3 bucket named my-s3-files.</p>
+<p class="number"><strong><a href="ch02.xhtml#ch02qa5" id="rch02qa5">5.</a> A.</strong> It’s the right AWS PowerShell command to delete a S3 bucket named my-old-files.</p>
+<p class="number"><strong><a href="ch02.xhtml#ch02qa6" id="rch02qa6">6.</a> D.</strong> It is the correct AWS PowerShell command that lists collection of users in the current AWS account.</p>
+<p class="number"><strong><a href="ch02.xhtml#ch02qa7" id="rch02qa7">7.</a> A.</strong> This AWS PowerShell command deletes the IAM user named Mike from your AWS account.</p>
+<p class="number"><strong><a href="ch02.xhtml#ch02qa8" id="rch02qa8">8.</a> C.</strong> AWS SAM Local CLI tool is used for the local development and testing of Serverless applications (i.e., AWS Lambda functions).</p>
+<p class="number"><strong><a href="ch02.xhtml#ch02qa9" id="rch02qa9">9.</a> D.</strong> This AWS CLI command creates a custom VPC using 192.172.0.0/22 CIDR block.</p>
+<p class="number1"><strong><a href="ch02.xhtml#ch02qa10" id="rch02qa10">10.</a> A.</strong> True. This AWS CLI command attaches the volume vol-9876543210fedcba0 to the instance i- i-54321ab789c09876 as /dev/xvdh.</p>
+<p class="number1"><strong><a href="ch02.xhtml#ch02qa11" id="rch02qa11">11.</a> B.</strong> True. It is the right AWS CLI command to copy the specified AMI from us-west-2 region to us-east-1 region.</p>
+<p class="number1"><span epub:type="pagebreak" id="page_76"/><strong><a href="ch02.xhtml#ch02qa12" id="rch02qa12">12.</a> A.</strong> The development team can use this AWS CLI command to create an image of an existing EC2 instance.</p>
+<p class="number1"><strong><a href="ch02.xhtml#ch02qa13" id="rch02qa13">13.</a> C.</strong> It is the correct AWS CLI command to add Tags to your AWS AMI to identify the environment.</p>
+<p class="number1"><strong><a href="ch02.xhtml#ch02qa14" id="rch02qa14">14.</a> D.</strong> It is the AWS CLI command to create a route table for your custom VPC vpc-b12217d3.</p>
+<p class="number1"><strong><a href="ch02.xhtml#ch02qa15" id="rch02qa15">15.</a> C.</strong> It is the correct way to connect to EC2 instance with IP 55.166.46.122 using MyEC2KeyPair.pem key-pair using an SSH client from a Linux machine.</p>
+<p class="number1"><strong><a href="ch02.xhtml#ch02qa16" id="rch02qa16">16.</a> A.</strong> By granting only the permissions required to perform a task, you need to find out what users need to do and then create access policies for them that let the users perform only those tasks.</p>
+<p class="number1"><strong><a href="ch02.xhtml#ch02qa17" id="rch02qa17">17.</a> A.</strong> AWS SDK will remove the complexity out of Java coding for AWS services including Amazon S3, Amazon ECS, DynamoDB, and AWS Lambda.</p>
+<p class="number1"><strong><a href="ch02.xhtml#ch02qa18" id="rch02qa18">18.</a> D.</strong> AWS Toolkit for Eclipse is the plug-in for the Eclipse Java IDE.</p>
+<p class="number1"><strong><a href="ch02.xhtml#ch02qa19" id="rch02qa19">19.</a> A.</strong> AWS Toolkit for Visual Studio is the plug-in for the Visual Studio IDE.</p>
+<p class="number1"><strong><a href="ch02.xhtml#ch02qa20" id="rch02qa20">20.</a> D.</strong> AWS Tools for Visual Studio Team Services contains tasks you can use in build and release definitions in VSTS to interact with AWS services.</p>
+<h3 class="h3" id="ch2lev1sec9">Additional Resources</h3>
+<p class="bulleta">• <strong>AWS Documentation</strong>   There is no place like official AWS documentation to get the latest and correct information about all the AWS services. Always refer to the official AWS blogs to get the latest updates about new AWS services and update to existing features.</p>
+<p class="bulletc"><img alt="images" src="p0076-01.jpg"/></p>
+<p class="bulleta">• <strong>AWS Command Line Interface</strong>   This is a tool to control various AWS services from the command line and also to automate them through scripts.</p>
+<p class="bulletc"><img alt="images" src="p0076-02.jpg"/></p>
+<p class="bulleta">• <strong>Tools to Build on AWS</strong>   List of tools for developing and managing applications on AWS using Go, Java, .Net, Node.js, Python, Ruby, etc.</p>
+<p class="bulletc"><img alt="images" src="p0076-03.jpg"/></p>
+<p class="bulleta">• <strong>AWS Tools for PowerShell</strong>   This tool helps developers and administrators manage their AWS services and resources in Windows, Linux, and MacOS environments.</p>
+<p class="bulletc"><img alt="images" src="p0076-04.jpg"/></p>
+<p class="bulleta"><span epub:type="pagebreak" id="page_77"/>• <strong>AWS Serverless Application Model</strong>   is an open source framework, which provides functions, APIs, databases, and event source mappings for building serverless applications with a few lines of configuration.</p>
+<p class="bulletc"><img alt="images" src="p0077-01.jpg"/></p>
+<p class="bulleta">• <strong>Developer Tools on AWS</strong>   to code, build, test, and deploy your applications to AWS. It also help you to automate the provisioning and managing your infrastructure and by eliminating the need for manual updates to avoid any manual errors.</p>
+<p class="bulletc"><img alt="images" src="p0077-02.jpg"/><span epub:type="pagebreak" id="page_78"/></p>
+</section>
+</body>
+</html>

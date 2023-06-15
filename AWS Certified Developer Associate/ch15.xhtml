@@ -1,0 +1,320 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch15"><span epub:type="pagebreak" id="page_395"/><span class="chap">CHAPTER <span class="chap1">15</span></span></h2>
+<h2 class="h2c1">Amazon Simple Queue Service and Simple Notification Service</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• Amazon Simple Queue Service</p>
+<p class="bulleta">• Amazon SQS architecture</p>
+<p class="bulleta">• Standard queues</p>
+<p class="bulleta">• First in/first out (FIFO) queues</p>
+<p class="bulleta">• Amazon Simple Notification Service</p>
+<p class="bulleta">• Amazon SNS architecture</p>
+<p class="bulleta">• Delivery policy</p>
+<p class="bulleta">• Dead-letter queues</p>
+<p class="bulleta">• Data encryption</p>
+<p class="bulleta">• Logging</p>
+<p class="bulleta">• Monitoring</p>
+<p class="hr"/>
+<p class="noindentb">This chapter discusses in detail how Amazon Simple Queue Service and Amazon Simple Notification service work.</p>
+<h3 class="h3" id="ch15lev1sec1">Amazon Simple Queue Service</h3>
+<p class="noindent">Amazon Simple Queue Service (Amazon SQS) is a hosted queue used to integrate and decouple distributed applications with features like dead-letter queues and cost allocation tags. You have control over who can receive or send messages from and to your queue. The contents of your message queue are encrypted using server-side encryption, using the AWS Key Management Service (KMS) key. Amazon SQS stores your message queues to multiple servers to provide durability. There are two types of queues:</p>
+<p class="bullett">• Standard queues that support at-least-once message delivery</p>
+<p class="bulletb">• First in/first out (FIFO) queues that support just-once message processing</p>
+<p class="indent"><span epub:type="pagebreak" id="page_396"/>You can concurrently access Amazon SQS messages, and you can produce and consume messages without any interruption, since Amazon SQS handles the high availability. Amazon SQS handles any amount of load increase or spikes without you manually provisioning any additional resources. Amazon SQS message locking allows multiple producers and consumers to send and receive messages at the same time. You are allowed to set a delay on your queue and store the message contents in Amazon S3 or Amazon DynamoDB.</p>
+<h3 class="h3" id="ch15lev1sec2">Amazon SQS Architecture</h3>
+<p class="noindent">The main parts of a distributed messaging system are</p>
+<p class="bullett">• Your distributed system services (S1, S2, and S3)</p>
+<p class="bulleta">• Your Amazon SQS queues (Q1 and Q2)</p>
+<p class="bulletb">• The messages in the queue (M1, M2, M3, M4, and M5)</p>
+<p class="indent">Your system S1 needs to send messages M1, M2, and M3 to another distributed system, S2, using the Q1 queue, and system S1 needs to send messages M4 and M5 to system S3 using the Q2 queue. Queues Q1 and Q2 redundantly store the messages M1, M2, M3, M4, and M5 across multiple Amazon SQS servers.</p>
+<h4 class="h4" id="ch15lev2sec1">Queue Lifecycle</h4>
+<p class="noindent">The Amazon SQS message lifecycle begins with its creation and ends with its deletion from the queue. Your distributed system S1 sends messages M1, M2, and M3 to queue Q1, and those messages are distributed across multiple Amazon SQS servers to provide redundancy. When consumer system S2 is ready to process messages M1, M2, and M3, it consumes all those messages from queue Q1. The messages remain in the queue until it’s processed and for the duration of visibility timeout. The consumer system S2 deletes the messages from queue Q1 to prevent messages M1, M2, and M3 from processing again.</p>
+<p class="indent">Similarly, your system S1 sends messages M4 and M5 using the Q2 queue to another distributed system, S3. As soon as the consumer system S3 is ready to process messages M4 and M5, it starts consuming from queue Q2. Once messages M4 and M5 are processed by system S3, messages M4 and M5 are deleted from queue Q2 to prevent them from processing again.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="note.jpg"/></p>
+<p class="note"><strong>NOTE</strong>   The message retention period is from 60 seconds to 14 days, and the default message retention period is 4 days.</p>
+</div>
+<h4 class="h4" id="ch15lev2sec2">Standard Queues</h4>
+<p class="noindent">The standard queue is the Amazon SQS default queue type that supports an unlimited number of transactions per second (TPS) per SendMessage or ReceiveMessage or DeleteMessage application programming interface (API) actions. It supports at-least-once <span epub:type="pagebreak" id="page_397"/>message delivery, and occasionally it is possible that more than one copy of the same message gets delivered out of order. Standard queues deliver messages in the same order as they are sent. These queues are suitable for applications that can process messages that arrive out of order and that do so more than once. You can use the standard message queue to decouple your user requests from another complex task that allows your users to perform multiple tasks in your application. As mentioned, the standard queue might deliver more than one copy of the same message out of order, so you need to design your application to be idempotent so that it will not be affected negatively when same message is processed more than once.</p>
+<h4 class="h4" id="ch15lev2sec3">First In/First Out Queues</h4>
+<p class="noindent">FIFO queues deliver messages in exactly the same order as they are received. This queue is designed for applications where the order of messages is critical and duplicate messages cannot be tolerated. It’s ideally suited for applications that need to execute critical commands in exactly the same order—for example, a modified product price needs to appear in the correct order or a user needs to be prevented from selling or buying a product before registering for an account. The FIFO queue provides just-once processing for up to 300 messages per second, per SendMessage, ReceiveMessage, or DeleteMessage API action, and with batching, it supports up to 3,000 messages per second. You can increase this default limit by submitting a support request. FIFO makes sure that no duplicates are introduced into your queue. The names of a FIFO queue are limited to 80 characters in length, including the .fifo suffix. The order is strictly preserved and available until a consumer processes and deletes it. You can send multiple ordered message groups within a single queue using FIFO queues.</p>
+<p class="bullett">• <strong>Message Deduplication ID</strong>   This is a token used for deduplication of sent messages. When a message with a particular message deduplication ID is sent again, it will not be delivered during the five-minute deduplication interval.</p>
+<p class="bulleta">• <strong>Message Group ID</strong>   When a message is part of a particular message group, it is processed one by one, in a strict order, relative to the message group.</p>
+<p class="bulleta">• <strong>Receive Request Attempt ID</strong>   The ReceiveMessage calls token is used for deduplication.</p>
+<p class="bulleta">• <strong>Sequence Number</strong>   Amazon SQS assigns a large, nonconsecutive number to every message.</p>
+<h5 class="h5">Sending Messages</h5>
+<p class="noindent">When multiple messages are sent to the Amazon SQS FIFO queue, a distinct deduplication ID is assigned to each message and returns an acknowledgment. Then, messages are ordered based on a unique message group ID that each producer uses when sending the messages. Each message in the FIFO queue is sent and received in a strict order based on its message group ID value. This allows you to resend as many times as necessary using the same deduplication ID until the producer receives at least one acknowledgment without introducing any duplicates.</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_398"/>Receiving Messages</h5>
+<p class="noindent">The FIFO queue processes messages with the same message group ID when receiving messages, and it allows you to retry the same receive request attempt ID as many times as necessary until you receive at least one acknowledgment without affecting the ordering of messages. FIFO queues don’t introduce duplicates. You can enable content-based deduplication by using a SHA-256 hash to generate the deduplication ID using the message body.</p>
+<h5 class="h5">Migrate a Standard Queue to a FIFO Queue</h5>
+<p class="noindent">In order to migrate from a standard queue to a FIFO queue, your application and queue need to be configured differently. FIFO queues support only per-queue delays, not per-message delays, so if your application assigns DelaySeconds for each message, then it needs to be modified to assign on the queue instead. Each message in a FIFO queue needs a message group ID, so either you need multiple message groups IDs or the same message group ID for all your messages.</p>
+<p class="bullett">• <strong>Queue Name</strong>   The Amazon SQS queue name is limited to 80 characters and must be unique for your AWS account region; if the name ends with .fifo, it is a FIFO queue.</p>
+<p class="bulleta">• <strong>Queue URL</strong>   Amazon SQS assigns each queue a URL with your AWS account number and queue name; for example:</p>
+<p class="bulletn"><a href="https://sqs.us-west-1.amazonaws.com/120987654321/my-first-queue">https://sqs.us-west-1.amazonaws.com/120987654321/my-first-queue</a></p>
+<p class="bulleta">• <strong>Message ID</strong>   Amazon SQS returns a system-assigned message ID for every message in the SendMessage response, with a maximum length of 100 characters.</p>
+<p class="bulleta">• <strong>Receipt Handle</strong>   You receive a receipt handle each time you receive a message from a queue that is associated with the receive action, not the message itself. Messages have a maximum length of 1,024 characters.</p>
+<p class="bulleta">• <strong>Message Deduplication ID</strong>   This is the sent messages token, so if a message is sent successfully, any subsequent message request with same message deduplication ID is not delivered until the five-minute deduplication interval has passed.</p>
+<p class="bulleta">• <strong>Message Group ID</strong>   This is the tag of the particular message group that is always processed one by one in a strict order.</p>
+<p class="bulleta">• <strong>Sequence Number</strong>   This is the large, nonconsecutive number that Amazon SQS assigns to each message.</p>
+<p class="bulleta">• <strong>Message Metadata</strong>   This is custom metadata of message attributes to your Amazon SQS messages used by your applications or other AWS services.</p>
+<p class="bulleta">• <strong>Message Attributes</strong>   You can have ten message attributes, like identifiers, signatures, timestamps, and geospatial data, that are separate from the message body.</p>
+<p class="bulleta">• <strong>Message Attribute Components</strong>   The message attribute components are Name, Type, and Value, and the message body cannot be null or empty.</p>
+<p class="bulleta">• <strong>Message Attribute Data Types</strong>   Amazon SQS supports the logical data types String, Number, and Binary with optional custom data type labels.</p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_399"/><strong>Message System Attributes</strong>   The message system attribute is AWSTraceHeader, which is a string data type, and its size doesn’t count toward the total size of a message.</p>
+<p class="bulleta">• <strong>Cost Allocation Tags</strong>   These help you organize and identify your Amazon SQS queues and organize your AWS bill to reflect your cost based on key-value pairs.</p>
+<h4 class="h4" id="ch15lev2sec4">Short Polling</h4>
+<p class="noindent">Amazon SQS queries only a set of its servers rather than all servers for short polling, which is the default, based on a weighted random distribution and returns messages from only those servers. So, your ReceiveMessage request may return fewer messages as opposed to all of them. When the WaitTimeSeconds is set to 0 for ReceiveMessage call or the queue attribute ReceiveMessageWaitTimeSeconds is set to 0, it is called short polling.</p>
+<h4 class="h4" id="ch15lev2sec5">Long Polling</h4>
+<p class="noindent">Amazon SQS eliminates the number of empty responses and false-empty responses by querying all servers instead of a subset of servers for long polling when the wait time is greater than 0 for the ReceiveMessage call by waiting until a message is available in the queue before sending a response.</p>
+<h4 class="h4" id="ch15lev2sec6">Dead-Letter Queues</h4>
+<p class="noindent">Amazon SQS writes failed messages with its original message ID and en-queue timestamp to a dead-letter queue for debugging, which helps to quickly isolate the problematic messages. If the message retention period is two days, for example, then the message is deleted after two days, so AWS recommends setting a longer retention period for the dead-letter queue than your original queue retention period. If your application is able to keep retrying a message indefinitely, then you don’t need to use a dead-letter queue with standard queues. If your application requires an exact order of messages or operations, then you don’t need to use a dead-letter queue with a FIFO queue.</p>
+<h4 class="h4" id="ch15lev2sec7">Visibility Timeout</h4>
+<p class="noindent">Amazon SQS doesn’t delete the message automatically; it remains in the queue until the consumer deletes it. The visibility timeout prevents the message from being received and processed again. The minimum visibility timeout is 0 seconds, the maximum is 12 hours, and the default is 30 seconds.</p>
+<h4 class="h4" id="ch15lev2sec8">Inflight Messages</h4>
+<p class="noindent">An Amazon SQS message has the following three basic states:</p>
+<p class="bullett">• Message sent to a queue by a producer.</p>
+<p class="bulleta">• Message is received from the queue by a consumer.</p>
+<p class="bulletb">• Message is deleted from the queue.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_400"/>Any message can be considered stored after it is sent to a queue but not yet received, and there is no quota for stored messages. Any message can be considered as in flight after it is received but not yet deleted, and there is a quota to in-flight messages.</p>
+<p class="indent">Standard queues have 120,000 in-flight messages, and Amazon SQS returns an OverLimit error message if you reach this quota. So, you can either delete messages from the queue after processing or request a quota increase by submitting a support request. A maximum of 20,000 in-flight messages can be received by a consumer from FIFO queues.</p>
+<h4 class="h4" id="ch15lev2sec9">Delay Queues</h4>
+<p class="noindent">Delay queues let you postpone the delivery of new messages (which remain invisible) for a number of seconds, with a minimum of 0 seconds to a maximum of 15 minutes. Changing the per-queue delay in the FIFO queue affects the messages that are already in the queue. A message is hidden when it is first added to the delay queue and is hidden again after it is consumed for visibility timeouts from the queue.</p>
+<h4 class="h4" id="ch15lev2sec10">Temporary Queues</h4>
+<p class="noindent">You can use temporary queues to save development time and deployment costs for common message patterns that allow your application to make fewer API calls and clean up the temporary queue automatically when no longer in use. The temporary queries can be created and deleted without incurring any additional cost.</p>
+<h4 class="h4" id="ch15lev2sec11">Virtual Queues</h4>
+<p class="noindent">Virtual queues are local data structures that let you combine multiple low-traffic destinations into a single Amazon SQS queue. They are created by the temporary queue using the HostQueueURL attribute.</p>
+<h4 class="h4" id="ch15lev2sec12">Message Timers</h4>
+<p class="noindent">You can use message timers to specify an initial invisibility period for a message, with a minimum delay of 0 seconds and a maximum of 15 minutes, so if your message has a 12-second timer, for example, then the message will not be visible for the first 12 seconds. The delay period is for the entire queue, and the message timer is for individual messages; in addition, the message timer overrides the DelaySeconds on an Amazon SQS delay queue.</p>
+<h4 class="h4" id="ch15lev2sec13">Large Messages</h4>
+<p class="noindent">You can use Amazon S3 for storing and consuming messages up to 2GB in size. You can send a message that references a single message object stored in your Amazon S3 bucket. You can also get the corresponding message or delete the corresponding message object from an Amazon S3 bucket.</p>
+<h3 class="h3" id="ch15lev1sec3"><span epub:type="pagebreak" id="page_401"/>Data Encryption</h3>
+<p class="noindent">You can protect messages in transit using Secure Sockets Layer (SSL) and protect messages at rest by enabling encryption before saving them to disk and decrypting them when received. Server-side encryption (SSE) can be used to transmit sensitive data in encrypted queues using keys managed in AWS KMS. The messages are encrypted using SSE as soon as Amazon SQS receives it, and the messages are stored in encrypted form in Amazon SQS. You can either manage the customer master key (CMK) yourself or use the AWS-managed CMK for your Amazon SQS queues. SSE encrypts the message body where your sensitive data is stored but it does not encrypt the queue or message metadata.</p>
+<h4 class="h4" id="ch15lev2sec14">Virtual Private Cloud Endpoints</h4>
+<p class="noindent">You can use a Virtual Private Cloud (VPC) endpoint to connect your Amazon SQS without using the public Internet and instead use the Amazon network for your communication between your VPC endpoint to Amazon SQS.</p>
+<h4 class="h4" id="ch15lev2sec15">Logging</h4>
+<p class="noindent">You can use AWS CloudTrail to record all of the Amazon SQS API calls that a user, role, or AWS service makes. You can identify a specific request, the IP address, the requester’s identity, and the date and time from the AWS CloudTrail logs. You can enable continuous delivery of CloudTrail events to an Amazon S3 bucket, or you can view the events in the CloudTrail console.</p>
+<h4 class="h4" id="ch15lev2sec16">Monitoring</h4>
+<p class="noindent">CloudWatch can be used to view and analyze metrics of your Amazon SQS queues in addition to setting up CloudWatch alarms for Amazon SQS metrics. All metrics of active Amazon SQS queues are collected and pushed to CloudWatch every five minutes. A queue is active for up to six hours or if any action accesses it, and you can collect CloudWatch metrics from both standard and FIFO queues.</p>
+<h3 class="h3" id="ch15lev1sec4">Amazon Simple Notification Service</h3>
+<p class="noindent">Amazon Simple Notification Service (Amazon SNS) sends messages to subscribing endpoints and clients, called publishers and subscribers, respectively, which are also known as producers and consumers. A publisher can communicate asynchronously with subscribers by producing and sending a message to a topic communication channel. A subscriber like a web server, e-mail address, Amazon SQS queue, and AWS Lambda function can receive the message over one of the supported protocols when subscribed to the topic. You can create a topic using Amazon SNS and grant access to publishers and subscribers. A publisher creates topics to send messages and then Amazon SNS matches the topic to its list of subscribers and delivers the message.</p>
+<h3 class="h3" id="ch15lev1sec5"><span epub:type="pagebreak" id="page_402"/>Amazon SNS Architecture</h3>
+<p class="noindent">An Amazon SNS topic has a unique name and endpoint for publishers and subscribers for both posting and receiving messages. An Amazon SNS topic is a logical access point that lets you group multiple endpoints to broadcast messages to services that require them. You can start publishing messages as soon as you create a topic. You need to subscribe to an endpoint like AWS Lambda, Amazon SQS, HTTP, or e-mail ID of the topic to receive relevant. As soon as you confirm your subscription, the subscribed endpoint begins to receive messages from Amazon SNS. Metadata tags are used to track your Amazon SNS resources for cost allocation and distribution. When a message cannot be delivered to its subscribers, it is moved to an Amazon SQS dead-letter queue for further analysis or resending. Consumers can unsubscribe from a topic if they no longer need to receive messages from it.</p>
+<p class="indent">SSE can be enabled for a topic to protect its data. You can secure messages by using the AWS private network when publishing messages from an Amazon EC2 instance that’s hosted on your Amazon VPC. Sensitive messages that contain either personally identifiable information (PII) or market regulations applications data will stay within the AWS network without traveling the public Internet. An interface VPC endpoint powered by AWS PrivateLink is useful for message data that needs to be in compliance with the Payment Card Industry (PCI) Data Security Standard (DSS) or the Health Insurance Portability and Accountability Act (HIPAA).</p>
+<h4 class="h4" id="ch15lev2sec17">Fanout</h4>
+<p class="noindent">The Amazon SNS message from a topic fans out to multiple subscribed endpoints, like HTTP endpoints, e-mail addresses, and Amazon SQS queues, using parallel asynchronous processing. An application can send a message to a topic whenever a request is for an address change. A Lambda function that is subscribed to that topic handles the process by updating the address, while the other Lambda updates the data warehouse for analysis and reporting. Another way to use “fanout” is to send e-mail in addition to responding to an event. You have a Lambda function and e-mail subscribed to an event topic, and when a particular event happens, the Lambda function spins up more instances in addition to sending an e-mail.</p>
+<h4 class="h4" id="ch15lev2sec18">Alerts</h4>
+<p class="noindent">You can receive application and system alerts based on predefined thresholds either by Short Message Service (SMS) or e-mail. For example, when a threshold is reached in your Amazon EC2 Auto Scaling group from 12 instances to 8 instances or one of the instances fails, it can trigger an e-mail or SMS message based on your preference.</p>
+<h4 class="h4" id="ch15lev2sec19">Push Message</h4>
+<p class="noindent">Push e-mails and text messaging are used to transmit messages to individuals or groups. For example, if you are stopping and starting your nonproduction EC2 instances after working hours, you can send an e-mail or SMS message to your manager or to your entire team either after or before stopping and starting the EC2 instances. Individuals <span epub:type="pagebreak" id="page_403"/>receive a notification to subscribe to the topic, or they can unsubscribe from the topic when they no longer need updates.</p>
+<h4 class="h4" id="ch15lev2sec20">Push Notifications</h4>
+<p class="noindent">Mobile push notifications can be used to send messages directly to your mobile applications, similar to the operating system notifications that you get on your smartphone. You can use Amazon SNS to send notifications when an update is available for the mobile application by including a link to download and install the update.</p>
+<h4 class="h4" id="ch15lev2sec21">Message Durability</h4>
+<p class="noindent">All messages received by Amazon SNS are stored as multiple copies to disk in different isolated AWS Availability Zones for durability. As soon as Amazon SNS receives a publish request, it stores multiple copies to disk before sending the confirmation back to the sender.</p>
+<h4 class="h4" id="ch15lev2sec22">Message Delivery Status</h4>
+<p class="noindent">The delivery status of application, HTTP, Lambda, and SQS log entries are sent to CloudWatch logs for the topic subscribed to an Amazon SNS endpoint. Logging helps you determine whether a message was delivered, to find the response sent from the Amazon SNS endpoint to Amazon SNS, and to determine the dwell time, which is the time between the publish timestamp and handing off-timestamp to an Amazon SNS endpoint.</p>
+<p class="indent">You can grant Amazon SNS write access to use CloudWatch logs by using the &lt;Application, HTTP, Lambda or SQS&gt; SuccessFeedbackRoleArn and &lt;Application, HTTP, Lambda or SQS&gt; FailureFeedbackRoleArn attributes. You can get the sample rate percentage (0 to 100 percent) of the successfully delivered messages by using the &lt;Application, HTTP, Lambda or SQS&gt; SuccessFeedbackSampleRate attribute. All failed message deliveries can be generated in CloudWatch logs by configuring the &lt;Application, HTTP, Lambda or SQS&gt; FailureFeedbackRoleArn attribute.</p>
+<h4 class="h4" id="ch15lev2sec23">Message Delivery Retries</h4>
+<p class="noindent">A delivery policy can be defined in Amazon SNS for all delivery protocols, which determine how Amazon SNS retries the delivery of messages. Amazon SNS stops the delivery retry when the policy is exhausted and deletes the messages if it is not attached to a dead-letter queue.</p>
+<h4 class="h4" id="ch15lev2sec24">Delivery Policies</h4>
+<p class="noindent">A delivery policy contains the following four phases:</p>
+<p class="bullett">• <strong>Immediate Retry (No Delay) Phase</strong>   Occurs immediately without any delay after the initial delivery attempt, and there is no delay between retries.</p>
+<p class="bulleta">• <strong>Pre-Backoff Phase</strong>   This follows the previous no-delay phase and is used to attempt a set of retries before applying a backoff by specifying the number of retries and the amount of delay between them.</p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_404"/><strong>Backoff Phase</strong>   Delays between retries are controlled by using the retry-backoff function by setting a minimum delay and a maximum delay. The retry-backoff function defines how quickly the delay increases from the minimum to the maximum delay, and the backoff function can be arithmetic, exponential, geometric, or linear in nature.</p>
+<p class="bulleta">• <strong>Post-Backoff Phase</strong>   This follows the previous backoff phase and specifies a number of retries and the amount of delay between them, which is the final phase.</p>
+<h4 class="h4" id="ch15lev2sec25">Creating a Delivery Policy</h4>
+<p class="noindent">The delivery policy and its four phases can be used to define how Amazon SNS retries the delivery of messages to HTTP/S endpoints by overriding the default retry policy when required. The HTTP/S delivery policy can be set up at the subscription or topic level, and the policy applies to all HTTP/S subscriptions associated with the policy at the topic level. The delivery policy can be customized based on your HTTP/S server’s capacity. AWS recommends setting the delivery policy at the topic level so that it remains valid for all HTTP/S subscriptions of that topic instead of composing a delivery policy for each HTTP/S subscription. You can calculate the number of retries using the following formula:</p>
+<p class="imagep"><img alt="images" src="p0404-01.jpg"/></p>
+<p class="bullett">• <strong>minDelayTarget</strong>   Delay of first retry attempt in backoff phase</p>
+<p class="bulleta">• <strong>maxDelayTarget</strong>   Delay of final retry attempt in backoff phase</p>
+<p class="bulleta">• <strong>backoffFunction</strong>   Algorithm to calculate the delays with retry attempts between retries</p>
+<h4 class="h4" id="ch15lev2sec26">Dead-Letter Queues</h4>
+<p class="noindent">As mentioned earlier, a dead-letter queue is an Amazon SQS queue that an Amazon SNS subscription uses for messages that can’t be successfully delivered to its subscribers. Messages with client errors or server errors that can’t be successfully delivered are held in the dead-letter queue for further analysis or reprocessing. Message delivery fails when Amazon SNS can’t access a subscribed endpoint due to a client-side or server-side error. When Amazon SNS receives a client-side error or server-side error beyond the number of retries configured in its retry policy, Amazon SNS either discards the message or sends it to the dead-letter queue.</p>
+<h5 class="h5">Client-Side Errors</h5>
+<p class="noindent">A client-side error occurs when Amazon SNS has stale metadata because the owner deleted the subscribed endpoint or changed the subscribed endpoint policy, which prevents Amazon SNS from delivering messages. If the message delivery fails because of a client-side error, Amazon SNS doesn’t retry to deliver it.</p>
+<h5 class="h5">Server-Side Errors</h5>
+<p class="noindent">Server-side errors can happen when the system responsible for the subscribed endpoint becomes unavailable or returns an exception that indicates it can’t process a valid request from Amazon SNS. When server-side errors occur, Amazon SNS retries the failed deliveries using either a linear or exponential backoff function.</p>
+<h4 class="h4" id="ch15lev2sec27"><span epub:type="pagebreak" id="page_405"/>Message Attributes</h4>
+<p class="noindent">Amazon SNS supports delivery of message attributes like timestamps, identifiers, signatures, and geospatial data for the message. Message attributes are separate from the message body but are sent together. The receiver can use the message, which can contain up to ten attributes, and decide how the message will be handled before processing it. Message attributes make your messages filterable using filter policies:</p>
+<p class="bullett">• <strong>Name</strong>   Contains A–Z, a–z, 0–9, underscore (_), hyphen (-), and period (.) characters</p>
+<p class="bulleta">• <strong>Type</strong>   Data types are String, Number, and Binary; they are case sensitive, and have a length up to 256 bytes</p>
+<p class="bulleta">• <strong>Value</strong>   User-specified message attribute value, and the message body cannot be null or empty</p>
+<p class="bulleta">• <strong>String</strong>   UTF-8 binary encoding</p>
+<p class="bulleta">• <strong>Number</strong>   Positive or negative integers or floating-point numbers</p>
+<p class="bulleta">• <strong>Binary</strong>   Can store any binary data like encrypted data, compressed data, or images</p>
+<h4 class="h4" id="ch15lev2sec28">Message Filtering</h4>
+<p class="noindent">A topic subscriber receives all the messages published to a topic by default. However, the subscriber can use a filter policy to receive just a subset of the messages. A filter policy is a JSON object that contains attributes that define which messages can be received by the subscriber. Amazon SNS uses filter policy attributes before sending messages to the subscriber and can skip it without sending the message.</p>
+<h4 class="h4" id="ch15lev2sec29">Tags</h4>
+<p class="noindent">Tags can be used to organize Amazon SNS resources and to find related tagged topics. Tags are metadata about your topics to identify its purpose, environment, or owner with a key-value pair, and it is case-sensitive.</p>
+<h4 class="h4" id="ch15lev2sec30">Data Encryption</h4>
+<p class="noindent">Your data will be protected using SSL or client-side encryption while in transit traveling to and from Amazon SNS and at rest when it is stored on disks in Amazon datacenters. You can protect data at rest by requesting Amazon SNS to encrypt your messages before saving them to disk in its datacenters and then decrypt them when the messages are received.</p>
+<h5 class="h5">Encryption at Rest</h5>
+<p class="noindent">SSE can be used to encrypt sensitive data in topics using AWS KMS. Amazon SNS encrypts your messages as soon as it receives them and stores the messages in encrypted form. Amazon SNS decrypts messages only when requested by an authorized receiver. SSE encrypts the message body of an Amazon SNS topic, but not the topic or message metadata, and any encrypted messages remain encrypted even if the encryption of the topic is disabled.</p>
+<h4 class="h4" id="ch15lev2sec31"><span epub:type="pagebreak" id="page_406"/>Logging</h4>
+<p class="noindent">All Amazon SNS–supported events are recorded in a CloudTrail that can be used to view, search, and download information. You can create a “path” to enable CloudTrail to deliver log files to your Amazon S3 bucket where the path applies to all AWS regions. The path logs events from all regions, which are delivered to your Amazon S3 bucket for further analysis to determine who made the request, the IP address of the request, and when it was made.</p>
+<h4 class="h4" id="ch15lev2sec32">Monitoring</h4>
+<p class="noindent">You can collect, monitor, and analyze Amazon SNS metrics using the CloudWatch console, programmatically using the CloudWatch API, or using CloudWatch’s own Command Line Interface (CLI). There are no additional charges for monitoring CloudWatch metrics, since it is provided as part of the Amazon SNS service. The performance metrics of your Amazon SNS topics, SMS deliveries, or push notifications are automatically collected and pushed to CloudWatch every five minutes.</p>
+<h4 class="h4" id="ch15lev2sec33">Infrastructure Security</h4>
+<p class="noindent">You can securely access Amazon SNS using the AWS API through the AWS network. AWS recommends using Transport Layer Security (TLS) 1.2 or later with clients that support cipher suites with perfect forward secrecy (PFS), like Elliptic Curve Ephemeral Diffie-Hellman (ECDHE) or Ephemeral Diffie-Hellman (DHE). You need to use Identity and Access Management (IAM) credentials or use the AWS Security Token Service (STS) to generate temporary security credentials.</p>
+<h5 class="h5">Internetwork Traffic</h5>
+<p class="noindent">You can create an Amazon SNS endpoint in your VPC, which is a logical entity that allows connectivity only to Amazon SNS. The VPC routes requests to Amazon SNS endpoints and routes responses back to the VPC using the AWS private network connection without traversing through the public Internet. The endpoint provides secure connectivity to Amazon SNS without any Internet gateway, Network Address Translation (NAT) gateway, or virtual private network (VPN) connection.</p>
+<h5 class="h5">Publicly Accessible</h5>
+<p class="noindent">Your Amazon SNS topic should not be accessible by everyone in the world from the public Internet or by any AWS unauthenticated user. Never create policies with the principal set to "" or use wildcard (*) instead of providing a particular username.</p>
+<h5 class="h5">Least-Privilege Access</h5>
+<p class="noindent">Least-privilege access is important to reduce the negative effect of errors or malicious intent and to reduce security risks. You always need to grant only the permissions required to perform a particular task. In the Amazon SNS publisher-subscriber model, administrators are able to create, modify, and delete topics and policies. Publishers are able to send messages to topics, and subscribers are able to subscribe to topics.</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_407"/>Server-Side Encryption</h5>
+<p class="noindent">You can use encryption at rest to encrypt your messages to mitigate data leakage issues using a key stored in a different location from the location that stores your messages. Data encryption at rest is provided by SSE using the AWS KMS key. Encryption of your data happens at the message level, and the message is decrypted for you when you access it. You can access the messages without any difference between accessing encrypted and unencrypted topics as long as you authenticate your request and have access permissions.</p>
+<h5 class="h5">Data in Transit Encryption</h5>
+<p class="noindent">You can prevent a network-based attacker from eavesdropping on network traffic or manipulate it using an attack such as man-in-the-middle by using HTTPS (TLS). You can use the aws:SecureTransport condition in the topic policy to allow only encrypted connections over HTTPS (TLS) that forces requests to use SSL.</p>
+<h5 class="h5">Using VPC Endpoints</h5>
+<p class="noindent">If you do not want to expose your topics through the Internet, you can use VPC endpoints to limit access to hosts within a particular VPC. You can control access to topics from specific Amazon VPCs or from specific VPC endpoints. This provides you with full control over the requests and users that are allowed to access your VPC endpoint.</p>
+<h3 class="h3" id="ch15lev1sec6">Chapter Review</h3>
+<p class="noindent">This chapter began by exploring Amazon SQS and Amazon SNS. It then explored both messaging services. The chapter explained that Amazon SQS is a hosted queue that can be used to integrate and decouple your distributed applications. You have control over who can receive or send messages from and to your queue. All the contents of your message queue are encrypted using server-side encryption, using the AWS KMS key. Amazon SQS offers standard queues that support at-least-once message delivery, and FIFO queues that supports just-once message processing. Amazon SQS stores your message queues on multiple servers to provide durability. For short polling, Amazon SQS queries only a set of its servers rather than all servers by default. For long polling, Amazon SQS queries all servers instead of a subset of servers to eliminate empty responses and false-empty responses.</p>
+<p class="indent">Amazon SQS writes failed messages with the original message ID to a dead-letter queue for debugging and to help you quickly isolate problematic messages. A visibility timeout prevents messages from being received and processed again. Delay queues let you postpone delivery and keep new messages invisible for a certain number of seconds. Temporary queues are used to save development time and costs for common message patterns. Virtual queues are local data structures that let you combine multiple low-traffic destinations into a single Amazon SQS queue. Messages in transit use SSL, and messages at rest are protected by enabling encryption before saving them to disk and decrypting them when received. AWS CloudTrail can be used to record all of the Amazon SQS API calls that a user, role, or AWS service makes. You can identify a specific request, the IP address, the requester’s identity, and the date and time from the AWS CloudTrail logs. <span epub:type="pagebreak" id="page_408"/>CloudWatch can be used to view and analyze metrics of your Amazon SQS queues in addition to setting up CloudWatch alarms for Amazon SQS metrics. All the metrics of active Amazon SQS queues are collected and pushed to CloudWatch every five minutes.</p>
+<p class="indent">Amazon SNS is a managed publication-subscription service that lets you group multiple endpoints to broadcast messages to services that require them. You can start publishing messages once you create a topic. Consumers can subscribe a topic endpoint like AWS Lambda, Amazon SQS, HTTP, or e-mail ID and receive relevant messages. The Amazon SNS message from a topic fans out to multiple subscribed endpoints using parallel asynchronous processing.</p>
+<p class="indent">Delivery policies have four phases—immediate retry (no delay), pre-backoff, backoff phase, and post-backoff—and can be used to define how Amazon SNS retries the delivery of messages to HTTP/S endpoints by overriding the default retry policy when required. A dead-letter queue is an Amazon SQS queue that an Amazon SNS subscription uses for messages that can’t be successfully delivered to subscribers. Messages with client errors or server errors that can’t be successfully delivered are held in the dead-letter queue for further analysis or reprocessing. A topic subscriber receives the entire message published to a topic by default. However, the subscriber can use a filter policy to receive just a subset of the messages. A filter policy is a JSON object that contains attributes to define which messages can be received by the subscriber.</p>
+<p class="indent">Your data will be protected using SSL or client-side encryption while in transit traveling to and from Amazon SNS and at rest when it is stored on disks in Amazon datacenters. All Amazon SNS–supported events are recorded in a CloudTrail that can be used to view, search, and download information about those events. You can create a “path” to enable CloudTrail to deliver log files to your Amazon S3 bucket, where the path applies to all AWS regions. You can collect, monitor, and analyze Amazon SNS metrics using the CloudWatch console, programmatically using the CloudWatch API, or using CloudWatch’s own CLI.</p>
+<h4 class="h4" id="ch15lev2sec34">Exercises</h4>
+<p class="noindent">The following exercises will help you practice working with Amazon SQS and Amazon SNS. You need to create an AWS account, as explained earlier, in order to perform these exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5">Exercise 15-1: Create a Standard Amazon SQS Queue Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in and then navigate to the Amazon SQS console at <a href="https://console.aws.amazon.com/sqs/">https://console.aws.amazon.com/sqs/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the center of page, choose Get Started Now.</p>
+<p class="number"><strong>4.</strong> For the queue name, enter <strong>my-std-queue</strong>.</p>
+<p class="number"><strong>5.</strong> <span epub:type="pagebreak" id="page_409"/>Choose Standard Queue and click on Configure Queue.</p>
+<p class="number"><strong>6.</strong> Configure the Default Visibility Timeout to 10 minutes.</p>
+<p class="number"><strong>7.</strong> Configure the Message Retention Period to 3 days.</p>
+<p class="number"><strong>8.</strong> Configure the Maximum Message Size to 256KB.</p>
+<p class="number"><strong>9.</strong> Configure the Delivery Delay to 5 seconds.</p>
+<p class="number1"><strong>10.</strong> Configure the Receive Message Wait Time to 10 seconds.</p>
+<p class="number1"><strong>11.</strong> For the Dead Letter Queue settings, check Use Redrive Policy.</p>
+<p class="number1"><strong>12.</strong> For the Dead Letter Queue name, enter <strong>my-dead-letter-queue</strong> (it should be an existing queue).</p>
+<p class="number1"><strong>13.</strong> Configure the Maximum Receives to 100.</p>
+<p class="number1"><strong>14.</strong> For Server-Side Encryption (SSE) Settings, check Use SSE.</p>
+<p class="number1"><strong>15.</strong> For AWS KMS Customer Master Key (CMK), use either (Default) aws/sqs or select your CMK from the dropdown.</p>
+<p class="number1"><strong>16.</strong> Configure the Data Key Reuse Period to 10 minutes.</p>
+<p class="number1"><strong>17.</strong> Click on Create Queue.</p>
+<h5 class="h5">Exercise 15-2: Create a FIFO Amazon SQS Queue Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in and then navigate to the Amazon SQS console at <a href="https://console.aws.amazon.com/sqs/">https://console.aws.amazon.com/sqs/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the top left navigation pane, click on Create New Queue.</p>
+<p class="number"><strong>4.</strong> For the queue name, enter <strong>my-fifo-queue.fifo</strong>.</p>
+<p class="number"><strong>5.</strong> Choose FIFO Queue and click on Configure Queue.</p>
+<p class="number"><strong>6.</strong> Configure the Default Visibility Timeout to 10 minutes.</p>
+<p class="number"><strong>7.</strong> Configure the Message Retention Period to 3 days.</p>
+<p class="number"><strong>8.</strong> Configure the Maximum Message Size to 256KB.</p>
+<p class="number"><strong>9.</strong> Configure the Delivery Delay to 5 seconds.</p>
+<p class="number1"><strong>10.</strong> Configure the Receive Message Wait Time to 10 seconds.</p>
+<p class="number1"><strong>11.</strong> For Dead Letter Queue settings, check Use Redrive Policy.</p>
+<p class="number1"><strong>12.</strong> For the Dead Letter Queue name, enter <strong>my-dead-letter-queue</strong> (it should be an existing queue).</p>
+<p class="number1"><strong>13.</strong> Configure the Maximum Receives to 100.</p>
+<p class="number1"><strong>14.</strong> For the Server-Side Encryption (SSE) Settings, check Use SSE.</p>
+<p class="number1"><strong>15.</strong> <span epub:type="pagebreak" id="page_410"/>For the AWS KMS Customer Master Key (CMK), use either (Default) aws/sqs or select your CMK from the dropdown.</p>
+<p class="number1"><strong>16.</strong> Configure the Data Key Reuse Period to 10 minutes.</p>
+<p class="number1"><strong>17.</strong> Click on Create Queue.</p>
+<h5 class="h5">Exercise 15-3: Create an Amazon SNS Topic Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in and then navigate to the Amazon SNS console at <a href="https://console.aws.amazon.com/sns/">https://console.aws.amazon.com/sns/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the top-left navigation pane, click on Create Topic.</p>
+<p class="number"><strong>4.</strong> For the Topic Name enter <strong>my-first-topic</strong>.</p>
+<p class="number"><strong>5.</strong> For the Display Name enter <strong>my-topic</strong>.</p>
+<p class="number"><strong>6.</strong> Click on Encryption and choose Enable Encryption.</p>
+<p class="number"><strong>7.</strong> Click on Access Policy and choose Basic for the method.</p>
+<p class="number"><strong>8.</strong> Choose who can publish messages to the topic: only the topic owner, everyone, or choose specified AWS accounts (include the AWS account numbers).</p>
+<p class="number"><strong>9.</strong> Choose who can subscribe to this topic: only the topic owner, everyone, specified AWS accounts (include AWS account numbers), or only requesters with certain endpoints.</p>
+<p class="number1"><strong>10.</strong> Next click on Delivery Retry Policy (HTTP/S) and uncheck Use The Default Delivery Retry Policy.</p>
+<p class="number1"><strong>11.</strong> For the Number Of Retries, enter <strong>5</strong>.</p>
+<p class="number1"><strong>12.</strong> For Retries Without Delay, enter <strong>2</strong>.</p>
+<p class="number1"><strong>13.</strong> For Minimum Delay, enter <strong>5 sec</strong>o<strong>nds</strong>.</p>
+<p class="number1"><strong>14.</strong> For Minimum Delay Retries, enter <strong>2</strong>.</p>
+<p class="number1"><strong>15.</strong> For Maximum Delay Retries, enter <strong>4</strong>.</p>
+<p class="number1"><strong>16.</strong> For the Maximum Receive Rate, enter <strong>3 per second</strong>.</p>
+<p class="number1"><strong>17.</strong> For the Retry-Backoff Function, make your choice from the dropdown menu.</p>
+<p class="number1"><strong>18.</strong> Check Override Subscription Policy.</p>
+<p class="number1"><strong>19.</strong> Next click on Delivery Status Logging and for the log delivery status for these protocols, choose AWS Lambda, Amazon SQS, HTTP/S, and Platform Application Endpoint.</p>
+<p class="number1"><strong>20.</strong> For the Success Sample Rate, choose 100%.</p>
+<p class="number1"><strong>21.</strong> For IAM roles, choose Existing Roles (or choose Create New Service Role if a role does not already exist)</p>
+<p class="number1"><strong>22.</strong> <span epub:type="pagebreak" id="page_411"/>For the IAM role for successful deliveries, enter <strong>my-sns-success-role</strong>.</p>
+<p class="number1"><strong>23.</strong> For the IAM role for failed deliveries, enter <strong>my-sns-limited-role</strong>.</p>
+<p class="number1"><strong>24.</strong> Next click on Tags, enter <strong>name</strong> for the key, and enter <strong>my-first-topic</strong> for the value.</p>
+<p class="number1"><strong>25.</strong> Click on Create Topic.</p>
+<h4 class="h4" id="ch15lev2sec35">Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the content in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best response for each question.</p>
+<p class="numbert"><strong><a href="ch15.xhtml#rch15qa1" id="ch15qa1">1.</a></strong> Your company is building a new application that needs to process billions of messages and they do not want to build or manage the queue. Which AWS service provides this kind of massive scale without administration overhead from customers?</p>
+<p class="alphau"><strong>A.</strong> Amazon S3</p>
+<p class="alphau"><strong>B.</strong> AWS CodePipeline</p>
+<p class="alphau"><strong>C.</strong> AWS Glue</p>
+<p class="alphau"><strong>D.</strong> Amazon SQS</p>
+<p class="number"><strong><a href="ch15.xhtml#rch15qa2" id="ch15qa2">2.</a></strong> What two types of queues are available in Amazon SQS based on the ordering of messages, throughput, and delivery? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> Standard queue</p>
+<p class="alphau"><strong>B.</strong> General queue</p>
+<p class="alphau"><strong>C.</strong> First in/first out (FIFO) queue</p>
+<p class="alphau"><strong>D.</strong> First in/last out (FILO) queue</p>
+<p class="number"><strong><a href="ch15.xhtml#rch15qa3" id="ch15qa3">3.</a></strong> You want to eliminate the number of empty responses and false-empty responses. How can you achieve this in your Amazon SQS queue?</p>
+<p class="alphau"><strong>A.</strong> Use short polling</p>
+<p class="alphau"><strong>B.</strong> Use long polling</p>
+<p class="alphau"><strong>C.</strong> Use loose polling</p>
+<p class="alphau"><strong>D.</strong> Use batch polling</p>
+<p class="number"><strong><a href="ch15.xhtml#rch15qa4" id="ch15qa4">4.</a></strong> You want to handle Amazon SQS message failure by isolating failed messages that can’t be processed correctly and want to find out why those message processing didn’t succeed by examining logs. How can you achieve this in Amazon SQS?</p>
+<p class="alphau"><strong>A.</strong> Use dead-letter queues</p>
+<p class="alphau"><strong>B.</strong> Use short polling</p>
+<p class="alphau"><strong>C.</strong> Use server-side encryption (SSE)</p>
+<p class="alphau"><strong>D.</strong> Use long polling</p>
+<p class="number"><strong><a href="ch15.xhtml#rch15qa5" id="ch15qa5">5.</a></strong> <span epub:type="pagebreak" id="page_412"/>One of your consumers received and processed message MSG-1 from your Amazon SQS queue Q1; since Amazon SQS doesn’t automatically delete the message MSG-1 from queue Q1, the message remains in your queue Q1. You want to prevent other consumers from processing the message MSG-1 again for a period of 2 hours. How can you achieve this in Amazon SQS?</p>
+<p class="alphau"><strong>A.</strong> Use long polling</p>
+<p class="alphau"><strong>B.</strong> Use dead-letter queues</p>
+<p class="alphau"><strong>C.</strong> Use temporary queues</p>
+<p class="alphau"><strong>D.</strong> Use visibility timeout</p>
+<p class="number"><strong><a href="ch15.xhtml#rch15qa6" id="ch15qa6">6.</a></strong> A new application that you are developing needs a publish and subscribe messaging system. You do not want to build or manage a solution and want to take advantage of an existing solution. Which of the following AWS services provides a publishing/subscription model messaging system?</p>
+<p class="alphau"><strong>A.</strong> Amazon SNS</p>
+<p class="alphau"><strong>B.</strong> Amazon SQS</p>
+<p class="alphau"><strong>C.</strong> Amazon RDS</p>
+<p class="alphau"><strong>D.</strong> Amazon SWF</p>
+<p class="number"><strong><a href="ch15.xhtml#rch15qa7" id="ch15qa7">7.</a></strong> What operations are available to Amazon SNS subscribers? (Choose all that apply.)</p>
+<p class="alphau"><strong>A.</strong> Subscribe</p>
+<p class="alphau"><strong>B.</strong> Unsubscribe</p>
+<p class="alphau"><strong>C.</strong> ListSubscriptions</p>
+<p class="alphau"><strong>D.</strong> ConfirmSubscription</p>
+<p class="number"><strong><a href="ch15.xhtml#rch15qa8" id="ch15qa8">8.</a></strong> As an Amazon SNS consumer, you can use various transport protocols as part of subscription requests. What flexible delivery transport protocols are available for receiving notifications for customers? (Choose all that apply.)</p>
+<p class="alphau"><strong>A.</strong> HTTP and HTTPS</p>
+<p class="alphau"><strong>B.</strong> SMS</p>
+<p class="alphau"><strong>C.</strong> SQS</p>
+<p class="alphau"><strong>D.</strong> E-mail and e-mail-JSON</p>
+<p class="number"><strong><a href="ch15.xhtml#rch15qa9" id="ch15qa9">9.</a></strong> All your subscribers are receiving every message that you publish to a topic. Some of the subscribers are complaining about receiving irrelevant messages and want to receive only messages that they are interested in processing. How can you send only a subset of the entire message and skipping all irrelevant messages?</p>
+<p class="alphau"><strong>A.</strong> Use subscription filter policies</p>
+<p class="alphau"><strong>B.</strong> Use dead-letter queues</p>
+<p class="alphau"><strong>C.</strong> Use visibility timeout</p>
+<p class="alphau"><strong>D.</strong> Use short polling</p>
+<p class="number1"><strong><a href="ch15.xhtml#rch15qa10" id="ch15qa10">10.</a></strong> <span epub:type="pagebreak" id="page_413"/>Messages that you are publishing from your application through Amazon SNS are relevant only for 30 minutes. So, you want a way to delete messages that were not delivered and read by your users in a 30-minute time frame. How can you achieve this in Amazon SNS?</p>
+<p class="alphau"><strong>A.</strong> Set Time to Live (TTL) to 1800 seconds</p>
+<p class="alphau"><strong>B.</strong> Set Visibility Timeout to 30 minutes</p>
+<p class="alphau"><strong>C.</strong> Set Short Polling for 30 minutes</p>
+<p class="alphau"><strong>D.</strong> Set Delay Queue to 1800 seconds</p>
+<h4 class="h4" id="ch15lev2sec36">Answers</h4>
+<p class="numbert"><strong><a href="ch15.xhtml#ch15qa1" id="rch15qa1">1.</a> D.</strong> Amazon SQS can be used to process billions of messages without administration overhead from customers.</p>
+<p class="number"><strong><a href="ch15.xhtml#ch15qa2" id="rch15qa2">2.</a> A, C.</strong> Standard and FIFO are the two types of queues based on ordering of messages, throughput, and delivery.</p>
+<p class="number"><strong><a href="ch15.xhtml#ch15qa3" id="rch15qa3">3.</a> B.</strong> Use long polling to eliminate the number of empty responses and false-empty responses.</p>
+<p class="number"><strong><a href="ch15.xhtml#ch15qa4" id="rch15qa4">4.</a> A.</strong> Use dead-letter queues to handle Amazon SQS message failure by isolating failed messages that can’t be processed correctly and determine why this didn’t succeed by examining the logs.</p>
+<p class="number"><strong><a href="ch15.xhtml#ch15qa5" id="rch15qa5">5.</a> D.</strong> Set Visibility Timeout to 2 hours to prevent other consumers from processing message MSG-1 again for this period.</p>
+<p class="number"><strong><a href="ch15.xhtml#ch15qa6" id="rch15qa6">6.</a> A.</strong> Amazon SNS is a publishing/subscription model for messaging.</p>
+<p class="number"><strong><a href="ch15.xhtml#ch15qa7" id="rch15qa7">7.</a> A, B, C, D.</strong> Subscribe, Unsubscribe, ListSubscriptions, and ConfirmSubscription are the operations available for Amazon SNS subscribers.</p>
+<p class="number"><strong><a href="ch15.xhtml#ch15qa8" id="rch15qa8">8.</a> A, B, C, D.</strong> HTTP, HTTPS, SMS, SQS, e-mail, and e-mail-JSON are the available transport protocols as part of Amazon SNS subscription requests.</p>
+<p class="number"><strong><a href="ch15.xhtml#ch15qa9" id="rch15qa9">9.</a> A.</strong> Use subscription filter policies to send only a subset of the entire message and skip all other irrelevant messages.</p>
+<p class="number1"><strong><a href="ch15.xhtml#ch15qa10" id="rch15qa10">10.</a> A.</strong> Set Time to Live (TTL) to 1800 seconds to delete the messages that were not delivered and read by your users in 30 minutes.</p>
+<h3 class="h3" id="ch15lev1sec7">Additional Resources</h3>
+<p class="bullett">• <strong>Amazon SQS Documentation</strong>   There is no place like official AWS documentation to get the latest and most up-to-date information about the Amazon SQS service.</p>
+<p class="bulletc"><img alt="images" src="p0413-01.jpg"/></p>
+<p class="bulleta">• <strong>Amazon SNS Documentation</strong>   Always refer to the official AWS documentation to get the latest and most up-to-date information about the Amazon SNS service.</p>
+<p class="bulletc"><img alt="images" src="p0413-02.jpg"/></p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_414"/><strong>Build a Cost-Effective Solution for Spot Instances</strong>   This blog explains the approach to maximize cost savings using Amazon SQS and spot instances.</p>
+<p class="bulletc"><img alt="images" src="p0414-01.jpg"/></p>
+<p class="bulleta">• <strong>Build a Durable Serverless Application</strong>   This blog details the steps necessary to create a durable serverless application using dead-letter queues for Amazon SNS, Amazon SQS, and AWS Lambda.</p>
+<p class="bulletc"><img alt="images" src="p0414-02.jpg"/></p>
+</section>
+</body>
+</html>

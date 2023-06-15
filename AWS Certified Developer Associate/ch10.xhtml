@@ -1,0 +1,332 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch10"><span epub:type="pagebreak" id="page_285"/><span class="chap">CHAPTER <span class="chap1">10</span></span></h2>
+<h2 class="h2c1">Securing AWS Resources with Identity and Access Management</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• Identity Access Management</p>
+<p class="bulleta">• Create individual users</p>
+<p class="bulleta">• Manage permissions with groups</p>
+<p class="bulleta">• IAM roles for users and AWS services</p>
+<p class="bulleta">• Configure a strong password policy</p>
+<p class="bulleta">• Enable MFA for privileged users</p>
+<p class="bulleta">• Policies and permissions</p>
+<p class="bulleta">• IAM best practices</p>
+<p class="hr"/>
+<p class="noindentb">AWS Identity and Access Management (IAM) helps you manage access to all of your AWS services and resources securely. Also with IAM, you can create and manage AWS users and groups, and use permissions to allow and deny their access to AWS resources.</p>
+<h3 class="h3" id="ch10lev1sec1">Identity and Access Management</h3>
+<p class="noindent">AWS IAM is used to control who is signed in (i.e., authenticated) and has permissions (i.e., authorized) to use resources. You normally use single sign-in in an enterprise environment that has complete access to all services and resources in order to avoid multiple sign-in. AWS recommends not using the root user for your everyday tasks, even for administrative tasks. The best practice of using the root user is only to create your first IAM user. You then need to securely lock away the root user credentials and use them only to perform a few account and service management tasks.</p>
+<p class="indent">Access can be granted to others to administer and use resources in your AWS account without having to share your password or access key. Various permissions can be granted to different people for different resources. You will be able to allow your admin users complete access to Amazon EC2, Amazon S3, Amazon DynamoDB, Amazon Redshift, and other AWS services. You will be able to allow read-only access to your audit users to <span epub:type="pagebreak" id="page_286"/>just some of your S3 buckets, or grant permission to administer just some EC2 instances, or to access your billing information. IAM features can be used to securely provide credentials for applications that run on EC2 instances, and it provide permissions for your application to access other AWS resources like S3 buckets and DynamoDB tables. Multifactor authentication (MFA) can be added to individual users for extra security and to your account. You must provide both a code from a configured device and a password or access key to make MFA work. Users who already have passwords in their corporate network or with an Internet identity provider to get temporary access to your AWS account can be allowed. AWS CloudTrail can be used to receive log records that include information about everyone who made requests for all the resources in your account. <a href="ch10.xhtml#ch10fig1">Figure 10-1</a> illustrates an overview of User, Group, Role, and Permissions.</p>
+<p class="imagef" id="ch10fig1"><img alt="images" src="f0286-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 10-1</strong>   User, Group, Role, and Permissions</p>
+<p class="indent">IAM is eventual consistent, like many other AWS services, and you can use the AWS command-line tools to issue commands at your system’s command line to perform IAM and AWS tasks. The command-line tools are useful for building scripts and performing <span epub:type="pagebreak" id="page_287"/>various AWS tasks, and using the command line is faster and more convenient than using the console. AWS provides AWS CLI, PowerShell, and SDKs that consist of libraries and sample code for various programming languages (Java, Python, Ruby, .NET, etc.) and platforms (iOS, Android, etc.). You can access IAM and AWS programmatically by using the IAM HTTPS API, which lets you issue HTTPS requests directly to the service.</p>
+<p class="bullett">• <strong>Identities</strong>   are users, groups, and roles that allow you to attach a policy and are used to identify and group resource objects.</p>
+<p class="bulleta">• <strong>Entities</strong>   are IAM resource objects, such as users and roles, that are used by AWS for authentication. IAM users or users federated through a web identity or Security Assertion Markup Language (SAML) can assume roles from your account or another account.</p>
+<p class="bulleta">• <strong>Principal</strong>   is an IAM entity or a root user that makes requests to AWS.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   As a best practice, you should create users and roles, and you can create federated users or programmatic access to allow an application to access your account.</p>
+</div>
+<p class="bulleta">• <strong>Requests</strong>   These are used by AWS to evaluate and authorize and can be carried out from the AWS Management Console, the AWS API, or the AWS CLI when the principal is sending a request to AWS.</p>
+<p class="bulleta">• <strong>Authentication</strong>   A principal (root user) or any other IAM user must use their e-mail address and password to sign in to AWS to get authenticated; in addition, the IAM user needs to provide the account ID or its alias. An access key and secret key must be provided for API or AWS CLI authentication.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   As a best practice and for additional security, AWS recommends enabling MFA in order to increase the security of your account.</p>
+</div>
+<p class="bulleta">• <strong>Authorization</strong>   In order to allow your request, AWS checks the authorization policies to determine whether to allow or deny the request. The policies are in JSON format and contain allowed permissions for the users or roles. You need to use resource-based policies to grant cross-account access.</p>
+<p class="bulleta">• <strong>Operations</strong>   These define what you can do to any AWS resource, for example, view or list, create, update, and delete an AWS resource after it has been authenticated and authorized.</p>
+<p class="bulleta">• <strong>Resources</strong>   This is an object that exists within a service and determines a set of operations that can be performed on the resource.</p>
+<h3 class="h3" id="ch10lev1sec2"><span epub:type="pagebreak" id="page_288"/>Users</h3>
+<p class="noindent">An AWS user is an entity consists of names and credentials that you create in AWS to represent a person or an application that uses it to interact with AWS. An IAM User in AWS consists of a username and credentials. An AWS root user and IAM user with administrator permissions are not the same as the AWS account root user. An Amazon Resource Name (ARN) (e.g., arn:aws:iam::123456789876:user/Mike) is assigned to the user and is used to uniquely identify him or her. An ARN is used to specify the user as a principal in an IAM policy. When you create a user, IAM uses the name that you specified for it. ARN can uniquely identify users across all of AWS, and a unique identifier is used only when you use the API, PowerShell, or AWS CLI, which will not be visible in the console.</p>
+<h4 class="h4" id="ch10lev2sec1">Users and Credentials</h4>
+<p class="noindent">AWS can be accessed in various ways, depending on the user credentials:</p>
+<p class="bullett">• <strong>User ID and password</strong>   You need a user-id and password to sign in to the AWS Management Console and an account number or alias if you are not the root user.</p>
+<p class="bulleta">• <strong>Access keys</strong>   These can be assigned to a user for programmatic access, which consists of an access key ID and a secret access key.</p>
+<p class="bulleta">• <strong>SSH keys</strong>   These can be used to authenticate with CodeCommit, which is in the OpenSSH format.</p>
+<p class="bulleta">• <strong>Server certificates</strong>   You can use SSL/TLS certificates to authenticate with some AWS services.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   AWS recommends using the AWS Certificate Manager (ACM) to provision, manage, and deploy your server certificates. IAM can be used only when you must support HTTPS connections in a region that is not supported by ACM.</p>
+</div>
+<p class="indent">When you create a new IAM user using the AWS CLI or AWS API, the user will not have any credentials, and you must create these based on your user’s needs. You need to set a policy to enforce a minimum password complexity. You can create and update access keys for programmatic access to the resources in your account. You can enable MFA to enhance the security of the user’s credentials. Users must provide what they know (a password or access key) and what they have (a code from a hardware or software device like a smartphone or tablet).</p>
+<p class="indent">You need to remove passwords and access keys when users no longer need them as a security best practice. Credential reports can be generated and downloaded to your account that list all IAM users with the status of their various credentials, including passwords, access keys, and MFA devices. You assign permissions individually to each IAM user to limit permissions to just the tasks and resources required for the job. You can use a permissions boundary to limit the maximum permissions that can be granted to a user <span epub:type="pagebreak" id="page_289"/>or role. An IAM user can only be associated with only one AWS account, and any AWS activity performed by users is billed to your account. You can create up to 5,000 IAM users in an AWS account. An IAM user can be a person or an application that uses its credentials to make AWS requests, which is called a service account.</p>
+<h3 class="h3" id="ch10lev1sec3">Password: Configure a Strong Password Policy</h3>
+<p class="noindent">You need a password to access the AWS Management Console, but the AWS CLI or PowerShell or the AWS SDKs or APIs do not need passwords. The complexity requirements and mandatory rotation periods can be specified as a password policy on your AWS account. A password policy can be used to do the following:</p>
+<p class="bullett">• Set a minimum password length.</p>
+<p class="bulleta">• Request specific character types like lowercase letters, uppercase letters, numbers, and non-alphanumeric characters.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="tip.jpg"/></p>
+<p class="note"><strong>TIP</strong>   Passwords are case sensitive.</p>
+</div>
+<p class="bulleta">• Allow all IAM users to change their own passwords after a specified period of time by enabling password expiration.</p>
+<p class="bulletb">• Prevent IAM users from reusing previous passwords.</p>
+<p class="indent">The password policy settings force users to change their passwords when logging in for the first time. However, some of the settings are enforced immediately.</p>
+<h3 class="h3" id="ch10lev1sec4">Multifactor Authentication</h3>
+<p class="noindent">AWS recommends configuring MFA for increased security to protect your AWS resources. MFA can be enabled for IAM users or the root user. You can use any of the following methods to configure MFA:</p>
+<p class="bullett">• <strong>Virtual MFA</strong>   This is a software application that runs on a phone or tablet device and emulates a physical device. A six-digit numeric code is generated by the device based on a time-synchronized, one-time password algorithm. The user must type a valid code from the device on a second web page during sign-in, and every user must have unique virtual MFA device.</p>
+<p class="bulleta">• <strong>U2F security key</strong>   This is a device that can be plugged to your USB port and uses the open authentication standard hosted by the FIDO (Fast Identity Online) Alliance. Instead of manually entering a code, you can sign in by entering your credentials and then tapping the device when you enable the U2F security key.</p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_290"/><strong>Hardware MFA device</strong>   This device will generate a six-digit numeric code based on a time-synchronized, one-time password algorithm. The user must type a valid code from the device on a second web page during sign-in. Each MFA device assigned to a user must be unique, and you cannot type a code from another user’s device to be authenticated.</p>
+<p class="bulleta">• <strong>SMS-based MFA</strong>   AWS sends a six-digit code using a SMS text message to your mobile device when you try to sign in. The user is required to type that code on a second web page during sign-in. SMS-based MFA is not available for the AWS account root user and is enabled only for other IAM users.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="caution.jpg"/></p>
+<p class="note"><strong>CAUTION</strong>   AWS will soon end support for SMS MFA. So AWS recommends you switch to a virtual (software-based) MFA device, hardware MFA device, or U2F security key.</p>
+</div>
+<h3 class="h3" id="ch10lev1sec5">Groups</h3>
+<p class="noindent">Groups is a collection of IAM users that lets you specify permissions for multiple users. Any users who are assigned to a group automatically inherit the group permissions, which makes it easier to manage the permissions from one place. When any new user joins your organization, you can assign the appropriate permissions by adding the user to an existing group, and when a user leaves your organization, you can just remove the user from that group. Similarly, when a person changes job roles in your organization, instead of editing that user’s permissions, you can remove the user from the old groups and add the user to the appropriate new groups. A group consists of many users, and a user can be part of multiple groups. Nesting is now allowed in Groups so they can include only users, but not other groups. AWS does not provide a default group that all users are automatically a part of. You need to create a group explicitly and assign appropriate users to it.</p>
+<div class="siden">
+<p class="imagen"><img alt="Images" class="inlinen" src="examtip.jpg"/></p>
+<p class="note"><strong>EXAM TIP</strong>   IAM Groups is not truly an identity because it cannot be identified as a Principal in a permission policy. This helps you attach policies to multiple users at one time and manage them easily.</p>
+</div>
+<p class="indent"><a href="ch10.xhtml#ch10fig2">Figure 10-2</a> shows a simple example of a small company. The company owner creates an Administrator group (Lisa, John, and Zoey) for users to create and manage other users as the company grows. The Administrator group creates a Developers group (James, Emily, DevApp1, and so on) and a Test group (George, Claire, TestApp1, and so on). Each of these groups consists of users that interact with AWS. Each user will have their own individual security credentials, and they belong to a single group. However, the users can belong to multiple groups as well.</p>
+<p class="imagef" id="ch10fig2"><img alt="images" src="f0291-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 10-2</strong>   Groups</p>
+<h3 class="h3" id="ch10lev1sec6"><span epub:type="pagebreak" id="page_291"/>IAM Roles</h3>
+<p class="noindent">You can create an IAM role in your account, similar to an IAM user that has specific permissions that define what the identity (role) can and cannot do in AWS. You can assume a role if required, and it’s not associated with one person. A role provides you with temporary security credentials for your session, but it does not have a password or access keys associated with it. Roles can be used to delegate access to services, applications, or users that do not have access to your AWS resources. You can grant users in your AWS account access to resources, or grant users from one AWS account access to resources in another account. You can use roles when you want to allow a mobile application to use AWS resources without embedding AWS keys or credentials within the application because it will be difficult to rotate keys, and also it has the potential risk of extracting them from the code. IAM Role can also be used to give access to AWS resources to your corporate users or to third parties.</p>
+<h4 class="h4" id="ch10lev2sec2"><span epub:type="pagebreak" id="page_292"/>AWS Service Role</h4>
+<p class="noindent">A role can be assumed by a service to perform actions on your behalf in your account. You must define a role for the service to assume when you set up the AWS service, and this service role must include all the permissions required for the service to access the AWS resources. These service roles can provide access only within your account and not to other accounts. A service role can be created, modified, and deleted from within IAM. An application running on an Amazon EC2 instance can assume a service role and retrieve security credentials temporarily to perform actions that the role allows in your account.</p>
+<h4 class="h4" id="ch10lev2sec3">AWS Service-Linked Role</h4>
+<p class="noindent">A service-linked role is linked directly to an AWS service and includes all the permissions that the service requires to call other AWS services. The linked service determines how a service-linked role can be created, modified, and deleted automatically as part of a wizard or process in the service without manually adding the necessary permissions.</p>
+<h4 class="h4" id="ch10lev2sec4">Role Chaining</h4>
+<p class="noindent">When a role assumes a second role through the AWS CLI or API, it’s called role chaining, which limits the session to a maximum of one hour. You can specify the session duration using the DurationSeconds parameter when you use the AssumeRole API operation to assume a role. The value can be up to 43,200 seconds (12 hours); however, the operation fails if you assume a role using role chaining and provide a DurationSeconds parameter value greater than one hour.</p>
+<h4 class="h4" id="ch10lev2sec5">Delegation</h4>
+<p class="noindent">You can delegate by granting permissions to someone so they have access to resources that you control. This involves setting up a trust between the account that owns the resource and the account that contains the users who need to access the resource.</p>
+<h4 class="h4" id="ch10lev2sec6">Federation</h4>
+<p class="noindent">A federation is the trust relationship between AWS and an external identity provider, where users can log in to a web identity provider, Amazon, Facebook, Google, or an enterprise identity system. When you use a trust relationship between AWS and these external identity providers, the user is assigned to an IAM role and receives temporary credentials, which allow them to access your AWS resources.</p>
+<h4 class="h4" id="ch10lev2sec7">Role for Cross-Account Access</h4>
+<p class="noindent">A role can be used to grant access to resources in one account to a trusted user in another account. Some of the AWS services, such as Amazon S3, Glacier, Amazon SNS, and Amazon SQS, allow you to attach a policy directly to a resource instead of using a role as a proxy. This is known as a resource-based policy.</p>
+<h3 class="h3" id="ch10lev1sec7"><span epub:type="pagebreak" id="page_293"/>Policies and Permissions</h3>
+<p class="noindent">You can define what any user or role is allowed to do in an AWS account using permissions or access management. A person or application is known as an IAM entity and is authenticated using a user or role. AWS permissions can be managed by creating access policies and attaching them to IAM identities like users, groups of users, or roles or AWS resources. An access policy is an object that defines permissions in AWS that can be associated with an identity or resource. When a user or role makes a request, AWS evaluates the policies, which are stored in AWS as JSON documents, before determining whether the request should be allowed or denied. It is difficult to manage permissions across multiple accounts using IAM roles, resource-based policies, or access control lists (ACLs) for cross-account permissions, so AWS recommends using the AWS Organizations service to manage permissions across multiple accounts.</p>
+<p class="indent">New IAM users, which are identities in your account, can’t access anything until you give them permission by creating an identity-based policy that is attached to the user or a group to which the user belongs. The following sample JSON policy show what is allowed for a user to perform all Amazon S3 actions (S3:*) on the samplebucket:</p>
+<p class="imagep"><img alt="images" src="p0293-01.jpg"/></p>
+<p class="indent">After you attach this policy to your IAM user, the user only has those S3 permissions and is not allowed to perform any actions in Amazon EC2, DynamoDB, or any other AWS service, since those services are not included in the policy. You can organize IAM users into IAM groups and attach a policy to a group for easier permissions management and to follow AWS IAM best practices. Individual users in the group will still have their own credentials, but all the users in a group have the permissions that are attached to the group.</p>
+<p class="indent">Even if users or groups have multiple policies attached without an explicit permission for an action of a resource, the user does not have those permissions. Like IAM users, federated users don’t have permanent identities in your AWS account. You need to create a role and define permissions for it. The federated user will be associated with the role and will be granted permissions temporarily that are defined ahead of time.</p>
+<h4 class="h4" id="ch10lev2sec8">IAM Policy Types</h4>
+<p class="noindent">You can attach identity-based policies to an IAM identity, such as an IAM user, group, or role. You can attach resource-based policies to a resource such as an Amazon S3 bucket or an IAM role trust policy. You can control what actions the identity can perform on <span epub:type="pagebreak" id="page_294"/>which resources and under what conditions using identity-based policies. Policies can be further categorized as follows:</p>
+<p class="bullett">• Managed policies are standalone identity-based policies that can be attached to multiple users, groups, and roles in your AWS account. There are two types of managed policies:</p>
+<p class="bullet2">• AWS-managed policies are created and managed by AWS. If you are new to using access policies, AWS recommends using this form.</p>
+<p class="bullet2">• Customer-managed policies that you create and manage in your AWS account. This provides more precise control over your policies compared to AWS-managed policies. You can either create or edit an IAM policy using the visual editor or by creating the JSON policy document directly.</p>
+<p class="bulleta">• Inline policies that you create and manage and that are embedded directly into a single user, group, or role. In most cases, AWS doesn’t recommend using inline policies, since they are complex to maintain.</p>
+<p class="bulletb">• Resource-based policies control what actions can be performed on a resource and under what conditions. These are inline policies, and to enable cross-account access, you can specify an entire account or IAM entities in another account as the principal.</p>
+<p class="indent">The IAM service only supports trust policies that can be attached to an IAM role. Trust policies define which principal entities (accounts, users, roles, and federated users) can assume the role, and you must attach both a trust policy and an identity-based policy to an IAM role.</p>
+<h4 class="h4" id="ch10lev2sec9">Permissions Boundaries</h4>
+<p class="noindent">You can set the maximum permissions that an identity-based policy can grant to an IAM entity using an advanced feature called permissions boundary. The entity can perform only allowed actions by both its identity-based policies and its permissions boundaries. The principal, such as a user or role, is not limited by the permissions boundary using resource-based policies. An explicit deny in any of these policies overrides the allow rule. You can group and centrally manage your AWS accounts and apply service control policies (SCPs) to any or all of your accounts. The maximum permissions for an organization or organizational unit (OU) are specified in SCP using the JSON format. The permission boundary limits permissions for entities, including each AWS account root user.</p>
+<h3 class="h3" id="ch10lev1sec8">IAM Policy</h3>
+<p class="noindent">AWS identity-based policies are JSON policy documents used to set permissions boundaries that you attach to a user or role. Resource-based policies can be attached to a resource and AWS organization OU. ACLs can be attached to a resource using different syntax. You can use session policies to assume a role or federated user session. The visual editor <span epub:type="pagebreak" id="page_295"/>can be used in the AWS Management Console to create and edit customer-managed policies without using JSON. However, you still need to use a JSON editor to create and edit the inline policies for groups and for complex policies.</p>
+<h4 class="h4" id="ch10lev2sec10">IAM Policy Structure</h4>
+<p class="noindent">A JSON policy document includes optional policy-wide information at the top of the document and one or more individual statements, as shown in <a href="ch10.xhtml#ch10fig3">Figure 10-3</a>. Each statement contains information about a single permission, and AWS applies a logical OR across the statements when evaluating them if a policy includes multiple statements. When AWS evaluates multiple policies, it applies a logical OR across all of those policies.</p>
+<p class="imagef" id="ch10fig3"><img alt="images" src="f0295-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 10-3</strong>   IAM policy structure</p>
+<p class="indent">As illustrated in <a href="ch10.xhtml#ch10fig3">Figure 10-3</a>, the information in a statement is contained within a series of elements:</p>
+<p class="bullett">• Version specifies the version of the policy language; as a best practice, use the latest 2012-10-17 version.</p>
+<p class="bulleta">• Statement is the container for the other main policy elements. You can include more than one statement in a policy.</p>
+<p class="bulleta">• The statement ID is used to differentiate between your statements.</p>
+<p class="bulleta">• The effect is to either allow or deny access.</p>
+<p class="bulleta">• Principal indicates the account, user, role, or federated user to which you would like to allow or deny access.</p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_296"/>Action includes a list of actions that the policy allows or denies.</p>
+<p class="bulleta">• Resource specifies a list of resources to which the actions apply; if not included, it applies to the resource to which the policy is attached.</p>
+<p class="bulleta">• Condition specifies the circumstances under which the policy grants permission.</p>
+<h4 class="h4" id="ch10lev2sec11">IAM Policy Versioning</h4>
+<p class="noindent">Versioning helps you multiple versions of access policies. Whether you make changes to your managed policy or AWS changes an AWS-managed policy, the changed policy doesn’t overwrite the existing policy. IAM creates a new version of the managed policy instead of updating the existing policy. You can use IAM to store up to five versions of your customer-managed policies, but it does not support versioning for inline policies. <a href="ch10.xhtml#ch10fig4">Figure 10-4</a> illustrates versioning for a customer-managed policy.</p>
+<p class="imagef" id="ch10fig4"><img alt="images" src="f0296-01.jpg"/></p>
+<p class="figcaption"><strong>Figure 10-4</strong>   IAM policy versioning</p>
+<p class="indent">The Version policy element defines the version of the policy language, and it can be used to track changes to a managed policy version. When you discover that the policy change you made had unintended effects, you can roll back to a previous version of the managed policy by setting the previous version as the default version. The following policy can be used to deny a user access to change an existing customer-managed policy:</p>
+<p class="imagep"><img alt="images" src="p0296-01.jpg"/></p>
+<p class="indent">The default version of a customer-managed policy can be set to roll back your changes. The JSON policy document can be viewed for each version to help you decide. Any version of the managed policy can be deleted except the default version. The version identifiers for the remaining versions do not change when you delete a version.</p>
+<h3 class="h3" id="ch10lev1sec9"><span epub:type="pagebreak" id="page_297"/>IAM Best Practices</h3>
+<p class="noindent">Keep the following AWS IAM best practices in mind to secure all your AWS resources and users.</p>
+<p class="bullett">• <em>AWS account root user access keys should be locked away</em>. The access key for your AWS account root user gives full access to all your resources for all AWS services, including your billing information, and you cannot reduce the permissions associated with your AWS account root user access key. You shouldn’t create an access key for your AWS account root user unless you absolutely need it. Instead, create an IAM user for yourself that has administrative permissions and use this. Unless you can rotate the access key regularly and keep it safe, you need to delete the access key of your AWS account root user. AWS account root user password or access keys should never be shared with anyone, and a strong password needs to be used to help protect account-level access to your AWS Management Console. You need to enable AWS MFA on your AWS account root user account as well.</p>
+<p class="bulleta">• <em>Create individual IAM users</em>. You should not use your AWS account root user credentials to access AWS. Instead, create individual users for anyone who needs access to your AWS account.</p>
+<p class="bulleta">• <em>Use groups to assign permissions to IAM users</em>. You need to create groups based on the job functions (administrators, developers, accounting, etc.) instead of defining permissions for individual IAM users. When people move around different lines of business within your company or change positions, you can easily change the IAM group to which they belong.</p>
+<p class="bulleta">• <em>Grant least privilege</em>. Always follow the standard security advice of granting least privilege, or granting only the permissions required to perform a task.</p>
+<p class="bulleta">• <em>Start with AWS-managed policies</em>. You can use AWS-managed policies to give your employees the permissions they need to get started, and these policies are already available for many common use cases in your account and are maintained and updated by AWS.</p>
+<p class="bulleta">• <em>Use customer-managed policies instead of inline policies</em>. AWS recommends using managed policies instead of inline policies because inline policies exist only on an IAM identity (user, group, or role), and managed policies are separate IAM resources that you can attach to multiple identities.</p>
+<p class="bulleta">• <em>Review IAM permissions regularly</em>. You should regularly review and monitor each of your IAM policies and access levels of all your users. You need to use the access-level column of the policy summary to understand the level of access that the policy provides, and you can take action to make your AWS account more secure.</p>
+<p class="bulleta">• <em>Always configure a strong password policy for your users</em>. You need to require that your users create strong passwords and that they rotate their passwords periodically.</p>
+<p class="bulleta">• <em>Enable MFA for your root user and IAM users</em>. AWS recommends that you require MFA for all users in your account. When using MFA, the user’s device generates <span epub:type="pagebreak" id="page_298"/>a response to an authentication challenge. Both the user’s credentials and the device-generated response are required to complete the sign-in process.</p>
+<p class="bulleta">• <em>Use roles for applications that run on Amazon EC2 instances</em>. IAM dynamically provides temporary credentials to the EC2 instance, and these credentials are automatically rotated.</p>
+<p class="bulleta">• <em>Use roles to delegate permissions</em>. You need to use a role that specifies what permissions the IAM users in the other account are allowed. This defines which access is to be designated to IAM users in other AWS accounts who are allowed to assume the role.</p>
+<p class="bulleta">• <em>Do not share access keys since they provide programmatic access to AWS</em>. You must not embed access keys within unencrypted code or share the security credentials between users in your AWS account.</p>
+<p class="bulleta">• <em>Rotate your credentials regularly</em>. You need to change your own passwords and access keys regularly to make sure that all IAM users in your account do as well. A password policy can be applied to your account to require all of your IAM users to rotate their passwords regularly, and you can choose how often they must do so.</p>
+<p class="bulleta">• <em>Remove unnecessary credentials</em>. You must remove IAM user credentials, like passwords and access keys, that are not needed. Remove the access keys of any user if they only use the console.</p>
+<p class="bulleta">• <em>Use policy conditions for extra security</em>. You need to define the IAM policy conditions to allow access to a resource. You can define which request is allowed within a specified range of allowable IP addresses or a date range or a time range, or require the use of Secure Sockets Layer (SSL) or MFA.</p>
+<p class="bulleta">• <em>Closely monitor your AWS account activity</em>. Enable logging features in AWS and determine the actions users have taken in your account and the resources that were used. The time and date of actions, the source IP, failed actions due to inadequate permissions, and more can be found in the log files.</p>
+<p class="bulleta">• <em>Turn on AWS CloudTrail auditing</em>. Since IAM is integrated with the AWS CloudTrail service, it provides an audit of all the actions taken by any IAM user or role. CloudTrail captures all API calls for IAM as events, and you need to create a trail before you can enable continuous delivery of CloudTrail events that will be stored in your Amazon S3 bucket. CloudTrail events can be viewed in the CloudTrail console in Event history even if you don’t configure a trail.</p>
+<h3 class="h3" id="ch10lev1sec10">Chapter Review</h3>
+<p class="noindent">This chapter began by explaining AWS Identity and Access Management (IAM). It is crucial for you to understand who is signed in (i.e., authenticated) and has permissions (i.e., authorized to use resources). Normally, anyone who uses single sign-on in an enterprise environment has complete access to all services and resources and can avoid multiple sign-ins. An AWS user is an entity that consists of names and credentials that you create in AWS to represent a person or an application that uses it to interact with AWS. <span epub:type="pagebreak" id="page_299"/>An IAM user in AWS consists of a username and credentials. An AWS root user and IAM user with administrator permissions are not the same as the AWS account root user. You need a password to access the AWS Management Console, but AWS CLI or PowerShell or the AWS SDKs or APIs do not need passwords.</p>
+<p class="indent">AWS recommends configuring multifactor authentication (MFA) for increased security to protect your AWS resources. MFA can be enabled for IAM users or the root user. You can use any of the following methods to configure MFA. Use a collection of IAM users to specify permissions for multiple users. Any users who are assigned to a group automatically inherit the group permissions, and this makes it easier to manage the permissions from one place. You can create an IAM role in your account similar to an IAM user that has specific permissions that define what the identity (role) can and cannot do in AWS. You can assume a role if required, and it’s not associated with one person. A role provides you with temporary security credentials for your session, but it does not have a password or access keys associated with it. AWS identity-based policies are JSON policy documents used to set permissions boundaries that you attach to a user or role. AWS-managed policies are managed by AWS, and you can create inline policies and manage them directly for a single user, group, or role. Resource-based policies control what actions can be performed on a resource under what conditions.</p>
+<h4 class="h4" id="ch10lev2sec12">Exercises</h4>
+<p class="noindent">The following exercises will help you practice performing various tasks in AWS IAM. You need to create an AWS account, as explained earlier, in order to perform the exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5">Exercise 10-1: Create an Administrator User Instead of Using the Root User to Perform Admin Tasks</h5>
+<p class="noindent">The following step-by-step instructions will show you how to create an IAM Administrator user to perform regular administration tasks using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Sign in to the AWS account using your account e-mail address and password as the root user to the IAM console at <a href="https://console.aws.amazon.com/iam/">https://console.aws.amazon.com/iam/</a>.</p>
+<p class="number"><strong>2.</strong> Choose your account name on the navigation bar and then choose My Account.</p>
+<p class="number"><strong>3.</strong> Next to IAM User and Role Access to Billing Information, choose Edit.</p>
+<p class="number"><strong>4.</strong> Now select the checkbox to activate IAM Access and choose Update.</p>
+<p class="number"><strong>5.</strong> Return to the IAM dashboard by choosing Services and then IAM on the navigation bar.</p>
+<p class="number"><strong>6.</strong> Choose Users from the left navigation pane and then choose Add User.</p>
+<p class="number"><strong>7.</strong> Type <strong>Account-Administrator</strong> for User Name.</p>
+<p class="number"><strong>8.</strong> Select the checkbox for Programmatic Access only if you plan to log in using AWS CLI or use API or SDK, and next to AWS Management Console access, select Custom Password and type a new password in the text box.</p>
+<p class="number"><strong>9.</strong> <span epub:type="pagebreak" id="page_300"/>Choose Next: Permissions to navigate to the permissions page.</p>
+<p class="number1"><strong>10.</strong> Choose Add User To Group on the Set permissions page.</p>
+<p class="number1"><strong>11.</strong> Choose Create Group.</p>
+<p class="number1"><strong>12.</strong> In the Create Group dialog box that appears, for Group Name type <strong>Account-Administrators</strong>.</p>
+<p class="number1"><strong>13.</strong> Choose the search in Filter policies and choose the AWS managed - job function to filter the table contents.</p>
+<p class="number1"><strong>14.</strong> Select the checkbox for Administrator Access from the policy list and choose Create Group.</p>
+<p class="number1"><strong>15.</strong> From the list of groups, select the checkbox for your new group.</p>
+<p class="number1"><strong>16.</strong> Now choose Next Tags to navigate to the Add Tags page.</p>
+<p class="number1"><strong>17.</strong> Type <strong>Name</strong> for the key and <strong>Account-Administrators</strong> for the value.</p>
+<p class="number1"><strong>18.</strong> Choose Next: Review to navigate to the next page for a review summary that lists the group memberships to be added to the new user.</p>
+<p class="number1"><strong>19.</strong> After reviewing carefully and when you are ready to proceed, choose Create User.</p>
+<p class="number1"><strong>20.</strong> You will see a success page where you can download the credentials as a CSV file and an option to send an e-mail along with URL, as shown:</p>
+<p class="numberc"><img alt="images" src="p0300-01.jpg"/></p>
+<h5 class="h5">Exercise 10-2: Create an IAM User Using the IAM Console</h5>
+<p class="noindent">The following step-by-step instructions will help you create an IAM user using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Sign in to your AWS account using the AWS Management Console and then open the IAM console at <a href="https://console.aws.amazon.com/iam/">https://console.aws.amazon.com/iam/</a>.</p>
+<p class="number"><strong>2.</strong> Choose Users from the navigation pane on the left and then choose Add User.</p>
+<p class="number"><strong>3.</strong> Type <strong>Developer</strong> for the new user; you are allowed to add up to ten users at one time if required.</p>
+<p class="number"><strong>4.</strong> Select the type of access for this user from the two options available:</p>
+<p class="bullet2">• Select Programmatic Access only if the user requires access to the AWS CLI, API, or PowerShell.</p>
+<p class="bullet2">• Select AWS Management Console Access only if the user requires access to the console.</p>
+<p class="number"><strong>5.</strong> For our exercise, we select both login options. Choose either Auto Generated Password or Custom Password. If you select Custom Password, type the password.</p>
+<p class="number"><strong>6.</strong> AWS recommends selecting the Require Password Reset checkbox to make sure that users are forced to change their password when they sign in for the first time.</p>
+<p class="number"><strong>7.</strong> Choose Next: Permissions to navigate to the permissions page.</p>
+<p class="number"><strong>8.</strong> <span epub:type="pagebreak" id="page_301"/>On the Set Permissions page, you can choose Add User To Group or Copy Permissions From Existing User or Attach Existing Policies To User Directly. For this exercise, select Attach Existing Policies Directly and choose ReadOnlyAccess.</p>
+<p class="number"><strong>9.</strong> Here you can also set the permissions boundary to control the maximum user permissions. For this exercise, leave it at the default.</p>
+<p class="number1"><strong>10.</strong> Choose Next: Tags to navigate to the Tags page.</p>
+<p class="number1"><strong>11.</strong> For the metadata key-value pair, type Name for the key and Developer for the value.</p>
+<p class="number1"><strong>12.</strong> Choose Next: Review to navigate to the summary page where you can see all of the choices you made.</p>
+<p class="number1"><strong>13.</strong> When you are ready to proceed, choose Create User.</p>
+<p class="number1"><strong>14.</strong> You will see a success page where you can download the credentials as a CSV file and an option to send an e-mail along with URL, as shown:</p>
+<p class="numberc"><img alt="images" src="p0301-01.jpg"/></p>
+<h5 class="h5">Exercise 10-3: Create an IAM Group Using the IAM Console</h5>
+<p class="noindent">The following step-by-step instructions will assist you in creating IAM Groups using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Sign in to the AWS account using the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/iam/">https://console.aws.amazon.com/iam/</a>.</p>
+<p class="number"><strong>2.</strong> Select Groups from the navigation pane on the left.</p>
+<p class="number"><strong>3.</strong> Click Create New Group.</p>
+<p class="number"><strong>4.</strong> In the Set Group Name box, type <strong>DevOps</strong> for the name of the group and then click Next Step.</p>
+<p class="number"><strong>5.</strong> Select the checkbox for ReadOnlyAccess from the list of policies that would be applied to all members of the group.</p>
+<p class="number"><strong>6.</strong> Click Next Step to see a summary of all the choices you made.</p>
+<p class="number"><strong>7.</strong> Click Create Group.</p>
+<h5 class="h5">Exercise 10-4: Add a User to an IAM Group Using the IAM Console</h5>
+<p class="noindent">The following step-by-step instructions will show you how to add an IAM user to your IAM Group using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Sign in to your AWS account using the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/iam/">https://console.aws.amazon.com/iam/</a>.</p>
+<p class="number"><strong>2.</strong> Choose Groups from the left navigation pane and then click on the name of the group.</p>
+<p class="number"><strong>3.</strong> Choose the Users tab and then choose Add Users To Group.</p>
+<p class="number"><strong>4.</strong> Select the checkbox next to the Developer user.</p>
+<p class="number"><strong>5.</strong> Choose Add Users to add the user to the group.</p>
+<h5 class="h5"><span epub:type="pagebreak" id="page_302"/>Exercise 10-5: Attach a Policy to a Group Using the IAM Console</h5>
+<p class="noindent">The following step-by-step instructions will help you attach an IAM policy to your IAM Group using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Sign in to the AWS account using the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/iam/">https://console.aws.amazon.com/iam/</a>.</p>
+<p class="number"><strong>2.</strong> Select Policies from the left navigation pane.</p>
+<p class="number"><strong>3.</strong> From the list of policies, select the checkbox next to ViewOnlyAccess policy.</p>
+<p class="number"><strong>4.</strong> Select the Policy Actions dropdown and select Attach.</p>
+<p class="number"><strong>5.</strong> Click Type to sort.</p>
+<p class="number"><strong>6.</strong> Select the checkbox next to the DevOps group to attach the policy.</p>
+<p class="number"><strong>7.</strong> Now click Attach Policy.</p>
+<h5 class="h5">Exercise 10-6: Remove a User from an IAM Group Using the IAM Console</h5>
+<p class="noindent">The following step-by-step instructions will show you how to delete an IAM user from your IAM Group using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Sign in to the AWS account using the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/iam/">https://console.aws.amazon.com/iam/</a>.</p>
+<p class="number"><strong>2.</strong> Choose Groups from the left navigation pane and then choose the DevOps group.</p>
+<p class="number"><strong>3.</strong> Choose the Users tab.</p>
+<p class="number"><strong>4.</strong> Choose Remove Users From Group under Actions.</p>
+<p class="number"><strong>5.</strong> Select the checkbox next to the Developer user.</p>
+<p class="number"><strong>6.</strong> Choose Remove Users From Group.</p>
+<h5 class="h5">Exercise 10-7: Delete an IAM Group Using the IAM Console</h5>
+<p class="noindent">The following step-by-step instructions will show you how to delete your IAM Group using the AWS Management Console.</p>
+<p class="numbert"><strong>1.</strong> Sign in to the AWS account using the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/iam/">https://console.aws.amazon.com/iam/</a>.</p>
+<p class="number"><strong>2.</strong> Choose Groups from the left navigation pane.</p>
+<p class="number"><strong>3.</strong> From the list of groups, select the checkbox next to the DevOps group.</p>
+<p class="number"><strong>4.</strong> Click on the Group Actions dropdown list and select Delete Group.</p>
+<p class="number"><strong>5.</strong> From the popup confirmation box, click Yes, Delete to delete the group.</p>
+<h4 class="h4" id="ch10lev2sec13"><span epub:type="pagebreak" id="page_303"/>Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best responses for each question.</p>
+<p class="numbert"><strong><a href="ch10.xhtml#rch10qa1" id="ch10qa1">1.</a></strong> A company has created 950 IAM users and has introduced a new policy that will change the access of a few IAM users. How can the company implement this effectively so that there is no need to apply the policy for every individual at the user level?</p>
+<p class="alphau"><strong>A.</strong> Use the IAM groups and add the users based on their role to different groups and apply a policy to the group.</p>
+<p class="alphau"><strong>B.</strong> Create a new policy and apply it to multiple users in a single go with the AWS CLI.</p>
+<p class="alphau"><strong>C.</strong> Add each user to the IAM role based on their role to achieve effective policy setup.</p>
+<p class="alphau"><strong>D.</strong> Use the IAM role to implement the required access at the role level.</p>
+<p class="number"><strong><a href="ch10.xhtml#rch10qa2" id="ch10qa2">2.</a></strong> Your company’s compliance team requires that all privileged users use one-time access credentials in addition to a username/password combination. Which two of the following options enforces the policy for AWS users? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> You need to configure multifactor authentication for your privileged IAM users.</p>
+<p class="alphau"><strong>B.</strong> You need to create IAM users for your privileged accounts.</p>
+<p class="alphau"><strong>C.</strong> You need to implement identity federation between your company’s identity provider and the IAM Security Token Service.</p>
+<p class="alphau"><strong>D.</strong> You must enable the IAM one-time-use password policy option for your privileged users.</p>
+<p class="number"><strong><a href="ch10.xhtml#rch10qa3" id="ch10qa3">3.</a></strong> Your company is preparing for a security audit of your AWS environment. Which two IAM best practices should you consider implementing before the audit begins? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> You need to create individual IAM users for everyone in your organization.</p>
+<p class="alphau"><strong>B.</strong> You need to configure MFA on the root account and for all your privileged IAM users.</p>
+<p class="alphau"><strong>C.</strong> You need to assign IAM users to a group that is configured with policies granting least privilege access.</p>
+<p class="alphau"><strong>D.</strong> You must ensure all users have been assigned a username, password, access ID, and secret key.</p>
+<p class="number"><strong><a href="ch10.xhtml#rch10qa4" id="ch10qa4">4.</a></strong> <span epub:type="pagebreak" id="page_304"/>Your organization currently has created an AWS IAM role for an Amazon EC2 instance, which permits the instance to have access to Amazon DynamoDB. Now the organization wants their EC2 instances created in the new region with the same privileges. How can this be achieved?</p>
+<p class="alphau"><strong>A.</strong> You must create a new IAM role with associated policies in the new region.</p>
+<p class="alphau"><strong>B.</strong> You can assign the existing IAM role to the new Amazon EC2 instance in the new region.</p>
+<p class="alphau"><strong>C.</strong> You need to copy the IAM role and the associated policies to the new region and attach it to the new instance.</p>
+<p class="alphau"><strong>D.</strong> You need to create an AMI of the original instance and copy it to the desired region using the AMI Copy feature.</p>
+<p class="number"><strong><a href="ch10.xhtml#rch10qa5" id="ch10qa5">5.</a></strong> Your company created multiple IAM users and enabled MFA. As a security best practice, your company wants every IAM user to access the IAM console only within the company network and not from outside the network. How can you achieve this?</p>
+<p class="alphau"><strong>A.</strong> Create an IAM policy with the security group and use it to log in to the AWS console.</p>
+<p class="alphau"><strong>B.</strong> Create an IAM policy with a condition to deny access when the IP address range is not within the company network range.</p>
+<p class="alphau"><strong>C.</strong> Configure the EC2 instance security group and allow traffic only from the company’s IP range.</p>
+<p class="alphau"><strong>D.</strong> Create an IAM policy with your Virtual Private Cloud (VPC) and allow a secure gateway between the company network and AWS Management Console.</p>
+<p class="number"><strong><a href="ch10.xhtml#rch10qa6" id="ch10qa6">6.</a></strong> AWS IAM evaluates policies depending on the request context. Which of the following are correct statements with regard to policy evaluation logic? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> All the requests are denied by default.</p>
+<p class="alphau"><strong>B.</strong> The explicit allow policy overrides an explicit deny policy.</p>
+<p class="alphau"><strong>C.</strong> The explicit allow policy overrides the default deny policy.</p>
+<p class="alphau"><strong>D.</strong> All the requests are allowed by default.</p>
+<p class="number"><strong><a href="ch10.xhtml#rch10qa7" id="ch10qa7">7.</a></strong> You have an application deployed on an EC2 instance that is writing data to a DynamoDB table and the security keys should not be allowed to be stored on the EC2 instance. How can you achieve this? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> Create an IAM role that allows write access to the DynamoDB table.</p>
+<p class="alphau"><strong>B.</strong> Add an IAM role to the running EC2 instance.</p>
+<p class="alphau"><strong>C.</strong> Create an IAM user and give it write access to the DynamoDB table.</p>
+<p class="alphau"><strong>D.</strong> Add an IAM user to a running EC2 instance.</p>
+<p class="number"><strong><a href="ch10.xhtml#rch10qa8" id="ch10qa8">8.</a></strong> <span epub:type="pagebreak" id="page_305"/>When should you use an IAM user, IAM group, or IAM role? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> An IAM user has permanent long-term credentials and is used to directly interact with AWS services.</p>
+<p class="alphau"><strong>B.</strong> An IAM group is primarily a management convenience to manage the same set of permissions for a set of IAM users.</p>
+<p class="alphau"><strong>C.</strong> An IAM role has permanent long-term credentials and is used to directly interact with AWS services.</p>
+<p class="alphau"><strong>D.</strong> IAM roles cannot make direct requests to AWS services and can only be assumed by IAM users, applications, or AWS services, and IAM roles are used to delegate access within or between AWS accounts.</p>
+<p class="number"><strong><a href="ch10.xhtml#rch10qa9" id="ch10qa9">9.</a></strong> Your company wants to deploy Amazon EC2 instances and allow them to have access to Amazon DynamoDB. You don’t want to embed the credentials in EC2 and want to rotate the security credentials automatically. What features of IAM allow you to achieve this?</p>
+<p class="alphau"><strong>A.</strong> Use IAM group for the EC2 instance to assign the same set of permissions to multiple IAM users.</p>
+<p class="alphau"><strong>B.</strong> Use IAM roles for the EC2 instance, which uses the AWS temporary security credentials when making requests from running EC2 instances to AWS services.</p>
+<p class="alphau"><strong>C.</strong> Use IAM roles for the EC2 instance to automaticlly rotate the AWS temporary security credentials.</p>
+<p class="alphau"><strong>D.</strong> Use IAM roles for the EC2 instance to grant granular AWS service permissions for applications running on EC2 instances.</p>
+<p class="number1"><strong><a href="ch10.xhtml#rch10qa10" id="ch10qa10">10.</a></strong> What is the difference between an IAM role and an IAM user? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> An IAM user can be used to directly interact with AWS services, and it has permanent long-term credentials.</p>
+<p class="alphau"><strong>B.</strong> An IAM role cannot make direct requests to AWS services, and it doesn’t have any credentials.</p>
+<p class="alphau"><strong>C.</strong> IAM roles can be assumed by entities like IAM users, applications, or an AWS service such as EC2.</p>
+<p class="alphau"><strong>D.</strong> IAM groups can be assumed to assign the same set of permissions to multiple IAM users.</p>
+<h4 class="h4" id="ch10lev2sec14">Answers</h4>
+<p class="numbert"><strong><a href="ch10.xhtml#ch10qa1" id="rch10qa1">1.</a> A.</strong> You can use the IAM groups and add users based on their role to different groups and apply a policy to a group.</p>
+<p class="number"><strong><a href="ch10.xhtml#ch10qa2" id="rch10qa2">2.</a> A, B.</strong> You need to create IAM users for your privileged accounts and configure multifactor authentication for your privileged IAM users.</p>
+<p class="number"><strong><a href="ch10.xhtml#ch10qa3" id="rch10qa3">3.</a></strong> <span epub:type="pagebreak" id="page_306"/><strong>B, C.</strong> You need to assign IAM users to a group that is configured with policies granting least privilege access, and you need to configure MFA on the root account and for all your privileged IAM users.</p>
+<p class="number"><strong><a href="ch10.xhtml#ch10qa4" id="rch10qa4">4.</a> B.</strong> You can assign the existing IAM role to the new Amazon EC2 instances in the new region.</p>
+<p class="number"><strong><a href="ch10.xhtml#ch10qa5" id="rch10qa5">5.</a> B.</strong> You can create an IAM policy with a condition to deny access when the IP address range is not within the company network range.</p>
+<p class="number"><strong><a href="ch10.xhtml#ch10qa6" id="rch10qa6">6.</a> A, C.</strong> All the requests are denied by default, and the explicit allow policy overrides the default deny policy.</p>
+<p class="number"><strong><a href="ch10.xhtml#ch10qa7" id="rch10qa7">7.</a> A, B.</strong> You need to create an IAM role that allows write access to the DynamoDB table, and you need add an IAM role to the running EC2 instance.</p>
+<p class="number"><strong><a href="ch10.xhtml#ch10qa8" id="rch10qa8">8.</a> A, B, D.</strong> An IAM user has long-term credentials and interacts directly with AWS services. An IAM group is used to manage a set of IAM users. IAM roles can be assumed by IAM users, applications, or AWS services and are used to delegate access within or between AWS accounts.</p>
+<p class="number"><strong><a href="ch10.xhtml#ch10qa9" id="rch10qa9">9.</a> B, C, D.</strong> Use IAM roles for the EC2 instance in order to use AWS temporary security credentials, to automatically rotate the AWS temporary security credentials, and to grant granular AWS service permissions for applications running on EC2 instances.</p>
+<p class="number1"><strong><a href="ch10.xhtml#ch10qa10" id="rch10qa10">10.</a> A, B, C.</strong> An IAM user can be used to directly interact with AWS services, whereas an IAM role cannot make direct requests to AWS services. An IAM user has permanent long-term credentials, whereas the IAM role doesn’t have any credentials. In addition, IAM roles can be assumed by entities like IAM users, applications, or an AWS service such as EC2.</p>
+<h3 class="h3" id="ch10lev1sec11">Additional Resources</h3>
+<p class="bullett">• <strong>AWS Document Reference</strong>   There is no place like official AWS documentation to get the latest and most up-to-date information about all the AWS services. Always refer to the official AWS blogs to get the latest updates about new AWS services and updates to existing features.</p>
+<p class="bulletc"><img alt="images" src="p0306-01.jpg"/></p>
+<p class="bulleta">• <strong>Sign In as an IAM User</strong>   Use the following link to sign into the AWS Management Console as an IAM user. You need to provide your account ID or account alias in addition to your username and password.</p>
+<p class="bulletc"><img alt="images" src="p0306-02.jpg"/></p>
+<p class="bulleta">• <span epub:type="pagebreak" id="page_307"/><strong>Changing the AWS Account Root User Password</strong>   You need to have an administrator password in order to access the AWS Management Console, but you can change the AWS account root user password by using the following link.</p>
+<p class="bulletc"><img alt="images" src="p0307-01.jpg"/></p>
+<p class="bulleta">• <strong>Create, Change, or Delete an IAM User Password</strong>   Use the Management Console, CLI, or API to create, change, or delete an IAM user using the following link.</p>
+<p class="bulletc"><img alt="images" src="p0307-02.jpg"/></p>
+<p class="bulleta">• <strong>Manage IAM Policies</strong>   Use the following link to create, validate, test, apply versioning, edit, and delete IAM policies.</p>
+<p class="bulletc"><img alt="images" src="p0307-03.jpg"/></p>
+<p class="bulleta">• <strong>Add Multifactor Authentication (MFA)</strong>   You can add a virtual MFA device for your AWS account root user using the following link.</p>
+<p class="bulletc"><img alt="images" src="p0307-04.jpg"/></p>
+<p class="bulletnt">You can use the following link to enable a virtual MFA device for an IAM user.</p>
+<p class="bulletc"><img alt="images" src="p0307-05.jpg"/></p>
+<p class="bulleta">• <strong>Tag a User or Role</strong>   Use the following link to tag an IAM user or role using the IAM console, the AWS CLI, or the API through one of the AWS SDKs.</p>
+<p class="bulletc"><img alt="images" src="p0307-06.jpg"/></p>
+<p class="bulleta">• <strong>Troubleshoot IAM Policies</strong>   Use the following link to diagnose and fix common issues that you might encounter when working with IAM policies.</p>
+<p class="bulletc"><img alt="images" src="p0307-07.jpg"/></p>
+<p class="bulleta">• <strong>Troubleshooting IAM Roles</strong>   Use the details found in the following link to help diagnose and fix common issues that you might encounter when working with IAM roles.</p>
+<p class="bulletc"><img alt="images" src="p0307-08.jpg"/><span epub:type="pagebreak" id="page_308"/></p>
+</section>
+</body>
+</html>

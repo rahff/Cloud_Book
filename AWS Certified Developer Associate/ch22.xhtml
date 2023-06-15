@@ -1,0 +1,186 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch22"><span epub:type="pagebreak" id="page_545"/><span class="chap">CHAPTER <span class="chap1">22</span></span></h2>
+<h2 class="h2c1">Migrating Your Application and Database to AWS</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• Application migration</p>
+<p class="bulleta">• Database migration</p>
+<p class="hr"/>
+<p class="noindentb">This chapter provides experience in performing real-time migration of an application and database from on-premises to AWS Cloud.</p>
+<h3 class="h3" id="ch22lev1sec1">AWS Migration</h3>
+<p class="noindent">Many organizations are migrating their on-premises workload, such as their business applications and databases, to the cloud. This chapter provides you with hands-on experience that will help you in the real world when performing migration, and includes information for the AWS certification. Enterprises follow many cloud migration strategies, including the 6R (Rehosting, Re-platforming, Repurchasing, Refactoring, Retain, and Retire) migration strategy. The first step in any migration strategy is the discovery of existing resources. The resources might be spread across many datacenters across the country, or across the globe, based on your business. Once you complete the discovery phase by finding all the resources and their dependencies, you need to split them into at least three categories, such as easy, medium, and complex. The easy resources might be simple applications and databases with less dependency, such as your development and proof-of-concept (POC) environments. The medium resources are applications and databases with fewer dependencies, such as your preproduction and user acceptance testing environments. The complex resources are often your business-critical applications and databases, which have many dependencies and a large impact on your business. Based on these classifications, you need plan your cloud migration strategy. Enterprises migrate the easy workloads first and gain experience with positive reinforcement of cloud migration. Next you can either migrate your medium or complex workload based on your experience and requirements.</p>
+<p class="indent">The 6Rs of cloud migration and their advantages are as follows:</p>
+<p class="bullett">• <strong>Rehosting</strong>   This is also called “lift and shift” because here you just take the image copy of your on-premises server and migrate it to AWS Cloud using AWS VM Import. It is the easiest migration option, since you are not changing the <span epub:type="pagebreak" id="page_546"/>hosted application or database and there is either no change or few changes to this configuration. This option will provide the benefit of the cloud in terms of availability, scalability, and cost, but it does not offer the full potential of the native cloud and tools.</p>
+<p class="bulleta">• <strong>Re-platforming</strong>   This is also called “lift, tinker, and shift” because you either migrate your application to Amazon Elastic Beanstalk or migrate your database to Amazon Relational Database Service (Amazon RDS). It will also provide the benefit of the cloud, but migrating large monolithic complex applications or databases requires more work.</p>
+<p class="bulleta">• <strong>Repurchasing</strong>   This option involves purchasing and migrating to Software as a Service (SaaS) platforms such as Salesforce for customer relationship management (CRM) and Workday for human resource (HR) applications.</p>
+<p class="bulleta">• <strong>Refactoring</strong>   This is also called “re-architecting” because it involves changing your big monolithic applications into small microservices or using a serverless architecture to improve business agility. It is the most expensive and complex migration strategy, but you get the full benefit of the cloud.</p>
+<p class="bulleta">• <strong>Retain</strong>   This is also called “revisit” because you do nothing and revisit the issue at a later point in time. There are applications and databases that do not need to be migrated to the cloud because of a specific business requirement or a compliance and regulations requirement.</p>
+<p class="bulleta">• <strong>Retire</strong>   You will be surprised to see how many resources are underutilized or not at all utilized in your datacenter, so you can shut down and move these out of your datacenter.</p>
+<h3 class="h3" id="ch22lev1sec2">Application Migration</h3>
+<p class="noindent">This section will take you through the step-by-step journey of “lift and shift” that you can practice using your AWS free account from your laptop or desktop. First you need to install VMware Workstation on your laptop or desktop and then create a virtual machine with any operating system. I created a Ubuntu Linux virtual machine and installed an Apache web server.</p>
+<p class="image"><img alt="images" src="f0546-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_547"/>Log in to your Linux virtual machine and type <strong>sudo apt install apache2</strong> for Ubuntu or <strong>sudo yum install apache2</strong> for RedHat Linux. The Apache web server will be installed.</p>
+<p class="image"><img alt="images" src="f0547-01.jpg"/></p>
+<p class="indent">You can find the IPv4 IP address of your virtual machine using the ifconfig command. You need to note the IP address after the inet value to use in the next step.</p>
+<p class="image"><img alt="images" src="f0547-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_548"/>Open your browser and type the IPv4 IP address you noted in the previous step and press <span class="smallcaps">enter</span>. You can see the default Apache page.</p>
+<p class="image"><img alt="images" src="f0548-01.jpg"/></p>
+<p class="indent">Open the /var/www/html/index.html file using Vim, and replace its content with the following sample HTML to display a custom page for the migration experiment.</p>
+<p class="imagep"><img alt="images" src="p0548-01.jpg"/></p>
+<p class="imagep"><img alt="images" src="p0549-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_549"/>After saving the updated index.html file, you can either refresh the browser or type the IP address in another browser and press <span class="smallcaps">enter</span>. You will see the custom page with “AWS Migration from On-Premises” in orange.</p>
+<p class="image"><img alt="images" src="f0549-01.jpg"/></p>
+<p class="indent">Now we are ready for the lift and shift migration. Select Export To OVF from the File menu of your VMware workstation to export the VM image for the migration.</p>
+<p class="image"><img alt="images" src="f0549-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_550"/>Three files are created, and we need the file with the .vmdk extension for our migration to AWS Cloud. This will take few minutes, based on the size of your virtual machine, and it exports the image in .vmdk format.</p>
+<p class="image"><img alt="images" src="f0550-01.jpg"/></p>
+<p class="indent">Log in to your AWS Management Console, navigate to the IAM service, and select Create Role. You need to create a vmimport role with the following trust policy, which provides the STS assume role access:</p>
+<p class="imagep"><img alt="images" src="p0550-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_551"/>Once the role is created, attach the following policy to your newly created vmimport role, which grants Amazon S3 get access and Amazon EC2 copy image access:</p>
+<p class="imagep"><img alt="images" src="p0551-01.jpg"/></p>
+<p class="indent">Once the policy is successfully attached to your vmimport role, navigate to the Amazon S3 console and create a bucket—for example, on-premises-migration—to upload the .vmdk file that was exported from the VMware workstation. Now choose the bucket and upload your .vmdk file.</p>
+<p class="image"><img alt="images" src="f0551-01.jpg"/></p>
+<p class="indent">Create the following .json file as containers.json in your local machine:</p>
+<p class="imagep"><img alt="images" src="p0551-02.jpg"/></p>
+<p class="noindent"><span epub:type="pagebreak" id="page_552"/>Execute the following command from your local machine using the AWS Command Line Interface (AWS CLI) by providing an appropriate file location for the .json file: $ aws ec2 import-image</p>
+<p class="imagep"><img alt="images" src="p0552-01.jpg"/></p>
+<p class="indent">As soon as you enter the ec2 import-image command, you can see the status as “active” and the status message as “pending.”</p>
+<p class="image"><img alt="images" src="f0552-01.jpg"/></p>
+<p class="indent">After a few minutes, the status message will change to “validating” when AWS starts validating your image. You can see the status of your import-image using the aws ec2 describe-import-image-tasks command.</p>
+<p class="image"><img alt="images" src="f0552-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_553"/>After a few minutes, the status message changes to “converting.” The image validation is complete, and AWS starts converting your image.</p>
+<p class="image"><img alt="images" src="f0553-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_554"/>The import status message will change to “updating” once the image conversion is complete.</p>
+<p class="image"><img alt="images" src="f0554-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_555"/>The import task will end when the status is changed to “completed.”</p>
+<p class="image"><img alt="images" src="f0555-01.jpg"/></p>
+<p class="indent">Navigate to the Amazon EC2 service page in the AWS Management Console and click on AMIs on the left pane below Images. You will see the new image that you imported. You need to select Owned By Me below the Launch button if the image is not displayed.</p>
+<p class="image"><img alt="images" src="f0555-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_556"/>You have successfully migrated your application server to AWS, and you can create the server using the Launch button. In few seconds, your EC2 instance will be provisioned. You can view the EC2 instance from the EC2 instance page by clicking on Instances on the left navigation pane. Note the IPv4 public IP to launch the application and test the migration.</p>
+<p class="image"><img alt="images" src="f0556-01.jpg"/></p>
+<p class="indent">Enter the public IP in your browser, and you will see the custom message “AWS Migration from On-Premises” in orange. Open port 80 for the HTTP protocol to allow the ingress traffic in the EC2 security group if you get an access error.</p>
+<p class="image"><img alt="images" src="f0556-02.jpg"/></p>
+<p class="indent">You have migrated the server using the lift and shift strategy and tested it successfully. In the real world, you need to automate the process to migrate hundreds or thousands of application servers to AWS Cloud.</p>
+<h4 class="h4" id="ch22lev2sec1">AWS Server Migration Service</h4>
+<p class="noindent">You can also use AWS Server Migration Service or third-party migration tools to automate, schedule, and migrate your thousands of on-premises workloads to AWS Cloud. AWS Server Migration Service can be used to migrate instances from VMware-vSphere and Windows-Hyper-V to AWS. It provides automated, live replication that you can see from the AWS Management Console. AWS recommends using AWS Server Migration Service instead of using EC2 VM Import for migration, and it allows replication of your on-premises servers to AWS for up to 90 days for each server.</p>
+<h3 class="h3" id="ch22lev1sec3"><span epub:type="pagebreak" id="page_557"/>Database Migration</h3>
+<p class="noindent">This section will demonstrate the “lift, tinker, and shift” strategy to migrate a PostgreSQL database from on-premises to AWS RDS. I have PostgreSQL database installed on my local machine, which has a database called northwind with 15 tables.</p>
+<p class="image"><img alt="images" src="f0557-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_558"/>When I run a select query on the customer table in the northwind database, it displays 91 rows. I am planning to use AWS Database Migration Service to migrate the northwind PostgreSQL database into the Amazon RDS PostgreSQL database that I created using the AWS Management Console.</p>
+<p class="image"><img alt="images" src="f0558-01.jpg"/></p>
+<p class="indent">The Amazon RDS database connection is highlighted in orange in the pgAdmin tool browser. As you can see, it has only the default postgres database along with the rdsadmin database.</p>
+<p class="image"><img alt="images" src="f0558-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_559"/>Log in to your AWS Management Console and navigate to the AWS Database Management Service. Select Replication Instances from the left pane, give it a name—for example, <strong>my-db-replication</strong>—and select the appropriate instance class based on your database size. You can leave the remaining values at the default settings and click the Create button.</p>
+<p class="image"><img alt="images" src="f0559-01.jpg"/></p>
+<p class="indent">Next, create endpoints for both source and target databases. Select Endpoints from the left navigation pane. Select Source Endpoint and provide the endpoint identifier—for example, <strong>my-onpremise-db</strong>. Select Postgres for the source engine, and then enter the <span epub:type="pagebreak" id="page_560"/>server name, port, username, and password along with the database name (in this case, northwind).</p>
+<p class="image"><img alt="images" src="f0560-01.jpg"/></p>
+<p class="indent">Again, select Endpoints from the left navigation pane and select Target Endpoint for the endpoint time. Select the Select RDS DB Instance checkbox. Select the RDS <span epub:type="pagebreak" id="page_561"/>instance from the dropdown, and enter the name—such as, <strong>my-aws-rds</strong>—for the endpoint identifier. Select Postgres for the target engine from the dropdown and leave other options at their default settings.</p>
+<p class="image"><img alt="images" src="f0561-01.jpg"/></p>
+<p class="indent">Now, you need to create the database migration tasks from the left navigation pane. For the task identifier, enter <strong>on-prem-to-aws-db-migration</strong> and choose Replication Instance from the dropdown. Select the previously created source database endpoint and target database endpoint from the dropdown. For migration type select Migrate Existing <span epub:type="pagebreak" id="page_562"/>Data, and you can select Replication if so desired. Leave the other options at their default settings, and click the Create Task button.</p>
+<p class="image"><img alt="images" src="f0562-01.jpg"/></p>
+<p class="indent">If you selected Start Task On Create in the previous step, then the task automatically starts, and you can see the overview, statistics, and metrics. After few minutes, based on your database size, the task will be completed successfully.</p>
+<p class="image"><img alt="images" src="f0562-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_563"/>Now you can refresh the databases of your Amazon RDS DB connection and see the migrated northwind database. You can also see 15 tables are migrated along with the data.</p>
+<p class="image"><img alt="images" src="f0563-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_564"/>Now let us run the same select query on the customer table. As you can see, all the data migrated successfully.</p>
+<p class="image"><img alt="images" src="f0564-01.jpg"/></p>
+<p class="indent">The practical experience of migrating an application and database will help you both on the certification exam and in the real world.</p>
+<h3 class="h3" id="ch22lev1sec4">Chapter Review</h3>
+<p class="noindent">This chapter began by explaining the 6Rs migration strategy that most enterprises follow. Then it explained step by step how to migrate a Linux web server from on-premises to AWS Cloud using the lift and shift migration strategy. And finally it provided the steps to migrate a PostgreSQL database from on-premises to Amazon RDS by using the lift, tinker, and shift migration strategy.</p>
+<h4 class="h4" id="ch22lev2sec2"><span epub:type="pagebreak" id="page_565"/>Exercises</h4>
+<p class="noindent">The following exercises will help you delete all the resources that you created in this chapter. You need to create an AWS account, as explained earlier, to perform these exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5">Exercise 22-1: Delete the Amazon EC2 Instance Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in and then navigate to the AWS Elastic Compute Cloud Service (Amazon EC2) console at <a href="https://console.aws.amazon.com/ec2/">https://console.aws.amazon.com/ec2/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the navigation pane on the left, choose Instance.</p>
+<p class="number"><strong>4.</strong> In the center panel, select the instance. Then choose Actions and Instance State.</p>
+<p class="number"><strong>5.</strong> Select Terminate to terminate the instance.</p>
+<h5 class="h5">Exercise 22-2: Delete Amazon RDS Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in and then navigate to the Amazon RDS console at <a href="https://console.aws.amazon.com/rds/">https://console.aws.amazon.com/rds/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the navigation pane on the left, choose Databases.</p>
+<p class="number"><strong>4.</strong> In the center panel, select the database. Then choose Actions and then Delete to delete the database.</p>
+<h5 class="h5">Exercise 22-3: Delete the Amazon S3 Bucket Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in and then navigate to the AWS Simple Storage Service (Amazon S3) console at <a href="https://console.aws.amazon.com/s3/">https://console.aws.amazon.com/s3/</a>.</p>
+<p class="number"><strong>2.</strong> From the navigation pane, choose Buckets.</p>
+<p class="number"><strong>3.</strong> In the center panel, select the bucket you want to delete.</p>
+<p class="number"><strong>4.</strong> First delete all the objects in the bucket, including the .vmdk image, then choose Delete Bucket.</p>
+<h4 class="h4" id="ch22lev2sec3"><span epub:type="pagebreak" id="page_566"/>Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best responses for each question.</p>
+<p class="numbert"><strong><a href="ch22.xhtml#rch22qa1" id="ch22qa1">1.</a></strong> Your company has decided to migrate to AWS Cloud. What is the first thing they need to do to migrate all the resources, including applications and databases?</p>
+<p class="alphau"><strong>A.</strong> Hire a cloud expert and expect him to migrate everything</p>
+<p class="alphau"><strong>B.</strong> First migrate all the critical applications</p>
+<p class="alphau"><strong>C.</strong> First migrate all the mission-critical databases</p>
+<p class="alphau"><strong>D.</strong> Discover all your resources, like applications, databases, and dependencies</p>
+<p class="number"><strong><a href="ch22.xhtml#rch22qa2" id="ch22qa2">2.</a></strong> Your company plans to migrate their on-premises workload to AWS Cloud in two years. What kind of workload do you suggest migrating to AWS Cloud first?</p>
+<p class="alphau"><strong>A.</strong> You suggest migating complex production applications that bring revenue to your company</p>
+<p class="alphau"><strong>B.</strong> You suggest migrating production databases that have a high impact to your business first, followed by applications</p>
+<p class="alphau"><strong>C.</strong> You suggest migrating all the resources from on-premises to the cloud at the same time</p>
+<p class="alphau"><strong>D.</strong> You suggest migrating development and POC environments that have a minimum impact to your business to the cloud</p>
+<p class="number"><strong><a href="ch22.xhtml#rch22qa3" id="ch22qa3">3.</a></strong> Which of the following are part of the 6Rs of cloud migration? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> Rehosting</p>
+<p class="alphau"><strong>B.</strong> Re-platforming</p>
+<p class="alphau"><strong>C.</strong> Relocation</p>
+<p class="alphau"><strong>D.</strong> Refactoring</p>
+<p class="number"><strong><a href="ch22.xhtml#rch22qa4" id="ch22qa4">4.</a></strong> What service can you leverage to migrate your on-premises applications to AWS Cloud?</p>
+<p class="alphau"><strong>A.</strong> AWS Server Migration Service</p>
+<p class="alphau"><strong>B.</strong> AWS Ground Station</p>
+<p class="alphau"><strong>C.</strong> AWS CloudHSM</p>
+<p class="alphau"><strong>D.</strong> AWS Control Tower</p>
+<p class="number"><strong><a href="ch22.xhtml#rch22qa5" id="ch22qa5">5.</a></strong> Your company decided to quickly migrate the application and databases. Which of the following 6R migration strategies you would suggest to do the lift and shift?</p>
+<p class="alphau"><strong>A.</strong> Re-platforming</p>
+<p class="alphau"><strong>B.</strong> Rehosting</p>
+<p class="alphau"><strong>C.</strong> Refactoring</p>
+<p class="alphau"><strong>D.</strong> Retain</p>
+<p class="number"><strong><a href="ch22.xhtml#rch22qa6" id="ch22qa6">6.</a></strong> <span epub:type="pagebreak" id="page_567"/>A company wants to take advantages of the cloud by using the Platform as a Service (PaaS) service from AWS but does not have time or resources to develop cloud-native applications. What migration strategy you would suggest?</p>
+<p class="alphau"><strong>A.</strong> Retire</p>
+<p class="alphau"><strong>B.</strong> Repurchasing</p>
+<p class="alphau"><strong>C.</strong> Rehosting</p>
+<p class="alphau"><strong>D.</strong> Re-platforming</p>
+<p class="number"><strong><a href="ch22.xhtml#rch22qa7" id="ch22qa7">7.</a></strong> Your company is planning to split all the big monolithic applications into microservices and serverless applications and leverage cloud-native development. What migration strategy you would suggest?</p>
+<p class="alphau"><strong>A.</strong> Repurchasing</p>
+<p class="alphau"><strong>B.</strong> Re-platforming</p>
+<p class="alphau"><strong>C.</strong> Refactoring</p>
+<p class="alphau"><strong>D.</strong> Rehosting</p>
+<p class="number"><strong><a href="ch22.xhtml#rch22qa8" id="ch22qa8">8.</a></strong> Your company has many legacy applications that are not supported in cloud environments and have stringent compliance regulations to keep the data on-premises. What migration strategy is suitable for this scenario?</p>
+<p class="alphau"><strong>A.</strong> Retain</p>
+<p class="alphau"><strong>B.</strong> Retire</p>
+<p class="alphau"><strong>C.</strong> Rehost</p>
+<p class="alphau"><strong>D.</strong> Repurchase</p>
+<p class="number"><strong><a href="ch22.xhtml#rch22qa9" id="ch22qa9">9.</a></strong> A company wants to migrate its customer relationship management (CRM), enterprise resource planning (ERP), and human resources (HR) software to the cloud instead of managing them on-premises. Which migration you would suggest for this scenario?</p>
+<p class="alphau"><strong>A.</strong> Rehosting</p>
+<p class="alphau"><strong>B.</strong> Refactoring</p>
+<p class="alphau"><strong>C.</strong> Re-platforming</p>
+<p class="alphau"><strong>D.</strong> Repurchasing</p>
+<p class="number1"><strong><a href="ch22.xhtml#rch22qa10" id="ch22qa10">10.</a></strong> A company has discovered many redundant applications and databases during its cloud migration discovery phase. What kind of migration strategy you would suggest?</p>
+<p class="alphau"><strong>A.</strong> Retire</p>
+<p class="alphau"><strong>B.</strong> Repurchasing</p>
+<p class="alphau"><strong>C.</strong> Rehosting</p>
+<p class="alphau"><strong>D.</strong> Retain</p>
+<h4 class="h4" id="ch22lev2sec4"><span epub:type="pagebreak" id="page_568"/>Answers</h4>
+<p class="numbert"><strong><a href="ch22.xhtml#ch22qa1" id="rch22qa1">1.</a> D.</strong> You need to first discover all your resources, like applications, databases, and dependencies.</p>
+<p class="number"><strong><a href="ch22.xhtml#ch22qa2" id="rch22qa2">2.</a> D.</strong> You need to migrate minimum-impact development and POC environments to the cloud and gain confidence.</p>
+<p class="number"><strong><a href="ch22.xhtml#ch22qa3" id="rch22qa3">3.</a> A, B, D.</strong> Rehosting, re-platforming, and refactoring. (The other three are repurchasing, retain, and retire.)</p>
+<p class="number"><strong><a href="ch22.xhtml#ch22qa4" id="rch22qa4">4.</a> A.</strong> You can use AWS Server Migration Service to migrate your on-premises applications to the cloud.</p>
+<p class="number"><strong><a href="ch22.xhtml#ch22qa5" id="rch22qa5">5.</a> B.</strong> Rehosting, which is also known as lift and shift.</p>
+<p class="number"><strong><a href="ch22.xhtml#ch22qa6" id="rch22qa6">6.</a> D.</strong> You can use re-platforming to migrate the application to AWS Elastic Beanstalk and the database to Amazon RDS.</p>
+<p class="number"><strong><a href="ch22.xhtml#ch22qa7" id="rch22qa7">7.</a> C.</strong> The refactoring migration strategy allows you to build cloud-native and serverless applications.</p>
+<p class="number"><strong><a href="ch22.xhtml#ch22qa8" id="rch22qa8">8.</a> A.</strong> When you have compliance regulations to keep some workload in on-premises, you can use the retain strategy.</p>
+<p class="number"><strong><a href="ch22.xhtml#ch22qa9" id="rch22qa9">9.</a> D.</strong> The repurchasing strategy allows you to purchase CRM, ERP, or HR cloud-based solutions from the AWS marketplace.</p>
+<p class="number1"><strong><a href="ch22.xhtml#ch22qa10" id="rch22qa10">10.</a> A.</strong> You need to use the retire strategy to shut down and remove those servers from your datacenter.</p>
+<h3 class="h3" id="ch22lev1sec5">Additional Resources</h3>
+<p class="bulleta">• <strong>AWS Migration Whitepaper</strong>   This whitepaper explains all the details you need to know to migrate your workload from on-premises to AWS Cloud.</p>
+<p class="bulletc"><img alt="images" src="p0568-01.jpg"/></p>
+<p class="bulleta">• <strong>AWS Enterprise Migration Strategy Blog</strong>   These blogs provide all the best practices and steps to plan and migrate your enterprise workload.</p>
+<p class="bulletc"><img alt="images" src="p0568-02.jpg"/></p>
+<p class="bulleta">• <strong>AWS Migration Best Practices</strong>   This whitepaper explains all the best practices and strategies that you can follow for your cloud migration.</p>
+<p class="bulletc"><img alt="images" src="p0568-03.jpg"/></p>
+</section>
+</body>
+</html>

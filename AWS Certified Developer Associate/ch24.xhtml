@@ -1,0 +1,181 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch24"><span epub:type="pagebreak" id="page_595"/><span class="chap">CHAPTER <span class="chap1">24</span></span></h2>
+<h2 class="h2c1">Building an Application Using AWS CodeBuild</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• AWS CodeBuild</p>
+<p class="bulleta">• Working with CodeBuild</p>
+<p class="bulleta">• Test reporting</p>
+<p class="hr"/>
+<p class="noindentb">This chapter will show how to build a Docker image and store it in the Amazon Elastic Container Registry (Amazon ECR).</p>
+<h3 class="h3" id="ch24lev1sec1">AWS CodeBuild</h3>
+<p class="noindent">As a developer you might have code-building tools such as Gradle, Apache Ant, Apache Maven, Bamboo, CruiseControl, or Hudson that automates the process of building an application from your source code by compiling and packaging the code into an executable application. A typical build automation comprises scripting and automating different tasks that you as a developer perform in your daily life.</p>
+<p class="indent">AWS CodeBuild service, which is a managed build service in AWS Cloud, compiles the source code and produces artifacts that can be used to deploy your application. AWS CodeBuild scales on demand without the need to provision or manage the build servers.</p>
+<h4 class="h4" id="ch24lev2sec1">Build Projects</h4>
+<p class="noindent">A build project contains all the required details that need to be provided to AWS CodeBuild as input, such as source code location (AWS CodeCommit, Amazon S3, GitHub, Bitbucket), the build environment to use, how to run a build, and where to store the build output.</p>
+<h4 class="h4" id="ch24lev2sec2">Build Environment</h4>
+<p class="noindent">A build environment consists of the runtime of your programming language, tools, and operating system that AWS CodeBuild uses to run any build. The nohup command is used to run the background tasks, and you can forcibly stop the running background tasks by using the disown command. AWS CodeBuild provides several environment variables, <span epub:type="pagebreak" id="page_596"/>such as AWS_REGION, CODEBUILD_BUILD_IMAGE, and CODEBUILD_LOG_PATH, and you can also provide custom environment variables. The printenv command lists all the available environment variables in your build environment.</p>
+<h3 class="h3" id="ch24lev1sec2">Working with AWS CodeBuild</h3>
+<p class="noindent">We are going to create a container image registry in Amazon ECR and build all the required specification configuration source code files using AWS CodeCommit and build the Docker application code using AWS CodeBuild. First, log in to your AWS management console, navigate to the Amazon ECR service, and choose Create Repository. Enter the repository name as <strong>aws-codebuild</strong> and click on the Create Repository button.</p>
+<p class="image"><img alt="images" src="f0596-01.jpg"/></p>
+<p class="indent">You will be directed to the ECR Repositories page, where you can see the repository name and ECR repository URI. Note down this URI, which we need during the source code configuration in later steps.</p>
+<p class="image"><img alt="images" src="f0596-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_597"/>Since it is a new ECR repository, it will not contain any Docker images.</p>
+<p class="image"><img alt="images" src="f0597-01.jpg"/></p>
+<p class="indent">Now, navigate to AWS CodeCommit and choose Create Repository. Enter the repository name as <strong>aws-codebuild-repo</strong>, and then enter a description before clicking on the Create button.</p>
+<p class="image"><img alt="images" src="f0597-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_598"/>Now, from your local machine, clone the empty repository that you just created in AWS CodeCommit using the git clone command, as shown here.</p>
+<p class="image"><img alt="images" src="f0598-01.jpg"/></p>
+<p class="indent">Your source code must have a buildspec file, which contains the build specifications that could include a set of build commands in YAML format and the related settings that AWS CodeBuild uses to run a build. To declare a buildspec, navigate to aws-codebuild-repo and create a buildspec YAML file:</p>
+<p class="imagepa"><img alt="images" src="p0598-01.jpg"/></p>
+<p class="imagepb"><span epub:type="pagebreak" id="page_599"/><img alt="images" src="p0599-01.jpg"/></p>
+<p class="indent">Next create another file called <strong>Dockerfile</strong> with source code:</p>
+<p class="imagep"><img alt="images" src="p0599-02.jpg"/></p>
+<p class="image"><img alt="images" src="f0599-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_600"/>Then create a .json file called <strong>package.json</strong> using the source code:</p>
+<p class="imagep"><img alt="images" src="p0600-01.jpg"/></p>
+<p class="indent">Finally, create a JavaScript file called <strong>server.js</strong> with the following source:</p>
+<p class="imagep"><img alt="images" src="p0600-02.jpg"/></p>
+<p class="indent">Enter the git status to see the four files that you created.</p>
+<p class="image"><img alt="images" src="f0600-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_601"/>Add the files using the git add command and commit the changes using git commit -m “comment.” When everything is successful, push the code to the remote repository using the git push command.</p>
+<p class="image"><img alt="images" src="f0601-01.jpg"/></p>
+<p class="indent">Next navigate to the AWS CodeCommit service using the AWS Management Console. Choose Repositories and then Code from the left pane. You can see all the source code has been pushed successfully.</p>
+<p class="image"><img alt="images" src="f0601-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_602"/>All the prerequisites are ready for us to build our Docker code. Navigate to the AWS CodeBuild service and choose Build Projects. Click the Create Build Project button.</p>
+<p class="image"><img alt="images" src="f0602-01.jpg"/></p>
+<p class="indent">Enter the project name as <strong>docker-image-build</strong> and provide a description. Next, you need to add the source, so choose AWS CodeCommit as the source provider from the dropdown and choose aws-codebuild-repo for the repository.</p>
+<p class="image"><img alt="images" src="f0602-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_603"/>Now you can choose either a managed image or custom image for the environment image. Choose Managed Image and Ubuntu for the operating system, as shown next. Then choose Runtime as the standard and aws/codebuild/standard:1.0 for the image. The runtime is standard for Amazon Linux 2 and Ubuntu and base for the Windows operating system. You can either choose the image version from the dropdown menu or leave the default option to always use the latest image for this runtime version. Choose Linux as the environment type from the dropdown. You need to select the checkbox for Privileged to build Docker images.</p>
+<p class="image"><img alt="images" src="f0603-01.jpg"/></p>
+<p class="indent">Next, choose an existing service role with required access or create to create a new service role. If you require your AWS CodeBuild to access resources inside your Virtual Private Cloud (VPC), then choose Additional Configuration and provide the VPC, subnet, security group, etc. Because, typically AWS CodeBuild cannot access your resources like Amazon EC2, Amazon RDS is defined inside a VPC. By enabling VPC connectivity, you can test your build against data in your Amazon RDS database or interact with web services hosted on Amazon EC2 in a private subnet. In addition, you have the option to add a timeout between 5 minutes <span epub:type="pagebreak" id="page_604"/>and 8 hours (the default timeout is 1 hour). Also, you can install a self-signed certificate or a certificate signed by a certification authority, which is stored on your Amazon S3 bucket.</p>
+<p class="indent">Now you can either use the buildspec YAML file that was created already or insert build commands to create a new buildspec YAML file, and you will provided with a sample script template when you click on Switch To Editor. Since we created the YAML file already, choose Use A Buildspec File. Since you are pushing the Docker image to ECR, choose No Artifacts. Choose Build ID for the namespace and the packaging as None or Zip to compress the file before storing it in Amazon S3. If you select Amazon S3, you will also have an option to provide the encryption key. You can either supply the AWS KMS customer master key or leave the default setting. Finally, you have option to choose to store the build output logs. You can choose Amazon CloudWatch logs to upload build output logs to Amazon CloudWatch or choose Amazon S3 to upload build output logs to the Amazon S3 bucket. Click Create Build Project.</p>
+<p class="image"><img alt="images" src="f0604-01.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_605"/>Now you are ready to build, so click Start Build.</p>
+<p class="image"><img alt="images" src="f0605-01.jpg"/></p>
+<p class="indent">Provide the project name as <strong>docker-image-build</strong> and leave the other options at the default settings. Click the Start Build button again.</p>
+<p class="image"><img alt="images" src="f0605-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_606"/>Your code build is successfully started, and you can see various stage names as submitted, queued, and provisioning.</p>
+<p class="image"><img alt="images" src="f0606-01.jpg"/></p>
+<p class="indent">In few minutes, you can see all the build phases have succeeded. You can see the overall build status is “Succeeded” and the build number is 1.</p>
+<p class="image"><img alt="images" src="f0606-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_607"/>Now, navigate to the aws-codebuild repository in Amazon ECR and see a new image listed.</p>
+<p class="image"><img alt="images" src="f0607-01.jpg"/></p>
+<p class="indent">Let us make a simple change in the buildspec file from your local machine. Change the aws-codebuild-app-v1.0 to <strong>aws-codebuild-app-v2.0</strong> in the printf line.</p>
+<p class="image"><img alt="images" src="f0607-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_608"/>Add the updated buildspec file using the git add command and commit the changes using the git commit -m “comment” command. Then push the code to your remote repository in AWS CodeCommit using the git push command.</p>
+<p class="image"><img alt="images" src="f0608-01.jpg"/></p>
+<p class="indent">Navigate again to your build project in AWS CodeBuild and click on Start Build. In the next few minutes, the overall build status is “Succeeded” and the build number changes to 2.</p>
+<p class="image"><img alt="images" src="f0608-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_609"/>You can see the build history details by choosing Build History from the left pane.</p>
+<p class="image"><img alt="images" src="f0609-01.jpg"/></p>
+<p class="indent">You can see the build metrics details on the Account metrics dashboard by choosing Account Metrics from the left navigation pane.</p>
+<p class="image"><img alt="images" src="f0609-02.jpg"/></p>
+<p class="indent"><span epub:type="pagebreak" id="page_610"/>Finally, you can navigate to your aws-codebuild repository on the Amazon ECR service page. You can see that both the images you built using AWS CodeBuild are successfully stored here.</p>
+<p class="image"><img alt="images" src="f0610-01.jpg"/></p>
+<p class="indent">AWS CodeBuild integrates well with AWS CodeCommit and AWS CodeDeploy in addition to Gradle, Apache Maven, etc. You just need to pay for the build minutes in AWS CodeBuild instead of running and managing a dedicated build server.</p>
+<h3 class="h3" id="ch24lev1sec3">Test Reporting</h3>
+<p class="noindent">You can create reports for unit tests and functional tests that run during the AWS CodeBuild build, with test result details in JSON, XML, and TRX formats. You need to add a report group name in the buildspec file, and test reports are created when you run the build project. You can either specify a new report group name or choose an existing group name in the buildspec file. A new test report with the new results is created every time a new build is executed. The build test reports help you optimize your build by reviewing the test success and failure trends, and it helps you troubleshoot any problem that you encounter during a build run. You need to export the test results file to Amazon S3 if you want to keep it for more than 30 days because the test reports expire after this period.</p>
+<h3 class="h3" id="ch24lev1sec4">Chapter Review</h3>
+<p class="noindent">This chapter began by explaining what AWS CodeBuild is. It then provided a step-by-step procedure to create a build specification file for the Docker image and pushed the source code to the AWS CodeCommit remote repository. Then, we created a build project in AWS CodeBuild and built two Docker images successfully, which were stored in Amazon ECR.</p>
+<h4 class="h4" id="ch24lev2sec3"><span epub:type="pagebreak" id="page_611"/>Exercises</h4>
+<p class="noindent">The following exercises will help you practice using AWS CodeBuild. You need to create an AWS account, as explained earlier, before performing these exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5">Exercise 24-1: Delete the AWS CodeBuild Project Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in to the AWS account and then navigate to the AWS CodeBuild console at <a href="https://console.aws.amazon.com/codebuild/">https://console.aws.amazon.com/codebuild/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the navigation pane on the left, choose Build Projects.</p>
+<p class="number"><strong>4.</strong> Choose the radio button next to your build project.</p>
+<p class="number"><strong>5.</strong> Choose Delete to delete your build project.</p>
+<h5 class="h5">Exercise 24-2: Delete Build Images from Amazon ECR Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in to the AWS account and then navigate to the AWS Amazon ECR console at <a href="https://console.aws.amazon.com/ecr/">https://console.aws.amazon.com/ecr/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> From the navigation pane on the left, choose Repositories.</p>
+<p class="number"><strong>4.</strong> From the Repositories page, choose your repository.</p>
+<p class="number"><strong>5.</strong> Choose Images from the left navigation pane.</p>
+<p class="number"><strong>6.</strong> Select all the images that you want to delete.</p>
+<p class="number"><strong>7.</strong> Choose Delete to delete your images.</p>
+<h5 class="h5">Exercise 24-3: Delete the AWS CodeCommit Repository Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in to the AWS account and then navigate to the AWS CodeCommit console at <a href="https://console.aws.amazon.com/codecommit/">https://console.aws.amazon.com/codecommit/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_612"/>From the navigation pane on the left, choose Repositories.</p>
+<p class="number"><strong>4.</strong> Choose Settings.</p>
+<p class="number"><strong>5.</strong> Navigate to Delete Repository on the General tab.</p>
+<p class="number"><strong>6.</strong> Choose Delete Repository.</p>
+<p class="number"><strong>7.</strong> Enter <strong>delete</strong> in the popup window and choose to delete.</p>
+<h4 class="h4" id="ch24lev2sec4">Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best responses for each question.</p>
+<p class="numbert"><strong><a href="ch24.xhtml#rch24qa1" id="ch24qa1">1.</a></strong> Your company is having issues managing its build server, which is hosted on an Amazon EC2 instance that is used by many teams. Which of the following AWS service provides a managed code build service?</p>
+<p class="alphau"><strong>A.</strong> AWS CodeCommit</p>
+<p class="alphau"><strong>B.</strong> AWS CodeDeploy</p>
+<p class="alphau"><strong>C.</strong> AWS CodePipeline</p>
+<p class="alphau"><strong>D.</strong> AWS CodeBuild</p>
+<p class="number"><strong><a href="ch24.xhtml#rch24qa2" id="ch24qa2">2.</a></strong> Your company security policy mandates that all the build artifacts be stored in an Amazon S3 bucket as encrypted using a client encryption key. How can you encrypt all the build artifacts using a client master AWS KMS key?</p>
+<p class="alphau"><strong>A.</strong> Supply the customer master AWS KMS key in the Artifact section during build project creation</p>
+<p class="alphau"><strong>B.</strong> Upload the customer encryption key during build project creation in AWS CodeBuild</p>
+<p class="alphau"><strong>C.</strong> Check the enryption checkbox in AWS CodeCommit</p>
+<p class="alphau"><strong>D.</strong> Supply the AWS KMS key during the build process</p>
+<p class="number"><strong><a href="ch24.xhtml#rch24qa3" id="ch24qa3">3.</a></strong> Your team is using AWS CodeBuild to compile source code, and when they try to run a test with their Amazon RDS hosted on their private subnet, they are having an access issue. How can you resolve this?</p>
+<p class="alphau"><strong>A.</strong> Update the private subnet route table to allow AWS CodeBuild</p>
+<p class="alphau"><strong>B.</strong> Update the private subnet security group to allow AWS CodeBuild</p>
+<p class="alphau"><strong>C.</strong> Add an Internet Gateway to the VPC and access it through the Internet</p>
+<p class="alphau"><strong>D.</strong> When creating a build project, they need to select appropriate VPC and private subnet in the Additional Configuration section.</p>
+<p class="number"><strong><a href="ch24.xhtml#rch24qa4" id="ch24qa4">4.</a></strong> <span epub:type="pagebreak" id="page_613"/>What two environment image options are available during build project creation in AWS CodeBuild? (Choose two.)</p>
+<p class="alphau"><strong>A.</strong> Managed image</p>
+<p class="alphau"><strong>B.</strong> Docker image</p>
+<p class="alphau"><strong>C.</strong> Custom image</p>
+<p class="alphau"><strong>D.</strong> Windows image</p>
+<p class="number"><strong><a href="ch24.xhtml#rch24qa5" id="ch24qa5">5.</a></strong> What three operating systems are available when you choose managed image during build project creation in AWS CodeBuild? (Choose three.)</p>
+<p class="alphau"><strong>A.</strong> Amazon Linux 2</p>
+<p class="alphau"><strong>B.</strong> Ubuntu</p>
+<p class="alphau"><strong>C.</strong> Windows Server</p>
+<p class="alphau"><strong>D.</strong> CentOS</p>
+<p class="number"><strong><a href="ch24.xhtml#rch24qa6" id="ch24qa6">6.</a></strong> A DevOps engineer in your company created a build project in AWS CodeBuild to build Docker images and store them in Amazon ECR. The build is failing in the Docker build phase. How can you resolve this issue?</p>
+<p class="alphau"><strong>A.</strong> The Privileged checkbox should be selected while creating build projects to provide the elevated privilege to run Docker commands</p>
+<p class="alphau"><strong>B.</strong> Create an AWS IAM user and give it read-only access to the Amazon ECR service</p>
+<p class="alphau"><strong>C.</strong> Create an AWS IAM user and give it full access to Amazon EC2</p>
+<p class="alphau"><strong>D.</strong> Create an AWS IAM user and give it full access to the Amazon S3 service</p>
+<p class="number"><strong><a href="ch24.xhtml#rch24qa7" id="ch24qa7">7.</a></strong> Your team is running a build project, but they are getting a timeout error after 1 hour. They asked you to resolve the issue and requested that their build project not timeout even after 7 hours. How can you achieve this?</p>
+<p class="alphau"><strong>A.</strong> Configure the timeout to 7 hours—the default is 1 hour</p>
+<p class="alphau"><strong>B.</strong> Remove the timeout from the build project</p>
+<p class="alphau"><strong>C.</strong> Update the timeout to 0—the default is 12 hours</p>
+<p class="alphau"><strong>D.</strong> Create a support ticket in AWS</p>
+<p class="number"><strong><a href="ch24.xhtml#rch24qa8" id="ch24qa8">8.</a></strong> Your company audit team mandates all the build logs be stored in redundant places. What you can enable to store logs in multiple places during build project creation?</p>
+<p class="alphau"><strong>A.</strong> Choose Amazon CloudWatch and Amazon RDS as your log destination</p>
+<p class="alphau"><strong>B.</strong> Choose Amazon S3 and Amazon RDS as your log destination</p>
+<p class="alphau"><strong>C.</strong> Choose Amazon S3 and AWS CodeCommit as your log destination</p>
+<p class="alphau"><strong>D.</strong> Choose Amazon CloudWatch and Amazon S3 as your log destination</p>
+<p class="number"><strong><a href="ch24.xhtml#rch24qa9" id="ch24qa9">9.</a></strong> <span epub:type="pagebreak" id="page_614"/>Your security engineer found that AWS CodeBuild runs all your build commands as the root user. What is the reason for this?</p>
+<p class="alphau"><strong>A.</strong> AWS CodeBuild uses the root user to run all build commands by default</p>
+<p class="alphau"><strong>B.</strong> You need to create new a AWS IAM user and grant it full AWS CodeBuild access</p>
+<p class="alphau"><strong>C.</strong> Delete the root user from the AWS Management Console</p>
+<p class="alphau"><strong>D.</strong> Use a different AWS account that does not have a root user</p>
+<p class="number1"><strong><a href="ch24.xhtml#rch24qa10" id="ch24qa10">10.</a></strong> What pricing model is used by AWS CodeBuild?</p>
+<p class="alphau"><strong>A.</strong> It is free to use for your entire workload</p>
+<p class="alphau"><strong>B.</strong> Pay up-front pricing model</p>
+<p class="alphau"><strong>C.</strong> Pay hourly pricing model</p>
+<p class="alphau"><strong>D.</strong> Pay-as-you-go pricing model</p>
+<h4 class="h4" id="ch24lev2sec5">Answers</h4>
+<p class="numbert"><strong><a href="ch24.xhtml#ch24qa1" id="rch24qa1">1.</a> D.</strong> AWS CodeBuild is the managed build service from AWS.</p>
+<p class="number"><strong><a href="ch24.xhtml#ch24qa2" id="rch24qa2">2.</a> A.</strong> You can supply the customer master AWS KMS key in the Artifact section during build project creation.</p>
+<p class="number"><strong><a href="ch24.xhtml#ch24qa3" id="rch24qa3">3.</a> D.</strong> When creating a build project, they need to select the appropriate VPC and private subnet in the Additional Configuration section.</p>
+<p class="number"><strong><a href="ch24.xhtml#ch24qa4" id="rch24qa4">4.</a> A, C.</strong> AWS CodeBuild offers managed images and custom images.</p>
+<p class="number"><strong><a href="ch24.xhtml#ch24qa5" id="rch24qa5">5.</a> A, B, C.</strong> Amazon Linux 2, Ubuntu, and Windows Server operating systems are available in AWS CodeBuild.</p>
+<p class="number"><strong><a href="ch24.xhtml#ch24qa6" id="rch24qa6">6.</a> A.</strong> The Privileged checkbox should be selected when creating build projects to provide the elevated privilege to run Docker commands.</p>
+<p class="number"><strong><a href="ch24.xhtml#ch24qa7" id="rch24qa7">7.</a> A.</strong> You need to add the timeout to 7 hours. The timeout can be set from 5 minutes to 8 hours (the default is 1 hour).</p>
+<p class="number"><strong><a href="ch24.xhtml#ch24qa8" id="rch24qa8">8.</a> D.</strong> Choose Amazon CloudWatch and Amazon S3 as your log destination.</p>
+<p class="number"><strong><a href="ch24.xhtml#ch24qa9" id="rch24qa9">9.</a> A.</strong> AWS CodeBuild uses the root user to run all build commands by default.</p>
+<p class="number1"><strong><a href="ch24.xhtml#ch24qa10" id="rch24qa10">10.</a> D.</strong> AWS CodeBuild uses a pay-as-you-go pricing model.</p>
+<h3 class="h3" id="ch24lev1sec5">Additional Resources</h3>
+<p class="bullett">• <strong>AWS CodeBuild</strong>   AWS CodeBuild official documentation is the place to get all the latest information about this service in addition to all the updates to its features and new features.</p>
+<p class="bulletc"><img alt="images" src="p0614-01.jpg"/></p>
+<p class="bulleta">• <strong>AWS CodeBuild Blogs</strong>   These blogs help you with step-by-step details of using AWS CodeBuild for different use cases and security best practices.</p>
+<p class="bulletc"><img alt="images" src="p0614-02.jpg"/></p>
+</section>
+</body>
+</html>

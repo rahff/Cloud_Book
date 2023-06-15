@@ -1,0 +1,153 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>AWS Certified Developer Associate All-in-One Exam Guide (Exam DVA-C01)</title>
+<link href="1260460177.css" rel="stylesheet" type="text/css"/>
+<meta content="urn:uuid:c4d348f1-9c3d-457f-b76a-654174c9fde1" name="Adept.expected.resource"/>
+</head>
+<body>
+<section epub:type="chapter">
+<h2 class="h2c" id="ch19"><span epub:type="pagebreak" id="page_481"/><span class="chap">CHAPTER <span class="chap1">19</span></span></h2>
+<h2 class="h2c1">Developing Serverless Applications with Lambda</h2>
+<p class="noindent">In this chapter, you will learn</p>
+<p class="bulleta">• Lambda functions</p>
+<p class="bulleta">• Lambda applications</p>
+<p class="bulleta">• Lambda layers</p>
+<p class="hr"/>
+<p class="noindentb">This chapter will discuss how to develop serverless functions and applications using AWS Lambda.</p>
+<h3 class="h3" id="ch19lev1sec1">AWS Lambda</h3>
+<p class="noindent">AWS Lambda is a serverless compute service where you just provide your code to execute without having to provision any servers and pay only for the execution time. AWS Lambda manages the provision, scaling, and termination of servers automatically and charges only when your code is running. AWS Lambda supports Go, Node.js, Java, C#, Ruby, Python, and PowerShell to write your code for any application or backend services without the need for any underlying tasks, including code monitoring, logging, scaling, capacity provisioning, and server and operating system maintenance.</p>
+<p class="indent">AWS Lambda can be automatically triggered based on events like data changes in an Amazon DynamoDB table, or changes to an Amazon S3 bucket, or AWS SDK API calls, or HTTP requests from the Amazon API Gateway, or data streaming data in Kinesis. You can also create your own serverless application or service composed of functions that can be triggered by events.</p>
+<h4 class="h4" id="ch19lev2sec1">AWS Lambda Functions</h4>
+<p class="noindent">The AWS Lambda function is an event-driven compute service that uses your code, chosen memory, timeout period, IAM role, and AWS service event to trigger the execution. The following are some of the key concepts that you need to understand before building your first serverless function and application:</p>
+<p class="bullett">• <strong>Runtime</strong>   This allows functions in various languages to use the same execution environment. You can use the runtime provided by Lambda or build your own <span epub:type="pagebreak" id="page_482"/>runtime that sits in between the Lambda service and your function code, relaying responses between the two and invocating events.</p>
+<p class="bulleta">• <strong>Event</strong>   Function uses the event, which is a JSON-format document to process, and then runtime converts it and sends it back to your function. The structure and contents of the event can be determined when invoking the function. For example, a custom event for timestamp data is as follows:</p>
+<p class="bulletn"><img alt="images" src="p0482-01.jpg"/></p>
+<p class="bulleta">• <strong>Concurrency</strong>   This is the number of requests that a function can serve at any given time. Lambda provisions an instance when your function is invoked to process the event. The instance can process another event request when the current function is finished; if not, then another instance is provisioned to process the concurrent request. You can configure a specific level of concurrency to limit this.</p>
+<p class="bulleta">• <strong>Trigger</strong>   This is a configuration that invokes your Lambda function, including any AWS service events, custom application events, or event source mapping, that reads from a stream or queue to invoke the function.</p>
+<p class="bulleta">• <strong>Versioning</strong>   You can leverage versioning to store new code and configuration of your Lambda function. It will be used along with aliases to perform rolling or blue/green deployments.</p>
+<p class="bulleta">• <strong>Scaling</strong>   Scaling is automatically handled by Lambda when your function receives a concurrent request while it’s processing a request by launching another instance to handle the increased load.</p>
+<p class="bulleta">• <strong>High availability</strong>   When you create your Lambda function to connect to a Virtual Private Cloud (VPC) and specify subnets in more than one Availability Zones, Lambda runs your function in multiple Availability Zones to ensure high availability.</p>
+<p class="bulleta">• <strong>Reserved concurrency</strong>   You can reserve concurrency to handle additional requests, but you cannot exceed the specified number of concurrent invocations, which ensures that you have available concurrency when needed.</p>
+<p class="bulleta">• <strong>Retries</strong>   Lambda retries the execution automatically, with delays between each invocation triggered by AWS services and other clients.</p>
+<p class="bulletb">• <strong>Dead-letter queue</strong>   Lambda can be configured to send failed retry requests to a dead-letter queue, which can be an Amazon SQS queue or Amazon SNS topic that will be used for reprocessing or troubleshooting.</p>
+<p class="indent"><span epub:type="pagebreak" id="page_483"/>Let us create a function that logs the message pushed to the SNS topic.</p>
+<p class="numbert"><strong>1.</strong> Log in to your AWS Management Console and select Services from top-left screen. Choose AWS Lambda. The AWS Lambda console page will appear, as shown here.</p>
+<p class="image"><img alt="images" src="f0483-01.jpg"/></p>
+<p class="number"><strong>2.</strong> Click on the Create Function button that will take you to the AWS Lambda Create Function screen.</p>
+<p class="image"><img alt="images" src="f0483-02.jpg"/></p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_484"/>Now select the s3-get-object-python function from the blueprint that will take you to the Basic Information page. Here you need to enter a name for your function, choose AWS Policy Templates, and then provide a role name. Choose Policy Templates from the dropdown and choose the S3 and SNS policies.</p>
+<p class="image"><img alt="images" src="f0484-01.jpg"/></p>
+<p class="number"><strong>4.</strong> <span epub:type="pagebreak" id="page_485"/>Now you need to configure the S3 trigger that can be run each time the defined event occurs. Choose your existing bucket from the dropdown menu, and select All Object Create Events. Provide the Prefix and Suffix as appropriate, and choose Enable Trigger.</p>
+<p class="image"><img alt="images" src="f0485-01.jpg"/></p>
+<p class="number"><strong>5.</strong> <span epub:type="pagebreak" id="page_486"/>The last part is Lambda function code, which is preconfigured by the blueprint and can be updated after the function is created. This function uses Python 3.7. Click on the Create Function button.</p>
+<p class="image"><img alt="images" src="f0486-01.jpg"/></p>
+<p class="indent">Your first AWS Lambda is successfully created, and you can explore testing different values and updating the code based on your need. This is the beginning of your exciting serverless journey. Explore many blueprint functions to quickly get started with creating and deploying AWS Lambda functions.</p>
+<p class="image"><img alt="images" src="f0486-02.jpg"/></p>
+<h4 class="h4" id="ch19lev2sec2"><span epub:type="pagebreak" id="page_487"/>AWS Lambda Applications</h4>
+<p class="noindent">An AWS Lambda application consists of Lambda functions, events, and triggers that work as a single package that you can deploy and manage as one resource. Lambda applications can be integrated with developer tools like the AWS SAM CLI. In addition, a collection of Lambda applications can be deployed easily with AWS CodePipeline for your projects. AWS CloudFormation, along with AWS SAM, provides a local testing platform for serverless application development by defining your application’s resources and managing the application as a stack. This allows you to safely add and modify resources and roll back to the previous state of your application stack.</p>
+<h4 class="h4" id="ch19lev2sec3">AWS Lambda Layers</h4>
+<p class="noindent">A Lambda function can be configured to pull additional code in a ZIP archive format that contains a custom runtime, libraries, and content in the form of layers—up to five layers at a time. Custom layers, AWS, or third-party AWS customer published layers can be used like libraries in your function without including them in your deployment package. Resource-based policies can be used to grant layer usage permissions to specific AWS accounts or AWS organizations. The runtime uses libraries in a different location, under /opt, where layers are extracted in the function execution environment depending on the language. AWS SAM can be used to manage layers and its configurations.</p>
+<h4 class="h4" id="ch19lev2sec4">AWS Lambda Security</h4>
+<p class="noindent">AWS Lambda follows the AWS shared responsibility model, including compliance and regulations for data protection. AWS recommends using multifactor authentication (MFA) and SSL/TLS to communicate, capturing all user activity logging with AWS CloudTrail. AWS strongly recommends not using any sensitive identifying information in function names and freeform tags, since the metadata might get picked up in diagnostic logs, and never include external URL credential information.</p>
+<p class="indent">All Lambda communication is encrypted with TLS, and the Lambda API endpoint supports only HTTPS secure connections. The environment variables can be used to store secrets securely because they are encrypted at rest. Environment variable values can be encrypted on the client side from the Lambda console before sending them to Lambda, which prevents secrets from being displayed unencrypted in the Lambda console or in the function configuration that’s returned by the Lambda API. You can use customer-managed key to encrypt data in Amazon CloudWatch logs and AWS X-Ray, where the data is encrypted by default using the AWS-managed keys. All files that you upload are encrypted by default in Lambda, including deployment packages and layer archives.</p>
+<h3 class="h3" id="ch19lev1sec2"><span epub:type="pagebreak" id="page_488"/>Chapter Review</h3>
+<p class="noindent">This chapter began by explaining AWS Lambda, which is a serverless compute service where you execute your code without provisioning any servers and pay only for the execution time. It manages the provision, scaling, and termination of servers and supports Go, C#, Ruby, Python, Node.js, Java, and PowerShell to write your code for serverless functions and applications. AWS Lambda handles all the administration of underlying tasks, including code monitoring, logging, scaling, capacity provisioning, and server and operating system maintenance. The AWS Lambda function is an event-driven compute service that uses your code, chosen memory, timeout period, IAM role, and AWS service event to trigger the execution. You can use the runtime provided by Lambda or build your own runtime that sits in between the Lambda service and your function code, relaying responses between the two and invocating events.</p>
+<p class="indent">AWS Lambda applications can be created from the AWS Management Console using the AWS SAM CLI, AWS CodeBuild, or AWS CodePipeline. An AWS Lambda application is a collection of Lambda applications that can be deployed easily with AWS CodePipeline for your projects. AWS CloudFormation, along with AWS SAM, provides a local testing platform for serverless application development by defining your application’s resources and managing the application as a stack. A Lambda function can be configured with custom layers, AWS, or third-party AWS customer published layers, which can be used like libraries in your function without including them in your deployment package. Resource-based policies can be used to grant layer usage permissions to specific AWS accounts or AWS organizations. The runtime uses libraries in a different location, under /opt, where layers are extracted in the function execution environment depending on the language.</p>
+<h4 class="h4" id="ch19lev2sec5">Exercise</h4>
+<p class="noindent">The following exercise will help you practice creating an AWS Lambda serverless application using development tools. You need to create an AWS account, as explained earlier, before performing the exercises. You can use the Free Tier when launching AWS resources, but make sure to terminate them at the end.</p>
+<h5 class="h5">Exercise 19-1: Create a AWS Lambda Serverless Application Using the AWS Management Console</h5>
+<p class="numbert"><strong>1.</strong> Use your AWS account e-mail address and password to sign in and then navigate to the AWS Lambda console at <a href="https://console.aws.amazon.com/lambda/">https://console.aws.amazon.com/lambda/</a>.</p>
+<p class="number"><strong>2.</strong> Verify the AWS region by using the Region selector in the upper-right corner of the page.</p>
+<p class="number"><strong>3.</strong> <span epub:type="pagebreak" id="page_489"/>From the navigation pane on the left, choose Applications and click on the Create Application button.</p>
+<p class="image"><img alt="images" src="f0489-01.jpg"/></p>
+<p class="number"><strong>4.</strong> The Create A Lambda application page has a few sample applications. I encourage you to create and test a few sample AWS Lambda applications before your exam. In this exercise, I chose Queue Processing, which uses Lambda to process messages from your Amazon SQS queue.</p>
+<p class="image"><img alt="images" src="f0489-02.jpg"/></p>
+<p class="number"><strong>5.</strong> <span epub:type="pagebreak" id="page_490"/>This sample AWS Lambda application uses Node.js and CodeCommit for source control. It uses CodeBuild for build and test and CodePipeline for continuous delivery. AWS CloudFormation is used in the background to deploy as an application template stack.</p>
+<p class="image"><img alt="images" src="f0490-01.jpg"/></p>
+<p class="number"><strong>6.</strong> In the Configure Your Application screen, enter <strong>my-lambda-queue</strong> for the application name and provide a description. For Runtime, choose Node.js and choose CodeCommit for source control. For the Repository Name, type <strong>my-lambda-queue</strong>. <span epub:type="pagebreak" id="page_491"/>Also select Permissions to create an appropriate role and execute this AWS serverless application.</p>
+<p class="image"><img alt="images" src="f0491-01.jpg"/></p>
+<p class="number"><strong>7.</strong> <span epub:type="pagebreak" id="page_492"/>When you click on the Create button, AWS Lambda starts provisioning all the resources you will need for this serverless application and shows you the progress.</p>
+<p class="image"><img alt="images" src="f0492-01.jpg"/></p>
+<p class="number"><strong>8.</strong> <span epub:type="pagebreak" id="page_493"/>In a few minutes, all the resources will be provisioned and the Application Created message appears.</p>
+<p class="image"><img alt="images" src="f0493-01.jpg"/></p>
+<p class="number"><strong>9.</strong> From the previous illustration, you can observe that four resources are created in addition to nine infrastructures for you, as shown at the bottom. On the Code tab, you can see the CodeCommit repository and option to clone the URL and SSH.</p>
+<p class="image"><img alt="images" src="f0493-02.jpg"/></p>
+<p class="number1"><strong>10.</strong> <span epub:type="pagebreak" id="page_494"/>Now navigate to the Deployments tab, where you can find the CodePipeline application pipeline and its status, along with the SAM template that was used to create this serverless application.</p>
+<p class="image"><img alt="images" src="f0494-01.jpg"/></p>
+<p class="number1"><strong>11.</strong> Now navigate to the Monitoring tab where you can see a couple of Dashboards, one for AWS Lambda, which has invocations, errors, duration, and concurrent executions as different charts.</p>
+<p class="image"><img alt="images" src="f0494-02.jpg"/></p>
+<p class="number1"><strong>12.</strong> <span epub:type="pagebreak" id="page_495"/>From the dropdown, choose Amazon SQS, which has charts for messages sent, received, deleted, visible, not visible, delayed, etc. You can create a queue and start seeing this serverless application in action, but do not forget to delete this once all the resources are completed.</p>
+<p class="image"><img alt="images" src="f0495-01.jpg"/></p>
+<h4 class="h4" id="ch19lev2sec6">Questions</h4>
+<p class="noindent">The following questions will help you gauge your understanding of the contents in this chapter. Read all the answers carefully because there might be more than one correct answer. Choose the best response for each question.</p>
+<p class="numbert"><strong><a href="ch19.xhtml#rch19qa1" id="ch19qa1">1.</a></strong> You have batch jobs that run every day and use a dedicated server on-premises. Your manager asked you to explore a AWS service that can be leveraged to replace the batch server and run all your jobs without provisioning any server in your cloud environment. Which of the following services satisfies your requirement?</p>
+<p class="alphau"><strong>A.</strong> Amazon S3</p>
+<p class="alphau"><strong>B.</strong> AWS Lambda</p>
+<p class="alphau"><strong>C.</strong> Amazon EC2</p>
+<p class="alphau"><strong>D.</strong> Amazon Athena</p>
+<p class="number"><strong><a href="ch19.xhtml#rch19qa2" id="ch19qa2">2.</a></strong> <span epub:type="pagebreak" id="page_496"/>Your company asks you to stop and start your lower environment AWS EC2 instances and RDS databases during nonwork hours to save costs. Which AWS service can you leverage to create jobs that stop and start your instances and databases?</p>
+<p class="alphau"><strong>A.</strong> Amazon SageMaker</p>
+<p class="alphau"><strong>B.</strong> Amazon Kinesis</p>
+<p class="alphau"><strong>C.</strong> AWS Amplify</p>
+<p class="alphau"><strong>D.</strong> AWS Lambda</p>
+<p class="number"><strong><a href="ch19.xhtml#rch19qa3" id="ch19qa3">3.</a></strong> Which of the following languages are supported in AWS Lambda? (Choose all that apply.)</p>
+<p class="alphau"><strong>A.</strong> Go</p>
+<p class="alphau"><strong>B.</strong> Node.js</p>
+<p class="alphau"><strong>C.</strong> Java</p>
+<p class="alphau"><strong>D.</strong> C#</p>
+<p class="number"><strong><a href="ch19.xhtml#rch19qa4" id="ch19qa4">4.</a></strong> AWS Lambda provisioned an instance to execute your code, and before it finishes, you trigger the Lambda function again. What will happen in this scenario?</p>
+<p class="alphau"><strong>A.</strong> Lambda will wait for the process to complete</p>
+<p class="alphau"><strong>B.</strong> Lambda will fail</p>
+<p class="alphau"><strong>C.</strong> Lambda will send a warning message</p>
+<p class="alphau"><strong>D.</strong> Lambda will provision another instance to the handle additional request</p>
+<p class="number"><strong><a href="ch19.xhtml#rch19qa5" id="ch19qa5">5.</a></strong> What is the easiest way to develop, test locally, and deploy serverless applications in the AWS environment?</p>
+<p class="alphau"><strong>A.</strong> Upload your code to Amazon S3</p>
+<p class="alphau"><strong>B.</strong> Use the AWS Serverless Application Model (SAM)</p>
+<p class="alphau"><strong>C.</strong> Provision an EC2 instance and develop your serverless application</p>
+<p class="alphau"><strong>D.</strong> You can use the AWS Fargate service</p>
+<p class="number"><strong><a href="ch19.xhtml#rch19qa6" id="ch19qa6">6.</a></strong> Your serverless application is having issues, and you need to troubleshoot by tracing. Which AWS service will help you in this scenario?</p>
+<p class="alphau"><strong>A.</strong> AWS X-Ray</p>
+<p class="alphau"><strong>B.</strong> AWS Batch</p>
+<p class="alphau"><strong>C.</strong> AWS Config</p>
+<p class="alphau"><strong>D.</strong> Amazon CodeCommit</p>
+<p class="number"><strong><a href="ch19.xhtml#rch19qa7" id="ch19qa7">7.</a></strong> <span epub:type="pagebreak" id="page_497"/>You created a serverless application using Python. Which of the following runtimes can you choose? (Choose all that apply.)</p>
+<p class="alphau"><strong>A.</strong> Python 3.8</p>
+<p class="alphau"><strong>B.</strong> Python 3.7</p>
+<p class="alphau"><strong>C.</strong> Python 3.6</p>
+<p class="alphau"><strong>D.</strong> Python 2.7</p>
+<p class="number"><strong><a href="ch19.xhtml#rch19qa8" id="ch19qa8">8.</a></strong> You have an Amazon S3 bucket that stores sensitive information. You need to monitor any changes to the bucket and send an alert to your security team. How can you achieve this cost-effectively?</p>
+<p class="alphau"><strong>A.</strong> Create an AWS Lambda that can be triggered as soon as any changes to this bucket occur</p>
+<p class="alphau"><strong>B.</strong> Hire an AWS engineer to monitor this Amazon bucket</p>
+<p class="alphau"><strong>C.</strong> Use the Amazon SQS queue to monitor the Amazon S3 bucket</p>
+<p class="alphau"><strong>D.</strong> Use the Amazon CloudSearch service to monitor it</p>
+<p class="number"><strong><a href="ch19.xhtml#rch19qa9" id="ch19qa9">9.</a></strong> Your company receives data from multiple sources that needs to be formatted before being stored in an OLTP database. The frequency of incoming data can be very low to high, depending on the day of the week and time of the day. What is an efficient way to format the data cost-effectively?</p>
+<p class="alphau"><strong>A.</strong> Create new table and store unformatted data</p>
+<p class="alphau"><strong>B.</strong> Ask your SQL developer to write a query to format the data</p>
+<p class="alphau"><strong>C.</strong> Provision an EC2 instance and process the data using it</p>
+<p class="alphau"><strong>D.</strong> Use AWS Lambda to format the data before storing it in the database</p>
+<p class="number1"><strong><a href="ch19.xhtml#rch19qa10" id="ch19qa10">10.</a></strong> How do you provision instances for your AWS Lambda functions?</p>
+<p class="alphau"><strong>A.</strong> Run your code, and AWS Lambda takes care of provisioning and managing the instances</p>
+<p class="alphau"><strong>B.</strong> Provision the first instance, and AWS Lambda manages the rest of provisioning</p>
+<p class="alphau"><strong>C.</strong> It is serverless, so it does not need any instance to run your code</p>
+<p class="alphau"><strong>D.</strong> Select the auto-provision option</p>
+<h4 class="h4" id="ch19lev2sec7">Answers</h4>
+<p class="number"><strong><a href="ch19.xhtml#ch19qa1" id="rch19qa1">1.</a> B.</strong> You can create AWS Lambda functions to run batch jobs.</p>
+<p class="number"><strong><a href="ch19.xhtml#ch19qa2" id="rch19qa2">2.</a> D.</strong> AWS Lambda functions, along with Amazon CloudWatch, can be used to create, start, and stop jobs.</p>
+<p class="number"><strong><a href="ch19.xhtml#ch19qa3" id="rch19qa3">3.</a> A, B, C, D.</strong> The supported languages are Go, Node.js, Java, and C# in addition to Ruby, Python, and PowerShell.</p>
+<p class="number"><strong><a href="ch19.xhtml#ch19qa4" id="rch19qa4">4.</a></strong> <span epub:type="pagebreak" id="page_498"/><strong>D.</strong> Lambda will provision another instance to handle the additional request concurrently.</p>
+<p class="number"><strong><a href="ch19.xhtml#ch19qa5" id="rch19qa5">5.</a> B.</strong> The AWS SAM can be used to easily develop and test your serverless applications locally.</p>
+<p class="number"><strong><a href="ch19.xhtml#ch19qa6" id="rch19qa6">6.</a> A.</strong> AWS X-Ray can be used to run tracing on your Lambda functions to troubleshoot.</p>
+<p class="number"><strong><a href="ch19.xhtml#ch19qa7" id="rch19qa7">7.</a> A, B, C, D.</strong> Python 3.8, Python 3.7, Python 3.6, and Python 2.7 can be used as runtimes.</p>
+<p class="number"><strong><a href="ch19.xhtml#ch19qa8" id="rch19qa8">8.</a> A.</strong> You can create an AWS Lambda that can be triggered as soon as any changes to this bucket occur.</p>
+<p class="number"><strong><a href="ch19.xhtml#ch19qa9" id="rch19qa9">9.</a> D.</strong> You can use AWS Lambda to format the data before storing it in the database.</p>
+<p class="number1"><strong><a href="ch19.xhtml#ch19qa10" id="rch19qa10">10.</a> A.</strong> AWS Lambda takes care of all the provisioning and managing of instances.</p>
+<h3 class="h3" id="ch19lev1sec3">Additional Resources</h3>
+<p class="bulleta">• <strong>AWS Lambda</strong>   The recommended documentation for any AWS services, including Amazon Lambda, is the official AWS documentation, where you can get the most up-to-date information.</p>
+<p class="bulletc"><img alt="images" src="p0498-01.jpg"/></p>
+<p class="bulleta">• <strong>AWS Lambda Blog</strong>   This is the official blog for AWS Lambda, which has all the latest information in one place for useful functions.</p>
+<p class="bulletc"><img alt="images" src="p0498-02.jpg"/></p>
+<p class="bulleta">• <strong>AWS SAM Blog</strong>   This blog has all the latest information in one place for AWS SAM.</p>
+<p class="bulletc"><img alt="images" src="p0498-03.jpg"/></p>
+</section>
+</body>
+</html>
